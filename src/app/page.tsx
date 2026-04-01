@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import { BeamsBackground } from "@/components/ui/beams-background";
-import { Globe } from "@/components/ui/globe";
+import WireframeGlobe from "@/components/ui/wireframe-dotted-globe";
 import {
   Bot,
   BarChart3,
@@ -297,9 +297,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-md">
-                <Globe />
-              </div>
+              <WireframeGlobe width={500} height={500} />
             </div>
           </div>
         </div>
