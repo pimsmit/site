@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     template: "%s — Ainomiq",
   },
   description:
-    "AI automation platform voor e-commerce en enterprise. Wij bouwen AI die werkt, vanaf dag 1.",
+    "AI automation platform for e-commerce and enterprise. We build AI that works from day one.",
   openGraph: {
     title: "Ainomiq — Always Ahead",
     description:
-      "AI automation platform voor e-commerce en enterprise. Wij bouwen AI die werkt, vanaf dag 1.",
+      "AI automation platform for e-commerce and enterprise. We build AI that works from day one.",
     siteName: "Ainomiq",
-    locale: "nl_NL",
+    locale: "en_US",
     type: "website",
   },
 };
@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" className="dark">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-ainomiq-navy text-ainomiq-text`}
       >

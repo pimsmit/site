@@ -9,7 +9,7 @@ import { Mail, MapPin } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Neem contact op met Ainomiq. Plan een gesprek of stuur ons een bericht.",
+    "Get in touch with Ainomiq. Book a call or send us a message.",
 };
 
 export default function ContactPage() {
@@ -22,12 +22,12 @@ export default function ContactPage() {
             Contact
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Laten we{" "}
-            <span className="gradient-text">praten</span>
+            Let&apos;s{" "}
+            <span className="gradient-text">talk</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl">
-            Heb je een vraag, wil je een demo of ben je klaar om te starten? We
-            horen graag van je.
+            Have a question, want a demo, or ready to get started? We&apos;d
+            love to hear from you.
           </p>
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function ContactPage() {
       {/* Form */}
       <Section className="bg-ainomiq-navy-light">
         <div className="max-w-2xl mx-auto">
-          <Card className="bg-ainomiq-surface border-ainomiq-border">
+          <Card className="bg-white border-ainomiq-border">
             <CardContent className="p-8 md:p-10">
               <form
                 action={`mailto:hello@ainomiq.com`}
@@ -49,14 +49,14 @@ export default function ContactPage() {
                       htmlFor="name"
                       className="mb-2 block text-sm font-medium text-ainomiq-text-muted"
                     >
-                      Naam *
+                      Name *
                     </label>
                     <Input
                       id="name"
                       name="name"
-                      placeholder="Je volledige naam"
+                      placeholder="Your full name"
                       required
-                      className="bg-ainomiq-navy border-ainomiq-border text-white placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                      className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                     />
                   </div>
                   <div>
@@ -64,15 +64,15 @@ export default function ContactPage() {
                       htmlFor="email"
                       className="mb-2 block text-sm font-medium text-ainomiq-text-muted"
                     >
-                      E-mail *
+                      Email *
                     </label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="naam@bedrijf.nl"
+                      placeholder="name@company.com"
                       required
-                      className="bg-ainomiq-navy border-ainomiq-border text-white placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                      className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                     />
                   </div>
                 </div>
@@ -83,13 +83,13 @@ export default function ContactPage() {
                       htmlFor="company"
                       className="mb-2 block text-sm font-medium text-ainomiq-text-muted"
                     >
-                      Bedrijf
+                      Company
                     </label>
                     <Input
                       id="company"
                       name="company"
-                      placeholder="Bedrijfsnaam"
-                      className="bg-ainomiq-navy border-ainomiq-border text-white placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                      placeholder="Company name"
+                      className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                     />
                   </div>
                   <div>
@@ -97,14 +97,14 @@ export default function ContactPage() {
                       htmlFor="phone"
                       className="mb-2 block text-sm font-medium text-ainomiq-text-muted"
                     >
-                      Telefoon
+                      Phone
                     </label>
                     <Input
                       id="phone"
                       name="phone"
                       type="tel"
-                      placeholder="+31 6 12345678"
-                      className="bg-ainomiq-navy border-ainomiq-border text-white placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                      placeholder="+1 (555) 000-0000"
+                      className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                     />
                   </div>
                 </div>
@@ -114,15 +114,15 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="mb-2 block text-sm font-medium text-ainomiq-text-muted"
                   >
-                    Bericht *
+                    Message *
                   </label>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder="Vertel ons over je project of vraag..."
+                    placeholder="Tell us about your project or question..."
                     rows={6}
                     required
-                    className="bg-ainomiq-navy border-ainomiq-border text-white placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue resize-none"
+                    className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue resize-none"
                   />
                 </div>
 
@@ -131,7 +131,7 @@ export default function ContactPage() {
                   size="lg"
                   className="w-full rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white h-12"
                 >
-                  Verstuur bericht
+                  Send message
                 </Button>
               </form>
 
@@ -141,14 +141,14 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-ainomiq-blue shrink-0" />
                   <a
                     href="mailto:hello@ainomiq.com"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-ainomiq-text transition-colors"
                   >
                     hello@ainomiq.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-ainomiq-text-muted">
                   <MapPin className="h-5 w-5 text-ainomiq-blue shrink-0" />
-                  <span>Nederland</span>
+                  <span>The Netherlands</span>
                 </div>
               </div>
             </CardContent>
@@ -160,17 +160,17 @@ export default function ContactPage() {
       <section className="py-32 px-6 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Liever direct plannen?
+            Prefer to schedule directly?
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Stuur een mail naar hello@ainomiq.com. We reageren binnen 24 uur.
+            Send an email to hello@ainomiq.com. We respond within 24 hours.
           </p>
           <Button
             asChild
             size="lg"
             className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-10 h-12"
           >
-            <a href="mailto:hello@ainomiq.com">Mail ons</a>
+            <a href="mailto:hello@ainomiq.com">Email us</a>
           </Button>
         </div>
       </section>

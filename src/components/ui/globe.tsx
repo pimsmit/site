@@ -67,13 +67,13 @@ export function Globe({ className, markers = defaultMarkers }: GlobeProps) {
       height: 600 * 2,
       phi: 0,
       theta: 0.25,
-      dark: 1,
+      dark: 0,
       diffuse: 1.2,
       mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.06, 0.1, 0.17],   // ainomiq navy
-      markerColor: [0.23, 0.51, 0.96], // ainomiq blue
-      glowColor: [0.06, 0.1, 0.17],
+      mapBrightness: 2,
+      baseColor: [0.95, 0.95, 0.98],
+      markerColor: [0.23, 0.51, 0.96],
+      glowColor: [0.9, 0.93, 0.98],
       markers,
       onRender: (state: Record<string, number>) => {
         if (pointerInteracting.current === null) {

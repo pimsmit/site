@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ainomiq-navy: #0f1b2d;
-  --color-ainomiq-navy-light: #162236;
-  --color-ainomiq-navy-lighter: #1c2d44;
+  --color-ainomiq-navy: #ffffff;
+  --color-ainomiq-navy-light: #f8fafc;
+  --color-ainomiq-navy-lighter: #f1f5f9;
   --color-ainomiq-blue: #3b82f6;
   --color-ainomiq-blue-hover: #2563eb;
-  --color-ainomiq-blue-glow: rgba(59, 130, 246, 0.15);
-  --color-ainomiq-blue-muted: rgba(59, 130, 246, 0.08);
-  --color-ainomiq-text: #f1f5f9;
-  --color-ainomiq-text-muted: #94a3b8;
-  --color-ainomiq-text-subtle: #64748b;
-  --color-ainomiq-border: rgba(255, 255, 255, 0.08);
-  --color-ainomiq-border-hover: rgba(255, 255, 255, 0.15);
-  --color-ainomiq-surface: rgba(255, 255, 255, 0.03);
-  --color-ainomiq-surface-hover: rgba(255, 255, 255, 0.06);
+  --color-ainomiq-blue-glow: rgba(59, 130, 246, 0.08);
+  --color-ainomiq-blue-muted: rgba(59, 130, 246, 0.05);
+  --color-ainomiq-text: #0f172a;
+  --color-ainomiq-text-muted: #64748b;
+  --color-ainomiq-text-subtle: #94a3b8;
+  --color-ainomiq-border: rgba(0, 0, 0, 0.08);
+  --color-ainomiq-border-hover: rgba(0, 0, 0, 0.15);
+  --color-ainomiq-surface: rgba(0, 0, 0, 0.02);
+  --color-ainomiq-surface-hover: rgba(0, 0, 0, 0.04);
 
   --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
@@ -116,7 +116,7 @@ body {
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(15, 27, 45, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--color-ainomiq-border);

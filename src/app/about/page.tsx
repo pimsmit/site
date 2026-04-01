@@ -7,54 +7,54 @@ import { TeamSection } from "@/components/team-section";
 import { Zap, BadgeCheck, Info, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Over ons",
+  title: "About",
   description:
-    "Wij zijn Ainomiq. Leer meer over ons team, onze missie en onze waarden.",
+    "We are Ainomiq. Learn more about our team, our mission, and our values.",
 };
 
 const values = [
   {
     icon: Zap,
-    title: "Altijd voorop",
-    body: "We draaien op de nieuwste AI-technologie. Wat gisteren cutting-edge was, is vandaag onze baseline.",
+    title: "Always ahead",
+    body: "We run on the latest AI technology. What was cutting-edge yesterday is our baseline today.",
   },
   {
     icon: BadgeCheck,
-    title: "Resultaat eerst",
-    body: "Alles wat we bouwen moet meetbare impact hebben. Geen rapporten die in een la belanden.",
+    title: "Results first",
+    body: "Everything we build must have measurable impact. No reports that end up in a drawer.",
   },
   {
     icon: Info,
-    title: "Eerlijk en direct",
-    body: "We zeggen wat kan en wat niet. Geen verborgen kosten, geen onrealistische beloftes.",
+    title: "Honest and direct",
+    body: "We say what's possible and what isn't. No hidden costs, no unrealistic promises.",
   },
   {
     icon: Clock,
-    title: "Snel leveren",
-    body: "Twee weken implementatie is geen marketingpraatje. We bouwen snel omdat we geen legacy meeslepen.",
+    title: "Ship fast",
+    body: "Two-week implementation isn't marketing speak. We build fast because we carry no legacy.",
   },
 ];
 
 const timeline = [
   {
     year: "2025",
-    title: "Ainomiq opgericht",
-    body: "Bink Sanders start Ainomiq vanuit de overtuiging dat AI-implementatie sneller, praktischer en betaalbaarder kan.",
+    title: "Ainomiq founded",
+    body: "Bink Sanders starts Ainomiq from the conviction that AI implementation can be faster, more practical, and more affordable.",
   },
   {
     year: "2026",
-    title: "Eerste klant: Domino's",
-    body: "Ainomiq gaat AI-gestuurde store operations bouwen voor Domino's franchisenemers.",
+    title: "First client: Domino's",
+    body: "Ainomiq begins building AI-driven store operations for Domino's franchisees.",
   },
   {
     year: "2026",
-    title: "Platform in ontwikkeling",
-    body: "Het Ainomiq platform wordt gebouwd — zes AI-modules voor e-commerce en enterprise.",
+    title: "Platform in development",
+    body: "The Ainomiq platform is being built — six AI modules for e-commerce and enterprise.",
   },
   {
     year: "2026+",
-    title: "Groei en schaal",
-    body: "Meer klanten, meer modules, internationaal. Het verhaal begint hier.",
+    title: "Growth and scale",
+    body: "More clients, more modules, international expansion. The story starts here.",
   },
 ];
 
@@ -65,28 +65,28 @@ export default function AboutPage() {
       <section className="pt-40 pb-20 px-6">
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-            Over Ainomiq
+            About Ainomiq
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Wij zijn{" "}
+            We are{" "}
             <span className="gradient-text">Ainomiq</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl">
-            Een jong AI-bedrijf dat bouwt wat werkt. Geen hype, geen lege
-            beloftes — concrete oplossingen die je bedrijf vooruit helpen.
+            A young AI company that builds what works. No hype, no empty
+            promises — concrete solutions that move your business forward.
           </p>
         </div>
       </section>
 
       {/* Mission */}
-      <Section label="Onze missie" className="bg-ainomiq-navy-light">
+      <Section label="Our mission" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          AI toegankelijk maken voor elk bedrijf
+          Making AI accessible for every business
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed">
-          AI hoeft niet ingewikkeld of duur te zijn. Wij maken het praktisch,
-          betaalbaar en effectief. Of je nu een webshop runt of een enterprise
-          leidt — wij bouwen AI die voor je werkt vanaf dag 1.
+          AI doesn&apos;t have to be complicated or expensive. We make it practical,
+          affordable, and effective. Whether you run a webshop or lead an
+          enterprise — we build AI that works for you from day one.
         </p>
       </Section>
 
@@ -94,15 +94,15 @@ export default function AboutPage() {
       <TeamSection />
 
       {/* Values */}
-      <Section label="Onze waarden" className="bg-ainomiq-navy-light">
+      <Section label="Our values" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-16">
-          Waar we voor staan
+          What we stand for
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {values.map((v) => (
             <Card
               key={v.title}
-              className="bg-ainomiq-surface border-ainomiq-border text-center"
+              className="bg-white border-ainomiq-border text-center"
             >
               <CardContent className="p-6">
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-ainomiq-blue-glow">
@@ -119,14 +119,14 @@ export default function AboutPage() {
       </Section>
 
       {/* Timeline */}
-      <Section label="Ons verhaal">
+      <Section label="Our story">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-12">
-          Net begonnen — en dat is ons voordeel
+          Just getting started — and that&apos;s our advantage
         </h2>
         <div className="relative max-w-xl pl-8 border-l-2 border-ainomiq-border space-y-10">
           {timeline.map((item) => (
             <div key={item.title} className="relative pl-6">
-              <div className="absolute -left-[calc(0.5rem+1px)] top-1 h-3 w-3 rounded-full bg-ainomiq-blue border-2 border-ainomiq-navy" />
+              <div className="absolute -left-[calc(0.5rem+1px)] top-1 h-3 w-3 rounded-full bg-ainomiq-blue border-2 border-white" />
               <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
                 {item.year}
               </span>
@@ -143,12 +143,12 @@ export default function AboutPage() {
       <div className="px-6 pb-8">
         <div className="mx-auto max-w-6xl text-center">
           <p className="text-sm text-ainomiq-text-subtle">
-            Ons team groeit. Geïnteresseerd in werken bij Ainomiq?{" "}
+            Our team is growing. Interested in working at Ainomiq?{" "}
             <Link
               href="/contact"
               className="text-ainomiq-blue font-semibold hover:underline"
             >
-              Neem contact op
+              Get in touch
             </Link>
           </p>
         </div>
@@ -158,18 +158,17 @@ export default function AboutPage() {
       <section className="py-32 px-6 text-center bg-ainomiq-navy-light">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Laten we kennismaken
+            Let&apos;s get to know each other
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Benieuwd wat Ainomiq voor jouw bedrijf kan betekenen? We praten
-            graag.
+            Curious what Ainomiq can do for your business? We&apos;d love to chat.
           </p>
           <Button
             asChild
             size="lg"
             className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-10 h-12"
           >
-            <Link href="/contact">Neem contact op</Link>
+            <Link href="/contact">Get in touch</Link>
           </Button>
         </div>
       </section>

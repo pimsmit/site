@@ -8,7 +8,7 @@ export function Logo({ className }: { className?: string }) {
       className={cn("text-xl font-bold tracking-tight", className)}
     >
       <span className="text-ainomiq-blue">ai</span>
-      <span className="text-white">nomiq</span>
+      <span className="text-ainomiq-text">nomiq</span>
     </Link>
   );
 }
@@ -17,7 +17,7 @@ export function LogoMark({ className }: { className?: string }) {
   return (
     <span className={cn("text-xl font-bold tracking-tight", className)}>
       <span className="text-ainomiq-blue">ai</span>
-      <span className="text-white">nomiq</span>
+      <span className="text-ainomiq-text">nomiq</span>
     </span>
   );
 }

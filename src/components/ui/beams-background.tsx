@@ -32,8 +32,7 @@ function createBeam(width: number, height: number): Beam {
     length: height * 2.5,
     angle,
     speed: 0.6 + Math.random() * 1.2,
-    opacity: 0.12 + Math.random() * 0.16,
-    // Hue range: 210-240 (ainomiq electric blue → slightly purple)
+    opacity: 0.08 + Math.random() * 0.1,
     hue: 210 + Math.random() * 30,
     pulse: Math.random() * Math.PI * 2,
     pulseSpeed: 0.02 + Math.random() * 0.03,
@@ -51,9 +50,9 @@ export function BeamsBackground({
   const MINIMUM_BEAMS = 20;
 
   const opacityMap = {
-    subtle: 0.7,
-    medium: 0.85,
-    strong: 1,
+    subtle: 0.5,
+    medium: 0.7,
+    strong: 0.85,
   };
 
   useEffect(() => {
@@ -94,7 +93,7 @@ export function BeamsBackground({
       beam.width = 100 + Math.random() * 100;
       beam.speed = 0.5 + Math.random() * 0.4;
       beam.hue = 210 + (index * 30) / totalBeams;
-      beam.opacity = 0.2 + Math.random() * 0.1;
+      beam.opacity = 0.1 + Math.random() * 0.08;
       return beam;
     }
 
@@ -109,24 +108,24 @@ export function BeamsBackground({
         opacityMap[intensity];
 
       const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
-      gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 60%, 0)`);
+      gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 65%, 0)`);
       gradient.addColorStop(
         0.1,
-        `hsla(${beam.hue}, 85%, 60%, ${pulsingOpacity * 0.5})`
+        `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
       );
       gradient.addColorStop(
         0.4,
-        `hsla(${beam.hue}, 85%, 60%, ${pulsingOpacity})`
+        `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
       );
       gradient.addColorStop(
         0.6,
-        `hsla(${beam.hue}, 85%, 60%, ${pulsingOpacity})`
+        `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`
       );
       gradient.addColorStop(
         0.9,
-        `hsla(${beam.hue}, 85%, 60%, ${pulsingOpacity * 0.5})`
+        `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`
       );
-      gradient.addColorStop(1, `hsla(${beam.hue}, 85%, 60%, 0)`);
+      gradient.addColorStop(1, `hsla(${beam.hue}, 85%, 65%, 0)`);
 
       ctx.fillStyle = gradient;
       ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
@@ -167,7 +166,7 @@ export function BeamsBackground({
   return (
     <div
       className={cn(
-        "relative min-h-screen w-full overflow-hidden bg-[#0f1b2d]",
+        "relative min-h-screen w-full overflow-hidden bg-white",
         className
       )}
     >
@@ -178,7 +177,7 @@ export function BeamsBackground({
       />
 
       <motion.div
-        className="absolute inset-0 bg-[#0f1b2d]/5"
+        className="absolute inset-0 bg-white/5"
         animate={{
           opacity: [0.05, 0.15, 0.05],
         }}

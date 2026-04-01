@@ -44,39 +44,39 @@ const trustedBy = [
 const features = [
   {
     icon: Bot,
-    title: "AI Klantenservice",
+    title: "AI Customer Service",
     description:
-      "24/7 intelligente support die vragen beantwoordt, problemen oplost en je team ontlast.",
+      "24/7 intelligent support that answers questions, resolves issues, and frees up your team.",
   },
   {
     icon: BarChart3,
     title: "Ads & Marketing",
     description:
-      "Geautomatiseerde campagnes, creatieve tests en ROAS-optimalisatie op autopilot.",
+      "Automated campaigns, creative testing, and ROAS optimization on autopilot.",
   },
   {
     icon: Mail,
     title: "Email Automation",
     description:
-      "Gepersonaliseerde flows die converteren. Van welkom tot win-back, volledig AI-gestuurd.",
+      "Personalized flows that convert. From welcome to win-back, fully AI-driven.",
   },
   {
     icon: Package,
     title: "Inventory Intelligence",
     description:
-      "Voorspel vraag, voorkom stockouts en optimaliseer je voorraad met AI forecasting.",
+      "Predict demand, prevent stockouts, and optimize inventory with AI forecasting.",
   },
   {
     icon: Gauge,
     title: "Performance Analytics",
     description:
-      "Realtime dashboards met actionable insights. Zie precies wat werkt en waarom.",
+      "Real-time dashboards with actionable insights. See exactly what works and why.",
   },
   {
     icon: Workflow,
     title: "Workflow Automations",
     description:
-      "Verbind je systemen en elimineer handmatig werk. Van order tot fulfillment, geautomatiseerd.",
+      "Connect your systems and eliminate manual work. From order to fulfillment, automated.",
   },
 ];
 
@@ -84,33 +84,33 @@ const pricingPlans = [
   {
     name: "App",
     price: "€149",
-    period: "/maand",
-    description: "Voor webshops die willen groeien met AI",
+    period: "/month",
+    description: "For webshops looking to grow with AI",
     features: [
-      "AI Klantenservice agent",
+      "AI Customer Service agent",
       "Marketing automation",
       "Performance dashboard",
       "Email automation",
-      "Shopify / WooCommerce integratie",
+      "Shopify / WooCommerce integration",
       "Dedicated support",
     ],
-    cta: "Start nu",
+    cta: "Get started",
     featured: true,
   },
   {
     name: "Enterprise",
     price: "Custom",
     period: "",
-    description: "Voor organisaties die op schaal willen automatiseren",
+    description: "For organizations automating at scale",
     features: [
-      "Alles in App",
+      "Everything in App",
       "Custom AI agents",
       "Process automation",
       "Data analytics & insights",
-      "API integraties op maat",
+      "Custom API integrations",
       "Dedicated team & SLA",
     ],
-    cta: "Neem contact op",
+    cta: "Contact us",
     featured: false,
   },
 ];
@@ -121,16 +121,16 @@ export default function HomePage() {
       {/* Hero — BeamsBackground */}
       <BeamsBackground intensity="medium">
         <div className="flex flex-col items-center justify-center gap-6 px-6 text-center max-w-4xl">
-          <div className="inline-flex items-center rounded-full bg-ainomiq-blue-glow/80 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue animate-float-up">
+          <div className="inline-flex items-center rounded-full bg-ainomiq-blue/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue animate-float-up">
             AI Automation Platform
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.02] animate-float-up delay-100">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.02] text-ainomiq-text animate-float-up delay-100">
             Your business.{" "}
             <span className="gradient-text">Automated.</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl animate-float-up delay-200">
-            Geen PowerPoints. Geen pilots die nergens landen. Wij implementeren
-            AI-automatisering die vanaf week 1 resultaat levert.
+          <p className="text-lg md:text-xl text-ainomiq-text-muted max-w-2xl animate-float-up delay-200">
+            No PowerPoints. No pilots that go nowhere. We implement
+            AI automation that delivers results from week one.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 animate-float-up delay-300">
             <Button
@@ -138,22 +138,22 @@ export default function HomePage() {
               size="lg"
               className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-8 h-12 text-base shadow-lg shadow-ainomiq-blue/25"
             >
-              <Link href="/contact">Plan een gesprek</Link>
+              <Link href="/contact">Book a call</Link>
             </Button>
             <Button
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full border-white/15 hover:border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 h-12 text-base"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white/60 backdrop-blur-sm text-ainomiq-text px-8 h-12 text-base"
             >
-              <Link href="/platform">Bekijk platform</Link>
+              <Link href="/platform">View platform</Link>
             </Button>
           </div>
         </div>
       </BeamsBackground>
 
       {/* Trusted By — Marquee */}
-      <div className="border-y border-ainomiq-border overflow-hidden py-6 bg-ainomiq-surface">
+      <div className="border-y border-ainomiq-border overflow-hidden py-6">
         <div className="flex gap-12 animate-marquee w-max">
           {trustedBy.map((name, i) => (
             <span
@@ -167,29 +167,29 @@ export default function HomePage() {
       </div>
 
       {/* Why Us */}
-      <Section label="Waarom ainomiq">
+      <Section label="Why ainomiq">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Wat ons anders maakt
+          What makes us different
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Geen consultancybureau dat rapporten schrijft. We bouwen AI die draait.
+          Not a consultancy that writes reports. We build AI that runs.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             {
               icon: Zap,
-              title: "Altijd de nieuwste technologie",
-              body: "Wij draaien op de nieuwste modellen en frameworks. Wat gisteren cutting-edge was, is vandaag onze baseline.",
+              title: "Always the latest technology",
+              body: "We run on the newest models and frameworks. What was cutting-edge yesterday is our baseline today.",
             },
             {
               icon: Clock,
-              title: "Live binnen 2 weken",
-              body: "Geen maandenlange trajecten. Wij analyseren, bouwen en implementeren. Resultaat vanaf dag 1.",
+              title: "Live within 2 weeks",
+              body: "No months-long projects. We analyze, build, and implement. Results from day one.",
             },
             {
               icon: Shield,
-              title: "Geen legacy, geen ballast",
-              body: "Elke oplossing is gebouwd met de technologie van morgen. Geen verouderde systemen, geen aannames.",
+              title: "No legacy, no baggage",
+              body: "Every solution is built with tomorrow's technology. No outdated systems, no assumptions.",
             },
           ].map((item) => (
             <Card
@@ -213,16 +213,16 @@ export default function HomePage() {
       {/* Features Grid */}
       <Section label="Platform" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Alles wat je nodig hebt
+          Everything you need
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Zes AI-modules die samenwerken om je bedrijf te automatiseren.
+          Six AI modules that work together to automate your business.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((feature) => (
             <Card
               key={feature.title}
-              className="bg-ainomiq-surface border-ainomiq-border hover:border-ainomiq-border-hover transition-all group hover:-translate-y-1"
+              className="bg-white border-ainomiq-border hover:border-ainomiq-border-hover transition-all group hover:-translate-y-1"
             >
               <CardContent className="p-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
@@ -240,40 +240,40 @@ export default function HomePage() {
           <Button
             asChild
             variant="outline"
-            className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-transparent text-white"
+            className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
           >
             <Link href="/platform">
-              Bekijk het volledige platform <ArrowRight className="ml-2 h-4 w-4" />
+              View full platform <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>
       </Section>
 
       {/* Globe — Social Proof */}
-      <section className="py-24 px-6 bg-ainomiq-navy-light overflow-hidden">
+      <section className="py-24 px-6 overflow-hidden">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-                Vanuit Nederland, voor Europa
+                From the Netherlands, for Europe
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-                Actief in <span className="gradient-text">8+ landen</span>
+                Active in <span className="gradient-text">8+ countries</span>
               </h2>
               <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8 max-w-lg">
-                Onze AI-oplossingen draaien voor bedrijven door heel Europa. Van
-                Amsterdam tot Berlijn, van Londen tot Madrid — geoptimaliseerd
-                voor lokale markten.
+                Our AI solutions run for businesses across Europe. From
+                Amsterdam to Berlin, from London to Madrid — optimized
+                for local markets.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-white">
+                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
                     8+
                   </div>
-                  <div className="text-sm text-ainomiq-text-muted">Landen</div>
+                  <div className="text-sm text-ainomiq-text-muted">Countries</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-white">
+                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
                     24/7
                   </div>
                   <div className="text-sm text-ainomiq-text-muted">
@@ -281,7 +281,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-white">
+                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
                     {"<"}2 wk
                   </div>
                   <div className="text-sm text-ainomiq-text-muted">
@@ -289,7 +289,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-white">
+                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
                     99.9%
                   </div>
                   <div className="text-sm text-ainomiq-text-muted">Uptime</div>
@@ -306,25 +306,25 @@ export default function HomePage() {
       </section>
 
       {/* Pricing */}
-      <Section label="Pricing" id="pricing">
+      <Section label="Pricing" id="pricing" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Simpele pricing, geen verrassingen
+          Simple pricing, no surprises
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Start klein, groei mee. Geen langlopende contracten.
+          Start small, scale up. No long-term contracts.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {pricingPlans.map((plan) => (
             <Card
               key={plan.name}
-              className={`border-ainomiq-border bg-ainomiq-surface ${
+              className={`border-ainomiq-border bg-white ${
                 plan.featured ? "ring-2 ring-ainomiq-blue" : ""
               }`}
             >
               <CardContent className="p-8">
                 {plan.featured && (
                   <span className="mb-4 inline-block rounded-full bg-ainomiq-blue px-3 py-1 text-xs font-semibold text-white">
-                    Populair
+                    Popular
                   </span>
                 )}
                 <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
@@ -355,7 +355,7 @@ export default function HomePage() {
                   className={`w-full rounded-full ${
                     plan.featured
                       ? "bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white"
-                      : "bg-ainomiq-surface-hover border border-ainomiq-border hover:border-ainomiq-border-hover text-white"
+                      : "bg-ainomiq-navy-light border border-ainomiq-border hover:border-ainomiq-border-hover text-ainomiq-text"
                   }`}
                 >
                   <Link href="/contact">{plan.cta}</Link>
@@ -373,15 +373,15 @@ export default function HomePage() {
             Always <span className="gradient-text">ahead.</span>
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Plan een gratis strategiegesprek van 30 minuten. Geen verkooppraatje,
-            maar echte inzichten in de mogelijkheden.
+            Book a free 30-minute strategy call. No sales pitch,
+            just real insights into the possibilities.
           </p>
           <Button
             asChild
             size="lg"
             className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-10 h-12 text-base"
           >
-            <Link href="/contact">Plan een gesprek</Link>
+            <Link href="/contact">Book a call</Link>
           </Button>
         </div>
       </section>

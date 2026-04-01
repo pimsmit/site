@@ -17,31 +17,31 @@ import {
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "Het Ainomiq AI platform: zes modules die samenwerken om je bedrijf te automatiseren.",
+    "The Ainomiq AI platform: six modules working together to automate your business.",
 };
 
 const modules = [
   {
     icon: Bot,
-    title: "AI Klantenservice",
+    title: "AI Customer Service",
     description:
-      "Een intelligente agent die 24/7 klantvragen beantwoordt, retourzendingen afhandelt en escalaties herkent. Getraind op jouw producten, tone-of-voice en beleid.",
+      "An intelligent agent that answers customer questions 24/7, handles returns, and identifies escalations. Trained on your products, tone of voice, and policies.",
     capabilities: [
-      "Meertalige support",
-      "Sentiment analyse",
-      "Auto-escalatie",
-      "Kennisbank sync",
+      "Multilingual support",
+      "Sentiment analysis",
+      "Auto-escalation",
+      "Knowledge base sync",
     ],
   },
   {
     icon: BarChart3,
     title: "Ads & Marketing Automation",
     description:
-      "AI die je campagnes optimaliseert, creatives test en budgetten verdeelt op basis van real-time performance data. ROAS omhoog, CPA omlaag.",
+      "AI that optimizes your campaigns, tests creatives, and allocates budgets based on real-time performance data. ROAS up, CPA down.",
     capabilities: [
       "Creative testing",
-      "Budget allocatie",
-      "ROAS optimalisatie",
+      "Budget allocation",
+      "ROAS optimization",
       "Cross-channel",
     ],
   },
@@ -49,23 +49,23 @@ const modules = [
     icon: Mail,
     title: "Email & Flows",
     description:
-      "Gepersonaliseerde email flows die converteren. Welkom, abandoned cart, win-back, post-purchase — allemaal AI-geoptimaliseerd.",
+      "Personalized email flows that convert. Welcome, abandoned cart, win-back, post-purchase — all AI-optimized.",
     capabilities: [
-      "Personalisatie",
+      "Personalization",
       "A/B testing",
-      "Timing optimalisatie",
-      "Segmentatie",
+      "Timing optimization",
+      "Segmentation",
     ],
   },
   {
     icon: Package,
     title: "Inventory Intelligence",
     description:
-      "Voorspel vraag voordat het gebeurt. AI-gestuurde forecasting die stockouts voorkomt en overstock minimaliseert.",
+      "Predict demand before it happens. AI-driven forecasting that prevents stockouts and minimizes overstock.",
     capabilities: [
       "Demand forecasting",
       "Reorder alerts",
-      "Seizoensanalyse",
+      "Seasonal analysis",
       "Supplier sync",
     ],
   },
@@ -73,9 +73,9 @@ const modules = [
     icon: Gauge,
     title: "Performance Analytics",
     description:
-      "Een unified dashboard dat al je data samenvoegt. Realtime inzichten, automatische alerts en AI-gedreven aanbevelingen.",
+      "A unified dashboard that brings all your data together. Real-time insights, automatic alerts, and AI-driven recommendations.",
     capabilities: [
-      "Realtime data",
+      "Real-time data",
       "Custom dashboards",
       "Anomaly detection",
       "Automated reports",
@@ -85,9 +85,9 @@ const modules = [
     icon: Workflow,
     title: "Workflow Automations",
     description:
-      "Verbind je systemen en elimineer handmatig werk. Order processing, fulfillment triggers, inventory syncs — alles geautomatiseerd.",
+      "Connect your systems and eliminate manual work. Order processing, fulfillment triggers, inventory syncs — all automated.",
     capabilities: [
-      "API integraties",
+      "API integrations",
       "Event triggers",
       "Multi-step flows",
       "Error handling",
@@ -107,7 +107,7 @@ export default function PlatformPage() {
           {modules.map((mod, i) => (
             <Card
               key={mod.title}
-              className="bg-ainomiq-surface border-ainomiq-border hover:border-ainomiq-border-hover transition-all"
+              className="bg-white border-ainomiq-border hover:border-ainomiq-border-hover transition-all"
             >
               <CardContent className="p-8 md:p-10">
                 <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
@@ -146,11 +146,11 @@ export default function PlatformPage() {
       <section className="py-32 px-6 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Klaar om te automatiseren?
+            Ready to automate?
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Start met een module, groei naar het volledige platform. Wij helpen
-            je met de juiste roadmap.
+            Start with one module, grow to the full platform. We help
+            you with the right roadmap.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button
@@ -158,16 +158,16 @@ export default function PlatformPage() {
               size="lg"
               className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-8 h-12"
             >
-              <Link href="/contact">Plan een gesprek</Link>
+              <Link href="/contact">Book a call</Link>
             </Button>
             <Button
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-transparent text-white px-8 h-12"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text px-8 h-12"
             >
               <Link href="/#pricing">
-                Bekijk pricing <ArrowRight className="ml-2 h-4 w-4" />
+                View pricing <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>

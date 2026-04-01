@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "/platform", label: "Platform" },
   { href: "/enterprise", label: "Enterprise" },
-  { href: "/about", label: "Over ons" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -21,7 +21,7 @@ export function Navbar() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 pt-5 pointer-events-none px-4">
-      <nav className="pointer-events-auto mx-auto flex max-w-3xl items-center justify-between rounded-full glass px-6 py-3 shadow-lg shadow-black/10">
+      <nav className="pointer-events-auto mx-auto flex max-w-3xl items-center justify-between rounded-full glass px-6 py-3 shadow-sm">
         <Logo />
 
         {/* Desktop links */}
@@ -33,22 +33,22 @@ export function Navbar() {
               className={cn(
                 "text-sm font-medium transition-colors",
                 pathname === link.href
-                  ? "text-white"
-                  : "text-ainomiq-text-muted hover:text-white"
+                  ? "text-ainomiq-text"
+                  : "text-ainomiq-text-muted hover:text-ainomiq-text"
               )}
             >
               {link.label}
             </Link>
           ))}
           <Button asChild size="sm" className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white">
-            <Link href="/contact">Start nu</Link>
+            <Link href="/contact">Get started</Link>
           </Button>
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-white"
+          className="md:hidden text-ainomiq-text"
           aria-label="Menu"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -57,7 +57,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="pointer-events-auto md:hidden mx-auto mt-3 max-w-3xl rounded-2xl glass p-6 shadow-xl shadow-black/20">
+        <div className="pointer-events-auto md:hidden mx-auto mt-3 max-w-3xl rounded-2xl glass p-6 shadow-lg">
           <div className="flex flex-col gap-4">
             {links.map((link) => (
               <Link
@@ -67,8 +67,8 @@ export function Navbar() {
                 className={cn(
                   "text-base font-medium transition-colors",
                   pathname === link.href
-                    ? "text-white"
-                    : "text-ainomiq-text-muted hover:text-white"
+                    ? "text-ainomiq-text"
+                    : "text-ainomiq-text-muted hover:text-ainomiq-text"
                 )}
               >
                 {link.label}
@@ -76,7 +76,7 @@ export function Navbar() {
             ))}
             <Button asChild className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white mt-2">
               <Link href="/contact" onClick={() => setOpen(false)}>
-                Start nu
+                Get started
               </Link>
             </Button>
           </div>
