@@ -70,7 +70,7 @@ border: rgba(255,255,255,0.06)
 card: rgba(255,255,255,0.03)
 ```
 
-## FONT
+## FONTS (EXACT — do not change)
 ```css
 font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 ```
