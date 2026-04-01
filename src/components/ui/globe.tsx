@@ -30,7 +30,6 @@ export function Globe({ className, markers = defaultMarkers }: GlobeProps) {
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   const phiRef = useRef(0);
-  const widthRef = useRef(0);
 
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -62,37 +61,27 @@ export function Globe({ className, markers = defaultMarkers }: GlobeProps) {
 
     let phi = 0;
     const canvas = canvasRef.current;
-
-    const onResize = () => {
-      if (canvas) {
-        widthRef.current = canvas.offsetWidth;
-      }
-    };
-    window.addEventListener("resize", onResize);
-    onResize();
+    const size = canvas.offsetWidth || 600;
 
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
-      width: widthRef.current * 2,
-      height: widthRef.current * 2,
+      width: size * 2,
+      height: size * 2,
       phi: 0,
-      theta: 0.25,
-      dark: 0,
-      diffuse: 3,
-      mapSamples: 24000,
-      mapBrightness: 1.2,
-      baseColor: [1, 1, 1],
+      theta: 0.3,
+      dark: 1,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: [0.06, 0.11, 0.18],
       markerColor: [0.23, 0.51, 0.96],
-      glowColor: [0.88, 0.92, 1],
+      glowColor: [0.06, 0.11, 0.18],
       markers,
-      opacity: 0.85,
       onRender: (state: Record<string, number>) => {
         if (pointerInteracting.current === null) {
           phi += 0.005;
         }
         state.phi = phi + pointerInteractionMovement.current / 200;
-        state.width = widthRef.current * 2;
-        state.height = widthRef.current * 2;
         phiRef.current = state.phi;
       },
     } as Parameters<typeof createGlobe>[1]);
@@ -103,7 +92,6 @@ export function Globe({ className, markers = defaultMarkers }: GlobeProps) {
 
     return () => {
       globe.destroy();
-      window.removeEventListener("resize", onResize);
     };
   }, [markers]);
 
