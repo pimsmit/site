@@ -124,9 +124,9 @@ export default function HomePage() {
           <div className="inline-flex items-center rounded-full bg-ainomiq-blue/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue animate-float-up">
             Always Ahead
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.02] text-ainomiq-text animate-float-up delay-100">
-            Always<br />
-            <span className="gradient-text">Ahead.</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.08] text-ainomiq-text animate-float-up delay-100">
+            <span className="block">Always</span>
+            <span className="block gradient-text">Ahead.</span>
           </h1>
           <p className="text-lg md:text-xl text-ainomiq-text-muted max-w-2xl animate-float-up delay-200">
             We build AI that runs — not reports that gather dust.
