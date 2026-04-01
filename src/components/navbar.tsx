@@ -41,7 +41,7 @@ export function Navbar() {
             </Link>
           ))}
           <Button asChild size="sm" className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white">
-            <Link href="/contact">Get started</Link>
+            <Link href="/get-started">Get started</Link>
           </Button>
         </div>
 
@@ -75,7 +75,7 @@ export function Navbar() {
               </Link>
             ))}
             <Button asChild className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white mt-2">
-              <Link href="/contact" onClick={() => setOpen(false)}>
+              <Link href="/get-started" onClick={() => setOpen(false)}>
                 Get started
               </Link>
             </Button>
