@@ -5,19 +5,31 @@ import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
 import Link from "next/link";
 import {
-  ShoppingBag,
-  Store,
-  Megaphone,
-  Search,
-  Mail,
-  MessageCircle,
+  ShopifyLogo,
+  KlaviyoLogo,
+  GoogleLogo,
+  MetaLogo,
+  StripeLogo,
+  WooCommerceLogo,
+} from "@/components/brand-logos";
+import {
   Bot,
   BarChart3,
+  Mail,
   Package,
   Gauge,
   Workflow,
   ArrowRight,
 } from "lucide-react";
+
+const platformLogos = [
+  { name: "Shopify", icon: ShopifyLogo },
+  { name: "Meta", icon: MetaLogo },
+  { name: "Google", icon: GoogleLogo },
+  { name: "Klaviyo", icon: KlaviyoLogo },
+  { name: "Stripe", icon: StripeLogo },
+  { name: "WooCommerce", icon: WooCommerceLogo },
+];
 
 const integrations = [
   {
@@ -86,24 +98,17 @@ export function PlatformHero() {
           {/* Integration Logos Row */}
           <div className="flex flex-col lg:flex-row items-center gap-10">
             <div className="flex justify-center flex-wrap -space-x-4">
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 flex items-center justify-center">
-                <ShoppingBag className="h-6 w-6 md:h-7 md:w-7 text-green-500" />
-              </div>
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 flex items-center justify-center">
-                <Store className="h-6 w-6 md:h-7 md:w-7 text-purple-500" />
-              </div>
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 hidden md:flex items-center justify-center">
-                <Megaphone className="h-6 w-6 md:h-7 md:w-7 text-ainomiq-blue" />
-              </div>
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 flex items-center justify-center">
-                <Search className="h-6 w-6 md:h-7 md:w-7 text-yellow-500" />
-              </div>
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 hidden md:flex items-center justify-center">
-                <Mail className="h-6 w-6 md:h-7 md:w-7 text-rose-500" />
-              </div>
-              <div className="bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-4 md:p-5 flex items-center justify-center">
-                <MessageCircle className="h-6 w-6 md:h-7 md:w-7 text-cyan-500" />
-              </div>
+              {platformLogos.map((platform) => (
+                <div
+                  key={platform.name}
+                  className="group relative bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-3.5 md:p-4.5 flex items-center justify-center transition-transform duration-200 hover:scale-110 hover:z-10 cursor-pointer"
+                >
+                  <platform.icon className="h-7 w-7 md:h-8 md:w-8" />
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-ainomiq-text bg-white border border-ainomiq-border rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm pointer-events-none">
+                    {platform.name}
+                  </span>
+                </div>
+              ))}
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl lg:text-8xl text-center text-ainomiq-text">
               Seamless{" "}
@@ -139,7 +144,9 @@ export function PlatformHero() {
               <div className="relative flex items-center gap-3 h-full overflow-visible border border-ainomiq-border backdrop-blur-md bg-white rounded-xl mx-2 min-w-[260px]">
                 <div className="flex flex-col px-5 py-4 flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${item.gradient}`}>
+                    <div
+                      className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${item.gradient}`}
+                    >
                       {item.icon}
                     </div>
                     <h3 className="font-semibold text-sm text-ainomiq-text">
