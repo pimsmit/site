@@ -7,8 +7,8 @@ import { Globe, Code, ShoppingCart, Sparkles, Check } from "lucide-react";
 const steps = [
   { icon: Globe, label: "Connecting to site" },
   { icon: Code, label: "Scanning tech stack" },
-  { icon: ShoppingCart, label: "Detecting platform" },
-  { icon: Sparkles, label: "Generating recommendations" },
+  { icon: ShoppingCart, label: "Finding products & prices" },
+  { icon: Sparkles, label: "Analyzing your business" },
 ];
 
 interface AnalysisProgressProps {

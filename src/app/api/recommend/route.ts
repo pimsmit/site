@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
 import type { SiteAnalysis, ManualAnswers } from "@/lib/analysis-types";
 
 const SYSTEM_PROMPT = `You are Ainomiq's AI advisor. You analyze businesses and recommend specific Ainomiq services with estimated monthly cost savings.
@@ -74,7 +75,7 @@ Tools: ${manual.tools.join(", ") || "None"}`;
     }
 
     const result = await generateText({
-      model: "openai/gpt-5.4-mini",
+      model: openai("gpt-4o-mini"),
       system: SYSTEM_PROMPT,
       prompt: userPrompt,
     });
