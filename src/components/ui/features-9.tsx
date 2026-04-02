@@ -223,12 +223,12 @@ export function Features() {
                     <div className="absolute z-10 max-w-lg px-6 pr-12 pt-6 md:px-12 md:pt-12">
                         <span className="text-ainomiq-text-muted flex items-center gap-2">
                             <Activity className="size-4" />
-                            Your growth, visualized
+                            See results from day one
                         </span>
                         <p className="my-8 text-2xl font-semibold text-ainomiq-text">
-                            Track every metric that matters.{' '}
+                            Every sale, click, and conversion{' '}
                             <span className="text-ainomiq-text-muted">
-                                From revenue to engagement, always in real-time.
+                                — tracked automatically.
                             </span>
                         </p>
                     </div>
@@ -402,17 +402,17 @@ const ActiveMap = () => {
 
 // ── Chart ────────────────────────────────────────────────────────
 const chartConfig = {
-    desktop: { label: 'Desktop', color: '#3b82f6' },
-    mobile: { label: 'Mobile', color: '#93c5fd' },
+    before: { label: 'Before Ainomiq', color: '#93c5fd' },
+    after: { label: 'With Ainomiq', color: '#3b82f6' },
 } satisfies ChartConfig
 
 const chartData = [
-    { month: 'May', desktop: 56, mobile: 224 },
-    { month: 'June', desktop: 56, mobile: 224 },
-    { month: 'January', desktop: 126, mobile: 252 },
-    { month: 'February', desktop: 205, mobile: 410 },
-    { month: 'March', desktop: 200, mobile: 126 },
-    { month: 'April', desktop: 400, mobile: 800 },
+    { month: 'Week 1', before: 120, after: 120 },
+    { month: 'Week 2', before: 115, after: 145 },
+    { month: 'Week 3', before: 125, after: 190 },
+    { month: 'Week 4', before: 110, after: 260 },
+    { month: 'Week 5', before: 118, after: 340 },
+    { month: 'Week 6', before: 122, after: 480 },
 ]
 
 const MonitoringChart = () => {
@@ -423,19 +423,19 @@ const MonitoringChart = () => {
                 data={chartData}
                 margin={{ left: 0, right: 0 }}>
                 <defs>
-                    <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--color-desktop)" stopOpacity={0.8} />
-                        <stop offset="55%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+                    <linearGradient id="fillBefore" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--color-before)" stopOpacity={0.6} />
+                        <stop offset="55%" stopColor="var(--color-before)" stopOpacity={0.05} />
                     </linearGradient>
-                    <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--color-mobile)" stopOpacity={0.8} />
-                        <stop offset="55%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
+                    <linearGradient id="fillAfter" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--color-after)" stopOpacity={0.8} />
+                        <stop offset="55%" stopColor="var(--color-after)" stopOpacity={0.1} />
                     </linearGradient>
                 </defs>
                 <CartesianGrid vertical={false} />
-                <ChartTooltip active cursor={false} content={<ChartTooltipContent />} />
-                <Area strokeWidth={2} dataKey="mobile" type="stepBefore" fill="url(#fillMobile)" fillOpacity={0.1} stroke="var(--color-mobile)" stackId="a" />
-                <Area strokeWidth={2} dataKey="desktop" type="stepBefore" fill="url(#fillDesktop)" fillOpacity={0.1} stroke="var(--color-desktop)" stackId="a" />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                <Area strokeWidth={2} dataKey="before" type="monotone" fill="url(#fillBefore)" fillOpacity={0.1} stroke="var(--color-before)" />
+                <Area strokeWidth={2} dataKey="after" type="monotone" fill="url(#fillAfter)" fillOpacity={0.1} stroke="var(--color-after)" />
             </AreaChart>
         </ChartContainer>
     )
