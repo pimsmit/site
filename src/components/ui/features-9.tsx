@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback, type FormEvent } from 'react'
 import { Users, MessageCircle, Activity, Send } from 'lucide-react'
 import DottedMap from 'dotted-map'
-import { Area, AreaChart, CartesianGrid } from 'recharts'
+import { Area, AreaChart, CartesianGrid, Tooltip } from 'recharts'
 import { type ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
@@ -415,6 +415,30 @@ const chartData = [
     { month: 'Month 6', before: 104, after: 24 },
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload?.length) return null
+    const before = payload.find((p: any) => p.dataKey === 'before')?.value
+    const after = payload.find((p: any) => p.dataKey === 'after')?.value
+    return (
+        <div className="rounded-lg border border-ainomiq-border bg-white px-3 py-2 text-xs shadow-lg">
+            <p className="font-medium text-ainomiq-text mb-1.5">{label}</p>
+            <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-[#93c5fd]" />
+                    <span className="text-ainomiq-text-muted">Before</span>
+                    <span className="ml-auto font-medium tabular-nums text-ainomiq-text">{before}%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-[#3b82f6]" />
+                    <span className="text-ainomiq-text-muted">After</span>
+                    <span className="ml-auto font-medium tabular-nums text-ainomiq-text">{after}%</span>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const MonitoringChart = () => {
     return (
         <ChartContainer className="h-120 aspect-auto md:h-96" config={chartConfig}>
@@ -433,6 +457,7 @@ const MonitoringChart = () => {
                     </linearGradient>
                 </defs>
                 <CartesianGrid vertical={false} />
+                <Tooltip content={<CustomTooltip />} cursor={false} />
                 <Area strokeWidth={2} dataKey="before" type="monotone" fill="url(#fillBefore)" fillOpacity={0.1} stroke="var(--color-before)" />
                 <Area strokeWidth={2} dataKey="after" type="monotone" fill="url(#fillAfter)" fillOpacity={0.1} stroke="var(--color-after)" />
             </AreaChart>
