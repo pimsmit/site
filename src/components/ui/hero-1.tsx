@@ -78,9 +78,7 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="mx-auto max-w-lg text-center text-base text-ainomiq-text-muted tracking-wider animate-float-up delay-200 sm:text-lg md:text-xl">
-            AI automation for businesses that refuse to stand still.
-            <br />
-            Real systems, real results — live within two weeks.
+            Built for businesses that refuse to wait.
           </p>
 
           {/* CTAs */}
