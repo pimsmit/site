@@ -77,10 +77,10 @@ const pricingPlans: {
     period: "/month",
     description: "For webshops looking to grow",
     features: [
+      { label: "Precise Performance", icon: "check" },
       { label: "Mail Engine", icon: "plus" },
       { label: "Smart Inventory", icon: "plus" },
       { label: "24/7 Support", icon: "plus" },
-      { label: "Precise Performance", icon: "check" },
     ],
     cta: "Get started",
     featured: true,
