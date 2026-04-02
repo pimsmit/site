@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { BlogGrid } from "@/components/ui/blog-posts";
 import { HeroSection, LogosSection } from "@/components/ui/hero-1";
+import { LocalizedPrice } from "@/components/localized-price";
 
 const features = [
   {
@@ -59,17 +60,26 @@ const features = [
   },
 ];
 
-const pricingPlans = [
+const pricingPlans: {
+  name: string;
+  amount?: number;
+  price?: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  featured: boolean;
+}[] = [
   {
     name: "App",
-    price: "€149",
+    amount: 0,
     period: "/month",
     description: "For webshops looking to grow with AI",
     features: [
-      "AI Customer Service agent",
-      "Marketing automation",
-      "Performance dashboard",
-      "Email automation",
+      "Mail Engine",
+      "Smart Inventory",
+      "24/7 Support",
+      "Precise Performance",
       "Shopify / WooCommerce integration",
       "Dedicated support",
     ],
@@ -307,11 +317,17 @@ export default function HomePage() {
                 <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
                 <div className="mb-1">
                   <span className="text-4xl font-extrabold tracking-tight">
-                    {plan.price}
+                    {plan.amount != null ? (
+                      <LocalizedPrice amount={plan.amount} />
+                    ) : (
+                      plan.price
+                    )}
                   </span>
-                  <span className="text-ainomiq-text-muted text-sm">
-                    {plan.period}
-                  </span>
+                  {plan.period && (
+                    <span className="text-ainomiq-text-muted text-sm">
+                      {plan.period}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-ainomiq-text-muted mb-6">
                   {plan.description}
