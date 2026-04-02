@@ -42,13 +42,21 @@ Guidelines:
 - Don't make up features not listed above`;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  try {
+    const { messages } = await req.json();
 
-  const result = streamText({
-    model: "openai/gpt-5.4-mini",
-    system: SYSTEM_PROMPT,
-    messages: await convertToModelMessages(messages),
-  });
+    const result = streamText({
+      model: "openai/gpt-5.4-mini",
+      system: SYSTEM_PROMPT,
+      messages: await convertToModelMessages(messages),
+    });
 
-  return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse();
+  } catch (err) {
+    console.error("Chat API error:", err);
+    return new Response(
+      JSON.stringify({ error: "Failed to process chat request" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }

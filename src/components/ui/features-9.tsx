@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useMemo, type FormEvent } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback, type FormEvent } from 'react'
 import { Users, MessageCircle, Activity, Send } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import DottedMap from 'dotted-map'
@@ -11,20 +11,50 @@ import { DefaultChatTransport } from 'ai'
 
 const map = new DottedMap({ height: 55, grid: 'diagonal' })
 const mapPoints = map.getPoints()
-const chatTransport = new DefaultChatTransport({ api: '/api/chat' })
+
+interface LiveDot {
+    x: number
+    y: number
+    id: number
+    born: number
+}
+
+const DOT_LIFETIME = 6000
 
 export function Features() {
     const [count, setCount] = useState(3)
-    const [dotSeed, setDotSeed] = useState(0)
+    const [dots, setDots] = useState<LiveDot[]>([])
+    const dotIdRef = useRef(0)
     const [chatInput, setChatInput] = useState('')
     const chatRef = useRef<HTMLDivElement>(null)
-    const { messages, sendMessage, status } = useChat({ transport: chatTransport })
 
+    const transport = useMemo(() => new DefaultChatTransport({ api: '/api/chat' }), [])
+    const { messages, sendMessage, status, error } = useChat({ transport })
+
+    // Counter updates every 5s
     useEffect(() => {
         const interval = setInterval(() => {
             setCount(3 + Math.floor(Math.random() * 28))
-            setDotSeed(s => s + 1)
         }, 5000)
+        return () => clearInterval(interval)
+    }, [])
+
+    // Dots appear organically: 1-3 new dots every 1.5s, each lives ~6s
+    useEffect(() => {
+        const spawnDots = () => {
+            const now = Date.now()
+            const newCount = 1 + Math.floor(Math.random() * 3)
+            setDots(prev => {
+                const alive = prev.filter(d => now - d.born < DOT_LIFETIME)
+                const spawned = Array.from({ length: newCount }, () => {
+                    const point = mapPoints[Math.floor(Math.random() * mapPoints.length)]
+                    return { x: point.x, y: point.y, id: dotIdRef.current++, born: now }
+                })
+                return [...alive, ...spawned]
+            })
+        }
+        spawnDots()
+        const interval = setInterval(spawnDots, 1500)
         return () => clearInterval(interval)
     }, [])
 
@@ -34,12 +64,12 @@ export function Features() {
         }
     }, [messages])
 
-    const handleSend = (e: FormEvent) => {
+    const handleSend = useCallback((e: FormEvent) => {
         e.preventDefault()
         if (!chatInput.trim() || status === 'streaming' || status === 'submitted') return
         sendMessage({ text: chatInput })
         setChatInput('')
-    }
+    }, [chatInput, status, sendMessage])
 
     return (
         <section className="px-4 py-16 md:py-32">
@@ -69,7 +99,7 @@ export function Features() {
                     </div>
                     <div className="relative overflow-hidden">
                         <div className="[background-image:radial-gradient(var(--tw-gradient-stops))] z-1 to-white absolute inset-0 from-transparent to-75%" />
-                        <MapWithDots count={count} seed={dotSeed} />
+                        <MapWithDots dots={dots} />
                     </div>
                 </div>
 
@@ -84,7 +114,7 @@ export function Features() {
                     </div>
                     <div className="flex flex-1 flex-col px-6 sm:px-12 pb-6 sm:pb-12">
                         <div ref={chatRef} className="flex-1 space-y-3 overflow-y-auto mb-4 max-h-[220px]">
-                            {messages.length === 0 && (
+                            {messages.length === 0 && !error && (
                                 <div className="rounded-xl bg-white border border-ainomiq-border p-3 text-xs text-ainomiq-text">
                                     Hi! Ask me anything about Ainomiq — our products, pricing, or how we can help your business.
                                 </div>
@@ -105,6 +135,11 @@ export function Features() {
                             {status === 'submitted' && (
                                 <div className="rounded-xl bg-white border border-ainomiq-border p-3 text-xs text-ainomiq-text-muted italic">
                                     Typing...
+                                </div>
+                            )}
+                            {error && (
+                                <div className="rounded-xl bg-white border border-ainomiq-border p-3 text-xs text-red-500">
+                                    Something went wrong. Please try again.
                                 </div>
                             )}
                         </div>
@@ -152,28 +187,23 @@ export function Features() {
     )
 }
 
-const MapWithDots = ({ count, seed }: { count: number; seed: number }) => {
-    const activeDots = useMemo(() => {
-        return Array.from({ length: count }, (_, i) => {
-            const point = mapPoints[Math.floor(Math.random() * mapPoints.length)]
-            return { x: point.x, y: point.y, id: `${seed}-${i}` }
-        })
-    }, [count, seed])
-
+const MapWithDots = ({ dots }: { dots: LiveDot[] }) => {
     return (
         <svg viewBox="0 0 120 60" style={{ background: 'white' }}>
             {mapPoints.map((point, index) => (
                 <circle key={index} cx={point.x} cy={point.y} r={0.15} fill="currentColor" />
             ))}
-            {activeDots.map((dot) => (
+            {dots.map((dot) => (
                 <g key={dot.id}>
-                    <circle cx={dot.x} cy={dot.y} r={0.5} fill="#3b82f6" opacity={0.9}>
-                        <animate attributeName="r" from="0" to="0.5" dur="0.6s" fill="freeze" />
-                        <animate attributeName="opacity" from="0" to="0.9" dur="0.6s" fill="freeze" />
+                    {/* Dot that fades in then fades out */}
+                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6">
+                        <animate attributeName="r" values="0;0.5;0.5;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
+                        <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
                     </circle>
+                    {/* Ripple ring */}
                     <circle cx={dot.x} cy={dot.y} r={0.5} fill="none" stroke="#3b82f6" strokeWidth={0.08}>
-                        <animate attributeName="r" from="0.5" to="1.8" dur="1.5s" repeatCount="indefinite" />
-                        <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite" />
+                        <animate attributeName="r" from="0.5" to="1.8" dur="2s" repeatCount="2" />
+                        <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="2" />
                     </circle>
                 </g>
             ))}

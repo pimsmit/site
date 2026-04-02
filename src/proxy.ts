@@ -12,6 +12,7 @@ export default function proxy(request: NextRequest) {
     request.nextUrl.pathname === "/api/auth" ||
     request.nextUrl.pathname === "/api/analyze" ||
     request.nextUrl.pathname === "/api/recommend" ||
+    request.nextUrl.pathname === "/api/chat" ||
     request.nextUrl.pathname.startsWith("/_next")
   ) {
     return NextResponse.next();
