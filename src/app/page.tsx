@@ -18,6 +18,7 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
+import { BlogGrid } from "@/components/ui/blog-posts";
 
 const trustedBy = [
   "Domino's",
@@ -152,6 +153,48 @@ export default function HomePage() {
           </div>
         </div>
       </BeamsBackground>
+
+      {/* Blog Posts Grid */}
+      <BlogGrid
+        title="Our Latest Insights"
+        description="Discover how AI is transforming businesses — from e-commerce automation to enterprise intelligence"
+        posts={[
+          {
+            id: 1,
+            title: "How AI Agents Are Replacing Traditional Customer Service",
+            category: "E-Commerce AI",
+            imageUrl:
+              "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+            href: "#",
+            views: 2180,
+            readTime: 8,
+            rating: 5,
+          },
+          {
+            id: 2,
+            title: "Enterprise AI: From Pilot to Production",
+            category: "Enterprise",
+            imageUrl:
+              "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+            href: "#",
+            views: 1456,
+            readTime: 12,
+            rating: 4,
+          },
+          {
+            id: 3,
+            title: "The AI Academy Playbook",
+            category: "Academy",
+            imageUrl:
+              "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80",
+            href: "#",
+            views: 987,
+            readTime: 6,
+            rating: 4,
+          },
+        ]}
+        className="mb-0"
+      />
 
       {/* Trusted By — Marquee */}
       <div className="border-y border-ainomiq-border overflow-hidden py-6">
