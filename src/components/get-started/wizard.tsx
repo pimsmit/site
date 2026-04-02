@@ -16,6 +16,9 @@ const CLIENTS: { name: string; logo: string }[] = [
   { name: "Button Amsterdam", logo: "/logos/button-amsterdam.png" },
   { name: "La Dos", logo: "/logos/la-dos.png" },
   { name: "SchoolRegister", logo: "/logos/schoolregister.png" },
+  { name: "AccuExpert", logo: "/logos/accu-expert.png" },
+  { name: "VindJeRijschool.nl", logo: "/logos/vindjerijschool.png" },
+  { name: "Padelland", logo: "/logos/padelland.png" },
 ];
 
 type Step = "input" | "analyzing" | "results" | "fallback";
@@ -288,9 +291,7 @@ export function GetStartedWizard() {
                 key={`${client.name}-${i}`}
                 src={client.logo}
                 alt={client.name}
-                className={`w-auto object-contain select-none pointer-events-none mix-blend-multiply opacity-40 ${
-                  client.name === "Billie Jeans" ? "h-14" : "h-10"
-                }`}
+                className="h-10 w-auto object-contain select-none pointer-events-none opacity-40"
               />
             ))}
           </InfiniteSlider>
