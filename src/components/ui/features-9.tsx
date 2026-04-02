@@ -39,7 +39,7 @@ const INITIAL_MESSAGES = [
         role: 'assistant' as const,
         parts: [{
             type: 'text' as const,
-            text: "Because we don't just consult — we build. While others write reports, we ship systems that run your customer service, optimize your ads, and manage your inventory. Founded by two people who were the customer first: we know exactly what e-commerce businesses need. No legacy baggage, always the latest tech, live within 2 weeks. Start free, scale when you're ready.",
+            text: "Honestly? Because we've been in your shoes. We ran webshops and other businesses, dealt with the same chaos, and built exactly what we needed. Ainomiq runs your customer support, optimizes your marketing, and tracks everything that matters. You start free, you're live in two weeks.",
         }],
     },
 ]
