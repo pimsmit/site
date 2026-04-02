@@ -154,8 +154,8 @@ export function Features() {
                             people starting now
                         </p>
                     </div>
-                    <div className="relative overflow-hidden">
-                        <div className="[background-image:radial-gradient(var(--tw-gradient-stops))] z-1 to-white absolute inset-0 from-transparent to-75%" />
+                    <div className="relative">
+                        <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_center,transparent_20%,white_70%)]" />
                         <ActiveMap />
                     </div>
                 </div>
