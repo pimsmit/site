@@ -13,16 +13,16 @@ const testimonials = [
   },
   {
     id: 2,
-    quote: "We went live in 10 days. No other agency even came close to that timeline.",
-    author: "SchoolRegister",
-    role: "Enterprise — Education",
+    quote: "Our customer service responds 24/7 — email, phone, and social media. It's incredible.",
+    author: "Teiss",
+    role: "Schoolregister — Enterprise",
     avatar: "https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 3,
-    quote: "Our ad spend dropped 40% while conversions went up. The AI actually understands our customers.",
-    author: "Button Amsterdam",
-    role: "E-commerce — Accessories",
+    quote: "We dropped our email marketing agency and saved 3K a month. Ainomiq's automation actually performs better too.",
+    author: "Jens",
+    role: "Button Amsterdam — App",
     avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ]
