@@ -10,7 +10,7 @@ export function Logo({ className }: { className?: string }) {
       <img
         src="/logos/ainomiq-wordmark.png"
         alt="Ainomiq"
-        className="h-7 w-auto object-contain mix-blend-multiply"
+        className="h-9 w-auto object-contain "
       />
     </Link>
   );
@@ -22,7 +22,7 @@ export function LogoMark({ className }: { className?: string }) {
       <img
         src="/logos/ainomiq-wordmark.png"
         alt="Ainomiq"
-        className="h-7 w-auto object-contain mix-blend-multiply"
+        className="h-9 w-auto object-contain "
       />
     </span>
   );
