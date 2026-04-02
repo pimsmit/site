@@ -293,13 +293,14 @@ export function GetStartedWizard() {
         <div className="relative z-10 mx-auto max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
           <InfiniteSlider gap={56} duration={30} reverse>
             {CLIENTS.map((client) => (
-              <img
-                key={client.name}
-                src={client.logo}
-                alt={client.name}
-                loading="lazy"
-                className="pointer-events-none h-6 w-auto select-none opacity-40 grayscale md:h-7"
-              />
+              <div key={client.name} className="flex items-center justify-center h-7 w-[100px] md:h-8 md:w-[120px] flex-shrink-0">
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  loading="lazy"
+                  className="pointer-events-none max-h-full max-w-full w-auto h-auto object-contain select-none opacity-40 grayscale"
+                />
+              </div>
             ))}
           </InfiniteSlider>
         </div>
