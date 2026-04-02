@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { GetStartedWizard } from "@/components/get-started/wizard";
+import { Features } from "@/components/ui/features-9";
 
 export const metadata: Metadata = {
   title: "Get Started",
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function GetStartedPage() {
-  return <GetStartedWizard />;
+  return (
+    <>
+      <GetStartedWizard />
+      <Features />
+    </>
+  );
 }
