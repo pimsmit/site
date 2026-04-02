@@ -11,21 +11,22 @@ import { DefaultChatTransport } from 'ai'
 const map = new DottedMap({ height: 55, grid: 'diagonal' })
 const mapPoints = map.getPoints()
 
-interface LiveDot {
-    x: number
-    y: number
-    id: number
-    born: number
+// Pick N random land positions, deterministic per page load
+function pickLandPoints(n: number) {
+    const shuffled = [...mapPoints].sort(() => Math.random() - 0.5)
+    return shuffled.slice(0, n).map((p, i) => ({
+        x: p.x,
+        y: p.y,
+        phase: Math.random() * Math.PI * 2, // random pulse phase
+        speed: 1.8 + Math.random() * 1.4,   // pulse speed 1.8-3.2s
+    }))
 }
 
-const DOT_LIFETIME = 6000
-
-// Time-of-day aware base count — more realistic than random jumps
 function getBaseCount() {
     const hour = new Date().getHours()
-    if (hour >= 9 && hour <= 17) return 38 + (hour - 9) * 3  // business hours: 38-62
-    if (hour >= 18 && hour <= 22) return 52 - (hour - 18) * 4 // evening: 52-36
-    return 24 + hour                                           // night: 24-32
+    if (hour >= 9 && hour <= 17) return 38 + (hour - 9) * 3
+    if (hour >= 18 && hour <= 22) return 52 - (hour - 18) * 4
+    return 24 + hour
 }
 
 const INITIAL_MESSAGES = [
@@ -39,19 +40,13 @@ const INITIAL_MESSAGES = [
         role: 'assistant' as const,
         parts: [{
             type: 'text' as const,
-            text: "Honestly? Because we've been in your shoes. We ran webshops and other businesses, dealt with the same chaos, and built exactly what we needed. Ainomiq runs your customer support, optimizes your marketing, and tracks everything that matters. You start free, you're live in two weeks.",
+            text: "Honestly? Because we've been in your shoes. We ran webshops and other businesses, dealt with the same chaos, and built exactly what we needed. Ainomiq runs your customer support, optimizes your marketing, and tracks everything that matters.",
         }],
     },
 ]
 
 export function Features() {
-    // Realistic counter: mean-reverting random walk with small deltas
     const [count, setCount] = useState(() => getBaseCount() + Math.floor(Math.random() * 5 - 2))
-    const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null)
-
-    // Organic dots
-    const [dots, setDots] = useState<LiveDot[]>([])
-    const dotIdRef = useRef(0)
 
     // Chat
     const [chatInput, setChatInput] = useState('')
@@ -62,45 +57,23 @@ export function Features() {
         messages: INITIAL_MESSAGES,
     })
 
-    // Counter: small +/- changes every 4-7s, mean-reverting toward base
+    // Counter: guaranteed ±1-2 change every 5-8s
     useEffect(() => {
         const tick = () => {
             setCount(prev => {
                 const base = getBaseCount()
                 const diff = prev - base
-                // Pull gently toward base
-                const pull = -Math.sign(diff) * Math.min(Math.abs(diff) * 0.25, 1)
-                const noise = (Math.random() - 0.48) * 2.5 // slight upward bias
-                const delta = Math.round(pull + noise)
-                // Clamp: never below 12, never above base+20
-                return Math.max(12, Math.min(base + 20, prev + delta))
-            })
-            timeoutRef.current = setTimeout(tick, 4000 + Math.random() * 3000)
-        }
-        timeoutRef.current = setTimeout(tick, 4000 + Math.random() * 3000)
-        return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current) }
-    }, [])
-
-    // Dots: 1-2 new dots every 2s, each lives 6s
-    useEffect(() => {
-        const spawnDots = () => {
-            const now = Date.now()
-            const newCount = 1 + Math.floor(Math.random() * 2)
-            setDots(prev => {
-                const alive = prev.filter(d => now - d.born < DOT_LIFETIME)
-                const spawned = Array.from({ length: newCount }, () => {
-                    const point = mapPoints[Math.floor(Math.random() * mapPoints.length)]
-                    return { x: point.x, y: point.y, id: dotIdRef.current++, born: now }
-                })
-                return [...alive, ...spawned]
+                const pull = diff > 3 ? -1 : diff < -3 ? 1 : 0
+                // Always change by at least 1
+                const raw = pull + (Math.random() > 0.5 ? 1 : -1) + Math.round((Math.random() - 0.5) * 2)
+                const delta = raw === 0 ? (Math.random() > 0.5 ? 1 : -1) : raw
+                return Math.max(15, Math.min(base + 18, prev + delta))
             })
         }
-        spawnDots()
-        const interval = setInterval(spawnDots, 2000)
-        return () => clearInterval(interval)
+        const id = setInterval(tick, 5000 + Math.floor(Math.random() * 3000))
+        return () => clearInterval(id)
     }, [])
 
-    // Auto-scroll chat
     useEffect(() => {
         if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight
     }, [messages])
@@ -124,12 +97,12 @@ export function Features() {
                         </span>
                         <p className="mt-8 text-2xl font-semibold text-ainomiq-text">
                             <span className="text-ainomiq-blue font-bold tabular-nums">{count}</span>{' '}
-                            people analysing their business now
+                            people active now
                         </p>
                     </div>
                     <div className="relative overflow-hidden">
                         <div className="[background-image:radial-gradient(var(--tw-gradient-stops))] z-1 to-white absolute inset-0 from-transparent to-75%" />
-                        <MapWithDots dots={dots} />
+                        <ActiveMap />
                     </div>
                 </div>
 
@@ -212,34 +185,38 @@ export function Features() {
     )
 }
 
-const MapWithDots = ({ dots }: { dots: LiveDot[] }) => {
+// Persistent dots that pulse — no spawning/despawning
+const ActiveMap = () => {
+    const [dots] = useState(() => pickLandPoints(18))
+
     return (
         <svg viewBox="0 0 120 60" style={{ background: 'white' }}>
             <defs>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="0.4" result="blur" />
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="0.5" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                 </filter>
             </defs>
             {mapPoints.map((point, index) => (
                 <circle key={index} cx={point.x} cy={point.y} r={0.15} fill="currentColor" />
             ))}
-            {dots.map((dot) => (
-                <g key={dot.id}>
-                    {/* Glow */}
-                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6" opacity={0} filter="url(#glow)">
-                        <animate attributeName="r" values="0;1.2;1.2;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
-                        <animate attributeName="opacity" values="0;0.4;0.4;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
-                    </circle>
-                    {/* Core dot */}
-                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6">
-                        <animate attributeName="r" values="0;0.7;0.7;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
-                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
-                    </circle>
-                    {/* Ripple */}
-                    <circle cx={dot.x} cy={dot.y} r={0.7} fill="none" stroke="#3b82f6" strokeWidth={0.12}>
-                        <animate attributeName="r" from="0.7" to="2.5" dur="2s" repeatCount="2" />
-                        <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="2" />
+            {dots.map((dot, i) => (
+                <g key={i} filter="url(#glow)">
+                    <circle cx={dot.x} cy={dot.y} r={0.6} fill="#3b82f6">
+                        <animate
+                            attributeName="r"
+                            values="0.4;0.8;0.4"
+                            dur={`${dot.speed}s`}
+                            begin={`${(dot.phase / (Math.PI * 2)) * dot.speed}s`}
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="opacity"
+                            values="0.6;1;0.6"
+                            dur={`${dot.speed}s`}
+                            begin={`${(dot.phase / (Math.PI * 2)) * dot.speed}s`}
+                            repeatCount="indefinite"
+                        />
                     </circle>
                 </g>
             ))}
