@@ -14,7 +14,7 @@ const testimonials = [
   {
     id: 2,
     quote: "Our customer service responds 24/7 — email, phone, and social media. It's incredible.",
-    author: "Teiss",
+    author: "Teis",
     role: "Schoolregister — Enterprise",
     avatar: "https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -52,20 +52,20 @@ export function Testimonials() {
         <div className="flex flex-col items-center gap-10">
           {/* Quote Container */}
           <div className="relative px-8">
-            <span className="absolute -left-2 -top-6 text-7xl font-serif text-ainomiq-text/[0.06] select-none pointer-events-none">
+            <span className="absolute -left-2 -top-8 text-8xl font-serif text-ainomiq-text/[0.06] select-none pointer-events-none">
               &ldquo;
             </span>
 
             <p
               className={cn(
-                "text-2xl md:text-3xl font-light text-ainomiq-text text-center max-w-lg leading-relaxed transition-all duration-400 ease-out",
+                "text-3xl md:text-4xl font-light text-ainomiq-text text-center max-w-2xl leading-relaxed transition-all duration-400 ease-out",
                 isAnimating ? "opacity-0 blur-sm scale-[0.98]" : "opacity-100 blur-0 scale-100",
               )}
             >
               {displayedQuote}
             </p>
 
-            <span className="absolute -right-2 -bottom-8 text-7xl font-serif text-ainomiq-text/[0.06] select-none pointer-events-none">
+            <span className="absolute -right-2 -bottom-10 text-8xl font-serif text-ainomiq-text/[0.06] select-none pointer-events-none">
               &rdquo;
             </span>
           </div>
@@ -106,7 +106,7 @@ export function Testimonials() {
                         src={testimonial.avatar}
                         alt={testimonial.author}
                         className={cn(
-                          "w-8 h-8 rounded-full object-cover",
+                          "w-10 h-10 rounded-full object-cover",
                           "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
                           isActive ? "ring-2 ring-white/30" : "ring-0",
                           !isActive && "hover:scale-105",

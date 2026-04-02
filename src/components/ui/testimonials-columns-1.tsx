@@ -78,22 +78,22 @@ export const TestimonialsColumn = (props: {
 
 const testimonials = [
   {
-    text: "Ainomiq automated 80% of our customer service. We finally have time to focus on what matters — growing our brand.",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
-    name: "Billie Jeans",
-    role: "E-commerce",
+    text: "Ainomiq saved us 76% on monthly costs. What used to take a full team now runs on autopilot.",
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    name: "Pim Smit",
+    role: "Billie Jeans — App",
   },
   {
-    text: "We went live in 10 days. No other agency even came close to that timeline. The team at Ainomiq just gets it.",
+    text: "Our customer service responds 24/7 — email, phone, and social media. It's incredible.",
     image: "https://randomuser.me/api/portraits/men/2.jpg",
-    name: "SchoolRegister",
-    role: "Enterprise",
+    name: "Teis",
+    role: "Schoolregister — Enterprise",
   },
   {
-    text: "Our ad spend dropped 40% while conversions went up. The AI actually understands our customers better than we did.",
-    image: "https://randomuser.me/api/portraits/women/3.jpg",
-    name: "Button Amsterdam",
-    role: "E-commerce",
+    text: "We dropped our email marketing agency and saved 3K a month. Ainomiq's automation actually performs better too.",
+    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    name: "Jens",
+    role: "Button Amsterdam — App",
   },
   {
     text: "The real-time dashboard changed how we make decisions. No more guessing, just data that actually makes sense.",
@@ -102,21 +102,9 @@ const testimonials = [
     role: "Enterprise",
   },
   {
-    text: "Ainomiq integrated with every tool we use. Shopify, Klaviyo, Meta — it all just works together now.",
-    image: "https://randomuser.me/api/portraits/women/5.jpg",
-    name: "Smoothly",
-    role: "E-commerce",
-  },
-  {
     text: "We used to spend 3 hours a day on email campaigns. Now it runs itself and performs better than before.",
     image: "https://randomuser.me/api/portraits/women/6.jpg",
     name: "La Dos",
-    role: "E-commerce",
-  },
-  {
-    text: "The inventory forecasting alone saved us thousands. We never overstock or miss a sale anymore.",
-    image: "https://randomuser.me/api/portraits/men/7.jpg",
-    name: "BYS",
     role: "E-commerce",
   },
   {
@@ -126,16 +114,22 @@ const testimonials = [
     role: "Enterprise",
   },
   {
+    text: "The inventory forecasting alone saved us thousands. We never overstock or miss a sale anymore.",
+    image: "https://randomuser.me/api/portraits/men/7.jpg",
+    name: "AccuExpert",
+    role: "E-commerce",
+  },
+  {
     text: "Since switching to Ainomiq, our support response time went from 4 hours to under 5 minutes. Customers love it.",
     image: "https://randomuser.me/api/portraits/men/9.jpg",
-    name: "Nerds",
-    role: "Enterprise",
+    name: "Padelland",
+    role: "E-commerce",
   },
 ];
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6, 9);
+const thirdColumn = testimonials.slice(6, 8);
 
 export function TestimonialsColumns() {
   return (
