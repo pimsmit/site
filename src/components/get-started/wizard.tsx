@@ -284,7 +284,7 @@ export function GetStartedWizard() {
           Businesses we help optimize
         </p>
         <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <InfiniteSlider gap={56} speed={80} durationOnHover={500}>
+          <InfiniteSlider gap={56} duration={60} durationOnHover={500}>
             {/* Repeat 3x to ensure no gaps on wide screens */}
             {[...CLIENTS, ...CLIENTS, ...CLIENTS].map((client, i) => (
               <img
