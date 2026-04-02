@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
-import { BeamsBackground } from "@/components/ui/beams-background";
 import WireframeGlobe from "@/components/ui/wireframe-dotted-globe";
 import { AnimatedCounter } from "@/components/animated-counter";
 import {
@@ -19,29 +18,7 @@ import {
   Check,
 } from "lucide-react";
 import { BlogGrid } from "@/components/ui/blog-posts";
-
-const trustedBy = [
-  "Domino's",
-  "Billie Jeans",
-  "Enterprise Co.",
-  "RetailMax",
-  "FoodFlow",
-  "LogiTech NL",
-  "StyleHouse",
-  "DataDriven",
-  "ScaleUp Labs",
-  "CloudFirst",
-  "Domino's",
-  "Billie Jeans",
-  "Enterprise Co.",
-  "RetailMax",
-  "FoodFlow",
-  "LogiTech NL",
-  "StyleHouse",
-  "DataDriven",
-  "ScaleUp Labs",
-  "CloudFirst",
-];
+import { HeroSection, LogosSection } from "@/components/ui/hero-1";
 
 const features = [
   {
@@ -120,39 +97,11 @@ const pricingPlans = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — BeamsBackground */}
-      <BeamsBackground intensity="strong">
-        <div className="flex flex-col items-center justify-center gap-6 px-6 text-center max-w-4xl">
-          <div className="inline-flex items-center rounded-full bg-ainomiq-blue/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue animate-float-up">
-            Always Ahead
-          </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.08] text-ainomiq-text animate-float-up delay-100">
-            <span className="block">Always</span>
-            <span className="block gradient-text">Ahead.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-ainomiq-text-muted max-w-2xl animate-float-up delay-200">
-            We build AI that runs — not reports that gather dust.
-            Real automation, real results, from week one.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 animate-float-up delay-300">
-            <Button
-              asChild
-              size="lg"
-              className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-8 h-12 text-base shadow-lg shadow-ainomiq-blue/25"
-            >
-              <Link href="/contact">Book a call</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white/60 backdrop-blur-sm text-ainomiq-text px-8 h-12 text-base"
-            >
-              <Link href="/platform">Explore platform</Link>
-            </Button>
-          </div>
-        </div>
-      </BeamsBackground>
+      {/* Hero */}
+      <HeroSection />
+
+      {/* Logo Cloud */}
+      <LogosSection />
 
       {/* Blog Posts Grid */}
       <BlogGrid
@@ -195,20 +144,6 @@ export default function HomePage() {
         ]}
         className="mb-0"
       />
-
-      {/* Trusted By — Marquee */}
-      <div className="border-y border-ainomiq-border overflow-hidden py-6">
-        <div className="flex gap-12 animate-marquee w-max">
-          {trustedBy.map((name, i) => (
-            <span
-              key={i}
-              className="text-sm font-semibold uppercase tracking-wider text-ainomiq-text-subtle whitespace-nowrap opacity-50"
-            >
-              {name}
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* Why Us */}
       <Section label="Why ainomiq">
