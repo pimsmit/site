@@ -11,24 +11,16 @@ import { DefaultChatTransport } from 'ai'
 const map = new DottedMap({ height: 55, grid: 'diagonal' })
 const mapPoints = map.getPoints()
 
-// Pick N random land positions, deterministic per page load
-function pickLandPoints(n: number) {
-    const shuffled = [...mapPoints].sort(() => Math.random() - 0.5)
-    return shuffled.slice(0, n).map((p, i) => ({
-        x: p.x,
-        y: p.y,
-        phase: Math.random() * Math.PI * 2, // random pulse phase
-        speed: 1.8 + Math.random() * 1.4,   // pulse speed 1.8-3.2s
-    }))
-}
-
+// ── Counter helpers ──────────────────────────────────────────────
 function getBaseCount() {
     const hour = new Date().getHours()
-    if (hour >= 9 && hour <= 17) return 38 + (hour - 9) * 3
-    if (hour >= 18 && hour <= 22) return 52 - (hour - 18) * 4
-    return 24 + hour
+    // Time-of-day curve: peak ~18 during business hours, lower at night
+    if (hour >= 9 && hour <= 17) return 12 + Math.round((hour - 9) * 0.8)
+    if (hour >= 18 && hour <= 22) return 18 - (hour - 18) * 2
+    return 5 + Math.round(hour * 0.3)
 }
 
+// ── Chat initial messages ────────────────────────────────────────
 const INITIAL_MESSAGES = [
     {
         id: 'q1',
@@ -45,8 +37,68 @@ const INITIAL_MESSAGES = [
     },
 ]
 
+// ── Arc animation types & helpers ────────────────────────────────
+interface Arc {
+    fromX: number; fromY: number
+    toX: number; toY: number
+    cx: number; cy: number  // bezier control point
+    duration: number        // ms
+    startTime: number       // timestamp when arc starts
+    delay: number           // ms to wait before starting
+}
+
+function pickTwoLandPoints(): [{ x: number; y: number }, { x: number; y: number }] {
+    const a = mapPoints[Math.floor(Math.random() * mapPoints.length)]
+    let b = a
+    // Pick a second point at least 10 units away for visible travel
+    let attempts = 0
+    while (attempts < 50) {
+        b = mapPoints[Math.floor(Math.random() * mapPoints.length)]
+        const dist = Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
+        if (dist > 10 && dist < 60) break
+        attempts++
+    }
+    return [a, b]
+}
+
+function createArc(now: number, delay = 0): Arc {
+    const [from, to] = pickTwoLandPoints()
+    const midX = (from.x + to.x) / 2
+    const midY = (from.y + to.y) / 2
+    const dist = Math.sqrt((to.x - from.x) ** 2 + (to.y - from.y) ** 2)
+    return {
+        fromX: from.x, fromY: from.y,
+        toX: to.x, toY: to.y,
+        cx: midX, cy: midY - dist * 0.3, // arc rises proportional to distance
+        duration: 2000 + Math.random() * 2000, // 2-4s travel
+        startTime: now,
+        delay,
+    }
+}
+
+function getQuadraticPoint(
+    x1: number, y1: number,
+    cx: number, cy: number,
+    x2: number, y2: number,
+    t: number
+) {
+    const mt = 1 - t
+    return {
+        x: mt * mt * x1 + 2 * mt * t * cx + t * t * x2,
+        y: mt * mt * y1 + 2 * mt * t * cy + t * t * y2,
+    }
+}
+
+function easeInOutCubic(t: number) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+}
+
+// ── Main Features component ─────────────────────────────────────
 export function Features() {
-    const [count, setCount] = useState(() => getBaseCount() + Math.floor(Math.random() * 5 - 2))
+    const [count, setCount] = useState(() => {
+        const base = getBaseCount()
+        return Math.max(1, Math.min(30, base + Math.floor(Math.random() * 3 - 1)))
+    })
 
     // Chat
     const [chatInput, setChatInput] = useState('')
@@ -57,17 +109,19 @@ export function Features() {
         messages: INITIAL_MESSAGES,
     })
 
-    // Counter: guaranteed ±1-2 change every 5-8s
+    // Counter: range 1-30, small realistic jumps every 5-8s
     useEffect(() => {
         const tick = () => {
             setCount(prev => {
                 const base = getBaseCount()
                 const diff = prev - base
-                const pull = diff > 3 ? -1 : diff < -3 ? 1 : 0
-                // Always change by at least 1
-                const raw = pull + (Math.random() > 0.5 ? 1 : -1) + Math.round((Math.random() - 0.5) * 2)
-                const delta = raw === 0 ? (Math.random() > 0.5 ? 1 : -1) : raw
-                return Math.max(15, Math.min(base + 18, prev + delta))
+                // Mean-reverting: pull back if too far from base
+                const pull = diff > 4 ? -1 : diff < -4 ? 1 : 0
+                // Small delta: usually ±1, occasionally ±2
+                const step = Math.random() > 0.7 ? 2 : 1
+                const dir = Math.random() > 0.5 ? 1 : -1
+                const delta = pull !== 0 ? pull * step : dir * step
+                return Math.max(1, Math.min(30, prev + delta))
             })
         }
         const id = setInterval(tick, 5000 + Math.floor(Math.random() * 3000))
@@ -97,7 +151,7 @@ export function Features() {
                         </span>
                         <p className="mt-8 text-2xl font-semibold text-ainomiq-text">
                             <span className="text-ainomiq-blue font-bold tabular-nums">{count}</span>{' '}
-                            people active now
+                            people starting now
                         </p>
                     </div>
                     <div className="relative overflow-hidden">
@@ -185,45 +239,168 @@ export function Features() {
     )
 }
 
-// Persistent dots that pulse — no spawning/despawning
+// ── Animated Map with traveling arc dots ─────────────────────────
+const NUM_ARCS = 6
+
 const ActiveMap = () => {
-    const [dots] = useState(() => pickLandPoints(18))
+    const svgRef = useRef<SVGSVGElement>(null)
+    const arcsRef = useRef<Arc[]>([])
+    const frameRef = useRef<number>(0)
+    const dotRefs = useRef<(SVGCircleElement | null)[]>([])
+    const trailRefs = useRef<(SVGPathElement | null)[]>([])
+    const rippleRefs = useRef<(SVGCircleElement | null)[]>([])
+    const rippleTimers = useRef<number[]>(new Array(NUM_ARCS).fill(0))
+
+    useEffect(() => {
+        // Initialize arcs with staggered delays
+        const now = performance.now()
+        arcsRef.current = Array.from({ length: NUM_ARCS }, (_, i) =>
+            createArc(now, i * 600) // stagger by 600ms
+        )
+
+        const animate = (timestamp: number) => {
+            for (let i = 0; i < NUM_ARCS; i++) {
+                const arc = arcsRef.current[i]
+                if (!arc) continue
+
+                const elapsed = timestamp - arc.startTime - arc.delay
+                if (elapsed < 0) {
+                    // Still waiting for delay — hide dot
+                    const dot = dotRefs.current[i]
+                    if (dot) dot.setAttribute('opacity', '0')
+                    const trail = trailRefs.current[i]
+                    if (trail) trail.setAttribute('opacity', '0')
+                    continue
+                }
+
+                const rawProgress = Math.min(elapsed / arc.duration, 1)
+                const easedProgress = easeInOutCubic(rawProgress)
+
+                // Position traveling dot
+                const pos = getQuadraticPoint(
+                    arc.fromX, arc.fromY,
+                    arc.cx, arc.cy,
+                    arc.toX, arc.toY,
+                    easedProgress
+                )
+
+                const dot = dotRefs.current[i]
+                if (dot) {
+                    dot.setAttribute('cx', String(pos.x))
+                    dot.setAttribute('cy', String(pos.y))
+                    // Fade in first 10%, full in middle, fade out last 15%
+                    const opacity = rawProgress < 0.1
+                        ? rawProgress / 0.1
+                        : rawProgress > 0.85
+                            ? (1 - rawProgress) / 0.15
+                            : 1
+                    dot.setAttribute('opacity', String(Math.max(0, Math.min(1, opacity))))
+                }
+
+                // Animate trail path
+                const trail = trailRefs.current[i]
+                if (trail) {
+                    trail.setAttribute('opacity', '1')
+                    const path = `M ${arc.fromX} ${arc.fromY} Q ${arc.cx} ${arc.cy} ${arc.toX} ${arc.toY}`
+                    trail.setAttribute('d', path)
+                    const totalLen = trail.getTotalLength()
+                    trail.style.strokeDasharray = `${totalLen}`
+                    trail.style.strokeDashoffset = `${totalLen * (1 - rawProgress)}`
+                }
+
+                // Ripple at destination when arc completes
+                const ripple = rippleRefs.current[i]
+                if (rawProgress >= 1) {
+                    // Trigger ripple
+                    if (ripple && rippleTimers.current[i] === 0) {
+                        ripple.setAttribute('cx', String(arc.toX))
+                        ripple.setAttribute('cy', String(arc.toY))
+                        rippleTimers.current[i] = timestamp
+                    }
+
+                    // Animate ripple expansion (300ms)
+                    if (ripple && rippleTimers.current[i] > 0) {
+                        const rippleElapsed = timestamp - rippleTimers.current[i]
+                        const rippleProgress = Math.min(rippleElapsed / 400, 1)
+                        ripple.setAttribute('r', String(0.3 + rippleProgress * 1.5))
+                        ripple.setAttribute('opacity', String(0.6 * (1 - rippleProgress)))
+                        ripple.setAttribute('stroke-width', String(0.15 * (1 - rippleProgress * 0.5)))
+                    }
+
+                    // After ripple completes, recycle arc
+                    if (rippleTimers.current[i] > 0 && timestamp - rippleTimers.current[i] > 400) {
+                        rippleTimers.current[i] = 0
+                        if (ripple) ripple.setAttribute('opacity', '0')
+                        arcsRef.current[i] = createArc(timestamp, 300 + Math.random() * 1500)
+                    }
+                }
+            }
+            frameRef.current = requestAnimationFrame(animate)
+        }
+
+        frameRef.current = requestAnimationFrame(animate)
+        return () => cancelAnimationFrame(frameRef.current)
+    }, [])
 
     return (
-        <svg viewBox="0 0 120 60" style={{ background: 'white' }}>
+        <svg ref={svgRef} viewBox="0 0 120 60" style={{ background: 'white' }}>
             <defs>
                 <filter id="glow">
-                    <feGaussianBlur stdDeviation="0.5" result="blur" />
-                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                    <feGaussianBlur stdDeviation="0.4" result="blur" />
+                    <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
                 </filter>
             </defs>
+
+            {/* Static map dots */}
             {mapPoints.map((point, index) => (
                 <circle key={index} cx={point.x} cy={point.y} r={0.15} fill="currentColor" />
             ))}
-            {dots.map((dot, i) => (
-                <g key={i} filter="url(#glow)">
-                    <circle cx={dot.x} cy={dot.y} r={0.6} fill="#3b82f6">
-                        <animate
-                            attributeName="r"
-                            values="0.4;0.8;0.4"
-                            dur={`${dot.speed}s`}
-                            begin={`${(dot.phase / (Math.PI * 2)) * dot.speed}s`}
-                            repeatCount="indefinite"
-                        />
-                        <animate
-                            attributeName="opacity"
-                            values="0.6;1;0.6"
-                            dur={`${dot.speed}s`}
-                            begin={`${(dot.phase / (Math.PI * 2)) * dot.speed}s`}
-                            repeatCount="indefinite"
-                        />
-                    </circle>
-                </g>
+
+            {/* Arc trails */}
+            {Array.from({ length: NUM_ARCS }, (_, i) => (
+                <path
+                    key={`trail-${i}`}
+                    ref={el => { trailRefs.current[i] = el }}
+                    stroke="#3b82f6"
+                    strokeWidth={0.12}
+                    strokeOpacity={0.25}
+                    fill="none"
+                    opacity={0}
+                />
+            ))}
+
+            {/* Arrival ripples */}
+            {Array.from({ length: NUM_ARCS }, (_, i) => (
+                <circle
+                    key={`ripple-${i}`}
+                    ref={el => { rippleRefs.current[i] = el }}
+                    r={0}
+                    fill="none"
+                    stroke="#3b82f6"
+                    strokeWidth={0.15}
+                    opacity={0}
+                />
+            ))}
+
+            {/* Traveling dots */}
+            {Array.from({ length: NUM_ARCS }, (_, i) => (
+                <circle
+                    key={`dot-${i}`}
+                    ref={el => { dotRefs.current[i] = el }}
+                    r={0.45}
+                    fill="#3b82f6"
+                    filter="url(#glow)"
+                    opacity={0}
+                />
             ))}
         </svg>
     )
 }
 
+// ── Chart ────────────────────────────────────────────────────────
 const chartConfig = {
     desktop: { label: 'Desktop', color: '#3b82f6' },
     mobile: { label: 'Mobile', color: '#93c5fd' },
