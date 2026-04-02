@@ -15,6 +15,7 @@
   --color-border-solid: #e4e4e7;
   --color-ring: rgba(0, 0, 0, 0.04);
   --font: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
   --duration: 700ms;
   --radius-full: 9999px;
@@ -337,6 +338,7 @@ ul { list-style: none; }
 .page-hero .container { text-align: left; }
 
 .page-hero .hero-headline {
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.05;
@@ -346,7 +348,7 @@ ul { list-style: none; }
 }
 
 .page-hero .hero-headline .highlight {
-  background: linear-gradient(135deg, var(--color-accent), #a78bfa);
+  background: linear-gradient(135deg, var(--color-accent), #60a5fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1048,8 +1050,8 @@ ul { list-style: none; }
 }
 
 /* Purple variant */
-.solution-icon--purple { background: #ede9fe; }
-.solution-icon--purple svg { stroke: #7c3aed; }
+.solution-icon--blue { background: #dbeafe; }
+.solution-icon--blue svg { stroke: #3b82f6; }
 
 /* ============================================
    Pricing
@@ -1637,7 +1639,7 @@ ul { list-style: none; }
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--color-accent), #a78bfa);
+  background: linear-gradient(135deg, var(--color-accent), #60a5fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
