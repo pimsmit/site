@@ -9,15 +9,13 @@ import { FallbackForm } from "./fallback-form";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import type { SiteAnalysis, ManualAnswers } from "@/lib/analysis-types";
 
-const CLIENTS: { name: string; logo?: string }[] = [
+const CLIENTS: { name: string; logo: string }[] = [
   { name: "Domino\u2019s", logo: "/logos/dominos.png" },
   { name: "Alpina", logo: "/logos/alpina.png" },
-  { name: "Billie Jeans" },
-  { name: "Button Amsterdam" },
-  { name: "La Dos" },
-  { name: "Smoothly" },
-  { name: "BYS" },
-  { name: "SchoolRegister" },
+  { name: "Billie Jeans", logo: "/logos/billie-jeans.png" },
+  { name: "Button Amsterdam", logo: "/logos/button-amsterdam.png" },
+  { name: "La Dos", logo: "/logos/la-dos.png" },
+  { name: "SchoolRegister", logo: "/logos/schoolregister.png" },
 ];
 
 type Step = "input" | "analyzing" | "results" | "fallback";
@@ -283,24 +281,15 @@ export function GetStartedWizard() {
           Businesses we help optimize
         </p>
         <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <InfiniteSlider gap={48} speed={80} speedOnHover={25}>
-            {CLIENTS.map((client) =>
-              client.logo ? (
-                <img
-                  key={client.name}
-                  src={client.logo}
-                  alt={client.name}
-                  className="h-6 w-auto object-contain opacity-40 select-none pointer-events-none"
-                />
-              ) : (
-                <span
-                  key={client.name}
-                  className="whitespace-nowrap text-lg font-semibold text-ainomiq-text/40 select-none"
-                >
-                  {client.name}
-                </span>
-              )
-            )}
+          <InfiniteSlider gap={56} speed={80} speedOnHover={25}>
+            {CLIENTS.map((client) => (
+              <img
+                key={client.name}
+                src={client.logo}
+                alt={client.name}
+                className="h-10 w-auto object-contain opacity-40 select-none pointer-events-none"
+              />
+            ))}
           </InfiniteSlider>
         </div>
       </div>
