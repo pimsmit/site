@@ -71,15 +71,16 @@ export function HeroSection() {
           </a>
 
           {/* Headline */}
-          <h1 className="text-balance text-center text-4xl font-extrabold tracking-tight text-ainomiq-text animate-float-up delay-100 md:text-5xl lg:text-6xl">
-            AI That Works <br /> For Your Business
+          <h1 className="text-balance text-center text-5xl font-extrabold tracking-tight text-ainomiq-text animate-float-up delay-100 md:text-6xl lg:text-7xl">
+            Always{" "}
+            <span className="gradient-text">Ahead.</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mx-auto max-w-md text-center text-base text-ainomiq-text-muted tracking-wider animate-float-up delay-200 sm:text-lg md:text-xl">
-            We build AI that runs — not reports that gather dust.
+          <p className="mx-auto max-w-lg text-center text-base text-ainomiq-text-muted tracking-wider animate-float-up delay-200 sm:text-lg md:text-xl">
+            AI automation for businesses that refuse to stand still.
             <br />
-            Real automation, real results, from week one.
+            Real systems, real results — live within two weeks.
           </p>
 
           {/* CTAs */}
@@ -89,9 +90,8 @@ export function HeroSection() {
               size="lg"
               className="rounded-full border border-ainomiq-border bg-white text-ainomiq-text hover:bg-ainomiq-navy-light"
             >
-              <Link href="/contact">
-                <PhoneCallIcon className="size-4 mr-2" />
-                Book a Call
+              <Link href="/platform">
+                See Demo&apos;s
               </Link>
             </Button>
             <Button
@@ -99,8 +99,8 @@ export function HeroSection() {
               size="lg"
               className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white shadow-lg shadow-ainomiq-blue/25"
             >
-              <Link href="/platform">
-                Explore platform
+              <Link href="/get-started">
+                Get Started
                 <ArrowRightIcon className="size-4 ms-2" />
               </Link>
             </Button>
