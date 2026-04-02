@@ -1,129 +1,156 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RocketIcon, ArrowRightIcon, PhoneCallIcon } from "lucide-react";
-import { LogoCloud } from "@/components/ui/logo-cloud-3";
+import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export function HeroSection() {
+  const gradientRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!gradientRef.current) return;
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      gradientRef.current.style.background = `
+        radial-gradient(ellipse 60% 50% at ${x}% ${y}%, rgba(59,130,246,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at ${100 - x}% ${100 - y}%, rgba(147,197,253,0.08) 0%, transparent 60%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)
+      `;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <section className="mx-auto w-full max-w-5xl">
-      {/* Top Shades */}
+    <section className="relative overflow-hidden">
+      {/* Interactive gradient background */}
+      <div
+        ref={gradientRef}
+        className="absolute inset-0 -z-10 transition-[background] duration-300 ease-out"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(59,130,246,0.12) 0%, transparent 70%), linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
+        }}
+      />
+
+      {/* Decorative lines */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 isolate hidden overflow-hidden contain-strict lg:block"
+        className="pointer-events-none absolute inset-0 mx-auto hidden max-w-5xl lg:block"
       >
-        <div className="absolute inset-0 -top-14 isolate -z-10 bg-[radial-gradient(35%_80%_at_49%_0%,--theme(--color-foreground/.08),transparent)] contain-strict" />
+        <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-ainomiq-border to-ainomiq-border" />
+        <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-ainomiq-border to-ainomiq-border" />
       </div>
 
-      {/* X Bold Faded Borders */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 mx-auto hidden min-h-screen w-full max-w-5xl lg:block"
-      >
-        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 left-0 z-10 h-full w-px bg-foreground/15" />
-        <div className="mask-y-from-80% mask-y-to-100% absolute inset-y-0 right-0 z-10 h-full w-px bg-foreground/15" />
-      </div>
-
-      {/* main content */}
-      <div className="relative flex flex-col items-center justify-center gap-5 pt-32 pb-30">
-        {/* X Content Faded Borders */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-1 size-full overflow-hidden"
-        >
-          <div className="absolute inset-y-0 left-4 w-px bg-linear-to-b from-transparent via-border to-border md:left-8" />
-          <div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
-          <div className="absolute inset-y-0 left-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:left-12" />
-          <div className="absolute inset-y-0 right-8 w-px bg-linear-to-b from-transparent via-border/50 to-border/50 md:right-12" />
-        </div>
-
-        <a
-          className={cn(
-            "group mx-auto flex w-fit items-center gap-3 rounded-full border bg-card px-3 py-1 shadow",
-            "fade-in slide-in-from-bottom-10 animate-in fill-mode-backwards transition-all delay-500 duration-500 ease-out"
-          )}
-          href="#pricing"
-        >
-          <RocketIcon className="size-3 text-muted-foreground" />
-          <span className="text-xs">Always Ahead</span>
-          <span className="block h-5 border-l" />
-          <ArrowRightIcon className="size-3 duration-150 ease-out group-hover:translate-x-1" />
-        </a>
-
-        <h1
-          className={cn(
-            "fade-in slide-in-from-bottom-10 animate-in text-balance fill-mode-backwards text-center text-4xl tracking-tight delay-100 duration-500 ease-out md:text-5xl lg:text-6xl",
-            "text-shadow-[0_0px_50px_theme(--color-foreground/.2)]"
-          )}
-        >
-          AI That Works <br /> For Your Business
-        </h1>
-
-        <p className="fade-in slide-in-from-bottom-10 mx-auto max-w-md animate-in fill-mode-backwards text-center text-base text-foreground/80 tracking-wider delay-200 duration-500 ease-out sm:text-lg md:text-xl">
-          We build AI that runs — not reports that gather dust.
-          <br />
-          Real automation, real results, from week one.
-        </p>
-
-        <div className="fade-in slide-in-from-bottom-10 flex animate-in flex-row flex-wrap items-center justify-center gap-3 fill-mode-backwards pt-2 delay-300 duration-500 ease-out">
-          <Button
-            asChild
-            className="rounded-full"
-            size="lg"
-            variant="secondary"
+      <div className="mx-auto max-w-5xl">
+        <div className="relative flex flex-col items-center justify-center gap-5 px-6 pt-32 pb-24">
+          {/* Inner decorative lines */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden"
           >
-            <Link href="/contact">
-              <PhoneCallIcon className="size-4 mr-2" />
-              Book a Call
-            </Link>
-          </Button>
-          <Button asChild className="rounded-full" size="lg">
-            <Link href="/platform">
-              Explore platform
-              <ArrowRightIcon className="size-4 ms-2" />
-            </Link>
-          </Button>
+            <div className="absolute inset-y-0 left-4 w-px bg-gradient-to-b from-transparent via-ainomiq-border to-ainomiq-border md:left-8" />
+            <div className="absolute inset-y-0 right-4 w-px bg-gradient-to-b from-transparent via-ainomiq-border to-ainomiq-border md:right-8" />
+          </div>
+
+          {/* Badge */}
+          <a
+            className="group mx-auto flex w-fit items-center gap-3 rounded-full border border-ainomiq-border bg-white px-3 py-1 shadow-sm animate-float-up"
+            href="#pricing"
+          >
+            <RocketIcon className="size-3 text-ainomiq-blue" />
+            <span className="text-xs font-medium text-ainomiq-text">
+              Always Ahead
+            </span>
+            <span className="block h-5 border-l border-ainomiq-border" />
+            <ArrowRightIcon className="size-3 text-ainomiq-text-muted duration-150 ease-out group-hover:translate-x-1" />
+          </a>
+
+          {/* Headline */}
+          <h1 className="text-balance text-center text-4xl font-extrabold tracking-tight text-ainomiq-text animate-float-up delay-100 md:text-5xl lg:text-6xl">
+            AI That Works <br /> For Your Business
+          </h1>
+
+          {/* Subtitle */}
+          <p className="mx-auto max-w-md text-center text-base text-ainomiq-text-muted tracking-wider animate-float-up delay-200 sm:text-lg md:text-xl">
+            We build AI that runs — not reports that gather dust.
+            <br />
+            Real automation, real results, from week one.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-row flex-wrap items-center justify-center gap-3 pt-2 animate-float-up delay-300">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full border border-ainomiq-border bg-white text-ainomiq-text hover:bg-ainomiq-navy-light"
+            >
+              <Link href="/contact">
+                <PhoneCallIcon className="size-4 mr-2" />
+                Book a Call
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white shadow-lg shadow-ainomiq-blue/25"
+            >
+              <Link href="/platform">
+                Explore platform
+                <ArrowRightIcon className="size-4 ms-2" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-const logos = [
-  {
-    src: "https://storage.efferd.com/logo/nvidia-wordmark.svg",
-    alt: "Nvidia",
-  },
-  {
-    src: "https://storage.efferd.com/logo/openai-wordmark.svg",
-    alt: "OpenAI",
-  },
-  {
-    src: "https://storage.efferd.com/logo/vercel-wordmark.svg",
-    alt: "Vercel",
-  },
-  {
-    src: "https://storage.efferd.com/logo/github-wordmark.svg",
-    alt: "GitHub",
-  },
-  {
-    src: "https://storage.efferd.com/logo/claude-wordmark.svg",
-    alt: "Claude AI",
-  },
-  {
-    src: "https://storage.efferd.com/logo/clerk-wordmark.svg",
-    alt: "Clerk",
-  },
+const trustedNames = [
+  "OpenAI",
+  "Anthropic",
+  "LangChain",
+  "Shopify",
+  "Vercel",
+  "Python",
+  "Klaviyo",
+  "Meta Ads",
+  "Google Ads",
+  "RAG Systems",
+  "Computer Vision",
+  "Voice AI",
 ];
 
 export function LogosSection() {
   return (
-    <section className="relative space-y-4 border-t pt-6 pb-10">
-      <h2 className="text-center font-medium text-lg text-muted-foreground tracking-tight md:text-xl">
-        Trusted by <span className="text-foreground">experts</span>
+    <section className="relative overflow-hidden border-y border-ainomiq-border bg-ainomiq-navy-light py-8">
+      {/* Subtle blue glow behind */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(59,130,246,0.06),transparent)]"
+      />
+
+      <h2 className="relative z-10 mb-4 text-center text-lg font-medium tracking-tight text-ainomiq-text-muted md:text-xl">
+        Trusted by{" "}
+        <span className="font-semibold text-ainomiq-text">experts</span>
       </h2>
-      <div className="relative z-10 mx-auto max-w-4xl">
-        <LogoCloud logos={logos} />
+
+      <div className="relative z-10 mx-auto max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <InfiniteSlider gap={48} duration={30} reverse>
+          {trustedNames.map((name) => (
+            <span
+              key={name}
+              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest text-ainomiq-text-subtle select-none"
+            >
+              {name}
+            </span>
+          ))}
+        </InfiniteSlider>
       </div>
     </section>
   );
