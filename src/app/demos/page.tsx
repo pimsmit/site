@@ -203,7 +203,14 @@ export default function DemosPage() {
                     <h3 className="font-bold text-ainomiq-text">
                       {demo.title}
                     </h3>
-                    <span className="text-xs text-ainomiq-text-subtle flex items-center gap-1">
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                      demo.plan === "App"
+                        ? "bg-ainomiq-blue-glow text-ainomiq-blue"
+                        : "bg-slate-100 text-slate-600"
+                    }`}>
+                      {demo.plan}
+                    </span>
+                    <span className="text-xs text-ainomiq-text-subtle flex items-center gap-1 ml-auto">
                       <Clock className="h-3 w-3" />
                       {demo.duration}
                     </span>
