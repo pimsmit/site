@@ -111,19 +111,15 @@ export function HeroSection() {
   );
 }
 
-const trustedNames = [
-  "OpenAI",
-  "Anthropic",
-  "LangChain",
-  "Shopify",
-  "Vercel",
-  "Python",
-  "Klaviyo",
-  "Meta Ads",
-  "Google Ads",
-  "RAG Systems",
-  "Computer Vision",
-  "Voice AI",
+const logos = [
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/openai.svg", alt: "OpenAI" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/anthropic.svg", alt: "Anthropic" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/shopify.svg", alt: "Shopify" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/meta.svg", alt: "Meta" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/google.svg", alt: "Google" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/python.svg", alt: "Python" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/vercel.svg", alt: "Vercel" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/github.svg", alt: "GitHub" },
 ];
 
 export function LogosSection() {
@@ -141,14 +137,15 @@ export function LogosSection() {
       </h2>
 
       <div className="relative z-10 mx-auto max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <InfiniteSlider gap={48} duration={30} reverse>
-          {trustedNames.map((name) => (
-            <span
-              key={name}
-              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest text-ainomiq-text-subtle select-none"
-            >
-              {name}
-            </span>
+        <InfiniteSlider gap={56} duration={30} reverse>
+          {logos.map((logo) => (
+            <img
+              key={logo.alt}
+              src={logo.src}
+              alt={logo.alt}
+              loading="lazy"
+              className="pointer-events-none h-6 w-auto select-none opacity-40 grayscale md:h-7"
+            />
           ))}
         </InfiniteSlider>
       </div>
