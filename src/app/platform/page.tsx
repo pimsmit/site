@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Platform",
+  title: "App",
   description:
-    "The Ainomiq AI platform: six modules working together to automate your business.",
+    "The Ainomiq AI app: six modules working together to automate your business.",
 };
 
 const modules = [
@@ -149,7 +149,7 @@ export default function PlatformPage() {
             Ready to automate?
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Start with one module, grow to the full platform. We help
+            Start with one module, grow to the full app. We help
             you with the right roadmap.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">

@@ -136,7 +136,7 @@ export function PlatformHero() {
       {/* Integration Modules Marquee */}
       <div className="w-full z-10 relative flex flex-col items-center mt-8">
         <p className="text-center text-ainomiq-text-muted mb-8 text-base z-10 relative">
-          Six AI modules working together as one platform
+          Six AI modules working together as one app
         </p>
         <Marquee className="w-full [--duration:50s] [--gap:2rem]">
           {integrations.map((item, index) => (

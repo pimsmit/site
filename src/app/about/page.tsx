@@ -48,8 +48,8 @@ const timeline = [
   },
   {
     year: "2026",
-    title: "Platform in development",
-    body: "The Ainomiq platform is being built — six AI modules for e-commerce and enterprise.",
+    title: "App in development",
+    body: "The Ainomiq app is being built — six AI modules for e-commerce and enterprise.",
   },
   {
     year: "2026+",

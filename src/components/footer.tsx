@@ -2,7 +2,7 @@ import Link from "next/link";
 import { LogoMark } from "@/components/logo";
 
 const services = [
-  { href: "/platform", label: "Platform" },
+  { href: "/platform", label: "App" },
   { href: "/enterprise", label: "Enterprise" },
 ];
 

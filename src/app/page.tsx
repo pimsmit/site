@@ -190,7 +190,7 @@ export default function HomePage() {
       </Section>
 
       {/* Features Grid */}
-      <Section label="Platform" className="bg-ainomiq-navy-light">
+      <Section label="App" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
           Everything you need
         </h2>
@@ -222,7 +222,7 @@ export default function HomePage() {
             className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
           >
             <Link href="/platform">
-              View full platform <ArrowRight className="ml-2 h-4 w-4" />
+              View full app <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>

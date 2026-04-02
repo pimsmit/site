@@ -9,9 +9,9 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/platform", label: "Platform" },
-  { href: "/demos", label: "Demos" },
+  { href: "/platform", label: "App" },
   { href: "/enterprise", label: "Enterprise" },
+  { href: "/demos", label: "Demos" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
