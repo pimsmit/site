@@ -120,6 +120,7 @@ const logos = [
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/python.svg", alt: "Python" },
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/vercel.svg", alt: "Vercel" },
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/github.svg", alt: "GitHub" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/klaviyo.svg", alt: "Klaviyo" },
 ];
 
 export function LogosSection() {
