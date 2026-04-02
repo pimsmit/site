@@ -5,19 +5,25 @@ export function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
-      className={cn("text-xl font-bold tracking-tight", className)}
+      className={cn("block", className)}
     >
-      <span className="text-ainomiq-blue">ai</span>
-      <span className="text-ainomiq-text">nomiq</span>
+      <img
+        src="/logos/ainomiq-wordmark.png"
+        alt="Ainomiq"
+        className="h-7 w-auto object-contain mix-blend-multiply"
+      />
     </Link>
   );
 }
 
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <span className={cn("text-xl font-bold tracking-tight", className)}>
-      <span className="text-ainomiq-blue">ai</span>
-      <span className="text-ainomiq-text">nomiq</span>
+    <span className={cn("block", className)}>
+      <img
+        src="/logos/ainomiq-wordmark.png"
+        alt="Ainomiq"
+        className="h-7 w-auto object-contain mix-blend-multiply"
+      />
     </span>
   );
 }

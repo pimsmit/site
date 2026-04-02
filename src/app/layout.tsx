@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   },
   description:
     "AI automation app for e-commerce and enterprise. We build AI that works from day one.",
+  icons: {
+    icon: "/logos/ainomiq-icon.png",
+    apple: "/logos/ainomiq-icon.png",
+  },
   openGraph: {
     title: "Ainomiq — Always Ahead",
     description:
