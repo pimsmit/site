@@ -11,12 +11,22 @@ export interface SiteAnalysis {
   technologies: TechDetection[];
   hasEcommerce: boolean;
   estimatedScale: "small" | "medium" | "large";
+  productCount: number;
+  sampleProducts: string[];
+  priceRange: { min: number; max: number } | null;
+  currency: string;
+  faqItems: string[];
+  pageCount: number;
+  socialPresence: string[];
+  contactEmail: string | null;
+  contactPhone: string | null;
+  bodyTextSummary: string;
 }
 
-export interface ModuleRecommendation {
+export interface ServiceRecommendation {
   id: string;
   name: string;
-  icon: string;
+  savingsPercent: number;
   description: string;
   relevance: "high" | "medium" | "low";
 }

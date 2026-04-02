@@ -7,11 +7,10 @@ import {
   BarChart3,
   Mail,
   Package,
-  Gauge,
-  Workflow,
   Sparkles,
   ArrowRight,
   ExternalLink,
+  TrendingDown,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -22,94 +21,54 @@ interface ResultsProps {
   manual?: ManualAnswers;
 }
 
-const modules = [
-  {
-    id: "customer-service",
-    name: "Customer Service AI",
-    icon: Bot,
-    description: "Automated ticket handling, 200+ tickets/day",
-  },
-  {
-    id: "ad-management",
-    name: "Ad Management",
-    icon: BarChart3,
-    description: "Meta, Google, TikTok ad optimization",
-  },
-  {
-    id: "email-marketing",
-    name: "Email Marketing",
-    icon: Mail,
-    description: "Klaviyo integration, AI copywriting",
-  },
-  {
-    id: "inventory",
-    name: "Inventory Tracking",
-    icon: Package,
-    description: "Stock predictions, reorder alerts",
-  },
-  {
-    id: "dashboard",
-    name: "Performance Dashboard",
-    icon: Gauge,
-    description: "Real-time metrics, ROAS tracking",
-  },
-  {
-    id: "workflows",
-    name: "Workflow Automation",
-    icon: Workflow,
-    description: "Custom AI workflows, API integrations",
-  },
-];
+interface ServiceData {
+  id: string;
+  name: string;
+  savingsPercent: number;
+  description: string;
+  relevance: "high" | "medium" | "low";
+}
 
-function getModuleRelevance(
-  moduleId: string,
-  analysis: SiteAnalysis | null,
-  manual?: ManualAnswers
-): "high" | "medium" | "low" {
-  if (!analysis && !manual) return "medium";
+interface RecommendationData {
+  services: ServiceData[];
+  summary: string;
+  plan: "App" | "Enterprise";
+}
 
-  const techs = analysis?.technologies ?? [];
-  const techNames = techs.map((t) => t.name.toLowerCase());
-  const tools = manual?.tools.map((t) => t.toLowerCase()) ?? [];
+const serviceIcons: Record<string, typeof Bot> = {
+  support: Bot,
+  performance: BarChart3,
+  email: Mail,
+  inventory: Package,
+};
 
-  switch (moduleId) {
-    case "customer-service":
-      return analysis?.hasEcommerce || manual?.platform !== "Other"
-        ? "high"
-        : "medium";
-    case "ad-management":
-      if (
-        techNames.some((n) => n.includes("pixel") || n.includes("ads")) ||
-        tools.some((t) => t.includes("meta") || t.includes("google ads"))
-      )
-        return "high";
-      return analysis?.hasEcommerce ? "medium" : "low";
-    case "email-marketing":
-      if (
-        techNames.some((n) =>
-          ["klaviyo", "mailchimp", "brevo", "activecampaign"].some((e) =>
-            n.includes(e)
-          )
-        ) ||
-        tools.some((t) => t.includes("klaviyo"))
-      )
-        return "high";
-      return "medium";
-    case "inventory":
-      return analysis?.hasEcommerce || manual?.platform !== "Other"
-        ? "high"
-        : "low";
-    case "dashboard":
-      return "high"; // Free with any plan, always relevant
-    case "workflows":
-      return analysis?.estimatedScale === "large" ||
-        manual?.orderVolume === "1000+" ||
-        manual?.orderVolume === "10,000+"
-        ? "high"
-        : "medium";
-    default:
-      return "medium";
-  }
+const serviceColors: Record<string, string> = {
+  support: "from-blue-500 to-blue-600",
+  performance: "from-violet-500 to-violet-600",
+  email: "from-emerald-500 to-emerald-600",
+  inventory: "from-amber-500 to-amber-600",
+};
+
+function AnimatedPercent({ target, delay }: { target: number; delay: number }) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now: number) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(eased * target));
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [target, delay]);
+
+  return <span>{value}%</span>;
 }
 
 function categoryLabel(category: string) {
@@ -128,11 +87,9 @@ function categoryLabel(category: string) {
 }
 
 export function Results({ analysis, manual }: ResultsProps) {
-  const [streamedText, setStreamedText] = useState("");
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [recommendedPlan, setRecommendedPlan] = useState<
-    "App" | "Enterprise" | null
-  >(null);
+  const [recommendation, setRecommendation] = useState<RecommendationData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -140,21 +97,19 @@ export function Results({ analysis, manual }: ResultsProps) {
     abortRef.current = controller;
 
     async function fetchRecommendation() {
-      setIsStreaming(true);
+      setIsLoading(true);
       try {
-        const body = analysis ? { analysis } : { manual };
+        const payload = analysis ? { analysis } : { manual };
         const response = await fetch("/api/recommend", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
+          body: JSON.stringify(payload),
           signal: controller.signal,
         });
 
         if (!response.ok || !response.body) {
-          setStreamedText(
-            "Unable to generate recommendation. Please contact us for a personalized assessment."
-          );
-          setIsStreaming(false);
+          setError("Unable to generate recommendation.");
+          setIsLoading(false);
           return;
         }
 
@@ -165,9 +120,7 @@ export function Results({ analysis, manual }: ResultsProps) {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-
           const chunk = decoder.decode(value, { stream: true });
-          // Parse SSE format - extract text from UI message stream
           const lines = chunk.split("\n");
           for (const line of lines) {
             if (line.startsWith("g:")) {
@@ -175,33 +128,31 @@ export function Results({ analysis, manual }: ResultsProps) {
                 const parsed = JSON.parse(line.slice(2));
                 if (typeof parsed === "string") {
                   fullText += parsed;
-                  setStreamedText(fullText);
                 }
               } catch {
-                // skip unparseable lines
+                // skip
               }
             }
           }
         }
 
-        // Detect plan from streamed text
-        if (fullText.toLowerCase().includes("enterprise")) {
-          setRecommendedPlan("Enterprise");
+        // Parse JSON from the streamed text
+        const jsonMatch = fullText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const data = JSON.parse(jsonMatch[0]) as RecommendationData;
+          setRecommendation(data);
         } else {
-          setRecommendedPlan("App");
+          setError("Unable to parse recommendation.");
         }
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
-        setStreamedText(
-          "Unable to generate recommendation. Please contact us for a personalized assessment."
-        );
+        setError("Unable to generate recommendation.");
       } finally {
-        setIsStreaming(false);
+        setIsLoading(false);
       }
     }
 
     fetchRecommendation();
-
     return () => controller.abort();
   }, [analysis, manual]);
 
@@ -246,137 +197,187 @@ export function Results({ analysis, manual }: ResultsProps) {
         </div>
       )}
 
-      {/* Module Match */}
-      <div>
-        <h3 className="text-lg font-semibold text-ainomiq-text mb-4">
-          Recommended Modules
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {modules.map((mod, i) => {
-            const relevance = getModuleRelevance(mod.id, analysis, manual);
-            const Icon = mod.icon;
-
-            return (
-              <motion.div
-                key={mod.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.2 + i * 0.05,
-                  duration: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={cn(
-                  "flex flex-col gap-3 rounded-xl border p-4 shadow-sm transition-all",
-                  relevance === "high"
-                    ? "border-ainomiq-blue/30 bg-ainomiq-blue-muted ring-2 ring-ainomiq-blue/20"
-                    : relevance === "medium"
-                      ? "border-ainomiq-border bg-white"
-                      : "border-ainomiq-border bg-white opacity-50"
-                )}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex size-9 items-center justify-center rounded-lg bg-ainomiq-surface">
-                    <Icon className="size-4 text-ainomiq-blue" />
-                  </div>
-                  <Badge
-                    variant={relevance === "high" ? "default" : "secondary"}
-                    className="text-[10px]"
-                  >
-                    {relevance === "high"
-                      ? "High match"
-                      : relevance === "medium"
-                        ? "Relevant"
-                        : "Optional"}
-                  </Badge>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-ainomiq-text">
-                    {mod.name}
-                  </p>
-                  <p className="text-xs text-ainomiq-text-muted mt-0.5">
-                    {mod.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Plan Recommendation */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          delay: 0.5,
-          duration: 0.6,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="rounded-2xl border border-ainomiq-border bg-white p-6 md:p-8 shadow-sm"
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="flex size-10 items-center justify-center rounded-full bg-ainomiq-blue/10">
-            <Sparkles className="size-5 text-ainomiq-blue" />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-ainomiq-text">
-              AI Recommendation
-            </h3>
-            {recommendedPlan && (
-              <Badge className="mt-1">
-                Recommended: {recommendedPlan}
-                {recommendedPlan === "App" && " — from EUR 149/mo"}
-              </Badge>
+      {/* Site insights */}
+      {analysis && (analysis.productCount > 0 || analysis.faqItems.length > 0 || analysis.socialPresence.length > 0) && (
+        <div>
+          <h3 className="text-lg font-semibold text-ainomiq-text mb-4">
+            What we found
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {analysis.productCount > 0 && (
+              <div className="rounded-xl border border-ainomiq-border bg-white p-4 shadow-sm text-center">
+                <p className="text-2xl font-bold text-ainomiq-blue">{analysis.productCount}+</p>
+                <p className="text-xs text-ainomiq-text-muted mt-1">Products</p>
+              </div>
+            )}
+            {analysis.pageCount > 0 && (
+              <div className="rounded-xl border border-ainomiq-border bg-white p-4 shadow-sm text-center">
+                <p className="text-2xl font-bold text-ainomiq-blue">{analysis.pageCount}</p>
+                <p className="text-xs text-ainomiq-text-muted mt-1">Pages</p>
+              </div>
+            )}
+            {analysis.socialPresence.length > 0 && (
+              <div className="rounded-xl border border-ainomiq-border bg-white p-4 shadow-sm text-center">
+                <p className="text-2xl font-bold text-ainomiq-blue">{analysis.socialPresence.length}</p>
+                <p className="text-xs text-ainomiq-text-muted mt-1">Social channels</p>
+              </div>
+            )}
+            {analysis.faqItems.length > 0 && (
+              <div className="rounded-xl border border-ainomiq-border bg-white p-4 shadow-sm text-center">
+                <p className="text-2xl font-bold text-ainomiq-blue">{analysis.faqItems.length}</p>
+                <p className="text-xs text-ainomiq-text-muted mt-1">FAQ items</p>
+              </div>
             )}
           </div>
         </div>
+      )}
 
-        <div className="prose prose-sm max-w-none text-ainomiq-text-muted">
-          {streamedText ? (
-            <p className="whitespace-pre-wrap leading-relaxed">
-              {streamedText}
-              {isStreaming && (
-                <span className="inline-block w-1.5 h-4 ml-0.5 -mb-0.5 bg-ainomiq-blue animate-pulse" />
-              )}
-            </p>
-          ) : (
-            <div className="flex items-center gap-2 text-ainomiq-text-subtle">
-              <span className="inline-block w-1.5 h-4 bg-ainomiq-blue animate-pulse" />
-              Generating your personalized recommendation...
-            </div>
-          )}
+      {/* Service Savings Cards */}
+      {isLoading && (
+        <div className="flex flex-col items-center gap-4 py-12">
+          <div className="flex size-12 items-center justify-center rounded-full bg-ainomiq-blue/10">
+            <Sparkles className="size-6 text-ainomiq-blue animate-pulse" />
+          </div>
+          <p className="text-ainomiq-text-muted text-sm">Calculating your savings...</p>
         </div>
-      </motion.div>
+      )}
+
+      {error && (
+        <div className="rounded-2xl border border-ainomiq-border bg-white p-8 text-center">
+          <p className="text-ainomiq-text-muted">{error}</p>
+          <a href="/contact" className="text-ainomiq-blue text-sm mt-2 inline-block hover:underline">
+            Contact us for a personalized assessment
+          </a>
+        </div>
+      )}
+
+      {recommendation && (
+        <>
+          <div>
+            <h3 className="text-lg font-semibold text-ainomiq-text mb-2">
+              Your estimated savings
+            </h3>
+            <p className="text-sm text-ainomiq-text-muted mb-6">
+              Based on your site analysis, here&apos;s what Ainomiq can save you each month.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {recommendation.services.map((service, i) => {
+                const Icon = serviceIcons[service.id] || Sparkles;
+                const gradient = serviceColors[service.id] || "from-blue-500 to-blue-600";
+
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.15 + i * 0.1,
+                      duration: 0.6,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className={cn(
+                      "relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all",
+                      service.relevance === "high"
+                        ? "border-ainomiq-blue/30 bg-white ring-1 ring-ainomiq-blue/10"
+                        : service.relevance === "medium"
+                          ? "border-ainomiq-border bg-white"
+                          : "border-ainomiq-border bg-white opacity-60"
+                    )}
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className={cn("flex size-10 items-center justify-center rounded-xl bg-gradient-to-br text-white", gradient)}>
+                          <Icon className="size-5" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-ainomiq-text">{service.name}</p>
+                          <Badge
+                            variant={service.relevance === "high" ? "default" : "secondary"}
+                            className="text-[10px] mt-1"
+                          >
+                            {service.relevance === "high" ? "High impact" : service.relevance === "medium" ? "Relevant" : "Optional"}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center gap-1 text-ainomiq-blue">
+                          <TrendingDown className="size-4" />
+                          <span className="text-2xl font-bold">
+                            <AnimatedPercent target={service.savingsPercent} delay={300 + i * 150} />
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-ainomiq-text-muted">monthly savings</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-ainomiq-text-muted leading-relaxed">
+                      {service.description}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Summary */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-2xl border border-ainomiq-border bg-white p-6 md:p-8 shadow-sm"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex size-10 items-center justify-center rounded-full bg-ainomiq-blue/10">
+                <Sparkles className="size-5 text-ainomiq-blue" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-ainomiq-text">
+                  Our recommendation
+                </h3>
+                <Badge className="mt-1">
+                  {recommendation.plan === "Enterprise"
+                    ? "Enterprise — custom pricing"
+                    : "App — from EUR 149/mo"}
+                </Badge>
+              </div>
+            </div>
+            <p className="text-sm text-ainomiq-text-muted leading-relaxed">
+              {recommendation.summary}
+            </p>
+          </motion.div>
+        </>
+      )}
 
       {/* CTAs */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pb-8">
-        {recommendedPlan === "Enterprise" ? (
+      {recommendation && (
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pb-8">
+          {recommendation.plan === "Enterprise" ? (
+            <a
+              href="/contact"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-ainomiq-blue px-8 text-sm font-medium text-white transition-all hover:bg-ainomiq-blue-hover shadow-sm"
+            >
+              Request Enterprise Demo
+              <ArrowRight className="size-4" />
+            </a>
+          ) : (
+            <a
+              href="https://app.ainomiq.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-ainomiq-blue px-8 text-sm font-medium text-white transition-all hover:bg-ainomiq-blue-hover shadow-sm"
+            >
+              Start free on App
+              <ExternalLink className="size-4" />
+            </a>
+          )}
           <a
             href="/contact"
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-ainomiq-blue px-8 text-sm font-medium text-white transition-all hover:bg-ainomiq-blue-hover shadow-sm"
+            className="inline-flex h-12 items-center gap-2 rounded-full border border-ainomiq-border px-8 text-sm font-medium text-ainomiq-text transition-all hover:bg-ainomiq-surface"
           >
-            Request Enterprise Demo
-            <ArrowRight className="size-4" />
+            Talk to our team
           </a>
-        ) : (
-          <a
-            href="https://app.ainomiq.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-ainomiq-blue px-8 text-sm font-medium text-white transition-all hover:bg-ainomiq-blue-hover shadow-sm"
-          >
-            Start free on App
-            <ExternalLink className="size-4" />
-          </a>
-        )}
-        <a
-          href="/contact"
-          className="inline-flex h-12 items-center gap-2 rounded-full border border-ainomiq-border px-8 text-sm font-medium text-ainomiq-text transition-all hover:bg-ainomiq-surface"
-        >
-          Talk to our team
-        </a>
-      </div>
+        </div>
+      )}
     </motion.div>
   );
 }

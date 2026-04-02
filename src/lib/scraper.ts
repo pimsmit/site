@@ -1,5 +1,12 @@
 import * as cheerio from "cheerio";
 
+export interface ProductInfo {
+  count: number;
+  sampleNames: string[];
+  priceRange: { min: number; max: number } | null;
+  currency: string;
+}
+
 export interface ScrapedData {
   title: string;
   description: string;
@@ -7,6 +14,12 @@ export interface ScrapedData {
   scripts: string[];
   links: string[];
   metas: Record<string, string>;
+  products: ProductInfo;
+  faqItems: string[];
+  pageLinks: string[];
+  socialLinks: Record<string, string>;
+  contactInfo: { email: string | null; phone: string | null };
+  bodyText: string;
 }
 
 export async function scrapeUrl(url: string): Promise<ScrapedData> {
@@ -64,7 +77,92 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
       }
     });
 
-    return { title, description, html, scripts, links, metas };
+    // Extract products
+    const prices: number[] = [];
+    const productNames: string[] = [];
+    // Common product selectors
+    $('[class*="product"] h2, [class*="product"] h3, [class*="product-title"], [class*="product-name"], .product-card h2, .product-card h3').each((_, el) => {
+      const name = $(el).text().trim();
+      if (name && name.length < 100 && productNames.length < 20) {
+        productNames.push(name);
+      }
+    });
+    // Price detection
+    const priceRegex = /(?:€|EUR|\$|USD|£|GBP)\s*(\d+[.,]\d{2})/g;
+    const bodyText = $("body").text();
+    let priceMatch;
+    while ((priceMatch = priceRegex.exec(bodyText)) !== null && prices.length < 50) {
+      const price = parseFloat(priceMatch[1].replace(",", "."));
+      if (price > 0 && price < 100000) prices.push(price);
+    }
+    // Currency detection
+    let currency = "EUR";
+    if (bodyText.includes("$") || bodyText.includes("USD")) currency = "USD";
+    if (bodyText.includes("£") || bodyText.includes("GBP")) currency = "GBP";
+    if (bodyText.includes("€") || bodyText.includes("EUR")) currency = "EUR";
+
+    const products: ProductInfo = {
+      count: productNames.length || (prices.length > 3 ? prices.length : 0),
+      sampleNames: productNames.slice(0, 10),
+      priceRange: prices.length >= 2
+        ? { min: Math.min(...prices), max: Math.max(...prices) }
+        : null,
+      currency,
+    };
+
+    // Extract FAQ
+    const faqItems: string[] = [];
+    $('[class*="faq"] h3, [class*="faq"] h4, [class*="accordion"] h3, [class*="accordion"] button, details summary, [itemtype*="FAQPage"] [itemprop="name"]').each((_, el) => {
+      const q = $(el).text().trim();
+      if (q && q.length > 10 && q.length < 200 && faqItems.length < 15) {
+        faqItems.push(q);
+      }
+    });
+
+    // Extract page links (internal navigation)
+    const pageLinks: string[] = [];
+    const seen = new Set<string>();
+    $("a[href]").each((_, el) => {
+      const href = $(el).attr("href") || "";
+      if (href.startsWith("/") && !href.startsWith("//") && !seen.has(href)) {
+        seen.add(href);
+        pageLinks.push(href);
+      }
+    });
+
+    // Social links
+    const socialLinks: Record<string, string> = {};
+    const socialPatterns: Record<string, RegExp> = {
+      instagram: /instagram\.com/,
+      facebook: /facebook\.com/,
+      tiktok: /tiktok\.com/,
+      twitter: /twitter\.com|x\.com/,
+      linkedin: /linkedin\.com/,
+      youtube: /youtube\.com/,
+      pinterest: /pinterest\.com/,
+    };
+    $("a[href]").each((_, el) => {
+      const href = $(el).attr("href") || "";
+      for (const [platform, pattern] of Object.entries(socialPatterns)) {
+        if (pattern.test(href) && !socialLinks[platform]) {
+          socialLinks[platform] = href;
+        }
+      }
+    });
+
+    // Contact info
+    const emailMatch = bodyText.match(/[\w.-]+@[\w.-]+\.\w{2,}/);
+    const phoneMatch = bodyText.match(/(?:\+\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}/);
+
+    const contactInfo = {
+      email: emailMatch ? emailMatch[0] : null,
+      phone: phoneMatch ? phoneMatch[0].trim() : null,
+    };
+
+    // Truncated body text for AI analysis
+    const cleanText = bodyText.replace(/\s+/g, " ").trim().slice(0, 3000);
+
+    return { title, description, html, scripts, links, metas, products, faqItems, pageLinks, socialLinks, contactInfo, bodyText: cleanText };
   } finally {
     clearTimeout(timeout);
   }

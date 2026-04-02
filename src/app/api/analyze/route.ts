@@ -40,6 +40,16 @@ export async function POST(request: NextRequest) {
       technologies,
       hasEcommerce,
       estimatedScale,
+      productCount: data.products.count,
+      sampleProducts: data.products.sampleNames,
+      priceRange: data.products.priceRange,
+      currency: data.products.currency,
+      faqItems: data.faqItems,
+      pageCount: data.pageLinks.length,
+      socialPresence: Object.keys(data.socialLinks),
+      contactEmail: data.contactInfo.email,
+      contactPhone: data.contactInfo.phone,
+      bodyTextSummary: data.bodyText,
     };
 
     return NextResponse.json({ analysis });
