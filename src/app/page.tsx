@@ -16,6 +16,7 @@ import {
   Shield,
   ArrowRight,
   Check,
+  Plus,
 } from "lucide-react";
 import { BlogGrid } from "@/components/ui/blog-posts";
 import { HeroSection, LogosSection } from "@/components/ui/hero-1";
@@ -66,7 +67,7 @@ const pricingPlans: {
   price?: string;
   period: string;
   description: string;
-  features: string[];
+  features: { label: string; icon: "check" | "plus" }[];
   cta: string;
   featured: boolean;
 }[] = [
@@ -76,10 +77,10 @@ const pricingPlans: {
     period: "/month",
     description: "For webshops looking to grow",
     features: [
-      "Mail Engine",
-      "Smart Inventory",
-      "24/7 Support",
-      "Precise Performance",
+      { label: "Mail Engine", icon: "plus" },
+      { label: "Smart Inventory", icon: "plus" },
+      { label: "24/7 Support", icon: "plus" },
+      { label: "Precise Performance", icon: "check" },
     ],
     cta: "Get started",
     featured: true,
@@ -90,10 +91,10 @@ const pricingPlans: {
     period: "",
     description: "For organizations automating at scale",
     features: [
-      "Tailored Systems",
-      "Custom Integrations",
-      "Operations on Autopilot",
-      "White-Glove Service",
+      { label: "Tailored Systems", icon: "check" },
+      { label: "Custom Integrations", icon: "check" },
+      { label: "Operations on Autopilot", icon: "check" },
+      { label: "White-Glove Service", icon: "check" },
     ],
     cta: "Contact us",
     featured: false,
@@ -331,11 +332,15 @@ export default function HomePage() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f) => (
                     <li
-                      key={f}
+                      key={f.label}
                       className="flex items-center gap-2.5 text-sm text-ainomiq-text-muted"
                     >
-                      <Check className="h-4 w-4 text-ainomiq-blue shrink-0" />
-                      {f}
+                      {f.icon === "plus" ? (
+                        <Plus className="h-4 w-4 text-ainomiq-blue shrink-0" />
+                      ) : (
+                        <Check className="h-4 w-4 text-ainomiq-blue shrink-0" />
+                      )}
+                      {f.label}
                     </li>
                   ))}
                 </ul>
