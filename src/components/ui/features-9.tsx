@@ -124,7 +124,7 @@ export function Features() {
                         </span>
                         <p className="mt-8 text-2xl font-semibold text-ainomiq-text">
                             <span className="text-ainomiq-blue font-bold tabular-nums">{count}</span>{' '}
-                            people explored Ainomiq today
+                            people analysing their business now
                         </p>
                     </div>
                     <div className="relative overflow-hidden">
@@ -215,18 +215,31 @@ export function Features() {
 const MapWithDots = ({ dots }: { dots: LiveDot[] }) => {
     return (
         <svg viewBox="0 0 120 60" style={{ background: 'white' }}>
+            <defs>
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.4" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+            </defs>
             {mapPoints.map((point, index) => (
                 <circle key={index} cx={point.x} cy={point.y} r={0.15} fill="currentColor" />
             ))}
             {dots.map((dot) => (
                 <g key={dot.id}>
-                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6">
-                        <animate attributeName="r" values="0;0.5;0.5;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
-                        <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
+                    {/* Glow */}
+                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6" opacity={0} filter="url(#glow)">
+                        <animate attributeName="r" values="0;1.2;1.2;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
+                        <animate attributeName="opacity" values="0;0.4;0.4;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
                     </circle>
-                    <circle cx={dot.x} cy={dot.y} r={0.5} fill="none" stroke="#3b82f6" strokeWidth={0.08}>
-                        <animate attributeName="r" from="0.5" to="1.8" dur="2s" repeatCount="2" />
-                        <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="2" />
+                    {/* Core dot */}
+                    <circle cx={dot.x} cy={dot.y} r={0} fill="#3b82f6">
+                        <animate attributeName="r" values="0;0.7;0.7;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
+                        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="6s" fill="freeze" />
+                    </circle>
+                    {/* Ripple */}
+                    <circle cx={dot.x} cy={dot.y} r={0.7} fill="none" stroke="#3b82f6" strokeWidth={0.12}>
+                        <animate attributeName="r" from="0.7" to="2.5" dur="2s" repeatCount="2" />
+                        <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="2" />
                     </circle>
                 </g>
             ))}
