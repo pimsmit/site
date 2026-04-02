@@ -137,25 +137,44 @@ export function GetStartedWizard() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.filter = "blur(35px)";
 
-      // Normalized mouse position (0-1)
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
+      const mx = mouseRef.current.x * window.innerWidth;
+      const my = mouseRef.current.y * window.innerHeight;
       const totalBeams = beamsRef.current.length;
 
       beamsRef.current.forEach((beam, index) => {
         beam.y -= beam.speed;
         beam.pulse += beam.pulseSpeed;
 
-        // Gentle global drift based on mouse position
-        // All beams shift slightly toward the cursor direction
-        beam.x += (mx - 0.5) * 0.4;
-        beam.angle += (mx - 0.5) * 0.02;
-
         if (beam.y + beam.length < -100) {
           resetBeam(beam, index, totalBeams);
         }
 
-        drawBeam(ctx, beam);
+        // Check distance from cursor to beam
+        const dx = beam.x - mx;
+        const dy = beam.y - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const radius = 250;
+
+        if (dist < radius) {
+          // Only beams near cursor get displaced
+          const force = (1 - dist / radius) * 0.6;
+          const pushX = dx * force * 0.15;
+          const pushY = dy * force * 0.08;
+
+          // Draw with offset position — don't permanently move the beam
+          const origX = beam.x;
+          const origY = beam.y;
+          const origWidth = beam.width;
+          beam.x = origX + pushX;
+          beam.y = origY + pushY;
+          beam.width = origWidth + (1 - dist / radius) * 40;
+          drawBeam(ctx, beam);
+          beam.x = origX;
+          beam.y = origY;
+          beam.width = origWidth;
+        } else {
+          drawBeam(ctx, beam);
+        }
       });
 
       animationFrameRef.current = requestAnimationFrame(animate);
