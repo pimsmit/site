@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
-import WireframeGlobe from "@/components/ui/wireframe-dotted-globe";
-import { AnimatedCounter } from "@/components/animated-counter";
 import { Zap, BadgeCheck, Info, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -91,62 +89,8 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      {/* Globe — Social Proof */}
-      <section className="py-24 px-6 overflow-hidden">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-                From the Netherlands, worldwide
-              </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-                Active in <span className="gradient-text">58 countries</span>
-              </h2>
-              <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8 max-w-lg">
-                Our solutions run for businesses worldwide. From
-                Amsterdam to Berlin, from London to Madrid — optimized
-                for local markets.
-              </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
-                    <AnimatedCounter end={58} suffix="+" />
-                  </div>
-                  <div className="text-sm text-ainomiq-text-muted">Countries</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
-                    <AnimatedCounter end={24} suffix="/7" />
-                  </div>
-                  <div className="text-sm text-ainomiq-text-muted">
-                    Automated Operations
-                  </div>
-                </div>
-                <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
-                    <AnimatedCounter end={2} suffix="M+" />
-                  </div>
-                  <div className="text-sm text-ainomiq-text-muted">
-                    Tasks / month
-                  </div>
-                </div>
-                <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-ainomiq-text">
-                    <AnimatedCounter end={99.9} decimals={1} suffix="%" />
-                  </div>
-                  <div className="text-sm text-ainomiq-text-muted">Uptime</div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <WireframeGlobe width={500} height={500} bgColor="#ffffff" />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Founders */}
-      <section className="py-24 px-6 bg-ainomiq-navy-light">
+      <section className="py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
