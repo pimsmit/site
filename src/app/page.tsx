@@ -18,7 +18,6 @@ import {
   Check,
   Plus,
 } from "lucide-react";
-import { BlogGrid } from "@/components/ui/blog-posts";
 import { HeroSection, LogosSection } from "@/components/ui/hero-1";
 import { LocalizedPrice } from "@/components/localized-price";
 
@@ -113,47 +112,22 @@ export default function HomePage() {
       {/* Logo Cloud */}
       <LogosSection />
 
-      {/* Blog Posts Grid */}
-      <BlogGrid
-        title="Our Latest Insights"
-        description="Meet the founders: discover how automation is transforming businesses — from e-commerce automation to enterprise intelligence."
-        posts={[
-          {
-            id: 1,
-            title: "How Automation Is Replacing Traditional Customer Service",
-            category: "E-Commerce",
-            imageUrl:
-              "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
-            href: "#",
-            views: 2180,
-            readTime: 8,
-            rating: 5,
-          },
-          {
-            id: 2,
-            title: "Enterprise Automation: From Pilot to Production",
-            category: "Enterprise",
-            imageUrl:
-              "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
-            href: "#",
-            views: 1456,
-            readTime: 12,
-            rating: 4,
-          },
-          {
-            id: 3,
-            title: "The Automation Academy Playbook",
-            category: "Academy",
-            imageUrl:
-              "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80",
-            href: "#",
-            views: 987,
-            readTime: 6,
-            rating: 4,
-          },
-        ]}
-        className="mb-0"
-      />
+      {/* Meet the Founders */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
+            Our Latest Insights
+          </div>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+            Meet the Founders
+          </h2>
+          <p className="text-ainomiq-text-muted text-lg leading-relaxed max-w-2xl mx-auto">
+            Discover how automation is transforming businesses — from e-commerce
+            automation to enterprise intelligence. Built by two founders who were
+            the customer first, and decided to build what they couldn&apos;t find.
+          </p>
+        </div>
+      </section>
 
       {/* Globe — Social Proof */}
       <section className="py-24 px-6 overflow-hidden bg-ainomiq-navy-light">
