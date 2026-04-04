@@ -122,11 +122,20 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
               Meet the Founders
             </h2>
-            <p className="text-ainomiq-text-muted text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="text-ainomiq-text-muted text-lg leading-relaxed max-w-2xl mx-auto mb-8">
               Discover how automation is transforming businesses — from e-commerce
               automation to enterprise intelligence. Built by two founders who were
               the customer first, and decided to build what they couldn&apos;t find.
             </p>
+            <Button
+              asChild
+              variant="outline"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
+            >
+              <Link href="/about">
+                Read more <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

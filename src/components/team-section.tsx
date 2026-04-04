@@ -5,39 +5,39 @@ import { Users } from "lucide-react";
 
 const teamMembers = [
   {
-    initials: "BS",
-    name: "Bink Sanders",
-    role: "Founder & CEO",
-    gradient: "from-ainomiq-blue to-blue-400",
-  },
-  {
-    initials: "PK",
-    name: "Pim Klaver",
-    role: "Co-founder & CTO",
+    name: "Pim Smit",
+    role: "Co-Founder",
+    photo: "/team/pim.jpg",
     gradient: "from-violet-500 to-purple-400",
   },
   {
-    initials: "AI",
+    name: "Bink Sanders",
+    role: "Co-Founder",
+    photo: "/team/bink.jpg",
+    gradient: "from-ainomiq-blue to-blue-400",
+  },
+  {
     name: "Marco",
     role: "Operations Agent",
+    photo: null,
     gradient: "from-emerald-500 to-teal-400",
   },
   {
-    initials: "BS",
-    name: "Bink Sanders",
-    role: "Founder & CEO",
-    gradient: "from-ainomiq-blue to-blue-400",
-  },
-  {
-    initials: "PK",
-    name: "Pim Klaver",
-    role: "Co-founder & CTO",
+    name: "Pim Smit",
+    role: "Co-Founder",
+    photo: "/team/pim.jpg",
     gradient: "from-violet-500 to-purple-400",
   },
   {
-    initials: "AI",
+    name: "Bink Sanders",
+    role: "Co-Founder",
+    photo: "/team/bink.jpg",
+    gradient: "from-ainomiq-blue to-blue-400",
+  },
+  {
     name: "Marco",
     role: "Operations Agent",
+    photo: null,
     gradient: "from-emerald-500 to-teal-400",
   },
 ];
@@ -73,15 +73,24 @@ export function TeamSection() {
                 key={`${member.name}-${i}`}
               >
                 <div className="relative h-80 w-full overflow-hidden rounded-2xl border border-ainomiq-border bg-white">
-                  {/* Avatar with gradient */}
-                  <div
-                    className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${member.gradient} opacity-10 transition-opacity duration-300 group-hover:opacity-20`}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-6xl font-extrabold text-ainomiq-text-subtle/30 group-hover:text-ainomiq-text-subtle/50 transition-colors duration-300">
-                      {member.initials}
-                    </span>
-                  </div>
+                  {member.photo ? (
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${member.gradient} opacity-10 transition-opacity duration-300 group-hover:opacity-20`}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-6xl font-extrabold text-ainomiq-text-subtle/30 group-hover:text-ainomiq-text-subtle/50 transition-colors duration-300">
+                          {member.name.split(" ").map(w => w[0]).join("")}
+                        </span>
+                      </div>
+                    </>
+                  )}
                   <div className="absolute bottom-0 w-full rounded-b-2xl bg-white/90 backdrop-blur-sm p-4 border-t border-ainomiq-border">
                     <h3 className="font-semibold text-ainomiq-text">
                       {member.name}
@@ -104,13 +113,17 @@ export function TeamSection() {
             live within 2 weeks.&rdquo;
           </p>
           <div className="flex flex-col items-center gap-3">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ainomiq-blue-glow text-lg font-bold text-ainomiq-blue">
-              BS
+            <div className="h-14 w-14 overflow-hidden rounded-full bg-ainomiq-blue-glow">
+              <img
+                src="/team/bink.jpg"
+                alt="Bink Sanders"
+                className="h-full w-full object-cover"
+              />
             </div>
             <div className="text-center">
               <p className="font-semibold text-ainomiq-text">Bink Sanders</p>
               <p className="text-sm text-ainomiq-text-muted">
-                Founder & CEO &middot; Ainomiq
+                Co-Founder &middot; Ainomiq
               </p>
             </div>
           </div>
