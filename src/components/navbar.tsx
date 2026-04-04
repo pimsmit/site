@@ -186,8 +186,8 @@ export function Navbar() {
                       >
                         <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
                         <div>
-                          <div className="text-sm font-medium text-ainomiq-text-muted group-hover:text-ainomiq-text">{item.label}</div>
-                          <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                          <div className="text-sm font-semibold text-[#0f1b2d]">{item.label}</div>
+                          <div className="text-xs text-ainomiq-text-muted font-normal">{item.sub}</div>
                         </div>
                       </Link>
                     ))}
@@ -208,8 +208,8 @@ export function Navbar() {
                       >
                         <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
                         <div>
-                          <div className="text-sm font-medium text-ainomiq-text-muted group-hover:text-ainomiq-text">{item.label}</div>
-                          <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                          <div className="text-sm font-semibold text-[#0f1b2d]">{item.label}</div>
+                          <div className="text-xs text-ainomiq-text-muted font-normal">{item.sub}</div>
                         </div>
                       </Link>
                     ))}
@@ -232,8 +232,8 @@ export function Navbar() {
                     >
                       <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-ainomiq-text-muted">{item.label}</div>
-                        <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                        <div className="text-sm font-semibold text-[#0f1b2d]">{item.label}</div>
+                        <div className="text-xs text-ainomiq-text-muted font-normal">{item.sub}</div>
                       </div>
                     </Link>
                   ))}
