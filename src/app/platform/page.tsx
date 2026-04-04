@@ -159,7 +159,7 @@ export default function PlatformPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="mb-4 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-                Industry — E-commerce
+                E-commerce
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
                 Built for webshops that want to scale
