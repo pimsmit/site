@@ -23,23 +23,23 @@ import {
 import { cn } from "@/lib/utils";
 
 const productsEcommerce = [
-  { href: "/platform#customer-service", label: "Customer Service", icon: Headset },
-  { href: "/platform#smart-inventory", label: "Smart Inventory", icon: Package },
-  { href: "/platform#email-marketing", label: "E-mail Marketing", icon: Mail },
-  { href: "/platform", label: "See More", icon: ArrowRight },
+  { href: "/platform#customer-service", label: "Customer Service", sub: "24/7 AI support", icon: Headset },
+  { href: "/platform#smart-inventory", label: "Smart Inventory", sub: "Real-time stock tracking", icon: Package },
+  { href: "/platform#email-marketing", label: "E-mail Marketing", sub: "Automated campaigns", icon: Mail },
+  { href: "/platform", label: "See More", sub: "All features", icon: ArrowRight },
 ];
 
 const productsCustom = [
-  { href: "/enterprise#all-in-one", label: "All-in-one", icon: Layers },
-  { href: "/enterprise#chatbot", label: "Chatbot", icon: MessageCircle },
-  { href: "/enterprise#app", label: "App", icon: Smartphone },
-  { href: "/enterprise", label: "See More", icon: ArrowRight },
+  { href: "/enterprise#all-in-one", label: "All-in-one", sub: "Full automation suite", icon: Layers },
+  { href: "/enterprise#chatbot", label: "Chatbot", sub: "Website & WhatsApp", icon: MessageCircle },
+  { href: "/enterprise#app", label: "App", sub: "iOS / Playstore app", icon: Smartphone },
+  { href: "/enterprise", label: "See More", sub: "All solutions", icon: ArrowRight },
 ];
 
 const industries = [
-  { href: "/platform", label: "E-commerce", icon: ShoppingCart },
-  { href: "/enterprise", label: "Franchise", icon: Building2 },
-  { href: "/enterprise", label: "Facility Services", icon: Wrench },
+  { href: "/platform", label: "E-commerce", sub: "Webshops & DTC", icon: ShoppingCart },
+  { href: "/enterprise", label: "Franchise", sub: "Multi-location ops", icon: Building2 },
+  { href: "/enterprise", label: "Facility Services", sub: "Field & maintenance", icon: Wrench },
 ];
 
 const navLinks = [
@@ -182,10 +182,13 @@ export function Navbar() {
                       <Link
                         key={item.label}
                         href={item.href}
-                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-ainomiq-text-muted hover:text-ainomiq-text hover:bg-ainomiq-surface transition-colors"
+                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-ainomiq-surface transition-colors"
                       >
-                        <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0" />
-                        {item.label}
+                        <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
+                        <div>
+                          <div className="text-sm font-medium text-ainomiq-text-muted group-hover:text-ainomiq-text">{item.label}</div>
+                          <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                        </div>
                       </Link>
                     ))}
                   </div>
@@ -201,10 +204,13 @@ export function Navbar() {
                       <Link
                         key={item.label}
                         href={item.href}
-                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-ainomiq-text-muted hover:text-ainomiq-text hover:bg-ainomiq-surface transition-colors"
+                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-ainomiq-surface transition-colors"
                       >
-                        <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0" />
-                        {item.label}
+                        <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
+                        <div>
+                          <div className="text-sm font-medium text-ainomiq-text-muted group-hover:text-ainomiq-text">{item.label}</div>
+                          <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                        </div>
                       </Link>
                     ))}
                   </div>
@@ -222,10 +228,13 @@ export function Navbar() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-ainomiq-text-muted hover:text-ainomiq-text hover:bg-ainomiq-surface transition-colors"
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-ainomiq-surface transition-colors"
                     >
-                      <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0" />
-                      {item.label}
+                      <item.icon className="h-4 w-4 text-ainomiq-blue shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-medium text-ainomiq-text-muted">{item.label}</div>
+                        <div className="text-xs text-ainomiq-text-subtle">{item.sub}</div>
+                      </div>
                     </Link>
                   ))}
                 </div>
