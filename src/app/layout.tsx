@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s — Ainomiq",
   },
   description:
-    "AI automation app for e-commerce and enterprise. We build AI that works from day one.",
+    "Automation app for e-commerce and enterprise. We build systems that work from day one.",
   icons: {
     icon: "/logos/ainomiq-icon.png",
     apple: "/logos/ainomiq-icon.png",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ainomiq — Always Ahead",
     description:
-      "AI automation app for e-commerce and enterprise. We build AI that works from day one.",
+      "Automation app for e-commerce and enterprise. We build systems that work from day one.",
     siteName: "Ainomiq",
     locale: "en_US",
     type: "website",

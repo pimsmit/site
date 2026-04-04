@@ -23,7 +23,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const productsEcommerce = [
-  { href: "/platform#customer-service", label: "Customer Service", sub: "24/7 AI support", icon: Headset },
+  { href: "/platform#customer-service", label: "Customer Service", sub: "24/7 intelligent support", icon: Headset },
   { href: "/platform#smart-inventory", label: "Smart Inventory", sub: "Real-time stock tracking", icon: Package },
   { href: "/platform#email-marketing", label: "E-mail Marketing", sub: "Automated campaigns", icon: Mail },
   { href: "/platform", label: "See More", sub: "All features", icon: ArrowRight },

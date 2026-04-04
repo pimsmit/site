@@ -175,7 +175,7 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
       });
     });
 
-    // 3. Generic product patterns (fallback)
+    // 3. Generic product patterns (fallback from HTML)
     if (products.length === 0) {
       $(
         '[data-product], [data-product-id], [class*="product"][class*="card"], [class*="product"][class*="item"]'
@@ -204,6 +204,87 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
           url: linkHref ? resolveUrl(url, linkHref) : null,
         });
       });
+    }
+
+    // 4. Shopify /products.json API (most e-commerce sites use JS rendering so HTML selectors miss products)
+    if (products.length < 5) {
+      try {
+        const baseUrl = new URL(url).origin;
+        const shopifyRes = await fetch(`${baseUrl}/products.json?limit=30`, {
+          signal: AbortSignal.timeout(5000),
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            Accept: "application/json",
+          },
+        });
+        if (shopifyRes.ok) {
+          const json = await shopifyRes.json();
+          if (json.products && Array.isArray(json.products)) {
+            for (const p of json.products) {
+              if (products.length >= 30) break;
+              const name = p.title?.trim();
+              if (!name || seenNames.has(name.toLowerCase())) continue;
+              seenNames.add(name.toLowerCase());
+
+              const variant = p.variants?.[0];
+              const price = variant?.price
+                ? `${variant.price}`
+                : null;
+              const image = p.images?.[0]?.src || p.image?.src || null;
+
+              products.push({
+                name,
+                price,
+                image,
+                url: `${baseUrl}/products/${p.handle}`,
+              });
+            }
+          }
+        }
+      } catch {
+        // Not a Shopify store or endpoint unavailable — ignore
+      }
+    }
+
+    // 5. WooCommerce Store API (fallback for WordPress stores)
+    if (products.length < 5) {
+      try {
+        const baseUrl = new URL(url).origin;
+        const wooRes = await fetch(`${baseUrl}/wp-json/wc/store/products?per_page=30`, {
+          signal: AbortSignal.timeout(5000),
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            Accept: "application/json",
+          },
+        });
+        if (wooRes.ok) {
+          const wooProducts = await wooRes.json();
+          if (Array.isArray(wooProducts)) {
+            for (const p of wooProducts) {
+              if (products.length >= 30) break;
+              const name = p.name?.trim();
+              if (!name || seenNames.has(name.toLowerCase())) continue;
+              seenNames.add(name.toLowerCase());
+
+              const price = p.prices?.price
+                ? `${(parseInt(p.prices.price, 10) / 100).toFixed(2)}`
+                : null;
+              const image = p.images?.[0]?.src || null;
+
+              products.push({
+                name,
+                price,
+                image,
+                url: p.permalink || null,
+              });
+            }
+          }
+        }
+      } catch {
+        // Not a WooCommerce store — ignore
+      }
     }
 
     // Price range from all detected prices

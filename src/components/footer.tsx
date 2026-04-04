@@ -20,7 +20,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <LogoMark className="mb-4 block text-xl" />
             <p className="text-sm leading-relaxed text-ainomiq-text-subtle max-w-[28ch]">
-              AI automation that works. Built for businesses that want to move forward.
+              Automation that works. Built for businesses that want to move forward.
             </p>
           </div>
 

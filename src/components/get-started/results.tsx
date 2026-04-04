@@ -20,6 +20,8 @@ import {
   Instagram,
   Facebook,
   Youtube,
+  Copy,
+  Check,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -133,6 +135,40 @@ function categoryLabel(category: string) {
     case "analytics": return "Analytics";
     default: return "Other";
   }
+}
+
+function PromoCodePill() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("OPTIMIZEE25");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.7, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="flex items-center justify-center"
+    >
+      <button
+        onClick={handleCopy}
+        className="group inline-flex items-center gap-3 rounded-full border border-ainomiq-blue/20 bg-ainomiq-blue/5 px-5 py-2.5 transition-all hover:border-ainomiq-blue/40 hover:bg-ainomiq-blue/10 cursor-pointer"
+      >
+        <span className="text-xs text-ainomiq-text-muted">You're early — get 25% off</span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ainomiq-blue/10 px-3 py-1 text-xs font-bold tracking-wider text-ainomiq-blue">
+          OPTIMIZEE25
+          {copied ? (
+            <Check className="size-3 text-emerald-500" />
+          ) : (
+            <Copy className="size-3 opacity-50 group-hover:opacity-100 transition-opacity" />
+          )}
+        </span>
+      </button>
+    </motion.div>
+  );
 }
 
 export function Results({ analysis, manual }: ResultsProps) {
@@ -469,7 +505,7 @@ export function Results({ analysis, manual }: ResultsProps) {
                 <Badge className="mt-0.5">
                   {recommendation.plan === "Enterprise"
                     ? "Enterprise — custom pricing"
-                    : "App — from EUR 149/mo"}
+                    : "App — start free"}
                 </Badge>
               </div>
             </div>
@@ -477,6 +513,9 @@ export function Results({ analysis, manual }: ResultsProps) {
               {recommendation.summary}
             </p>
           </motion.div>
+
+          {/* Promo Code */}
+          {recommendation.plan !== "Enterprise" && <PromoCodePill />}
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pb-8">

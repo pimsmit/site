@@ -19,14 +19,14 @@ import {
 export const metadata: Metadata = {
   title: "Ecommerce Application",
   description:
-    "The Ainomiq AI app: intelligent modules working together to automate your e-commerce business.",
+    "The Ainomiq app: intelligent modules working together to automate your e-commerce business.",
 };
 
 const featuredModules = [
   {
     id: "customer-service",
     icon: Bot,
-    title: "AI Customer Service",
+    title: "Intelligent Customer Service",
     headline: "Your support team that never sleeps",
     description:
       "An intelligent agent that answers customer questions 24/7, handles returns, and identifies escalations. Trained on your products, tone of voice, and policies.",
@@ -45,9 +45,9 @@ const featuredModules = [
     title: "Smart Inventory",
     headline: "Predict demand before it happens",
     description:
-      "AI-driven forecasting that prevents stockouts and minimizes overstock. Real-time tracking across all your warehouses and sales channels.",
+      "Intelligent forecasting that prevents stockouts and minimizes overstock. Real-time tracking across all your warehouses and sales channels.",
     capabilities: [
-      "Demand forecasting with AI",
+      "Predictive demand forecasting",
       "Automatic reorder alerts",
       "Seasonal trend analysis",
       "Multi-warehouse sync",
@@ -61,9 +61,9 @@ const featuredModules = [
     title: "E-mail Marketing",
     headline: "Automated flows that convert",
     description:
-      "Personalized email flows from welcome to win-back. AI optimizes timing, subject lines, and content for maximum conversions.",
+      "Personalized email flows from welcome to win-back. Intelligently optimizes timing, subject lines, and content for maximum conversions.",
     capabilities: [
-      "AI-optimized send times",
+      "Optimized send times",
       "Dynamic personalization",
       "Automated A/B testing",
       "Smart segmentation",
@@ -165,12 +165,12 @@ export default function PlatformPage() {
                 Built for webshops that want to scale
               </h2>
               <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8">
-                Whether you sell 50 or 5,000 orders a day — our AI platform handles customer service, inventory, marketing, and analytics so you can focus on growing your brand.
+                Whether you sell 50 or 5,000 orders a day — our platform handles customer service, inventory, marketing, and analytics so you can focus on growing your brand.
               </p>
               <ul className="space-y-3">
                 {[
                   "Shopify, WooCommerce & custom integrations",
-                  "AI handles returns, tracking, and FAQs",
+                  "Automated handling of returns, tracking, and FAQs",
                   "Automated ad campaigns with ROAS optimization",
                   "Real-time profit and performance dashboards",
                 ].map((cap) => (

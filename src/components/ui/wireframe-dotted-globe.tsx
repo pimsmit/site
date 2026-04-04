@@ -16,6 +16,7 @@ interface WireframeGlobeProps {
   width?: number;
   height?: number;
   className?: string;
+  bgColor?: string;
 }
 
 const locations: { name: string; coords: [number, number]; isHQ?: boolean }[] =
@@ -126,6 +127,7 @@ export default function WireframeGlobe({
   width = 500,
   height = 500,
   className = "",
+  bgColor = "#ffffff",
 }: WireframeGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
@@ -172,7 +174,7 @@ export default function WireframeGlobe({
       // Globe bg
       context.beginPath();
       context.arc(cw / 2, ch / 2, scale, 0, 2 * Math.PI);
-      context.fillStyle = "#ffffff";
+      context.fillStyle = bgColor;
       context.fill();
       context.strokeStyle = BLUE_LIGHT;
       context.lineWidth = 1.5 * sf;

@@ -19,7 +19,7 @@ const teamMembers = [
   {
     initials: "AI",
     name: "Marco",
-    role: "AI Operations Agent",
+    role: "Operations Agent",
     gradient: "from-emerald-500 to-teal-400",
   },
   {
@@ -37,7 +37,7 @@ const teamMembers = [
   {
     initials: "AI",
     name: "Marco",
-    role: "AI Operations Agent",
+    role: "Operations Agent",
     gradient: "from-emerald-500 to-teal-400",
   },
 ];
@@ -56,7 +56,7 @@ export function TeamSection() {
             The people behind Ainomiq
           </h2>
           <p className="max-w-2xl text-ainomiq-text-muted">
-            A small, agile team that builds AI solutions every day that
+            A small, agile team that builds automation solutions every day that
             actually work. No overhead, no meetings — just results.
           </p>
         </div>
@@ -99,7 +99,7 @@ export function TeamSection() {
         {/* Quote */}
         <div className="mx-auto mt-20 max-w-3xl px-6 text-center lg:px-0">
           <p className="mb-8 text-lg font-medium leading-relaxed text-ainomiq-text md:text-xl">
-            &ldquo;We build AI that runs. No pilots that go nowhere,
+            &ldquo;We build automation that runs. No pilots that go nowhere,
             no reports that gather dust. Working solutions,
             live within 2 weeks.&rdquo;
           </p>

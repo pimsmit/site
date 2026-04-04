@@ -7,7 +7,7 @@ import { TestimonialsColumns } from "@/components/ui/testimonials-columns-1";
 export const metadata: Metadata = {
   title: "Get Started",
   description:
-    "Analyze your website and get a personalized AI automation recommendation from Ainomiq.",
+    "Analyze your website and get a personalized automation recommendation from Ainomiq.",
 };
 
 export default function GetStartedPage() {

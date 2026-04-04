@@ -37,7 +37,7 @@ export function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
       </h1>
 
       <p className="text-ainomiq-text-muted text-lg max-w-md">
-        Enter your website URL and we&apos;ll recommend the perfect AI setup for
+        Enter your website URL and we&apos;ll recommend the perfect automation setup for
         your business.
       </p>
 

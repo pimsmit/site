@@ -113,7 +113,7 @@ export function Entropy({ className }: { className?: string }) {
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 flex flex-col items-center justify-center py-24 px-6 text-center">
         <p className="text-lg md:text-xl font-medium text-ainomiq-text-muted max-w-lg italic">
-          &ldquo;Order from chaos &mdash; AI that makes sense of complexity.&rdquo;
+          &ldquo;Order from chaos &mdash; automation that makes sense of complexity.&rdquo;
         </p>
       </div>
     </div>

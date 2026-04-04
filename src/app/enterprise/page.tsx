@@ -25,7 +25,7 @@ import {
 export const metadata: Metadata = {
   title: "Custom Solutions",
   description:
-    "Custom AI solutions: all-in-one automation, chatbots, mobile apps, and more. Built for your business.",
+    "Custom solutions: all-in-one automation, chatbots, mobile apps, and more. Built for your business.",
 };
 
 const customSolutions = [
@@ -51,7 +51,7 @@ const customSolutions = [
     title: "Chatbot",
     headline: "Intelligent conversations, anywhere",
     description:
-      "AI-powered chatbots for your website, WhatsApp, Instagram, and more. Trained on your knowledge base, answering questions and converting visitors into customers 24/7.",
+      "Intelligent chatbots for your website, WhatsApp, Instagram, and more. Trained on your knowledge base, answering questions and converting visitors into customers 24/7.",
     capabilities: [
       "Website, WhatsApp & social media",
       "Trained on your products and FAQs",
@@ -67,12 +67,12 @@ const customSolutions = [
     title: "App",
     headline: "Your brand, in every pocket",
     description:
-      "Custom iOS and Android apps built with AI at the core. From loyalty programs to real-time order tracking — a mobile experience your customers will love.",
+      "Custom iOS and Android apps built with intelligence at the core. From loyalty programs to real-time order tracking — a mobile experience your customers will love.",
     capabilities: [
       "iOS & Android (Playstore)",
       "Push notifications & engagement",
       "Integrated with your backend",
-      "AI-powered personalization",
+      "Smart personalization",
     ],
     stat: "2",
     statLabel: "platforms, one codebase",
@@ -84,11 +84,11 @@ const moreSolutions = [
     icon: Cog,
     title: "Process Automation",
     description:
-      "Eliminate repetitive tasks. From data entry to reporting — AI automates what slows people down.",
+      "Eliminate repetitive tasks. From data entry to reporting — automate what slows people down.",
   },
   {
     icon: Users,
-    title: "AI Agents",
+    title: "Digital Workers",
     description:
       "Autonomous digital workers that independently execute tasks and collaborate with your team.",
   },
@@ -96,7 +96,7 @@ const moreSolutions = [
     icon: BarChart3,
     title: "Data Analytics",
     description:
-      "Real-time dashboards and predictive analytics. Better decisions based on AI-driven insights.",
+      "Real-time dashboards and predictive analytics. Better decisions based on data-driven insights.",
   },
   {
     icon: FileText,
@@ -106,9 +106,9 @@ const moreSolutions = [
   },
   {
     icon: Lightbulb,
-    title: "AI Strategy",
+    title: "Automation Strategy",
     description:
-      "Roadmap, feasibility analysis, and implementation strategy to make your AI vision concrete.",
+      "Roadmap, feasibility analysis, and implementation strategy to make your automation vision concrete.",
   },
 ];
 
@@ -139,7 +139,7 @@ const steps = [
   {
     num: "01",
     title: "Analysis",
-    body: "In-depth analysis of your processes, data, and systems to identify the biggest AI opportunities.",
+    body: "In-depth analysis of your processes, data, and systems to identify the biggest automation opportunities.",
   },
   {
     num: "02",
@@ -154,7 +154,7 @@ const steps = [
   {
     num: "04",
     title: "Optimization",
-    body: "Continuous monitoring, adjusting, and improving. Your AI systems get smarter every day.",
+    body: "Continuous monitoring, adjusting, and improving. Your systems get smarter every day.",
   },
 ];
 
@@ -260,11 +260,11 @@ export default function EnterprisePage() {
                 Scale across locations, not complexity
               </h2>
               <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8">
-                Franchise operations need consistency at scale. Our AI solutions standardize customer service, marketing, and operations across every location — while giving headquarters full visibility.
+                Franchise operations need consistency at scale. Our solutions standardize customer service, marketing, and operations across every location — while giving headquarters full visibility.
               </p>
               <ul className="space-y-3">
                 {[
-                  "Centralized AI customer service for all locations",
+                  "Centralized customer service for all locations",
                   "Automated marketing localized per region",
                   "Real-time performance dashboards per franchise",
                   "Standardized workflows, zero manual overhead",
@@ -307,7 +307,7 @@ export default function EnterprisePage() {
                 Automate the field, not just the office
               </h2>
               <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8">
-                From maintenance scheduling to field worker dispatch — AI that handles the operational complexity of facility services so your team can focus on delivering quality.
+                From maintenance scheduling to field worker dispatch — automation that handles the operational complexity of facility services so your team can focus on delivering quality.
               </p>
               <ul className="space-y-3">
                 {[
@@ -348,7 +348,7 @@ export default function EnterprisePage() {
           More enterprise solutions
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-12">
-          From process automation to AI strategy — we build what your business needs.
+          From process automation to strategy — we build what your business needs.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {moreSolutions.map((s) => (
@@ -420,7 +420,7 @@ export default function EnterprisePage() {
             Book a strategy call
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Discover in 45 minutes how AI can transform your organization. No
+            Discover in 45 minutes how automation can transform your organization. No
             obligations, completely confidential.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">

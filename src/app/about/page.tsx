@@ -16,7 +16,7 @@ const values = [
   {
     icon: Zap,
     title: "Always ahead",
-    body: "We run on the latest AI technology. What was cutting-edge yesterday is our baseline today.",
+    body: "We run on the latest technology. What was cutting-edge yesterday is our baseline today.",
   },
   {
     icon: BadgeCheck,
@@ -39,17 +39,17 @@ const timeline = [
   {
     year: "2025",
     title: "Ainomiq founded",
-    body: "Bink Sanders starts Ainomiq from the conviction that AI implementation can be faster, more practical, and more affordable.",
+    body: "Bink Sanders starts Ainomiq from the conviction that automation can be faster, more practical, and more affordable.",
   },
   {
     year: "2026",
     title: "First client: Domino's",
-    body: "Ainomiq begins building AI-driven store operations for Domino's franchisees.",
+    body: "Ainomiq begins building automated store operations for Domino's franchisees.",
   },
   {
     year: "2026",
     title: "App in development",
-    body: "The Ainomiq app is being built — six AI modules for e-commerce and enterprise.",
+    body: "The Ainomiq app is being built — six intelligent modules for e-commerce and enterprise.",
   },
   {
     year: "2026+",
@@ -72,7 +72,7 @@ export default function AboutPage() {
             <span className="gradient-text">Ainomiq</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl">
-            A young AI company that builds what works. No hype, no empty
+            A young automation company that builds what works. No hype, no empty
             promises — concrete solutions that move your business forward.
           </p>
         </div>
@@ -81,12 +81,12 @@ export default function AboutPage() {
       {/* Mission */}
       <Section label="Our mission" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Making AI accessible for every business
+          Making automation accessible for every business
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed">
-          AI doesn&apos;t have to be complicated or expensive. We make it practical,
+          Automation doesn&apos;t have to be complicated or expensive. We make it practical,
           affordable, and effective. Whether you run a webshop or lead an
-          enterprise — we build AI that works for you from day one.
+          enterprise — we build systems that work for you from day one.
         </p>
       </Section>
 

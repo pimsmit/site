@@ -5,14 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
 import Link from "next/link";
 import {
-  ShopifyLogo,
-  KlaviyoLogo,
-  GoogleLogo,
-  MetaLogo,
-  StripeLogo,
-  WooCommerceLogo,
-} from "@/components/brand-logos";
-import {
   Bot,
   BarChart3,
   Mail,
@@ -23,17 +15,17 @@ import {
 } from "lucide-react";
 
 const platformLogos = [
-  { name: "Shopify", icon: ShopifyLogo },
-  { name: "Meta", icon: MetaLogo },
-  { name: "Google", icon: GoogleLogo },
-  { name: "Klaviyo", icon: KlaviyoLogo },
-  { name: "Stripe", icon: StripeLogo },
-  { name: "WooCommerce", icon: WooCommerceLogo },
+  { name: "Shopify", src: "https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-456baa801ee66a0a435671082365958316831c9960c480f0571f007e7b127b53.svg" },
+  { name: "Meta", src: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
+  { name: "Google", src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "Klaviyo", src: "/logos/klaviyo.svg" },
+  { name: "Stripe", src: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" },
+  { name: "WooCommerce", src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/WooCommerce_logo.svg" },
 ];
 
 const integrations = [
   {
-    name: "AI Customer Service",
+    name: "Intelligent Customer Service",
     designation: "24/7 Support Agent",
     description: "Answers questions, resolves issues.",
     icon: <Bot className="h-5 w-5 text-ainomiq-blue" />,
@@ -49,12 +41,12 @@ const integrations = [
   {
     name: "Email Flows",
     designation: "Personalized Flows",
-    description: "From welcome to win-back, AI-driven.",
+    description: "From welcome to win-back, automated.",
     icon: <Mail className="h-5 w-5 text-violet-500" />,
     gradient: "from-violet-500/20 to-violet-600/5",
   },
   {
-    name: "Inventory AI",
+    name: "Smart Inventory",
     designation: "Demand Forecasting",
     description: "Predict demand, prevent stockouts.",
     icon: <Package className="h-5 w-5 text-amber-500" />,
@@ -82,61 +74,48 @@ export function PlatformHero() {
       <div className="overflow-hidden flex flex-col px-6 items-center justify-center">
         <GradientWave className="absolute inset-0 opacity-15" />
 
-        <div className="z-10 my-12 space-y-10 border border-ainomiq-border shadow-xl bg-white/80 backdrop-blur-sm rounded-xl p-8 lg:p-16 mx-auto max-w-7xl flex flex-col">
-          <div className="flex justify-center flex-col lg:flex-row items-center gap-6 lg:gap-10">
-            <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl lg:text-8xl text-center text-ainomiq-text">
-              AI{" "}
+        <div className="z-10 my-12 space-y-12 mx-auto max-w-4xl flex flex-col items-center text-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl lg:text-8xl text-ainomiq-text">
+              Smart{" "}
               <span className="gradient-text">Automations</span>
             </h1>
-            <p className="max-w-md text-sm text-ainomiq-text-muted text-center lg:text-left leading-relaxed">
-              Six AI modules that work together to automate your
-              e-commerce. From customer service to inventory — everything
-              on autopilot.
+            <p className="max-w-lg mx-auto text-base text-ainomiq-text-muted leading-relaxed">
+              Six intelligent modules that work together to automate your e-commerce. From customer service to inventory — everything on autopilot.
             </p>
           </div>
 
-          {/* Integration Logos Row */}
-          <div className="flex flex-col lg:flex-row items-center gap-10">
-            <div className="flex justify-center flex-wrap -space-x-4">
-              {platformLogos.map((platform) => (
-                <div
-                  key={platform.name}
-                  className="group relative bg-white border border-ainomiq-border shadow-md h-16 w-16 md:h-20 md:w-20 rounded-full p-3.5 md:p-4.5 flex items-center justify-center transition-transform duration-200 hover:scale-110 hover:z-10 cursor-pointer"
-                >
-                  <platform.icon className="h-7 w-7 md:h-8 md:w-8" />
-                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium text-ainomiq-text bg-white border border-ainomiq-border rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm pointer-events-none">
-                    {platform.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl lg:text-8xl text-center text-ainomiq-text">
-              Seamless{" "}
-              <span className="gradient-text">Integrations</span>
-            </h1>
+          {/* Integration Logos */}
+          <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
+            {platformLogos.map((platform) => (
+              <div
+                key={platform.name}
+                className="flex items-center justify-center h-6 md:h-7 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+              >
+                <img
+                  src={platform.src}
+                  alt={platform.name}
+                  className="max-h-full w-auto object-contain"
+                />
+              </div>
+            ))}
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end gap-8">
-            <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl lg:text-8xl text-center lg:text-left text-ainomiq-text">
-              Connect{" "}
-              <span className="gradient-text">&amp; Scale</span>
-            </h1>
-            <Button
-              asChild
-              className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-12 md:px-20 h-14 md:h-16 text-base md:text-lg font-semibold shadow-lg shadow-ainomiq-blue/25"
-            >
-              <Link href="/contact">
-                Get started <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+          <Button
+            asChild
+            className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-12 md:px-16 h-14 text-base font-semibold shadow-lg shadow-ainomiq-blue/25"
+          >
+            <Link href="/get-started">
+              Get started <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </div>
 
       {/* Integration Modules Marquee */}
       <div className="w-full z-10 relative flex flex-col items-center mt-8">
         <p className="text-center text-ainomiq-text-muted mb-8 text-base z-10 relative">
-          Six AI modules working together as one app
+          Six intelligent modules working together as one app
         </p>
         <Marquee className="w-full [--duration:50s] [--gap:2rem]">
           {integrations.map((item, index) => (

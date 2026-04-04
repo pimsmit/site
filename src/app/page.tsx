@@ -25,7 +25,7 @@ import { LocalizedPrice } from "@/components/localized-price";
 const features = [
   {
     icon: Bot,
-    title: "AI Customer Service",
+    title: "Intelligent Customer Service",
     description:
       "24/7 intelligent support that answers questions, resolves issues, and frees up your team.",
   },
@@ -39,13 +39,13 @@ const features = [
     icon: Mail,
     title: "Email Automation",
     description:
-      "Personalized flows that convert. From welcome to win-back, fully AI-driven.",
+      "Personalized flows that convert. From welcome to win-back, fully automated.",
   },
   {
     icon: Package,
     title: "Inventory Intelligence",
     description:
-      "Predict demand, prevent stockouts, and optimize inventory with AI forecasting.",
+      "Predict demand, prevent stockouts, and optimize inventory with predictive forecasting.",
   },
   {
     icon: Gauge,
@@ -113,12 +113,12 @@ export default function HomePage() {
       {/* Blog Posts Grid */}
       <BlogGrid
         title="Our Latest Insights"
-        description="Discover how AI is transforming businesses — from e-commerce automation to enterprise intelligence"
+        description="Discover how automation is transforming businesses — from e-commerce automation to enterprise intelligence"
         posts={[
           {
             id: 1,
-            title: "How AI Agents Are Replacing Traditional Customer Service",
-            category: "E-Commerce AI",
+            title: "How Automation Is Replacing Traditional Customer Service",
+            category: "E-Commerce",
             imageUrl:
               "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
             href: "#",
@@ -128,7 +128,7 @@ export default function HomePage() {
           },
           {
             id: 2,
-            title: "Enterprise AI: From Pilot to Production",
+            title: "Enterprise Automation: From Pilot to Production",
             category: "Enterprise",
             imageUrl:
               "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
@@ -139,7 +139,7 @@ export default function HomePage() {
           },
           {
             id: 3,
-            title: "The AI Academy Playbook",
+            title: "The Automation Academy Playbook",
             category: "Academy",
             imageUrl:
               "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80",
@@ -153,7 +153,7 @@ export default function HomePage() {
       />
 
       {/* Globe — Social Proof */}
-      <section className="py-24 px-6 overflow-hidden">
+      <section className="py-24 px-6 overflow-hidden bg-ainomiq-navy-light">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -164,7 +164,7 @@ export default function HomePage() {
                 Active in <span className="gradient-text">58 countries</span>
               </h2>
               <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8 max-w-lg">
-                Our AI solutions run for businesses worldwide. From
+                Our solutions run for businesses worldwide. From
                 Amsterdam to Berlin, from London to Madrid — optimized
                 for local markets.
               </p>
@@ -180,7 +180,7 @@ export default function HomePage() {
                     <AnimatedCounter end={24} suffix="/7" />
                   </div>
                   <div className="text-sm text-ainomiq-text-muted">
-                    AI Operations
+                    Automated Operations
                   </div>
                 </div>
                 <div>
@@ -200,7 +200,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex items-center justify-center">
-              <WireframeGlobe width={500} height={500} />
+              <WireframeGlobe width={500} height={500} bgColor="#f8fafc" />
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ export default function HomePage() {
           What makes us different
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Not a consultancy that writes reports. We build AI that runs.
+          Not a consultancy that writes reports. We build automation that runs.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
@@ -256,7 +256,7 @@ export default function HomePage() {
           Everything you need
         </h2>
         <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Six AI modules that work together to automate your business.
+          Six intelligent modules that work together to automate your business.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((feature) => (
@@ -290,7 +290,7 @@ export default function HomePage() {
       </Section>
 
       {/* Pricing */}
-      <Section label="Pricing" id="pricing" className="bg-ainomiq-navy-light">
+      <Section label="Pricing" id="pricing">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
           Simple pricing, no surprises
         </h2>
@@ -362,25 +362,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Final CTA */}
-      <section className="py-32 px-6 text-center">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Always <span className="gradient-text">ahead.</span>
-          </h2>
-          <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Book a free 30-minute strategy call. No sales pitch,
-            just real insights into the possibilities.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-10 h-12 text-base"
-          >
-            <Link href="/contact">Book a call</Link>
-          </Button>
-        </div>
-      </section>
     </>
   );
 }
