@@ -138,39 +138,49 @@ export default function HomePage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {/* Pim */}
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 h-56 w-56 overflow-hidden rounded-2xl bg-ainomiq-navy-light">
-                <img
-                  src="/team/pim.jpg"
-                  alt="Pim Smit"
-                  className="h-full w-full object-cover"
-                />
+            <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl">
+              <img
+                src="/team/pim.jpg"
+                alt="Pim Smit"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                <p className="text-sm font-semibold uppercase tracking-wider text-ainomiq-blue mb-2">
+                  Co-Founder
+                </p>
+                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
+                  Pim Smit
+                </h3>
+                <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-md">
+                  At the intersection of commerce and intelligence, translating
+                  what clients need into solutions that deliver.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-ainomiq-text">Pim Smit</h3>
-              <p className="text-sm text-ainomiq-blue font-medium mb-3">Co-Founder</p>
-              <p className="text-sm text-ainomiq-text-muted leading-relaxed max-w-xs">
-                At the intersection of commerce and intelligence, translating what
-                clients need into solutions that deliver.
-              </p>
             </div>
 
             {/* Bink */}
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-5 h-56 w-56 overflow-hidden rounded-2xl bg-ainomiq-navy-light">
-                <img
-                  src="/team/bink.jpg"
-                  alt="Bink Sanders"
-                  className="h-full w-full object-cover"
-                />
+            <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl">
+              <img
+                src="/team/bink.jpg"
+                alt="Bink Sanders"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                <p className="text-sm font-semibold uppercase tracking-wider text-ainomiq-blue mb-2">
+                  Co-Founder
+                </p>
+                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
+                  Bink Sanders
+                </h3>
+                <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-md">
+                  Sales, strategy and a deep understanding of automation.
+                  Converts complexity into growth.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-ainomiq-text">Bink Sanders</h3>
-              <p className="text-sm text-ainomiq-blue font-medium mb-3">Co-Founder</p>
-              <p className="text-sm text-ainomiq-text-muted leading-relaxed max-w-xs">
-                Sales, strategy and a deep understanding of automation. Converts
-                complexity into growth.
-              </p>
             </div>
           </div>
         </div>
