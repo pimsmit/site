@@ -15,6 +15,7 @@ export interface SiteAnalysis {
   url: string;
   title: string;
   description: string;
+  favicon: string | null;
   technologies: TechDetection[];
   hasEcommerce: boolean;
   estimatedScale: "small" | "medium" | "large";
@@ -40,7 +41,11 @@ export interface ServiceRecommendation {
 }
 
 export interface ManualAnswers {
-  platform: string;
-  orderVolume: string;
+  businessType: "ecommerce" | "service";
+  platform?: string;
+  orderVolume?: string;
+  industry?: string;
+  teamSize?: string;
+  description?: string;
   tools: string[];
 }

@@ -10,6 +10,7 @@ export interface ScrapedProduct {
 export interface ScrapedData {
   title: string;
   description: string;
+  favicon: string | null;
   html: string;
   scripts: string[];
   links: string[];
@@ -57,6 +58,14 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
     const title = $("title").first().text().trim();
     const description =
       $('meta[name="description"]').attr("content")?.trim() ?? "";
+
+    // Favicon extraction
+    const faviconHref =
+      $('link[rel="icon"]').attr("href") ||
+      $('link[rel="shortcut icon"]').attr("href") ||
+      $('link[rel="apple-touch-icon"]').attr("href") ||
+      null;
+    const favicon = faviconHref ? resolveUrl(url, faviconHref) : `${new URL(url).origin}/favicon.ico`;
 
     const scripts: string[] = [];
     $("script[src]").each((_, el) => {
@@ -361,6 +370,7 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
     return {
       title,
       description,
+      favicon,
       html,
       scripts,
       links,

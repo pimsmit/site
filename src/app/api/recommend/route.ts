@@ -3,27 +3,42 @@ import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import type { SiteAnalysis, ManualAnswers } from "@/lib/analysis-types";
 
-const SYSTEM_PROMPT = `You are Ainomiq's AI advisor. You recommend Ainomiq services based STRICTLY on scan data provided.
+const SYSTEM_PROMPT = `You are Ainomiq's advisor. You analyze a business website and recommend the RIGHT Ainomiq product line.
 
-Ainomiq services:
-1. 24/7 Support — AI customer service (email, phone, social media, chat). Saves 45-76% on support costs.
-2. Precise Performance — AI ad management (Meta, Google, TikTok). Saves 30-55% on ad costs.
-3. Mail Engine — AI email marketing (Klaviyo/Mailchimp). Saves 40-65% on email marketing costs.
-4. Smart Inventory — AI stock predictions & reorder alerts. Saves 25-50% on inventory costs.
+STEP 1 — CLASSIFY THE BUSINESS:
+Read the site title, description, body text, technologies, and products. Determine what type of business this is:
+- "ecommerce" — Online store selling physical/digital products (webshop, DTC brand, marketplace seller)
+- "service" — Service company (cleaning, catering, facility management, consulting, hospitality, healthcare, education, logistics, construction, etc.)
+- "hybrid" — Both products AND services
 
-CRITICAL RULES — FOLLOW EXACTLY:
-- ONLY mention technologies, tools, or platforms that appear in the "Technologies" field. If Google Ads is NOT in the Technologies list, do NOT mention Google Ads.
-- ONLY mention products that appear in the "Products" field. If no products were found, say "your product catalog" instead of naming specific products.
-- ONLY mention social platforms that appear in the "Social" field.
-- NEVER fabricate, assume, or infer technologies that were not detected. If Meta Pixel was not detected, do NOT say "you use Meta ads".
-- If a technology is NOT detected, the description should say what Ainomiq COULD do for them, not what they currently use.
-- For services where no relevant tech was detected, set relevance to "medium" or "low" and use lower savings %.
-- Services with detected matching tech (e.g., Klaviyo detected → Mail Engine is "high") get higher savings.
-- Keep descriptions to 1 sentence max. Be factual, not salesy.
+STEP 2 — RECOMMEND THE RIGHT PRODUCT LINE:
+
+IF businessType is "ecommerce" → recommend "App" with these 4 services:
+1. 24/7 Support (id: "support") — Automated customer service. Saves 45-76% on support costs.
+2. Precise Performance (id: "performance") — Automated ad management (Meta, Google, TikTok). Saves 30-55%.
+3. Mail Engine (id: "email") — Automated email marketing. Saves 40-65%.
+4. Smart Inventory (id: "inventory") — Stock predictions & reorder alerts. Saves 25-50%.
+
+IF businessType is "service" or "hybrid" → recommend "Custom Solutions" with these 4 services:
+1. All-in-one Automation (id: "automation") — Complete automation suite tailored to your operations.
+2. Chatbot (id: "chatbot") — Website & WhatsApp chatbot for customer communication.
+3. Custom App (id: "app") — Branded iOS & Android app for your business.
+4. Process Automation (id: "process") — Automate scheduling, invoicing, reporting, and workflows.
+
+For Custom Solutions: instead of savingsPercent, estimate hours saved per week (hoursPerWeek field).
+
+CRITICAL RULES:
+- ONLY mention technologies that appear in the scan data. Never fabricate.
+- If no products were found, don't name specific products.
+- Keep descriptions to 1 sentence, specific to THEIR business.
+- The "businessSummary" should be 1 sentence explaining what the business does.
 - Respond with ONLY valid JSON, no markdown, no code fences.
 
-JSON format:
-{"services":[{"id":"support","name":"24/7 Support","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"performance","name":"Precise Performance","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"email","name":"Mail Engine","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"inventory","name":"Smart Inventory","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"}],"summary":"STRING","plan":"App|Enterprise"}`;
+JSON format for E-COMMERCE (plan: "App"):
+{"businessType":"ecommerce","businessSummary":"STRING","services":[{"id":"support","name":"24/7 Support","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"performance","name":"Precise Performance","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"email","name":"Mail Engine","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"inventory","name":"Smart Inventory","savingsPercent":NUMBER,"description":"STRING","relevance":"high|medium|low"}],"summary":"STRING","plan":"App"}
+
+JSON format for SERVICE/HYBRID (plan: "Custom Solutions"):
+{"businessType":"service","businessSummary":"STRING","services":[{"id":"automation","name":"All-in-one Automation","hoursPerWeek":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"chatbot","name":"Chatbot","hoursPerWeek":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"app","name":"Custom App","hoursPerWeek":NUMBER,"description":"STRING","relevance":"high|medium|low"},{"id":"process","name":"Process Automation","hoursPerWeek":NUMBER,"description":"STRING","relevance":"high|medium|low"}],"summary":"STRING","plan":"Custom Solutions"}`;
 
 export async function POST(request: NextRequest) {
   try {
@@ -70,17 +85,19 @@ Pages: ${analysis.pageCount}
 Social channels: ${analysis.socialPresence.join(", ") || "None detected"}
 Contact: ${analysis.contactEmail || "none"}, ${analysis.contactPhone || "none"}
 
-IMPORTANT: If a technology is listed as "NONE", do NOT claim they use it. Only reference what is listed above.
+BODY TEXT (use this to understand what kind of business this is):
+${analysis.bodyTextSummary || "No body text available"}
 
-PLAN SELECTION RULES:
-- Default to "App" for almost everyone. The App plan covers 99% of businesses.
-- ONLY recommend "Enterprise" if the business is clearly a franchise (like Domino's, McDonald's) OR an e-commerce brand doing 5M+ per month revenue.
-- If in doubt, recommend "App".`;
+IMPORTANT: If a technology is listed as "NONE", do NOT claim they use it. Only reference what is listed above.
+First determine if this is an e-commerce store or a service business based on the body text, title, products, and technologies. Then recommend the matching product line.`;
     } else if (manual) {
-      userPrompt = `Recommend services based on:
-Platform: ${manual.platform}
-Monthly orders: ${manual.orderVolume}
-Tools: ${manual.tools.join(", ") || "None"}`;
+      userPrompt = `Recommend services based on manual input:
+Business type: ${manual.businessType || "unknown"}
+${manual.businessType === "service" ? `Industry: ${manual.industry || "Not specified"}
+Team size: ${manual.teamSize || "Not specified"}` : `Platform: ${manual.platform || "Not specified"}
+Monthly orders: ${manual.orderVolume || "Not specified"}`}
+Tools: ${manual.tools?.join(", ") || "None"}
+Description: ${manual.description || "Not provided"}`;
     } else {
       return NextResponse.json({ error: "Missing data" }, { status: 400 });
     }

@@ -22,6 +22,12 @@ import {
   Youtube,
   Copy,
   Check,
+  Layers,
+  MessageCircle,
+  Smartphone,
+  Workflow,
+  Clock,
+  Building2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -32,7 +38,7 @@ interface ResultsProps {
   manual?: ManualAnswers;
 }
 
-interface ServiceData {
+interface EcommerceServiceData {
   id: string;
   name: string;
   savingsPercent: number;
@@ -40,24 +46,50 @@ interface ServiceData {
   relevance: "high" | "medium" | "low";
 }
 
-interface RecommendationData {
-  services: ServiceData[];
-  summary: string;
-  plan: "App" | "Enterprise";
+interface CustomServiceData {
+  id: string;
+  name: string;
+  hoursPerWeek: number;
+  description: string;
+  relevance: "high" | "medium" | "low";
 }
 
-const serviceIcons: Record<string, typeof Bot> = {
+type ServiceData = EcommerceServiceData | CustomServiceData;
+
+interface RecommendationData {
+  businessType: "ecommerce" | "service" | "hybrid";
+  businessSummary: string;
+  services: ServiceData[];
+  summary: string;
+  plan: "App" | "Custom Solutions";
+}
+
+const ecommerceIcons: Record<string, typeof Bot> = {
   support: Bot,
   performance: BarChart3,
   email: Mail,
   inventory: Package,
 };
 
-const serviceColors: Record<string, string> = {
+const customIcons: Record<string, typeof Layers> = {
+  automation: Layers,
+  chatbot: MessageCircle,
+  app: Smartphone,
+  process: Workflow,
+};
+
+const ecommerceColors: Record<string, string> = {
   support: "from-blue-500 to-blue-600",
   performance: "from-violet-500 to-violet-600",
   email: "from-emerald-500 to-emerald-600",
   inventory: "from-amber-500 to-amber-600",
+};
+
+const customColors: Record<string, string> = {
+  automation: "from-indigo-500 to-indigo-600",
+  chatbot: "from-sky-500 to-sky-600",
+  app: "from-rose-500 to-rose-600",
+  process: "from-teal-500 to-teal-600",
 };
 
 const socialIcons: Record<string, typeof Instagram> = {
@@ -157,7 +189,7 @@ function PromoCodePill() {
         onClick={handleCopy}
         className="group inline-flex items-center gap-3 rounded-full border border-ainomiq-blue/20 bg-ainomiq-blue/5 px-5 py-2.5 transition-all hover:border-ainomiq-blue/40 hover:bg-ainomiq-blue/10 cursor-pointer"
       >
-        <span className="text-xs text-ainomiq-text-muted">You're early — get 25% off</span>
+        <span className="text-xs text-ainomiq-text-muted">You&apos;re early — get 25% off</span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-ainomiq-blue/10 px-3 py-1 text-xs font-bold tracking-wider text-ainomiq-blue">
           OPTIMIZEE25
           {copied ? (
@@ -169,6 +201,10 @@ function PromoCodePill() {
       </button>
     </motion.div>
   );
+}
+
+function isEcommerceService(service: ServiceData): service is EcommerceServiceData {
+  return "savingsPercent" in service;
 }
 
 export function Results({ analysis, manual }: ResultsProps) {
@@ -220,6 +256,7 @@ export function Results({ analysis, manual }: ResultsProps) {
   const techs = analysis?.technologies ?? [];
   const products = analysis?.products ?? [];
   const visibleProducts = showAllProducts ? products : products.slice(0, 8);
+  const isCustom = recommendation?.plan === "Custom Solutions";
 
   return (
     <motion.div
@@ -237,14 +274,28 @@ export function Results({ analysis, manual }: ResultsProps) {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-4 rounded-2xl border border-ainomiq-border bg-white p-5 shadow-sm"
         >
-          <div className="flex size-12 items-center justify-center rounded-xl bg-ainomiq-blue/10 flex-shrink-0">
-            <Globe className="size-6 text-ainomiq-blue" />
+          <div className="flex size-12 items-center justify-center rounded-xl bg-ainomiq-blue/10 flex-shrink-0 overflow-hidden">
+            {analysis.favicon ? (
+              <img
+                src={analysis.favicon}
+                alt=""
+                className="size-7 object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-6 text-ainomiq-blue"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`;
+                }}
+              />
+            ) : (
+              <Globe className="size-6 text-ainomiq-blue" />
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-semibold text-ainomiq-text truncate">{analysis.title || analysis.url}</h2>
-            {analysis.description && (
+            {recommendation?.businessSummary ? (
+              <p className="text-xs text-ainomiq-text-muted mt-0.5 line-clamp-2">{recommendation.businessSummary}</p>
+            ) : analysis.description ? (
               <p className="text-xs text-ainomiq-text-muted mt-0.5 line-clamp-2">{analysis.description}</p>
-            )}
+            ) : null}
           </div>
           <a
             href={analysis.url}
@@ -261,7 +312,7 @@ export function Results({ analysis, manual }: ResultsProps) {
       {analysis && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Products", value: products.length, icon: ShoppingBag, show: true },
+            { label: "Products", value: products.length, icon: ShoppingBag, show: products.length > 0 },
             { label: "Pages", value: analysis.pageCount, icon: Link2, show: analysis.pageCount > 0 },
             { label: "Social channels", value: analysis.socialPresence.length, icon: Instagram, show: analysis.socialPresence.length > 0 },
             { label: "FAQ items", value: analysis.faqItems.length, icon: MessageCircleQuestion, show: analysis.faqItems.length > 0 },
@@ -405,13 +456,13 @@ export function Results({ analysis, manual }: ResultsProps) {
       {/* Divider */}
       <div className="h-px bg-ainomiq-border" />
 
-      {/* Service Savings Cards */}
+      {/* Loading */}
       {isLoading && (
         <div className="flex flex-col items-center gap-4 py-12">
           <div className="flex size-12 items-center justify-center rounded-full bg-ainomiq-blue/10">
             <Sparkles className="size-6 text-ainomiq-blue animate-pulse" />
           </div>
-          <p className="text-ainomiq-text-muted text-sm">Calculating your savings...</p>
+          <p className="text-ainomiq-text-muted text-sm">Analyzing your business...</p>
         </div>
       )}
 
@@ -429,16 +480,20 @@ export function Results({ analysis, manual }: ResultsProps) {
           <div>
             <h3 className="text-sm font-semibold text-ainomiq-text mb-2 flex items-center gap-2">
               <span className="size-1.5 rounded-full bg-ainomiq-blue" />
-              Your estimated monthly savings
+              {isCustom ? "What we can build for you" : "Your estimated monthly savings"}
             </h3>
             <p className="text-xs text-ainomiq-text-muted mb-5">
-              Based on everything we found on your site — here&apos;s what Ainomiq can save you.
+              {isCustom
+                ? "Based on your business — here's how Ainomiq can automate your operations."
+                : "Based on everything we found on your site — here's what Ainomiq can save you."}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {recommendation.services.map((service, i) => {
-                const Icon = serviceIcons[service.id] || Sparkles;
-                const gradient = serviceColors[service.id] || "from-blue-500 to-blue-600";
+                const icons = isCustom ? customIcons : ecommerceIcons;
+                const colors = isCustom ? customColors : ecommerceColors;
+                const Icon = icons[service.id] || Sparkles;
+                const gradient = colors[service.id] || "from-blue-500 to-blue-600";
 
                 return (
                   <motion.div
@@ -471,13 +526,27 @@ export function Results({ analysis, manual }: ResultsProps) {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="flex items-center gap-1 text-ainomiq-blue">
-                          <TrendingDown className="size-4" />
-                          <span className="text-2xl font-bold">
-                            <AnimatedNumber target={service.savingsPercent} delay={400 + i * 150} />
-                          </span>
-                        </div>
-                        <p className="text-[10px] text-ainomiq-text-muted">monthly savings</p>
+                        {isEcommerceService(service) ? (
+                          <>
+                            <div className="flex items-center gap-1 text-ainomiq-blue">
+                              <TrendingDown className="size-4" />
+                              <span className="text-2xl font-bold">
+                                <AnimatedNumber target={service.savingsPercent} delay={400 + i * 150} />
+                              </span>
+                            </div>
+                            <p className="text-[10px] text-ainomiq-text-muted">monthly savings</p>
+                          </>
+                        ) : (
+                          <>
+                            <div className="flex items-center gap-1 text-ainomiq-blue">
+                              <Clock className="size-4" />
+                              <span className="text-2xl font-bold">
+                                <AnimatedNumber target={(service as CustomServiceData).hoursPerWeek} delay={400 + i * 150} suffix="h" />
+                              </span>
+                            </div>
+                            <p className="text-[10px] text-ainomiq-text-muted">saved per week</p>
+                          </>
+                        )}
                       </div>
                     </div>
                     <p className="text-xs text-ainomiq-text-muted leading-relaxed">
@@ -503,8 +572,8 @@ export function Results({ analysis, manual }: ResultsProps) {
               <div>
                 <h3 className="text-base font-semibold text-ainomiq-text">Our recommendation</h3>
                 <Badge className="mt-0.5">
-                  {recommendation.plan === "Enterprise"
-                    ? "Enterprise — custom pricing"
+                  {isCustom
+                    ? "Custom Solutions — tailored to your business"
                     : "App — start free"}
                 </Badge>
               </div>
@@ -514,17 +583,17 @@ export function Results({ analysis, manual }: ResultsProps) {
             </p>
           </motion.div>
 
-          {/* Promo Code */}
-          {recommendation.plan !== "Enterprise" && <PromoCodePill />}
+          {/* Promo Code — only for App */}
+          {!isCustom && <PromoCodePill />}
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pb-8">
-            {recommendation.plan === "Enterprise" ? (
+            {isCustom ? (
               <a
                 href="/contact"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-ainomiq-blue px-8 text-sm font-medium text-white transition-all hover:bg-ainomiq-blue-hover shadow-sm"
               >
-                Request Enterprise Demo
+                Book a free consultation
                 <ArrowRight className="size-4" />
               </a>
             ) : (

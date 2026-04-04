@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
       url,
       title: data.title,
       description: data.description,
+      favicon: data.favicon,
       technologies,
       hasEcommerce,
       estimatedScale,
