@@ -15,12 +15,15 @@ import {
 } from "lucide-react";
 
 const platformLogos = [
-  { name: "Shopify", src: "https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-456baa801ee66a0a435671082365958316831c9960c480f0571f007e7b127b53.svg" },
-  { name: "Meta", src: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
-  { name: "Google", src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "Shopify", src: "https://cdn.simpleicons.org/shopify" },
+  { name: "Facebook", src: "https://cdn.simpleicons.org/facebook" },
+  { name: "Instagram", src: "https://cdn.simpleicons.org/instagram" },
+  { name: "Meta", src: "https://cdn.simpleicons.org/meta" },
+  { name: "TikTok", src: "https://cdn.simpleicons.org/tiktok" },
+  { name: "Snapchat", src: "https://cdn.simpleicons.org/snapchat" },
+  { name: "Google", src: "https://cdn.simpleicons.org/google" },
+  { name: "Google Ads", src: "https://cdn.simpleicons.org/googleads" },
   { name: "Klaviyo", src: "/logos/klaviyo.svg" },
-  { name: "Stripe", src: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" },
-  { name: "WooCommerce", src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/WooCommerce_logo.svg" },
 ];
 
 const integrations = [
@@ -85,19 +88,23 @@ export function PlatformHero() {
             </p>
           </div>
 
-          {/* Integration Logos */}
-          <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
+          {/* Integration Icons */}
+          <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
             {platformLogos.map((platform) => (
-              <div
+              <Button
                 key={platform.name}
-                className="flex items-center justify-center h-6 md:h-7 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                variant="outline"
+                size="icon"
+                type="button"
+                aria-label={platform.name}
+                className="rounded-lg hover:scale-110 transition-all duration-300 cursor-pointer"
               >
                 <img
                   src={platform.src}
-                  alt={platform.name}
-                  className="max-h-full w-auto object-contain"
+                  alt={`${platform.name} icon`}
+                  className="h-4 w-4"
                 />
-              </div>
+              </Button>
             ))}
           </div>
 
