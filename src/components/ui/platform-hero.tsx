@@ -84,7 +84,7 @@ export function PlatformHero() {
               <span className="gradient-text">Automations</span>
             </h1>
             <p className="max-w-xl mx-auto text-base text-ainomiq-text-muted leading-relaxed">
-              Connects to your Shopify, Meta, Google, and Klaviyo stack — and takes over the manual work your team does by hand. Lower ops costs, fewer tools, one system.
+              Connects to every tool in your stack and takes over the manual work your team does by hand. Lower ops costs, fewer tools to manage, one system.
             </p>
           </div>
 
