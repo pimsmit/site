@@ -15,24 +15,37 @@ export const metadata: Metadata = {
 const values = [
   {
     icon: Zap,
+    num: "01",
     title: "Just get it done",
-    body: "We run on the latest technology. What was cutting-edge yesterday is our baseline today.",
+    body: "We value decisive action and speed over prolonged deliberation and planning.",
   },
   {
     icon: BadgeCheck,
+    num: "02",
     title: "Invent what customers want",
-    body: "Everything we build must have measurable impact. No reports that end up in a drawer.",
+    body: "Our core identity must always be rooted in building for our customers; this has been the foundation of our success.",
   },
   {
     icon: Info,
+    num: "03",
     title: "Winner's mindset",
-    body: "We say what's possible and what isn't. No hidden costs, no unrealistic promises.",
+    body: "Fiercely competitive nature and fighting spirit are foundational.",
   },
   {
     icon: Clock,
+    num: "04",
     title: "The Polymath Principle",
-    body: "Two-week implementation isn't marketing speak. We build fast because we carry no legacy.",
+    body: "The best team members understand other functions deeply and promote cross-functional collaboration.",
   },
+];
+
+const benefits = [
+  { title: "Remote-first", icon: "🌍", body: "Work from anywhere. Results matter, not where your desk is." },
+  { title: "Competitive pay", icon: "💰", body: "We hire the best and compensate accordingly." },
+  { title: "Latest AI tools", icon: "🧠", body: "Work with cutting-edge AI every single day. We don't just follow — we build." },
+  { title: "Flexible PTO", icon: "🏖️", body: "Take what you need. We trust you to manage your time." },
+  { title: "Equity", icon: "📈", body: "Share in the upside. Early team members get meaningful ownership." },
+  { title: "Growth budget", icon: "📚", body: "Courses, conferences, books — invest in yourself on us." },
 ];
 
 
@@ -131,25 +144,41 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      {/* Values */}
-      <Section label="Our values" className="bg-ainomiq-navy-light">
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-16">
-          What we stand for
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {values.map((v) => (
-            <Card
-              key={v.title}
-              className="bg-white border-ainomiq-border text-center"
-            >
-              <CardContent className="p-6">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-ainomiq-blue-glow">
-                  <v.icon className="h-6 w-6 text-ainomiq-blue" />
+      {/* Values — Decagon-style interactive */}
+      <section className="relative w-full bg-ainomiq-text py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/50">Our values</span>
+          <div className="mt-16 grid md:grid-cols-2 gap-16">
+            <div className="space-y-6">
+              {values.map((v, i) => (
+                <div key={v.num} className="group cursor-default">
+                  <div className="flex items-center gap-4">
+                    <span className={`text-sm font-mono ${i === 0 ? 'text-white' : 'text-white/40'} group-hover:text-white transition-colors`}>{v.num}</span>
+                    <span className={`text-xl md:text-2xl font-bold tracking-tight ${i === 0 ? 'text-white' : 'text-white/40'} group-hover:text-white transition-colors`}>{v.title}</span>
+                  </div>
+                  <p className="mt-2 pl-10 text-sm text-white/0 group-hover:text-white/60 transition-colors max-w-md leading-relaxed">{v.body}</p>
                 </div>
-                <h3 className="font-bold mb-2">{v.title}</h3>
-                <p className="text-sm text-ainomiq-text-muted leading-relaxed">
-                  {v.body}
-                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <Section label="Benefits">
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+          Great work deserves great benefits
+        </h2>
+        <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed mb-12">
+          We take care of our team so they can focus on building.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {benefits.map((b) => (
+            <Card key={b.title} className="bg-white border-ainomiq-border">
+              <CardContent className="p-6">
+                <span className="text-2xl mb-3 block">{b.icon}</span>
+                <h3 className="font-bold mb-2">{b.title}</h3>
+                <p className="text-sm text-ainomiq-text-muted leading-relaxed">{b.body}</p>
               </CardContent>
             </Card>
           ))}
@@ -166,39 +195,51 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      {/* Open Positions */}
-      <Section label="Open positions">
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-12">
-          Join our team
-        </h2>
-        <div className="flex flex-col gap-12 max-w-2xl">
-          <div>
-            <h3 className="text-lg font-bold border-b border-ainomiq-border pb-3 mb-0">Engineering</h3>
+      {/* Open Positions — Decagon-style with arrows */}
+      <section id="jobs" className="py-24 px-6 bg-ainomiq-navy-light">
+        <div className="mx-auto max-w-6xl">
+          <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Open positions</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-4 mb-12">We&apos;re hiring</h2>
+          <div className="space-y-12">
             {[
-              { title: "AI Engineer", location: "Remote" },
-              { title: "Full-Stack Developer", location: "Remote" },
-              { title: "Backend Developer (Python)", location: "Remote" },
-            ].map((job) => (
-              <div key={job.title} className="flex items-center justify-between border-b border-ainomiq-border py-4">
-                <Link href="/contact" className="font-semibold hover:text-ainomiq-blue transition-colors">{job.title}</Link>
-                <span className="text-xs font-medium text-ainomiq-text-muted border border-ainomiq-border rounded-full px-3 py-1">{job.location}</span>
-              </div>
-            ))}
-          </div>
-          <div>
-            <h3 className="text-lg font-bold border-b border-ainomiq-border pb-3 mb-0">Growth</h3>
-            {[
-              { title: "Sales & Partnerships", location: "Netherlands" },
-              { title: "Marketing & Content", location: "Remote" },
-            ].map((job) => (
-              <div key={job.title} className="flex items-center justify-between border-b border-ainomiq-border py-4">
-                <Link href="/contact" className="font-semibold hover:text-ainomiq-blue transition-colors">{job.title}</Link>
-                <span className="text-xs font-medium text-ainomiq-text-muted border border-ainomiq-border rounded-full px-3 py-1">{job.location}</span>
+              {
+                dept: "Engineering",
+                jobs: [
+                  { title: "AI Engineer", location: "Remote" },
+                  { title: "Full-Stack Developer", location: "Remote" },
+                  { title: "Backend Developer (Python)", location: "Remote" },
+                ],
+              },
+              {
+                dept: "Growth",
+                jobs: [
+                  { title: "Sales & Partnerships", location: "Netherlands" },
+                  { title: "Marketing & Content", location: "Remote" },
+                ],
+              },
+            ].map((dept) => (
+              <div key={dept.dept}>
+                <h3 className="text-lg font-bold mb-0 pb-4 border-b border-ainomiq-border">{dept.dept}</h3>
+                {dept.jobs.map((job) => (
+                  <Link
+                    key={job.title}
+                    href="/contact"
+                    className="flex items-center justify-between py-4 border-b border-ainomiq-border group"
+                  >
+                    <span className="font-semibold group-hover:text-ainomiq-blue transition-colors">{job.title}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-ainomiq-text-muted">{job.location}</span>
+                      <svg className="w-5 h-5 text-ainomiq-text-muted group-hover:text-ainomiq-blue transition-colors" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M13.48 10.83H3.33V9.17h10.15L8.81 4.5 10 3.33l6.67 6.67L10 16.67l-1.19-1.17 4.67-4.67z" />
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
               </div>
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* CTA */}
       <section className="py-32 px-6 text-center bg-ainomiq-navy-light">
