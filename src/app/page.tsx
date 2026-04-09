@@ -117,7 +117,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-              Our Latest Insights
+              Why ainomiq?
             </div>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
               Meet the Founders
@@ -125,8 +125,6 @@ export default function HomePage() {
             <p className="text-ainomiq-text-muted text-lg leading-relaxed max-w-2xl mx-auto mb-8">
               Ainomiq started with two childhood friends who shared the same obsession: AI.
               Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
-              Both started small, automating parts of their own work. Over time, those small
-              automations turned into something bigger. Entire processes running on autopilot.
             </p>
             <Button
               asChild
