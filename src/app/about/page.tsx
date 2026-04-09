@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -74,6 +75,73 @@ export default function AboutPage() {
             A young automation company that builds what works. No hype, no empty
             promises — concrete solutions that move your business forward.
           </p>
+        </div>
+      </section>
+
+      {/* Our Story */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
+            Our Story
+          </div>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Text */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
+                Two friends, one obsession
+              </h2>
+              <div className="space-y-4 text-ainomiq-text-muted text-lg leading-relaxed">
+                <p>
+                  Ainomiq started with two childhood friends who shared the same obsession: AI.
+                  Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
+                  Both started small, automating parts of their own work. Over time, those small
+                  automations turned into something bigger. Entire processes running on autopilot.
+                  Teams getting smaller because the systems did the heavy lifting.
+                </p>
+                <p>
+                  That&apos;s when it clicked. If we can do this for ourselves, we can do this for others.
+                </p>
+                <p>
+                  Ainomiq was born from that moment. Two friends, built on mutual respect and a shared
+                  belief that AI isn&apos;t just a tool, it&apos;s the foundation of how businesses will run.
+                  We started Ainomiq with one conviction: to build the next generation of AI systems.
+                  Not something you get delivered and is outdated in six months. We build alongside you
+                  and keep optimizing, every single day.
+                </p>
+              </div>
+            </div>
+            {/* Portraits */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+                  <Image
+                    src="/team/bink.jpg"
+                    alt="Bink Sanders"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="font-bold text-ainomiq-text">Bink Sanders</p>
+                  <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+                  <Image
+                    src="/team/pim.jpg"
+                    alt="Pim Smit"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="font-bold text-ainomiq-text">Pim Smit</p>
+                  <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
