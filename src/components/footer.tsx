@@ -86,10 +86,24 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 border-t border-ainomiq-border pt-6 text-center">
+        <div className="mt-16 border-t border-ainomiq-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-ainomiq-text-subtle">
             &copy; {new Date().getFullYear()} Ainomiq. All rights reserved.
           </span>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy"
+              className="text-xs text-ainomiq-text-subtle transition-colors hover:text-ainomiq-text"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-ainomiq-text-subtle transition-colors hover:text-ainomiq-text"
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
