@@ -61,25 +61,8 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-40 pb-20 px-6">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-            About Ainomiq
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            We are{" "}
-            <span className="gradient-text">Ainomiq</span>
-          </h1>
-          <p className="text-lg text-ainomiq-text-muted max-w-2xl">
-            A young automation company that builds what works. No hype, no empty
-            promises — concrete solutions that move your business forward.
-          </p>
-        </div>
-      </section>
-
       {/* Our Story */}
-      <section className="py-24 px-6">
+      <section className="pt-40 pb-24 px-6">
         <div className="mx-auto max-w-6xl">
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
             Our Story
