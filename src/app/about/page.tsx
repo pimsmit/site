@@ -143,6 +143,16 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      {/* Mission and Impact */}
+      <Section label="Mission and Impact">
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+          Bringing every business into the age of AI
+        </h2>
+        <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed">
+          Every business deserves to benefit from AI, not just the ones with big budgets or tech teams. We&apos;re here to change that. By building smart, evolving systems that make AI work for businesses of any size, we help companies compete in a world that&apos;s changing faster than ever.
+        </p>
+      </Section>
+
       {/* Values */}
       <Section label="Our values" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-16">
