@@ -65,18 +65,66 @@ export default function AboutPage() {
       <section className="pt-40 pb-24 px-6">
         <div className="mx-auto max-w-6xl">
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-            Why Ainomiq
+            Our Story
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            AI moves fast. We move{" "}
-            <span className="gradient-text">faster.</span>
-          </h1>
-          <p className="text-lg text-ainomiq-text-muted max-w-2xl leading-relaxed">
-            At Ainomiq, staying ahead isn&apos;t a goal, it&apos;s how we work. Our team tests and applies new technology every single day, so everything we deliver uses what works best right now.
-          </p>
-          <p className="text-lg text-ainomiq-text-muted max-w-2xl leading-relaxed mt-4">
-            And we keep it that way. Because AI evolves fast, your systems should too. Everything we build is designed to grow, adapt, and keep optimizing as the technology moves forward. That&apos;s what makes Ainomiq different. Not just a one-time solution, but a system that stays ahead.
-          </p>
+          <div className="grid md:grid-cols-2 gap-12 items-stretch">
+            {/* Text */}
+            <div className="flex flex-col">
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
+                Two friends, one obsession
+              </h2>
+              <div className="space-y-4 text-ainomiq-text-muted text-lg leading-relaxed">
+                <p>
+                  Ainomiq started with two childhood friends who shared the same obsession: AI.
+                  Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
+                  Both started small, automating parts of their own work. Over time, those small
+                  automations turned into something bigger. Entire processes running on autopilot.
+                  Teams getting smaller because the systems did the heavy lifting.
+                </p>
+                <p>
+                  That&apos;s when it clicked. If we can do this for ourselves, we can do this for others.
+                </p>
+                <p>
+                  Ainomiq was born from that moment. Two friends, built on mutual respect and a shared
+                  belief that AI isn&apos;t just a tool, it&apos;s the foundation of how businesses will run.
+                  We started Ainomiq with one conviction: to build the next generation of AI systems.
+                  Not something you get delivered and is outdated in six months. We build alongside you
+                  and keep optimizing, every single day.
+                </p>
+              </div>
+            </div>
+            {/* Portraits */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="flex flex-col">
+                <div className="relative flex-1 min-h-0 overflow-hidden rounded-2xl">
+                  <Image
+                    src="/team/bink.jpg"
+                    alt="Bink Sanders"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center mt-3">
+                  <p className="font-bold text-ainomiq-text">Bink Sanders</p>
+                  <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <div className="relative flex-1 min-h-0 overflow-hidden rounded-2xl">
+                  <Image
+                    src="/team/pim.jpg"
+                    alt="Pim Smit"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center mt-3">
+                  <p className="font-bold text-ainomiq-text">Pim Smit</p>
+                  <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
