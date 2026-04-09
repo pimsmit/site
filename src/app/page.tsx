@@ -112,16 +112,13 @@ export default function HomePage() {
       {/* Logo Cloud */}
       <LogosSection />
 
-      {/* Meet the Founders */}
+      {/* Why ainomiq? */}
       <section className="py-24 px-6">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
               Why ainomiq?
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-              Meet the Founders
-            </h2>
             <p className="text-ainomiq-text-muted text-lg leading-relaxed max-w-2xl mx-auto mb-8">
               Ainomiq started with two childhood friends who shared the same obsession: AI.
               Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
@@ -135,6 +132,24 @@ export default function HomePage() {
                 Read more <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
+          </div>
+
+          {/* Office photo */}
+          <div className="max-w-4xl mx-auto mb-24">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-3xl">
+              <img
+                src="/team/founders.jpg"
+                alt="Bink & Pim at the Ainomiq office"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Meet the Founders */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+              Meet the Founders
+            </h2>
           </div>
 
           <div className="max-w-4xl mx-auto">
