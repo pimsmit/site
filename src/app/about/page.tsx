@@ -15,22 +15,22 @@ export const metadata: Metadata = {
 const values = [
   {
     icon: Zap,
-    title: "Building the future",
+    title: "Just get it done",
     body: "We run on the latest technology. What was cutting-edge yesterday is our baseline today.",
   },
   {
     icon: BadgeCheck,
-    title: "Results first",
+    title: "Invent what customers want",
     body: "Everything we build must have measurable impact. No reports that end up in a drawer.",
   },
   {
     icon: Info,
-    title: "Honest and direct",
+    title: "Winner's mindset",
     body: "We say what's possible and what isn't. No hidden costs, no unrealistic promises.",
   },
   {
     icon: Clock,
-    title: "Ship fast",
+    title: "The Polymath Principle",
     body: "Two-week implementation isn't marketing speak. We build fast because we carry no legacy.",
   },
 ];
@@ -154,36 +154,29 @@ export default function AboutPage() {
       </Section>
 
       {/* Values */}
-      <section className="relative w-full min-h-[80vh] flex flex-col justify-between overflow-hidden" style={{ background: 'linear-gradient(180deg, #1a1a2e 0%, #4a3f6b 30%, #8b6fa8 50%, #c4919e 70%, #e8b4a2 85%, #d4a574 100%)' }}>
-        {/* Top label */}
-        <div className="px-8 pt-12">
-          <span className="text-xs font-semibold uppercase tracking-wider text-white/60">Our values</span>
+      <Section label="Our values" className="bg-ainomiq-navy-light">
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-16">
+          What we stand for
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {values.map((v) => (
+            <Card
+              key={v.title}
+              className="bg-white border-ainomiq-border text-center"
+            >
+              <CardContent className="p-6">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-ainomiq-blue-glow">
+                  <v.icon className="h-6 w-6 text-ainomiq-blue" />
+                </div>
+                <h3 className="font-bold mb-2">{v.title}</h3>
+                <p className="text-sm text-ainomiq-text-muted leading-relaxed">
+                  {v.body}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-
-        {/* Centered numbered list */}
-        <div className="flex-1 flex items-center justify-center px-6">
-          <div className="space-y-3">
-            {[
-              { num: '01', title: 'Building the future', desc: 'We run on the latest technology. What was cutting-edge yesterday is our baseline today.' },
-              { num: '02', title: 'Results first', desc: 'Everything we build must have measurable impact. No reports that end up in a drawer.' },
-              { num: '03', title: 'Honest and direct', desc: 'We say what\'s possible and what isn\'t. No hidden costs, no unrealistic promises.' },
-              { num: '04', title: 'Ship fast', desc: 'Two-week implementation isn\'t marketing speak. We build fast because we carry no legacy.' },
-            ].map((v, i) => (
-              <div key={v.num} className="group flex items-center gap-4 cursor-default">
-                <span className={`text-sm font-mono ${ i === 0 ? 'text-white' : 'text-white/40' } group-hover:text-white transition-colors`}>{v.num}</span>
-                <span className={`text-xl md:text-2xl font-bold tracking-tight ${ i === 0 ? 'text-white' : 'text-white/40' } group-hover:text-white transition-colors`}>{v.title}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom description */}
-        <div className="px-8 pb-12">
-          <p className="text-sm text-white/60 max-w-md leading-relaxed">
-            We value decisive action and speed over prolonged deliberation and planning. Every solution ships fast because our clients can&apos;t afford to wait.
-          </p>
-        </div>
-      </section>
+      </Section>
 
       {/* Timeline */}
       <Section label="Our story">
