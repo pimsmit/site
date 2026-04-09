@@ -128,16 +128,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission */}
-      <Section label="Our mission" className="bg-ainomiq-navy-light">
+      {/* Why Ainomiq */}
+      <Section label="Why Ainomiq" className="bg-ainomiq-navy-light">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Making automation accessible for every business
+          AI moves fast. We move faster.
         </h2>
-        <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed">
-          Automation doesn&apos;t have to be complicated or expensive. We make it practical,
-          affordable, and effective. Whether you run a webshop or lead an
-          enterprise — we build systems that work for you from day one.
-        </p>
+        <div className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed space-y-4">
+          <p>
+            At Ainomiq, staying ahead isn&apos;t a goal, it&apos;s how we work. Our team tests and applies new technology every single day, so everything we deliver uses what works best right now.
+          </p>
+          <p>
+            And we keep it that way. Because AI evolves fast, your systems should too. Everything we build is designed to grow, adapt, and keep optimizing as the technology moves forward. That&apos;s what makes Ainomiq different. Not just a one-time solution, but a system that stays ahead.
+          </p>
+        </div>
       </Section>
 
       {/* Values */}
