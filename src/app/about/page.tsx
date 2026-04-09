@@ -84,9 +84,9 @@ export default function AboutPage() {
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
             Our Story
           </div>
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-12 items-stretch">
             {/* Text */}
-            <div>
+            <div className="flex flex-col">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
                 Two friends, one obsession
               </h2>
@@ -112,8 +112,8 @@ export default function AboutPage() {
             </div>
             {/* Portraits */}
             <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+              <div className="flex flex-col">
+                <div className="relative flex-1 min-h-0 overflow-hidden rounded-2xl">
                   <Image
                     src="/team/bink.jpg"
                     alt="Bink Sanders"
@@ -121,13 +121,13 @@ export default function AboutPage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="text-center">
+                <div className="text-center mt-3">
                   <p className="font-bold text-ainomiq-text">Bink Sanders</p>
                   <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+              <div className="flex flex-col">
+                <div className="relative flex-1 min-h-0 overflow-hidden rounded-2xl">
                   <Image
                     src="/team/pim.jpg"
                     alt="Pim Smit"
@@ -135,7 +135,7 @@ export default function AboutPage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="text-center">
+                <div className="text-center mt-3">
                   <p className="font-bold text-ainomiq-text">Pim Smit</p>
                   <p className="text-sm text-ainomiq-text-muted">Co-Founder</p>
                 </div>
