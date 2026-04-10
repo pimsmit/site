@@ -47,11 +47,11 @@ export default function FranchisePage() {
             Franchise
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Cut costs. Boost efficiency.{" "}
-            <span className="gradient-text">Increase profit per location.</span>
+            One system for{" "}
+            <span className="gradient-text">every location.</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl mx-auto leading-relaxed mb-10">
-            Franchise operations waste thousands on overstaffing, manual scheduling, and inventory guesswork. Ainomiq&apos;s AI fixes that — automatically, from day one.
+            Inventory, scheduling, quality control, manager tasks — all in one AI-powered platform. Full visibility across every store, so you can focus on growing instead of firefighting.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button
@@ -67,7 +67,7 @@ export default function FranchisePage() {
               variant="outline"
               className="rounded-full border-ainomiq-border px-8 h-12"
             >
-              <Link href="/contact">Watch video</Link>
+              <Link href="/contact">Book a call</Link>
             </Button>
           </div>
         </div>
