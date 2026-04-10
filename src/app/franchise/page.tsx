@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import { Accordion } from "@/components/accordion";
+import { PlatformGraph } from "@/components/platform-graph";
 import { TrendingDown, TrendingUp, DollarSign, Clock, ArrowRight, Quote } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -184,6 +185,11 @@ export default function FranchisePage() {
             <p className="text-sm text-ainomiq-text-muted max-w-md mx-auto">
               Data flows up. Insights flow down. Every level gets exactly what they need.
             </p>
+          </div>
+
+          {/* Visual graph */}
+          <div className="mt-20 rounded-2xl border border-ainomiq-border bg-white p-6 md:p-10">
+            <PlatformGraph />
           </div>
         </div>
       </section>
