@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import { Zap, BadgeCheck, Info, Clock } from "lucide-react";
 import { ValuesScroll } from "@/components/values-scroll";
+import { ShaderBackground } from "@/components/shader-background";
 
 export const metadata: Metadata = {
   title: "About",
@@ -148,15 +149,9 @@ export default function AboutPage() {
       {/* Values — scroll-driven */}
       <ValuesScroll />
 
-      {/* Benefits — Beam AI futuristic style */}
+      {/* Benefits — with shader background */}
       <section className="relative w-full overflow-hidden py-24 px-6">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, #bae6fd 0%, #3b82f6 15%, #1e3a8a 35%, #0f172a 60%, #020617 100%)",
-          }}
-        />
+        <ShaderBackground />
         <div
           className="absolute inset-0 opacity-30"
           style={{
