@@ -38,8 +38,8 @@ const rules: DetectionRule[] = [
     name: "Magento",
     category: "platform",
     patterns: {
-      scripts: [/mage\//, /magento/, /requirejs/],
-      html: [/Magento/, /magento-init/],
+      scripts: [/\/mage\//, /magento/, /requirejs-config/],
+      html: [/data-mage-init/, /magento-init/, /Mage\.Cookies/],
       metas: [{ key: "generator", pattern: /magento/i }],
     },
   },

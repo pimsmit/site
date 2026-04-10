@@ -353,14 +353,19 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
       }
     });
 
-    // Contact info
-    const emailMatch = bodyText.match(/[\w.-]+@[\w.-]+\.\w{2,}/);
+    // Contact info — prefer emails from links (mailto:), fall back to body text
+    const mailtoMatch = html.match(/mailto:([\w.+-]+@[\w.-]+\.\w{2,})/);
+    const footerEl = $('footer').text() || '';
+    const footerEmailMatch = footerEl.match(/[\w.+-]+@[\w.-]+\.\w{2,}/);
+    const bodyEmailMatch = bodyText.match(/[\w.+-]+@[\w.-]+\.\w{2,}/);
+    const contactEmail = mailtoMatch ? mailtoMatch[1] : footerEmailMatch ? footerEmailMatch[0] : bodyEmailMatch ? bodyEmailMatch[0] : null;
+
     const phoneMatch = bodyText.match(
       /(?:\+\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}/
     );
 
     const contactInfo = {
-      email: emailMatch ? emailMatch[0] : null,
+      email: contactEmail,
       phone: phoneMatch ? phoneMatch[0].trim() : null,
     };
 

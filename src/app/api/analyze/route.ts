@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       (t) =>
         t.category === "platform" &&
         ["Shopify", "WooCommerce", "Magento", "BigCommerce", "PrestaShop"].includes(t.name)
-    );
+    ) && (data.products.length > 0 || data.html.includes("add-to-cart") || data.html.includes("add_to_cart") || /cart|checkout|winkelwagen/i.test(data.bodyText.slice(0, 2000)));
 
     const adCount = technologies.filter((t) => t.category === "ads").length;
     const emailCount = technologies.filter((t) => t.category === "email").length;
