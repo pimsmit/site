@@ -47,11 +47,11 @@ export default function FranchisePage() {
             Franchise
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Streamline operations, gain full visibility, and scale with{" "}
-            <span className="gradient-text">AI-powered</span> control
+            Your franchise,{" "}
+            <span className="gradient-text">powered by AI</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl mx-auto leading-relaxed mb-10">
-            One intelligent platform for every location — from inventory to quality control.
+            Empower your employees, unlock real-time insights, and scale your franchise — all from one intelligent platform.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button
