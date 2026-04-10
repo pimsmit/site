@@ -154,7 +154,7 @@ export default function AboutPage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 0%, #1e3a8a 0%, #0f172a 40%, #020617 70%, #000 100%)",
+              "linear-gradient(180deg, #bae6fd 0%, #3b82f6 15%, #1e3a8a 35%, #0f172a 60%, #020617 100%)",
           }}
         />
         <div
