@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const results = [
-  { icon: TrendingDown, value: "30%", label: "Labour cost reduction", desc: "Identifies overspend patterns and optimizes scheduling across every shift." },
+  { icon: TrendingDown, value: "30%", label: "Lower labour costs", desc: "Smarter scheduling eliminates overstaffing and optimizes every shift automatically." },
   { icon: Clock, value: "2 weeks", label: "Up and running", desc: "No 6-month rollout. Your system is live and learning within 14 days." },
-  { icon: TrendingUp, value: "15%", label: "Revenue improvement", desc: "Smarter staffing + less waste = more profit per location, automatically." },
-  { icon: DollarSign, value: "€8K+", label: "Saved per store per year", desc: "Across scheduling, inventory, and operational efficiency. measurable from month one." },
+  { icon: TrendingUp, value: "15%", label: "Revenue improvement", desc: "Better staffing, less waste, higher throughput per location." },
+  { icon: TrendingUp, value: "40%", label: "Less food waste", desc: "Demand prediction per product, per location. Stock only what you sell." },
 ];
 
 const accordionItems = [
@@ -229,30 +229,30 @@ export default function FranchisePage() {
       </section>
 
       {/* Results / ROI */}
-      <Section label="Real results" className="bg-ainomiq-navy-light">
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          The numbers that matter
-        </h2>
-        <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Every franchise owner cares about one thing: the bottom line. Here&apos;s what the platform delivers.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {results.map((r) => (
-            <Card key={r.label} className="bg-white border-ainomiq-border">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
-                    <r.icon className="h-6 w-6 text-ainomiq-blue" />
-                  </div>
-                  <span className="text-3xl font-extrabold tracking-tight text-ainomiq-blue">{r.value}</span>
+      <section className="py-24 px-6 bg-ainomiq-navy-light">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-16">
+            <span className="inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
+              Real results
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+              The numbers that matter
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {results.map((r) => (
+              <div key={r.label} className="text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ainomiq-blue-glow mx-auto mb-4">
+                  <r.icon className="h-6 w-6 text-ainomiq-blue" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">{r.label}</h3>
-                <p className="text-sm text-ainomiq-text-muted leading-relaxed">{r.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
+                <span className="block text-4xl md:text-5xl font-extrabold tracking-tight text-ainomiq-blue mb-2">{r.value}</span>
+                <h3 className="font-bold mb-1">{r.label}</h3>
+                <p className="text-xs text-ainomiq-text-muted leading-relaxed">{r.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* What we do. steps */}
       <section className="py-24 px-6">
