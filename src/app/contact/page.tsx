@@ -22,12 +22,12 @@ export default function ContactPage() {
             Contact
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Let&apos;s{" "}
-            <span className="gradient-text">talk</span>
+            Let&apos;s Explore How Ainomiq{" "}
+            <span className="gradient-text">Works for You</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl">
-            Have a question, want a demo, or ready to get started? We&apos;d
-            love to hear from you.
+            Tell us a little about yourself in the form below and we&apos;ll connect you with an Ainomiq expert who can share more about the product and answer any questions you have. You can also directly{" "}
+            <a href="mailto:info@ainomiq.com" className="text-ainomiq-blue font-semibold hover:underline">book a meeting here</a>.
           </p>
         </div>
       </section>
