@@ -121,33 +121,54 @@ export default function HomePage() {
             </h2>
           </div>
 
-          {/* Photo with text overlay */}
+          {/* Photo with overlay (desktop) / text below (mobile) */}
           <div className="max-w-4xl mx-auto">
             <div className="group relative aspect-[16/9] overflow-hidden rounded-3xl">
               <img
-                src="/team/founders.jpg"
+                src="/team/founders-swapped.jpg"
                 alt="Pim Smit & Bink Sanders — Co-Founders of Ainomiq"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-                <h3 className="text-2xl md:text-4xl font-extrabold text-white mb-2 md:mb-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:from-black/70 md:via-black/20" />
+              {/* Names always on image */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-10">
+                <h3 className="text-xl md:text-4xl font-extrabold text-white">
                   Pim Smit &amp; Bink Sanders
                 </h3>
-                <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-xl mb-4 md:mb-6">
+                {/* Desktop: text + CTA on image */}
+                <p className="hidden md:block text-white/80 text-base leading-relaxed max-w-xl mt-4 mb-6">
                   Ainomiq started with two childhood friends who shared the same obsession: AI.
                   Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
                 </p>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-full border-white/30 hover:border-white/60 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
-                >
-                  <Link href="/about">
-                    Read more <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <div className="hidden md:block">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-full border-white/30 hover:border-white/60 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                  >
+                    <Link href="/about">
+                      Read more <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
+            </div>
+
+            {/* Mobile: text + CTA below image */}
+            <div className="md:hidden mt-6 text-center">
+              <p className="text-ainomiq-text-muted text-sm leading-relaxed max-w-md mx-auto mb-5">
+                Ainomiq started with two childhood friends who shared the same obsession: AI.
+                Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
+              </p>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
+              >
+                <Link href="/about">
+                  Read more <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
