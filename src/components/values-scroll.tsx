@@ -30,10 +30,10 @@ const valuesData = [
 ];
 
 const bgColors = [
-  "rgb(240, 249, 255)", // sky-50 — fresh light blue
-  "rgb(224, 242, 254)", // sky-100
-  "rgb(186, 230, 253)", // sky-200
-  "rgb(125, 211, 252)", // sky-300
+  "rgb(224, 242, 254)", // sky-100 — fresh start
+  "rgb(147, 197, 253)", // blue-300
+  "rgb(96, 165, 250)",  // blue-400
+  "rgb(59, 130, 246)",  // blue-500 — ainomiq blue territory
 ];
 
 export function ValuesScroll() {
@@ -71,7 +71,7 @@ export function ValuesScroll() {
         <div className="flex flex-col md:flex-row">
           {/* Left: sticky labels */}
           <div className="md:sticky md:top-0 md:h-screen md:w-1/2 flex flex-col justify-center py-16 md:py-0">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-text-muted mb-12">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] mb-12" style={{ color: active >= 2 ? 'rgba(255,255,255,0.5)' : undefined }}>
               Our values
             </span>
             <div className="space-y-8">
@@ -89,13 +89,13 @@ export function ValuesScroll() {
                 >
                   <span
                     className="text-sm font-mono transition-colors duration-500"
-                    style={{ color: i === active ? valuesData[active].color : "rgba(0,0,0,0.2)" }}
+                    style={{ color: i === active ? valuesData[active].color : active >= 2 ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)" }}
                   >
                     {v.num}
                   </span>
                   <span
                     className="text-xl md:text-2xl font-bold tracking-tight transition-colors duration-500"
-                    style={{ color: i === active ? "#0f172a" : "rgba(0,0,0,0.2)" }}
+                    style={{ color: i === active ? (active >= 2 ? "#fff" : "#0f172a") : active >= 2 ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)" }}
                   >
                     {v.title}
                   </span>
@@ -121,7 +121,7 @@ export function ValuesScroll() {
                     className="w-12 h-1 rounded-full mb-6 transition-colors duration-700"
                     style={{ backgroundColor: valuesData[active].color }}
                   />
-                  <p className="text-lg md:text-xl leading-relaxed text-ainomiq-text/80">
+                  <p className={`text-lg md:text-xl leading-relaxed ${active >= 2 ? 'text-white/80' : 'text-ainomiq-text/80'}`}>
                     {v.body}
                   </p>
                 </div>
