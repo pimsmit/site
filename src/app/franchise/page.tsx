@@ -35,6 +35,31 @@ const accordionItems = [
     title: "AI assistant for every employee",
     body: "New hire? Language barrier? No problem. An AI assistant answers operational questions, guides procedures, and handles training — in any language, 24/7.",
   },
+  {
+    num: "04",
+    title: "Inventory & waste management",
+    body: "AI predicts demand per product, per location. Automatically suggests optimal stock levels, flags expiring items, and reduces food waste by up to 40%.",
+  },
+  {
+    num: "05",
+    title: "Quality control & compliance",
+    body: "Automated checklists, HACCP monitoring, and hygiene tracking. Consistent quality across every location — without relying on manual inspections.",
+  },
+  {
+    num: "06",
+    title: "Multi-language onboarding",
+    body: "Train new employees in their own language. AI-powered onboarding guides cover procedures, safety, and operations — no translator needed.",
+  },
+  {
+    num: "07",
+    title: "Automated manager tasks",
+    body: "Daily reports, opening and closing checklists, escalation handling — AI takes care of the repetitive work so managers can focus on the floor.",
+  },
+  {
+    num: "08",
+    title: "Customer feedback analysis",
+    body: "AI analyzes reviews, complaints, and ratings across all platforms. Spots patterns per location so you can fix problems before they spread.",
+  },
 ];
 
 export default function FranchisePage() {
