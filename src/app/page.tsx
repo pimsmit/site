@@ -135,16 +135,16 @@ export default function HomePage() {
                 <h3 className="text-xl md:text-4xl font-extrabold text-white">
                   Pim Smit &amp; Bink Sanders
                 </h3>
-                {/* Desktop: text + CTA on image */}
-                <p className="hidden md:block text-white/80 text-base leading-relaxed max-w-xl mt-4 mb-6">
-                  Ainomiq started with two childhood friends who shared the same obsession: AI.
-                  Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
-                </p>
-                <div className="hidden md:block">
+                {/* Desktop: text left, Read more right */}
+                <div className="hidden md:flex items-end justify-between mt-4">
+                  <p className="text-white/80 text-base leading-relaxed max-w-md">
+                    Ainomiq started with two childhood friends who shared the same obsession: AI.
+                    Bink came from years in IT. Pim from e-commerce. Different worlds, same fascination.
+                  </p>
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded-full border-white/30 hover:border-white/60 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                    className="rounded-full border-white/30 hover:border-white/60 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 ml-6 shrink-0"
                   >
                     <Link href="/about">
                       Read more <ArrowRight className="ml-2 h-4 w-4" />
