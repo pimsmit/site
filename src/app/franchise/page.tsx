@@ -150,12 +150,12 @@ export default function FranchisePage() {
               <span className="inline-flex items-center rounded-full bg-ainomiq-blue/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-ainomiq-blue mb-4">
                 Store Manager
               </span>
-              <h3 className="text-xl font-bold mb-2">Run your store on autopilot</h3>
+              <h3 className="text-xl font-bold mb-2">Focus on growth, not busywork</h3>
               <p className="text-sm text-ainomiq-text-muted leading-relaxed mb-5">
-                Scheduling, inventory, and quality handled. Managers focus on customers and team.
+                Every repetitive task is handled automatically. Your managers spend their time on what actually grows the business.
               </p>
               <div className="space-y-2">
-                {["Smart shift planning", "Performance dashboards", "Inventory & waste alerts", "Quality checklists", "Team tools", "Coaching tips"].map((item) => (
+                {["Automated scheduling", "Performance dashboards", "Inventory on autopilot", "Quality control handled", "Growth-focused coaching", "One-click reporting"].map((item) => (
                   <div key={item} className="flex items-center gap-2.5 text-sm text-ainomiq-text-muted">
                     <div className="w-1 h-1 rounded-full bg-ainomiq-blue shrink-0" />
                     {item}
