@@ -14,10 +14,14 @@ export const metadata: Metadata = {
 };
 
 const results = [
-  { icon: TrendingDown, value: "30%", label: "Lower labour costs", desc: "Smarter scheduling eliminates overstaffing and optimizes every shift automatically." },
-  { icon: Clock, value: "2 weeks", label: "Up and running", desc: "No 6-month rollout. Your system is live and learning within 14 days." },
-  { icon: TrendingUp, value: "15%", label: "Revenue improvement", desc: "Better staffing, less waste, higher throughput per location." },
-  { icon: TrendingUp, value: "40%", label: "Less food waste", desc: "Demand prediction per product, per location. Stock only what you sell." },
+  { value: "+32%", label: "Quality score", desc: "Consistent standards across every location" },
+  { value: "-30%", label: "Labour costs", desc: "Smarter scheduling, zero overstaffing" },
+  { value: "+15%", label: "Revenue per store", desc: "Higher throughput, better operations" },
+  { value: "-40%", label: "Food waste", desc: "Predict demand, stock only what sells" },
+  { value: "-22%", label: "Operational costs", desc: "Automate the busywork, cut overhead" },
+  { value: "+95%", label: "Franchise visibility", desc: "Full oversight across all locations" },
+  { value: "+89%", label: "Employee satisfaction", desc: "Better tools, smoother shifts, less stress" },
+  { value: "+3x", label: "Faster onboarding", desc: "New hires productive from day one" },
 ];
 
 const accordionItems = [
@@ -230,7 +234,7 @@ export default function FranchisePage() {
 
       {/* Results / ROI */}
       <section className="py-24 px-6 bg-ainomiq-navy-light">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <span className="inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
               Real results
@@ -239,15 +243,14 @@ export default function FranchisePage() {
               The numbers that matter
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {results.map((r) => (
-              <div key={r.label} className="text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-ainomiq-blue-glow mx-auto mb-4">
-                  <r.icon className="h-6 w-6 text-ainomiq-blue" />
-                </div>
-                <span className="block text-4xl md:text-5xl font-extrabold tracking-tight text-ainomiq-blue mb-2">{r.value}</span>
-                <h3 className="font-bold mb-1">{r.label}</h3>
-                <p className="text-xs text-ainomiq-text-muted leading-relaxed">{r.desc}</p>
+              <div key={r.label} className="rounded-2xl border border-ainomiq-border bg-white p-6 text-center hover:border-ainomiq-blue/30 transition-colors">
+                <span className={`block text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
+                  r.value.startsWith("+") ? "text-emerald-500" : r.value.startsWith("-") ? "text-ainomiq-blue" : "text-ainomiq-blue"
+                }`}>{r.value}</span>
+                <h3 className="font-bold text-sm mb-1">{r.label}</h3>
+                <p className="text-xs text-ainomiq-text-muted">{r.desc}</p>
               </div>
             ))}
           </div>
