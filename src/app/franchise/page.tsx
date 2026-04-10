@@ -117,7 +117,7 @@ export default function FranchisePage() {
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-20">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">
-              How we do it
+              The platform
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
               One platform, three levels of intelligence
@@ -125,13 +125,10 @@ export default function FranchisePage() {
           </div>
 
           <div className="relative">
-            {/* Connecting gradient line */}
-            <div className="absolute left-8 md:left-12 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#0f172a] via-ainomiq-blue to-sky-200 rounded-full" />
 
             <div className="space-y-16">
               {/* Level 3: Owner */}
-              <div className="relative pl-20 md:pl-28">
-                <div className="absolute left-5 md:left-9 top-2 w-6 h-6 rounded-full bg-[#0f172a] border-4 border-white shadow-lg" />
+              <div className="relative pl-0">
                 <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Franchise Owner</span>
                 <h3 className="text-2xl md:text-3xl font-bold mt-2 mb-3">Understand why stores succeed</h3>
                 <p className="text-ainomiq-text-muted leading-relaxed mb-6 max-w-xl">
@@ -148,8 +145,7 @@ export default function FranchisePage() {
               </div>
 
               {/* Level 2: Manager */}
-              <div className="relative pl-20 md:pl-28">
-                <div className="absolute left-5 md:left-9 top-2 w-6 h-6 rounded-full bg-ainomiq-blue border-4 border-white shadow-lg" />
+              <div className="relative pl-0">
                 <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Store Manager</span>
                 <h3 className="text-2xl md:text-3xl font-bold mt-2 mb-3">Run your store on autopilot</h3>
                 <p className="text-ainomiq-text-muted leading-relaxed mb-6 max-w-xl">
@@ -166,8 +162,7 @@ export default function FranchisePage() {
               </div>
 
               {/* Level 1: Employee */}
-              <div className="relative pl-20 md:pl-28">
-                <div className="absolute left-5 md:left-9 top-2 w-6 h-6 rounded-full bg-sky-300 border-4 border-white shadow-lg" />
+              <div className="relative pl-0">
                 <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Employee</span>
                 <h3 className="text-2xl md:text-3xl font-bold mt-2 mb-3">Support on the floor, 24/7</h3>
                 <p className="text-ainomiq-text-muted leading-relaxed mb-6 max-w-xl">
