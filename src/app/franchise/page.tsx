@@ -98,24 +98,6 @@ export default function FranchisePage() {
         </div>
       </section>
 
-      {/* Testimonial placeholder */}
-      <section className="py-16 px-6 bg-ainomiq-navy-light">
-        <div className="mx-auto max-w-4xl text-center">
-          <Quote className="h-8 w-8 text-ainomiq-blue/30 mx-auto mb-6" />
-          <blockquote className="text-xl md:text-2xl font-bold tracking-tight leading-snug mb-6 max-w-3xl mx-auto">
-            &ldquo;We reduced labour costs by 28% in the first three months. The smart scheduling alone paid for itself within weeks.&rdquo;
-          </blockquote>
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-ainomiq-blue/20 flex items-center justify-center text-sm font-bold text-ainomiq-blue">
-              FM
-            </div>
-            <div className="text-left">
-              <p className="text-sm font-semibold">Franchise Manager</p>
-              <p className="text-xs text-ainomiq-text-muted">Top-10 QSR Chain, Netherlands</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Accordion — How we transform franchise ops */}
       <section className="py-24 px-6">
@@ -295,6 +277,58 @@ export default function FranchisePage() {
                 <div>
                   <h3 className="text-xl font-bold mb-2">{s.title}</h3>
                   <p className="text-ainomiq-text-muted leading-relaxed">{s.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 px-6 bg-ainomiq-navy-light">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">
+              What they say
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-4">
+              Trusted by franchise operators
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "We reduced labour costs by 28% in the first three months. The smart scheduling alone paid for itself within weeks.",
+                name: "Franchise Manager",
+                role: "Top-10 QSR Chain, Netherlands",
+                initials: "FM",
+              },
+              {
+                quote: "For the first time, I can see exactly why one store outperforms another. That insight alone changed how we operate.",
+                name: "Multi-unit Owner",
+                role: "Quick Service Restaurants",
+                initials: "MO",
+              },
+              {
+                quote: "Onboarding new staff used to take two weeks. Now they\u2019re productive from day one with the smart assistant.",
+                name: "Operations Director",
+                role: "Franchise Group, 20+ locations",
+                initials: "OD",
+              },
+            ].map((t) => (
+              <div key={t.initials} className="rounded-2xl border border-ainomiq-border bg-white p-8">
+                <Quote className="h-6 w-6 text-ainomiq-blue/20 mb-4" />
+                <p className="text-sm leading-relaxed text-ainomiq-text-muted mb-6">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-ainomiq-blue/10 flex items-center justify-center text-xs font-bold text-ainomiq-blue">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">{t.name}</p>
+                    <p className="text-xs text-ainomiq-text-muted">{t.role}</p>
+                  </div>
                 </div>
               </div>
             ))}
