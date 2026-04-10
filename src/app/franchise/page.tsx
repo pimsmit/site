@@ -130,6 +130,80 @@ export default function FranchisePage() {
         </div>
       </section>
 
+      {/* How we do it — 3-level visual flow */}
+      <section className="py-24 px-6 bg-ainomiq-navy-light">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">
+              How we do it
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+              One platform, three levels of intelligence
+            </h2>
+          </div>
+
+          <div className="relative space-y-4">
+            {/* Connecting line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-sky-300 via-ainomiq-blue to-[#0f172a] hidden md:block" />
+
+            {/* Level 3: Owner */}
+            <div className="relative rounded-2xl border border-white/20 p-8 md:p-10 text-white" style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%)" }}>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-mono text-white/40">LEVEL 03</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-sky-300">Franchise Owner</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-3">Strategic decisions, powered by data</h3>
+                <div className="grid sm:grid-cols-3 gap-4 mt-6">
+                  {["P&L per location", "Expansion readiness scores", "Cross-store benchmarking", "Revenue forecasting", "Investment ROI tracking", "Portfolio health overview"].map((item) => (
+                    <div key={item} className="rounded-xl bg-white/10 backdrop-blur px-4 py-3 text-sm text-white/80">{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Level 2: Manager */}
+            <div className="relative rounded-2xl border border-ainomiq-blue/30 p-8 md:p-10" style={{ background: "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" }}>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-mono text-ainomiq-text-muted">LEVEL 02</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Store Manager</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-3">Daily operations, fully optimized</h3>
+                <div className="grid sm:grid-cols-3 gap-4 mt-6">
+                  {["Smart shift planning", "Real-time performance", "Inventory alerts", "Quality checklists", "Team management", "AI coaching tips"].map((item) => (
+                    <div key={item} className="rounded-xl bg-white/80 border border-ainomiq-border px-4 py-3 text-sm text-ainomiq-text-muted">{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Level 1: Employee */}
+            <div className="relative rounded-2xl border border-ainomiq-border p-8 md:p-10 bg-white">
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-mono text-ainomiq-text-muted">LEVEL 01</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">Employee</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-3">Support on the floor, 24/7</h3>
+                <div className="grid sm:grid-cols-3 gap-4 mt-6">
+                  {["AI assistant (any language)", "Step-by-step procedures", "Onboarding guides", "Shift schedules", "Task checklists", "Instant answers"].map((item) => (
+                    <div key={item} className="rounded-xl bg-ainomiq-navy-light border border-ainomiq-border px-4 py-3 text-sm text-ainomiq-text-muted">{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Flow description */}
+          <div className="text-center mt-12">
+            <p className="text-sm text-ainomiq-text-muted max-w-lg mx-auto">
+              Data flows up. Insights flow down. Every level gets exactly what they need — from an employee asking a question to an owner deciding where to expand next.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* AI Intelligence — data drives improvements */}
       <section className="py-24 px-6 bg-ainomiq-navy-light">
         <div className="mx-auto max-w-6xl">
