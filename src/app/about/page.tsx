@@ -41,12 +41,12 @@ const values = [
 ];
 
 const benefits = [
-  { title: "Remote-first", icon: "🌍", body: "Work from anywhere. Results matter, not where your desk is." },
-  { title: "Competitive pay", icon: "💰", body: "We hire the best and compensate accordingly." },
-  { title: "Latest AI tools", icon: "🧠", body: "Work with cutting-edge AI every single day. We don't just follow — we build." },
-  { title: "Flexible PTO", icon: "🏖️", body: "Take what you need. We trust you to manage your time." },
-  { title: "Equity", icon: "📈", body: "Share in the upside. Early team members get meaningful ownership." },
-  { title: "Growth budget", icon: "📚", body: "Courses, conferences, books — invest in yourself on us." },
+  { title: "Remote-first", body: "Work from anywhere. Results matter, not where your desk is." },
+  { title: "Competitive pay", body: "We hire the best and compensate accordingly." },
+  { title: "Latest AI tools", body: "Work with cutting-edge AI every single day. We don't just follow — we build." },
+  { title: "Flexible PTO", body: "Take what you need. We trust you to manage your time." },
+  { title: "Equity", body: "Share in the upside. Early team members get meaningful ownership." },
+  { title: "Growth budget", body: "Courses, conferences, books — invest in yourself on us." },
 ];
 
 
@@ -186,8 +186,7 @@ export default function AboutPage() {
                     "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
                 }}
               >
-                <span className="text-3xl mb-4 block">{b.icon}</span>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-ainomiq-blue transition-colors duration-300">
+                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-ainomiq-blue transition-colors duration-300">
                   {b.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
