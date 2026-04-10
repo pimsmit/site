@@ -150,10 +150,10 @@ export default function FranchisePage() {
             </div>
             <div className="space-y-4">
               {[
-                { title: "Predictive recommendations", body: "AI analyzes trends and suggests improvements before you even notice the problem." },
-                { title: "Manager coaching", body: "Personalized tips per store manager based on their location's data and performance." },
+                { title: "Predictive recommendations", body: "AI analyzes trends and suggests improvements — from staffing adjustments to new revenue opportunities." },
+                { title: "Manager coaching", body: "Personalized tips per store manager based on their location's data, performance, and growth potential." },
                 { title: "Full-picture insights", body: "Sales, staffing, inventory, reviews, quality — all connected in one intelligent view." },
-                { title: "Self-improving system", body: "The longer it runs, the better it gets. Every data point refines predictions and recommendations." },
+                { title: "Expansion-ready", body: "AI identifies which locations are ready to scale, what's working best, and where to replicate success." },
               ].map((item) => (
                 <div
                   key={item.title}
