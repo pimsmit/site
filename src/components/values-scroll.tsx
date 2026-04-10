@@ -1,72 +1,133 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 const valuesData = [
   {
+    num: "01",
     title: "Just get it done",
-    body: "\"Ship fast, learn faster\" We value decisive action and speed over prolonged deliberation. Every solution ships fast because our clients can't afford to wait.",
+    body: "We value decisive action and speed over prolonged deliberation and planning. Every solution ships fast because our clients can't afford to wait.",
+    color: "#7dd3fc", // sky-300
   },
   {
+    num: "02",
     title: "Invent what customers want",
-    body: "\"We've felt the pain we're solving\" Our core identity is rooted in building for our customers. Every feature must directly alleviate real customer pain. Revenue follows amazed customers.",
+    body: "Our core identity is rooted in building for our customers. We listen, we test, we iterate — because the best products come from obsessing over real problems.",
+    color: "#38bdf8", // sky-400
   },
   {
+    num: "03",
     title: "Winner's mindset",
-    body: "\"Compete to win, learn from losses\" Fiercely competitive nature and fighting spirit are foundational. We play to win and never settle for second best.",
+    body: "Fiercely competitive nature and fighting spirit are foundational. We play to win, learn from losses, and never settle for second best.",
+    color: "#4A90F5", // ainomiq-blue
   },
   {
+    num: "04",
     title: "The Polymath Principle",
-    body: "\"Breadth drives innovation\" The best team members understand other functions deeply and promote cross-functional collaboration. Own your domain, collaborate across boundaries.",
+    body: "The best team members understand other functions deeply and promote cross-functional collaboration. Breadth of knowledge drives innovation.",
+    color: "#2563eb", // blue-600
   },
 ];
 
+const bgColors = [
+  "rgb(240, 249, 255)", // sky-50 — fresh light blue
+  "rgb(224, 242, 254)", // sky-100
+  "rgb(186, 230, 253)", // sky-200
+  "rgb(125, 211, 252)", // sky-300
+];
+
 export function ValuesScroll() {
+  const [active, setActive] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = itemRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (idx !== -1) setActive(idx);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    itemRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative w-full overflow-hidden py-24 px-6">
-      {/* Cosmic gradient background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, #1e3a8a 0%, #0f172a 40%, #020617 70%, #000 100%)",
-        }}
-      />
-      {/* Subtle glow */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(ellipse at 30% 80%, rgba(74,144,245,0.3) 0%, transparent 50%), radial-gradient(ellipse at 70% 20%, rgba(139,92,246,0.2) 0%, transparent 50%)",
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">
-            Our values
-          </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-4">
-            What drives us forward
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {valuesData.map((v) => (
-            <div
-              key={v.title}
-              className="group relative rounded-2xl border border-white/10 backdrop-blur-xl p-8 transition-all duration-500 hover:border-ainomiq-blue/40 hover:shadow-[0_0_40px_rgba(74,144,245,0.15)]"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
-              }}
-            >
-              <h3 className="text-lg font-bold text-white mb-3 group-hover:text-ainomiq-blue transition-colors duration-300">
-                {v.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-white/60 group-hover:text-white/80 transition-colors duration-300">
-                {v.body}
-              </p>
+    <section
+      ref={sectionRef}
+      className="relative w-full transition-colors duration-700 ease-in-out"
+      style={{ backgroundColor: bgColors[active] }}
+    >
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <div className="flex flex-col md:flex-row">
+          {/* Left: sticky labels */}
+          <div className="md:sticky md:top-0 md:h-screen md:w-1/2 flex flex-col justify-center py-16 md:py-0">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-text-muted mb-12">
+              Our values
+            </span>
+            <div className="space-y-8">
+              {valuesData.map((v, i) => (
+                <button
+                  key={v.num}
+                  onClick={() => {
+                    setActive(i);
+                    itemRefs.current[i]?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }}
+                  className="flex items-center gap-5 text-left transition-all duration-500 group cursor-pointer"
+                >
+                  <span
+                    className="text-sm font-mono transition-colors duration-500"
+                    style={{ color: i === active ? valuesData[active].color : "rgba(0,0,0,0.2)" }}
+                  >
+                    {v.num}
+                  </span>
+                  <span
+                    className="text-xl md:text-2xl font-bold tracking-tight transition-colors duration-500"
+                    style={{ color: i === active ? "#0f172a" : "rgba(0,0,0,0.2)" }}
+                  >
+                    {v.title}
+                  </span>
+                </button>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Right: scrolling descriptions */}
+          <div className="md:w-1/2 flex flex-col">
+            {valuesData.map((v, i) => (
+              <div
+                key={v.num}
+                ref={(el) => { itemRefs.current[i] = el; }}
+                className="flex items-center min-h-[50vh] md:min-h-[80vh] py-16 md:py-0"
+              >
+                <div
+                  className={`max-w-md transition-all duration-700 ${
+                    i === active ? "opacity-100 translate-y-0" : "opacity-0 md:opacity-10 translate-y-4"
+                  }`}
+                >
+                  <div
+                    className="w-12 h-1 rounded-full mb-6 transition-colors duration-700"
+                    style={{ backgroundColor: valuesData[active].color }}
+                  />
+                  <p className="text-lg md:text-xl leading-relaxed text-ainomiq-text/80">
+                    {v.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
