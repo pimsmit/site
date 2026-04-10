@@ -20,9 +20,6 @@ import {
   Check,
   Building2,
   Wrench,
-  CalendarClock,
-  Bot,
-  Package,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -253,113 +250,47 @@ export default function EnterprisePage() {
 
       {/* Industries — Franchise */}
       <section id="franchise" className="scroll-mt-28 py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          {/* Hero */}
-          <div className="mb-20">
-            <div className="mb-4 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-              Franchise AI
-            </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-              Your franchise runs on people. What if it also ran on AI?
-            </h2>
-            <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed">
-              High turnover, inconsistent quality, rising labour costs — every franchise deals with it. Ainomiq builds AI systems that solve these problems from day one, and keep getting smarter over time.
-            </p>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-            {[
-              { value: "30%", label: "Less labour waste" },
-              { value: "2 weeks", label: "Implementation time" },
-              { value: "24/7", label: "AI assistant — no extra staff" },
-              { value: "6", label: "Intelligent modules" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-extrabold tracking-tight text-ainomiq-blue mb-1">{s.value}</div>
-                <div className="text-sm text-ainomiq-text-muted">{s.label}</div>
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="mb-4 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
+                Franchise
               </div>
-            ))}
-          </div>
-
-          {/* Platform modules */}
-          <div className="mb-20">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">The Platform</span>
-            <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight mt-4 mb-4">AiNomiq Franchise OS</h3>
-            <p className="text-ainomiq-text-muted text-lg max-w-2xl leading-relaxed mb-10">Six intelligent modules that work together to optimize every aspect of your franchise operations.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { icon: CalendarClock, title: "Smart Scheduling", body: "AI plans staffing based on predicted demand. No more overstaffing during slow hours or understaffing during rush." },
-                { icon: BarChart3, title: "Real-time Analytics", body: "Live dashboards per location. Compare stores, spot issues instantly, and make decisions based on data." },
-                { icon: Bot, title: "AI Store Assistant", body: "Voice-powered help for employees. Training, procedures, product questions — answered instantly by AI, 24/7." },
-                { icon: Package, title: "Inventory & Waste Prediction", body: "Order smarter, waste less. AI predicts demand patterns and auto-suggests optimal inventory levels." },
-                { icon: Users, title: "Labour Optimization", body: "Reduce labour cost from 34% to 25-28%. AI identifies overspend patterns and suggests actionable cuts." },
-                { icon: Smartphone, title: "Manager Dashboard", body: "Everything in one app. Store performance, team scheduling, AI insights, and alerts — all in your pocket." },
-              ].map((m) => (
-                <Card key={m.title} className="bg-white border-ainomiq-border">
-                  <CardContent className="p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
-                      <m.icon className="h-6 w-6 text-ainomiq-blue" />
-                    </div>
-                    <h4 className="font-bold mb-2">{m.title}</h4>
-                    <p className="text-sm text-ainomiq-text-muted leading-relaxed">{m.body}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
+                Scale across locations, not complexity
+              </h2>
+              <p className="text-ainomiq-text-muted text-lg leading-relaxed mb-8">
+                Franchise operations need consistency at scale. Our solutions standardize customer service, marketing, and operations across every location — while giving headquarters full visibility.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Centralized customer service for all locations",
+                  "Automated marketing localized per region",
+                  "Real-time performance dashboards per franchise",
+                  "Standardized workflows, zero manual overhead",
+                ].map((cap) => (
+                  <li key={cap} className="flex items-center gap-3 text-sm text-ainomiq-text-muted">
+                    <Check className="h-4 w-4 text-ainomiq-blue shrink-0" />
+                    {cap}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-
-          {/* How it works */}
-          <div className="mb-20">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">How it works</span>
-            <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight mt-4 mb-12">Live in three steps</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { num: "01", title: "Connect", body: "We integrate with your POS, planning tools, and data systems. No disruption to daily operations." },
-                { num: "02", title: "Deploy", body: "AI modules go live within two weeks. Your team gets hands-on training from day one." },
-                { num: "03", title: "Optimize", body: "The system learns and improves continuously. Better predictions, smarter scheduling, lower costs — every day." },
-              ].map((s) => (
-                <div key={s.num}>
-                  <span className="text-4xl font-extrabold text-ainomiq-blue/20 block mb-3">{s.num}</span>
-                  <h4 className="text-xl font-bold mb-2">{s.title}</h4>
-                  <p className="text-ainomiq-text-muted leading-relaxed">{s.body}</p>
-                </div>
-              ))}
+            <div className="flex items-center justify-center">
+              <Card className="bg-white border-ainomiq-border w-full max-w-sm">
+                <CardContent className="p-10 text-center">
+                  <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ainomiq-blue-glow">
+                    <Building2 className="h-8 w-8 text-ainomiq-blue" />
+                  </div>
+                  <div className="text-5xl font-extrabold tracking-tight text-[#0f1b2d] mb-2">
+                    50+
+                  </div>
+                  <p className="text-sm text-ainomiq-text-muted">
+                    locations managed from one platform
+                  </p>
+                </CardContent>
+              </Card>
             </div>
-          </div>
-
-          {/* Sectors */}
-          <div className="mb-20">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">Built for every franchise</span>
-            <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight mt-4 mb-10">Works across industries</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                { emoji: "🍕", name: "Quick Service Restaurants", examples: "Pizza, burgers, coffee chains" },
-                { emoji: "🛒", name: "Retail Franchises", examples: "Convenience, fashion, home goods" },
-                { emoji: "🏋️", name: "Fitness & Wellness", examples: "Gyms, studios, health clubs" },
-                { emoji: "🧹", name: "Service Franchises", examples: "Cleaning, automotive, maintenance" },
-                { emoji: "🏨", name: "Hospitality", examples: "Hotels, hostels, vacation rentals" },
-                { emoji: "🎓", name: "Education", examples: "Tutoring, language schools, training" },
-              ].map((s) => (
-                <div key={s.name} className="rounded-2xl border border-ainomiq-border p-6 hover:border-ainomiq-blue/30 transition-colors">
-                  <span className="text-3xl block mb-3">{s.emoji}</span>
-                  <h4 className="font-bold mb-1">{s.name}</h4>
-                  <p className="text-sm text-ainomiq-text-muted">{s.examples}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Case study teaser */}
-          <div className="text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">Case study</span>
-            <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight mt-4 mb-4">Powering AI store operations for a top-10 franchise</h3>
-            <p className="text-ainomiq-text-muted text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-              We&apos;re building AI-driven store operations for one of the world&apos;s largest quick-service restaurant chains. Real-time insights, smart scheduling, and an AI assistant that speaks every language in the kitchen.
-            </p>
-            <Button asChild size="lg" className="rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white px-8 h-12">
-              <Link href="/contact">Learn more <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
           </div>
         </div>
       </section>
