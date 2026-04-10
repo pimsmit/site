@@ -3,44 +3,44 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  ShoppingCart,
-  MessageCircle,
+  MapPin,
+  CalendarClock,
+  ClipboardCheck,
+  Users,
   BarChart3,
-  Mail,
-  Package,
-  Zap,
+  Wrench,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "E-commerce AI — Ainomiq",
+  title: "Facility Services AI — Ainomiq",
   description:
-    "AI automation for webshops and DTC brands. Customer support, inventory, marketing — all on autopilot.",
+    "AI automation for field service and facility management. Route planning, scheduling, and workforce optimization.",
 };
 
 const modules = [
-  { icon: MessageCircle, title: "AI Customer Support", body: "Handle 90% of customer questions automatically. Returns, tracking, product info — resolved in seconds." },
-  { icon: ShoppingCart, title: "Smart Product Recommendations", body: "Increase AOV with AI-driven upsells and cross-sells based on real purchase behavior." },
-  { icon: Mail, title: "Automated Email & Flows", body: "AI writes, segments, and sends campaigns. Abandoned carts, win-backs, post-purchase — fully automated." },
-  { icon: Package, title: "Inventory Intelligence", body: "Predict demand, prevent stockouts, and reduce overstock with AI-powered forecasting." },
-  { icon: BarChart3, title: "Performance Analytics", body: "Real-time dashboards for revenue, conversion, and ad spend. Know exactly what's working." },
-  { icon: Zap, title: "Workflow Automation", body: "Connect your stack and automate repetitive tasks. Orders, fulfillment, returns — zero manual work." },
+  { icon: MapPin, title: "Smart Route Planning", body: "AI optimizes routes for field teams. Less driving, more jobs per day, lower fuel costs." },
+  { icon: CalendarClock, title: "Automated Scheduling", body: "Match the right technician to the right job. AI handles availability, skills, and urgency." },
+  { icon: ClipboardCheck, title: "Digital Work Orders", body: "Paperless job management from dispatch to completion. Photos, checklists, and sign-offs — all digital." },
+  { icon: Users, title: "Workforce Management", body: "Track hours, productivity, and capacity across your entire team in real-time." },
+  { icon: BarChart3, title: "Performance Dashboards", body: "See which teams perform, which clients cost money, and where to optimize." },
+  { icon: Wrench, title: "Predictive Maintenance", body: "AI predicts equipment failures before they happen. Schedule maintenance, avoid downtime." },
 ];
 
-export default function EcommercePage() {
+export default function FacilityServicesPage() {
   return (
     <>
       {/* Hero */}
       <section className="pt-40 pb-16 px-6">
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-            E-commerce AI
+            Facility Services AI
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">
-            Your webshop,{" "}
-            <span className="gradient-text">on autopilot.</span>
+            Automate the field,{" "}
+            <span className="gradient-text">not just the office.</span>
           </h1>
           <p className="text-lg text-ainomiq-text-muted max-w-2xl leading-relaxed mb-8">
-            From customer support to inventory management — Ainomiq automates the operations that slow you down, so you can focus on growing.
+            From route planning to workforce management — Ainomiq brings AI to your field operations so your teams do more with less.
           </p>
           <Button
             asChild
@@ -57,7 +57,7 @@ export default function EcommercePage() {
         <div className="mx-auto max-w-6xl">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ainomiq-blue">The Platform</span>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-4 mb-10">
-            Everything your webshop needs
+            AI for field & maintenance
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {modules.map((m) => (
@@ -79,10 +79,10 @@ export default function EcommercePage() {
       <section className="py-24 px-6 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
-            Ready to automate your webshop?
+            Ready to optimize your field operations?
           </h2>
           <p className="text-lg text-ainomiq-text-muted mb-10 max-w-lg mx-auto">
-            Book a 30-minute demo and see how Ainomiq works with your stack.
+            Book a 30-minute demo and see how Ainomiq works for facility services.
           </p>
           <Button
             asChild
