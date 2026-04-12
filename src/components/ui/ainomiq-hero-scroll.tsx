@@ -8,17 +8,17 @@ export function AinomiqHeroScroll() {
     <div className="flex flex-col items-center justify-center overflow-hidden w-full">
       <ContainerScroll
         titleComponent={
-          <div className="text-center w-full">
-            <h1 className="text-3xl md:text-4xl font-semibold text-black mb-2">
+          <div className="text-center w-full px-4">
+            <p className="text-lg md:text-2xl font-medium text-gray-600 mb-1 md:mb-2">
               Scale your store with
-            </h1>
-            <span className="text-4xl md:text-[6rem] font-bold leading-none text-[#4A90E2] block">
+            </p>
+            <span className="text-5xl md:text-[6rem] font-bold leading-none text-[#4A90E2] block">
               smart automations
             </span>
           </div>
         }
       >
-        <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div className="w-full h-full bg-white overflow-hidden">
           <InteractiveDashboard />
         </div>
       </ContainerScroll>
