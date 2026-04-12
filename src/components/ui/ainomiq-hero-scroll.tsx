@@ -13,7 +13,7 @@ export function AinomiqHeroScroll() {
               Scale your store with
             </h1>
             <h2 className="text-5xl md:text-[7rem] font-bold leading-none text-[#4A90E2]">
-              ainomiq automations
+              smart automations
             </h2>
           </>
         }
