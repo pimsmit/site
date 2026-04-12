@@ -61,7 +61,7 @@ export function InteractiveDashboard() {
   });
 
   // Only enable interaction when scroll is complete (tablet is flat)
-  const isInteractive = useTransform(scrollYProgress, (latest) => latest >= 0.95);
+  const isInteractive = useTransform(scrollYProgress, (latest) => latest >= 0.98);
   const [interactive, setInteractive] = React.useState(false);
 
   React.useEffect(() => {
