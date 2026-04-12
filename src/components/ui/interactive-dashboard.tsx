@@ -34,27 +34,26 @@ export function InteractiveDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="p-8 h-full flex flex-col"
+            className="p-6 h-full flex flex-col"
           >
-            <h2 className="text-2xl font-bold mb-6">Active modules</h2>
-            <div className="grid gap-4 mb-8 flex-1">
+            <h2 className="text-xl font-bold mb-4">Active modules</h2>
+            <div className="grid gap-3 mb-4 flex-1 overflow-auto">
               {modules.map((mod, i) => (
                 <div
                   key={i}
-                  className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-blue-50/30"
+                  className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-blue-50/30"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
-                    <mod.icon className="w-6 h-6 text-blue-600" />
+                  <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+                    <mod.icon className="w-5 h-5 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{mod.title}</h3>
-                  <p className="text-sm text-gray-600">{mod.description}</p>
+                  <h3 className="font-semibold text-base mb-1">{mod.title}</h3>
+                  <p className="text-xs text-gray-600">{mod.description}</p>
                 </div>
               ))}
             </div>
             <Button
               onClick={() => setShowApp(true)}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              size="lg"
             >
               Get started
             </Button>
