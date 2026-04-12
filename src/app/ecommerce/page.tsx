@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import { AinomiqHeroScroll } from "@/components/ui/ainomiq-hero-scroll";
+import { SplineSceneBasic } from "@/components/ui/spline-scene-basic";
 import {
   Bot,
   BarChart3,
@@ -99,6 +100,7 @@ export default function PlatformPage() {
     <>
       {/* Hero */}
       <AinomiqHeroScroll />
+      <SplineSceneBasic />
 
       {/* Featured Modules — scrollable sections */}
       {featuredModules.map((mod, i) => (
