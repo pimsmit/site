@@ -85,11 +85,8 @@ function MobilePhoneScroll({
 
       {/* iPhone frame rising from bottom */}
       <motion.div
-        style={{ y: phoneY, scale: phoneScale }}
-        className="relative mx-auto z-20"
-        // iPhone 15 Pro proportions: ~393×852 logical, frame ratio ~0.46
-        // Render at max 320px wide on mobile
         style={{ y: phoneY, scale: phoneScale, width: "min(320px, 85vw)" }}
+        className="relative mx-auto z-20"
       >
         {/* Phone outer shell */}
         <div
