@@ -7,9 +7,9 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export function WaitlistSection() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative py-24">
       <GridBackground />
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="relative z-10 flex items-center justify-center py-16">
         <div className="w-full max-w-xl mx-auto p-8 space-y-12">
           <div className="space-y-6 text-center">
             <h2 className="text-4xl sm:text-5xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-br from-gray-200 to-gray-600">

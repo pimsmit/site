@@ -5,7 +5,7 @@ import * as React from "react"
 export function GridBackground() {
   return (
     <div
-      className="fixed inset-0 pointer-events-none"
+      className="absolute inset-0 pointer-events-none"
       style={{
         background: "radial-gradient(circle at center, #4A90E2, #1E3A8A)",
       }}
