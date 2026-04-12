@@ -10,8 +10,8 @@ export function AinomiqHeroScroll() {
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
-              Unleash the power of <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Scale your store with <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none text-[#4A90E2]">
                 ainomiq automations
               </span>
             </h1>
