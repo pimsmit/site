@@ -6,6 +6,7 @@ import { Section } from "@/components/section";
 import { AinomiqHeroScroll } from "@/components/ui/ainomiq-hero-scroll";
 import { SplineSceneBasic } from "@/components/ui/spline-scene-basic";
 import { WaitlistSection } from "@/components/ui/waitlist-section";
+import { ScaleWithoutLimits } from "@/components/ui/scale-without-limits";
 import {
   Bot,
   BarChart3,
@@ -99,8 +100,13 @@ const moreModules = [
 export default function PlatformPage() {
   return (
     <>
-      {/* Hero */}
+      {/* Stats — Scale Without Limits */}
+      <ScaleWithoutLimits />
+
+      {/* Hero — tablet scroll animation */}
       <AinomiqHeroScroll />
+
+      {/* Robot — Meet Mark */}
       <SplineSceneBasic />
 
       {/* Featured Modules — scrollable sections */}

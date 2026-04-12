@@ -1,0 +1,123 @@
+"use client";
+
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import { Bot, BarChart3, Zap, ShieldCheck } from 'lucide-react';
+
+const AnimatedNumber = ({ value }: { value: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const spring = useSpring(0, { mass: 0.8, stiffness: 100, damping: 20 });
+
+  useEffect(() => {
+    if (isInView) spring.set(value);
+  }, [isInView, value, spring]);
+
+  useEffect(() => {
+    const unsubscribe = spring.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Intl.NumberFormat('en-US').format(Number(latest.toFixed(2)));
+      }
+    });
+    return () => unsubscribe();
+  }, [spring]);
+
+  return <span ref={ref}>0</span>;
+};
+
+const StatCard = ({ stat, index }: { stat: { icon: React.ReactNode; value: number; unit: string; label: string; description: string }, index: number }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const cardVariants = {
+    offscreen: { y: 50, opacity: 0 },
+    onscreen: { y: 0, opacity: 1, transition: { type: "spring" as const, bounce: 0.4, duration: 0.8, delay: index * 0.15 } }
+  };
+
+  return (
+    <motion.div
+      variants={cardVariants}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.5 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="relative p-8 rounded-xl bg-slate-900/50 backdrop-blur-md border border-slate-800"
+    >
+      <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }} className="flex flex-col h-full">
+        <div className="mb-4">{stat.icon}</div>
+        <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <AnimatedNumber value={stat.value} />
+          <span className="text-3xl text-slate-400">{stat.unit}</span>
+        </h2>
+        <h3 className="text-lg font-semibold text-slate-300 mt-2">{stat.label}</h3>
+        <p className="text-sm text-slate-500 mt-4 flex-grow">{stat.description}</p>
+      </div>
+    </motion.div>
+  );
+};
+
+export function ScaleWithoutLimits() {
+  const stats = [
+    { icon: <Bot className="h-8 w-8 text-[#4A90E2]" />, value: 10, unit: "K+", label: "Stores Automated", description: "E-commerce stores running on ainomiq automations." },
+    { icon: <BarChart3 className="h-8 w-8 text-purple-400" />, value: 3.2, unit: "x", label: "Average ROAS", description: "Return on ad spend for stores using our AI ad manager." },
+    { icon: <Zap className="h-8 w-8 text-yellow-400" />, value: 24, unit: "/7", label: "Always On", description: "Your AI operator never sleeps, never takes a break." },
+    { icon: <ShieldCheck className="h-8 w-8 text-green-400" />, value: 99.99, unit: "%", label: "Uptime", description: "Enterprise-grade reliability for your store operations." },
+  ];
+
+  return (
+    <div className="relative w-full bg-[#0A0A0A] flex flex-col items-center justify-center py-24 px-8 md:px-16 overflow-hidden">
+      {/* Aurora background */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="absolute inset-0" style={{ filter: "blur(100px)" }}>
+          <div className="absolute w-[600px] h-[600px] rounded-full top-[-10%] left-[-10%]"
+            style={{ backgroundColor: "rgba(74, 144, 226, 0.3)", animation: "moveAurora1 20s infinite alternate ease-in-out" }} />
+          <div className="absolute w-[500px] h-[500px] rounded-full bottom-[-10%] right-[-10%]"
+            style={{ backgroundColor: "rgba(168, 85, 247, 0.2)", animation: "moveAurora2 25s infinite alternate ease-in-out" }} />
+        </div>
+      </div>
+      <style>{`
+        @keyframes moveAurora1 { from { transform: translate(0, 0); } to { transform: translate(100px, 80px); } }
+        @keyframes moveAurora2 { from { transform: translate(0, 0); } to { transform: translate(-100px, -80px); } }
+      `}</style>
+
+      <div className="relative z-10 flex flex-col items-center text-center mb-16">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8, ease: "easeInOut" }}
+          className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-white"
+        >
+          Scale Without Limits
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
+          className="text-lg text-slate-400 max-w-2xl"
+        >
+          Built for e-commerce stores that want to grow faster. ainomiq handles ads, email, inventory, and customer service — automatically.
+        </motion.p>
+      </div>
+
+      <div className="relative z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <StatCard key={stat.label} stat={stat} index={index} />
+        ))}
+      </div>
+    </div>
+  );
+}
