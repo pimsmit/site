@@ -21,13 +21,10 @@ export function SplineSceneBasic() {
             {/* Left content — tighter */}
             <div className="flex-1 z-10 text-center md:text-left">
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
-                Meet your AI
-                <br />
-                <span className="text-[#4A90E2]">operator</span>
+                Meet Mark
               </h1>
               <p className="text-lg text-gray-600 leading-relaxed max-w-md">
-                Always on. Always optimizing. Your ainomiq agent runs your store
-                while you focus on what matters.
+                Mark works 24/7 and never needs a break. Crazy, right?
               </p>
             </div>
 
