@@ -53,16 +53,16 @@ const StatCard = ({ stat, index }: { stat: { icon: React.ReactNode; value: numbe
       onMouseMove={handleMouseMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="relative p-8 rounded-xl bg-slate-900/50 backdrop-blur-md border border-slate-800"
+      className="relative p-8 rounded-xl bg-slate-50 border border-slate-200 shadow-sm"
     >
       <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }} className="flex flex-col h-full">
         <div className="mb-4">{stat.icon}</div>
-        <h2 className="text-4xl md:text-5xl font-bold text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-black">
           <AnimatedNumber value={stat.value} />
-          <span className="text-3xl text-slate-400">{stat.unit}</span>
+          <span className="text-3xl text-slate-600">{stat.unit}</span>
         </h2>
-        <h3 className="text-lg font-semibold text-slate-300 mt-2">{stat.label}</h3>
-        <p className="text-sm text-slate-500 mt-4 flex-grow">{stat.description}</p>
+        <h3 className="text-lg font-semibold text-slate-800 mt-2">{stat.label}</h3>
+        <p className="text-sm text-slate-600 mt-4 flex-grow">{stat.description}</p>
       </div>
     </motion.div>
   );
@@ -77,28 +77,14 @@ export function ScaleWithoutLimits() {
   ];
 
   return (
-    <div className="relative w-full bg-[#0A0A0A] flex flex-col items-center justify-center py-16 md:py-20 px-8 md:px-16 overflow-hidden">
-      {/* Aurora background */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute inset-0" style={{ filter: "blur(100px)" }}>
-          <div className="absolute w-[600px] h-[600px] rounded-full top-[-10%] left-[-10%]"
-            style={{ backgroundColor: "rgba(74, 144, 226, 0.3)", animation: "moveAurora1 20s infinite alternate ease-in-out" }} />
-          <div className="absolute w-[500px] h-[500px] rounded-full bottom-[-10%] right-[-10%]"
-            style={{ backgroundColor: "rgba(168, 85, 247, 0.2)", animation: "moveAurora2 25s infinite alternate ease-in-out" }} />
-        </div>
-      </div>
-      <style>{`
-        @keyframes moveAurora1 { from { transform: translate(0, 0); } to { transform: translate(100px, 80px); } }
-        @keyframes moveAurora2 { from { transform: translate(0, 0); } to { transform: translate(-100px, -80px); } }
-      `}</style>
-
+    <div className="relative w-full bg-white flex flex-col items-center justify-center py-16 md:py-20 px-8 md:px-16 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center text-center mb-16">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeInOut" }}
-          className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-white"
+          className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-black"
         >
           Scale Without Limits
         </motion.h1>
@@ -107,7 +93,7 @@ export function ScaleWithoutLimits() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
-          className="text-lg text-slate-400 max-w-2xl"
+          className="text-lg text-slate-700 max-w-2xl"
         >
           Built for e-commerce stores that want to grow faster. ainomiq handles ads, email, inventory, and customer service — automatically.
         </motion.p>
