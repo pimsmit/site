@@ -22,9 +22,9 @@ export const ContainerScroll = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const rotate = useTransform(scrollYProgress, [0, 0.4], [35, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.4], [1, 1.05]);
-  const translate = useTransform(scrollYProgress, [0, 0.4], [-100, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 0.4], [0, 35]);
+  const scale = useTransform(scrollYProgress, [0, 0.4], [1.05, 1]);
+  const translate = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
