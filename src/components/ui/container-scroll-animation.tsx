@@ -40,7 +40,7 @@ export const ContainerScroll = ({
       className="h-[80rem] flex items-center justify-center relative p-20"
       ref={containerRef}
     >
-      <div className="py-20 w-full relative" style={{ perspective: "1000px" }}>
+      <div className="py-10 w-full relative" style={{ perspective: "1000px" }}>
         <Header translate={translate} titleComponent={titleComponent} />
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
