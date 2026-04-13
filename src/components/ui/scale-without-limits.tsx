@@ -77,7 +77,7 @@ export function ScaleWithoutLimits() {
   ];
 
   return (
-    <div className="relative w-full bg-white flex flex-col items-center justify-center pt-28 md:pt-32 pb-20 px-8 md:px-16 overflow-hidden">
+    <div className="relative w-full bg-white flex flex-col items-center justify-center pt-44 md:pt-52 pb-20 px-8 md:px-16 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center text-center mb-8">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
