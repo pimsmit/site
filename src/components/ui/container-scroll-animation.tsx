@@ -25,6 +25,7 @@ export const ContainerScroll = ({
   const rotate = useTransform(scrollYProgress, [0, 0.4], [0, 35]);
   const scale = useTransform(scrollYProgress, [0, 0.4], [1.05, 1]);
   const translate = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
@@ -44,7 +45,7 @@ export const ContainerScroll = ({
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
         </Card>
-        <Header translate={translate} titleComponent={titleComponent} />
+        <Header translate={translate} titleComponent={titleComponent} opacity={textOpacity} />
       </div>
     </div>
   );
@@ -146,10 +147,10 @@ function MobilePhoneScroll({
   );
 }
 
-export const Header = ({ translate, titleComponent }: any) => {
+export const Header = ({ translate, titleComponent, opacity }: any) => {
   return (
     <motion.div
-      style={{ translateY: translate }}
+      style={{ translateY: translate, opacity }}
       className="max-w-5xl mx-auto text-center relative z-10"
     >
       {titleComponent}
