@@ -150,8 +150,8 @@ function MobilePhoneScroll({
 export const Header = ({ translate, titleComponent, opacity }: any) => {
   return (
     <motion.div
-      style={{ translateY: translate, opacity }}
-      className="max-w-5xl mx-auto text-center absolute inset-0 z-10 flex items-center justify-center"
+      style={{ opacity }}
+      className="max-w-5xl mx-auto text-center relative z-10 mb-12"
     >
       {titleComponent}
     </motion.div>
