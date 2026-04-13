@@ -12,6 +12,7 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    offset: ["start end", "end start"],
   });
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -22,10 +23,13 @@ export const ContainerScroll = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const rotate = useTransform(scrollYProgress, [0, 0.4], [45, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.4], [1, 1.05]);
-  const translate = useTransform(scrollYProgress, [0, 0.4], [-100, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 1, 0]);
+  // scrollYProgress 0 = container bottom enters viewport bottom
+  // scrollYProgress ~0.3 = container is roughly centered in viewport
+  // Animation plays from 0.1 (just entered view) to 0.4 (well into view)
+  const rotate = useTransform(scrollYProgress, [0.1, 0.4], [45, 0]);
+  const scale = useTransform(scrollYProgress, [0.1, 0.4], [1, 1.05]);
+  const translate = useTransform(scrollYProgress, [0.1, 0.4], [-100, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.5], [1, 1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
