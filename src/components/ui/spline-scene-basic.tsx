@@ -163,7 +163,7 @@ export function SplineSceneBasic() {
 
   return (
     <div className="w-full px-4 md:px-8 py-20 bg-white relative overflow-hidden">
-      <div className="max-w-6xl mx-auto flex flex-col gap-6">
+      <div className="max-w-6xl mx-auto">
         {/* Glassy container */}
         <div
           ref={containerRef}
@@ -191,14 +191,15 @@ export function SplineSceneBasic() {
           {/* Glass reflection overlay */}
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.08] to-transparent pointer-events-none" />
 
-          {/* Left content — text */}
-          <div className="flex-1 z-10 text-center md:text-left">
-            <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+          {/* Left content — text + chat */}
+          <div className="flex-1 z-10 flex flex-col items-center md:items-start">
+            <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-3">
               Meet Mark
             </h1>
-            <p className="text-lg text-blue-200 leading-relaxed max-w-md">
+            <p className="text-lg text-blue-200 leading-relaxed max-w-md mb-5">
               Mark works 24/7 and never needs a break. Crazy, right?
             </p>
+            <AskMark />
           </div>
 
           {/* Right content — robot */}
@@ -208,11 +209,6 @@ export function SplineSceneBasic() {
               className="w-full h-full scale-110"
             />
           </div>
-        </div>
-
-        {/* Chat box below container */}
-        <div className="flex justify-center md:justify-start">
-          <AskMark />
         </div>
       </div>
     </div>
