@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
-import { useScroll, useTransform, useMotionValueEvent, motion, MotionValue } from "framer-motion";
+import React, { useRef } from "react";
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -12,45 +12,23 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
   });
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
 
-  // Capture initial scroll position on mount so we can offset the animation.
-  // If the section is already partially scrolled into view on load,
-  // scrollYProgress will be >0 — we shift the animation range to start there.
-  const [initialProgress, setInitialProgress] = useState<number | null>(null);
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (initialProgress === null) setInitialProgress(v);
-  });
-
-  // Also capture on mount via RAF in case no scroll event fires
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      if (initialProgress === null) {
-        setInitialProgress(scrollYProgress.get());
-      }
-    });
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Animation range: starts from wherever the user is on load,
-  // plays over the next 0.25 of progress
-  const start = initialProgress ?? 0;
-  const end = Math.min(start + 0.25, 0.9);
+  const scaleDimensions = () => {
+    return isMobile ? [0.7, 0.9] : [1.05, 1];
+  };
 
-  const rotate = useTransform(scrollYProgress, [start, end], [45, 0]);
-  const scale = useTransform(scrollYProgress, [start, end], [0.95, 1.05]);
-  const translate = useTransform(scrollYProgress, [start, end], [-100, 0]);
-  const textOpacity = useTransform(scrollYProgress, [start, start + 0.1, end + 0.1], [1, 1, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
+  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
@@ -63,11 +41,11 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="h-[70rem] flex items-center justify-center relative p-8"
+      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
       ref={containerRef}
     >
-      <div className="py-2 w-full relative" style={{ perspective: "1000px" }}>
-        <Header translate={translate} titleComponent={titleComponent} opacity={textOpacity} />
+      <div className="py-10 md:py-40 w-full relative" style={{ perspective: "1000px" }}>
+        <Header translate={translate} titleComponent={titleComponent} />
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
         </Card>
@@ -172,11 +150,13 @@ function MobilePhoneScroll({
   );
 }
 
-export const Header = ({ translate, titleComponent, opacity }: any) => {
+export const Header = ({ translate, titleComponent }: any) => {
   return (
     <motion.div
-      style={{ opacity }}
-      className="max-w-5xl mx-auto text-center relative z-10 mb-12"
+      style={{
+        translateY: translate,
+      }}
+      className="div max-w-5xl mx-auto text-center"
     >
       {titleComponent}
     </motion.div>
@@ -194,20 +174,18 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="relative max-w-5xl -mt-24 mx-auto z-30">
-      <motion.div
-        style={{
-          rotateX: rotate,
-          scale,
-          boxShadow:
-            "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 80px #00000008, 0 233px 120px #00000004",
-        }}
-        className="h-[40rem] w-full border-4 border-[#6C6C6C] p-6 bg-[#222222] rounded-[30px] relative"
-      >
-        <div className="h-full w-full overflow-hidden rounded-2xl bg-white">
-          {children}
-        </div>
-      </motion.div>
-    </div>
+    <motion.div
+      style={{
+        rotateX: rotate,
+        scale,
+        boxShadow:
+          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+      }}
+      className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
+    >
+      <div className="h-full w-full overflow-hidden rounded-2xl bg-white md:rounded-2xl md:p-4">
+        {children}
+      </div>
+    </motion.div>
   );
 };
