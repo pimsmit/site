@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef } from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { useScroll, useTransform, useMotionValueEvent, motion, MotionValue } from "framer-motion";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -12,26 +12,45 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // progress 0 = top of container at top of viewport
-    // progress 1 = bottom of container at top of viewport
-    offset: ["start start", "end start"],
+    offset: ["start end", "end start"],
   });
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
+  // Capture initial scroll position on mount so we can offset the animation.
+  // If the section is already partially scrolled into view on load,
+  // scrollYProgress will be >0 — we shift the animation range to start there.
+  const [initialProgress, setInitialProgress] = useState<number | null>(null);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (initialProgress === null) setInitialProgress(v);
+  });
+
+  // Also capture on mount via RAF in case no scroll event fires
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      if (initialProgress === null) {
+        setInitialProgress(scrollYProgress.get());
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // progress 0 = container top hits viewport top
-  // progress ~0.3 = user has scrolled ~30% through the container
-  // Tablet starts tilted at 45°, unfolds to flat by progress 0.25
-  const rotate = useTransform(scrollYProgress, [0, 0.25], [45, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1.05]);
-  const translate = useTransform(scrollYProgress, [0, 0.25], [-100, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.3], [1, 1, 0]);
+  // Animation range: starts from wherever the user is on load,
+  // plays over the next 0.25 of progress
+  const start = initialProgress ?? 0;
+  const end = Math.min(start + 0.25, 0.9);
+
+  const rotate = useTransform(scrollYProgress, [start, end], [45, 0]);
+  const scale = useTransform(scrollYProgress, [start, end], [0.95, 1.05]);
+  const translate = useTransform(scrollYProgress, [start, end], [-100, 0]);
+  const textOpacity = useTransform(scrollYProgress, [start, start + 0.1, end + 0.1], [1, 1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
@@ -44,7 +63,7 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="h-[80rem] flex items-start justify-center relative p-8 pt-[30vh]"
+      className="h-[70rem] flex items-center justify-center relative p-8"
       ref={containerRef}
     >
       <div className="py-2 w-full relative" style={{ perspective: "1000px" }}>
