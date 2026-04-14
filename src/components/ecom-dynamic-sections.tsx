@@ -29,7 +29,7 @@ export function EcomDynamicSections({ children }: { children?: React.ReactNode }
       <AinomiqHeroScroll />
 
       {/* Breather — rust tussen drukke secties */}
-      <section className="py-24 md:py-32 px-6 bg-white">
+      <section className="py-16 md:py-20 px-6 bg-white">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f1b2d]">
             Connect once.<br />Run forever.
