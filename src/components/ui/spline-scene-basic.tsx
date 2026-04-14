@@ -91,7 +91,7 @@ export function SplineSceneBasic() {
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="relative flex flex-col md:flex-row items-center gap-8 p-8 md:p-12 rounded-3xl border border-white/40 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950 shadow-none overflow-hidden"
+          className="relative flex flex-col md:flex-row items-center gap-8 p-8 md:p-12 rounded-3xl border border-white/20 bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#7c3aed] shadow-none overflow-hidden"
         >
           {/* Mouse hover glow */}
           {mousePos && (
@@ -108,7 +108,7 @@ export function SplineSceneBasic() {
           {/* Interactive moving spotlight background */}
           <Spotlight
             className="-top-40 left-0 md:left-60 md:-top-20"
-            fill="#4A90E2"
+            fill="#3b82f6"
           />
           {/* Glass reflection overlay */}
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.08] to-transparent pointer-events-none" />
