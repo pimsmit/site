@@ -27,12 +27,9 @@ export function EcomDynamicSections({ children }: { children?: React.ReactNode }
       {/* Breather — rust tussen drukke secties */}
       <section className="pt-28 md:pt-36 pb-0 px-6 bg-white">
         <div className="mx-auto max-w-2xl text-center pb-20 md:pb-28">
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f1b2d] mb-4">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f1b2d]">
             Connect once.<br />Run forever.
           </h2>
-          <p className="text-lg text-slate-500 max-w-md mx-auto">
-            Your store keeps working while you focus on what matters.
-          </p>
         </div>
       </section>
 
