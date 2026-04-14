@@ -238,16 +238,13 @@ export function FeaturedModulesScroll() {
   const [animatingStep, setAnimatingStep] = useState<number>(-1)
   const [showResult, setShowResult] = useState(false)
   const [showTrigger, setShowTrigger] = useState(false)
-  const [particleProgress, setParticleProgress] = useState(-1)
-  const [loopCount, setLoopCount] = useState(0)
   const current = modules.find(m => m.id === activeModule)!
 
-  // Run animation loop
+  // Run animation once
   const runAnimation = useCallback(() => {
     setAnimatingStep(-1)
     setShowResult(false)
     setShowTrigger(false)
-    setParticleProgress(-1)
 
     const timers: NodeJS.Timeout[] = []
 
@@ -257,25 +254,14 @@ export function FeaturedModulesScroll() {
     // Animate each step
     current.steps.forEach((_, i) => {
       const baseDelay = 600 + i * 700
-
-      // Step activates
       timers.push(setTimeout(() => setAnimatingStep(i), baseDelay))
-
-      // Particle moves to next position
-      timers.push(setTimeout(() => setParticleProgress((i + 1) / current.steps.length), baseDelay + 100))
     })
 
     // Show result
     const resultDelay = 600 + current.steps.length * 700 + 400
     timers.push(setTimeout(() => {
       setShowResult(true)
-      setParticleProgress(-1) // hide particle
     }, resultDelay))
-
-    // Loop after pause
-    timers.push(setTimeout(() => {
-      setLoopCount(c => c + 1)
-    }, resultDelay + 3000))
 
     return () => timers.forEach(clearTimeout)
   }, [activeModule, current.steps])
@@ -283,7 +269,7 @@ export function FeaturedModulesScroll() {
   useEffect(() => {
     const cleanup = runAnimation()
     return cleanup
-  }, [activeModule, loopCount, runAnimation])
+  }, [activeModule, runAnimation])
 
   return (
     <section className="py-20 md:py-32 px-4 md:px-6 bg-white overflow-hidden">
@@ -307,7 +293,7 @@ export function FeaturedModulesScroll() {
               return (
                 <button
                   key={mod.id}
-                  onClick={() => { setActiveModule(mod.id); setLoopCount(0) }}
+                  onClick={() => setActiveModule(mod.id)}
                   className="group relative flex flex-col items-center"
                 >
                   <motion.div
