@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import { ScaleWithoutLimits } from "@/components/ui/scale-without-limits";
+import { EcomDynamicSections } from "@/components/ecom-dynamic-sections";
 import {
   Bot,
   BarChart3,
@@ -16,24 +16,6 @@ import {
   Check,
   ShoppingCart,
 } from "lucide-react";
-
-// Heavy components — lazy loaded, only rendered when JS reaches them
-const AinomiqHeroScroll = dynamic(
-  () => import("@/components/ui/ainomiq-hero-scroll").then(m => ({ default: m.AinomiqHeroScroll })),
-  { ssr: false }
-);
-const SplineSceneBasic = dynamic(
-  () => import("@/components/ui/spline-scene-basic").then(m => ({ default: m.SplineSceneBasic })),
-  { ssr: false, loading: () => <div className="w-full h-[500px]" /> }
-);
-const FeaturedModulesScroll = dynamic(
-  () => import("@/components/ui/featured-modules-scroll").then(m => ({ default: m.FeaturedModulesScroll })),
-  { ssr: false }
-);
-const WaitlistSection = dynamic(
-  () => import("@/components/ui/waitlist-section").then(m => ({ default: m.WaitlistSection })),
-  { ssr: false }
-);
 
 export const metadata: Metadata = {
   title: "Ecommerce Application",
@@ -68,14 +50,10 @@ export default function PlatformPage() {
       {/* Stats — Scale Without Limits */}
       <ScaleWithoutLimits />
 
-      {/* Hero — tablet scroll animation */}
-      <AinomiqHeroScroll />
-
-      {/* Robot — Meet Mark */}
-      <SplineSceneBasic />
-
-      {/* Featured Modules — scroll animated */}
-      <FeaturedModulesScroll />
+      {/* Heavy dynamic sections (client component wrapper) */}
+      <EcomDynamicSections>
+        {/* Industry — E-commerce (static, rendered as children) */}
+      </EcomDynamicSections>
 
       {/* Industry — E-commerce */}
       <section id="ecommerce" className="scroll-mt-28 py-24 px-6 bg-ainomiq-navy-light">
@@ -184,8 +162,6 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      {/* Waitlist */}
-      <WaitlistSection />
     </>
   );
 }
