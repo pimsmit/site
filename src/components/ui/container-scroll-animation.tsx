@@ -12,7 +12,9 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    // progress 0 = top of container at top of viewport
+    // progress 1 = bottom of container at top of viewport
+    offset: ["start start", "end start"],
   });
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -23,13 +25,13 @@ export const ContainerScroll = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // scrollYProgress 0 = container bottom enters viewport bottom
-  // scrollYProgress ~0.3 = container is roughly centered in viewport
-  // Animation plays from 0.1 (just entered view) to 0.4 (well into view)
-  const rotate = useTransform(scrollYProgress, [0.1, 0.4], [45, 0]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.4], [1, 1.05]);
-  const translate = useTransform(scrollYProgress, [0.1, 0.4], [-100, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.5], [1, 1, 0]);
+  // progress 0 = container top hits viewport top
+  // progress ~0.3 = user has scrolled ~30% through the container
+  // Tablet starts tilted at 45°, unfolds to flat by progress 0.25
+  const rotate = useTransform(scrollYProgress, [0, 0.25], [45, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1.05]);
+  const translate = useTransform(scrollYProgress, [0, 0.25], [-100, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.3], [1, 1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
@@ -42,7 +44,7 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="h-[70rem] flex items-center justify-center relative p-8"
+      className="h-[80rem] flex items-start justify-center relative p-8 pt-[30vh]"
       ref={containerRef}
     >
       <div className="py-2 w-full relative" style={{ perspective: "1000px" }}>
