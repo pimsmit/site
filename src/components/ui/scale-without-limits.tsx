@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { Bot, Zap, ShieldCheck } from 'lucide-react';
+import { Bot, Zap, ShieldCheck, Clock } from 'lucide-react';
 
 const AnimatedNumber = ({ value }: { value: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -70,10 +70,10 @@ const StatCard = ({ stat, index }: { stat: { icon: React.ReactNode; value: numbe
 
 export function ScaleWithoutLimits() {
   const stats = [
-    { icon: <Zap className="h-8 w-8 text-yellow-400" />, value: 2, unit: "min", label: "Setup Time", description: "Connect your store and go live in under 2 minutes." },
-    { icon: <Bot className="h-8 w-8 text-[#4A90E2]" />, value: 80, unit: "%", label: "Less Manual Work", description: "Customer service, emails, reporting — handled automatically." },
-    { icon: <Zap className="h-8 w-8 text-yellow-400" />, value: 24, unit: "/7", label: "Always On", description: "Your system never sleeps, never takes a break." },
-    { icon: <ShieldCheck className="h-8 w-8 text-green-400" />, value: 100, unit: "%", label: "Your Brand Voice", description: "Every email, ad, and reply matches your tone. No generic slop." },
+    { icon: <Clock className="h-8 w-8 text-yellow-400" />, value: 2, unit: "min", label: "Setup Time", description: "Connect your store. Go live in under 2 minutes." },
+    { icon: <Bot className="h-8 w-8 text-[#4A90E2]" />, value: 80, unit: "%", label: "Less Busywork", description: "Customer service, emails, reporting — handled automatically." },
+    { icon: <Zap className="h-8 w-8 text-yellow-400" />, value: 24, unit: "/7", label: "Always On", description: "Your system never sleeps. Never takes a break." },
+    { icon: <ShieldCheck className="h-8 w-8 text-green-400" />, value: 100, unit: "%", label: "On Brand", description: "Every reply sounds like you wrote it." },
   ];
 
   return (
@@ -86,7 +86,7 @@ export function ScaleWithoutLimits() {
           transition={{ delay: 0.2, duration: 0.8, ease: "easeInOut" }}
           className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-black"
         >
-          Scale Without Limits
+          Your store runs itself
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
@@ -95,7 +95,7 @@ export function ScaleWithoutLimits() {
           transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
           className="text-lg text-slate-700 max-w-2xl"
         >
-          Built for e-commerce stores that want to grow faster. ainomiq handles ads, email, inventory, and customer service — automatically.
+          Connect your store. Ainomiq handles customer service, emails, inventory, and reporting — so you can focus on growth.
         </motion.p>
       </div>
 
