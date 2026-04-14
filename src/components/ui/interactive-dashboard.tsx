@@ -8,13 +8,13 @@ import {
 } from "lucide-react";
 
 const modules = [
-  { icon: ChartColumn, title: "AI Ad Manager", description: "Autonomous ad creation & optimization." },
-  { icon: Bot, title: "Customer Service", description: "AI handles support across all channels." },
-  { icon: Package, title: "Smart Inventory", description: "Real-time stock tracking & alerts." },
-  { icon: Mail, title: "Email Marketing", description: "Klaviyo flows & campaign automation." },
-  { icon: BarChart3, title: "Live Analytics", description: "Real-time data from all platforms." },
-  { icon: TrendingUp, title: "Performance", description: "Revenue tracking & growth metrics." },
-];
+  { icon: Bot, title: "Customer Service", description: "Email, chat, DMs, and comments — handled automatically." },
+  { icon: Package, title: "Inventory Management", description: "Stock tracking, alerts, and reorder suggestions." },
+  { icon: Mail, title: "Email Marketing", description: "Klaviyo flows & campaigns on autopilot." },
+  { icon: TrendingUp, title: "Performance Tracking", description: "Revenue, profit, and growth metrics — free." , free: true },
+  { icon: ChartColumn, title: "Ads Manager", description: "Meta, Google, and TikTok campaigns.", soon: true },
+  { icon: BarChart3, title: "Social Media", description: "Posting, scheduling, and engagement.", soon: true },
+] as const;
 
 const bottomTabs = [
   { icon: Home, label: "Overview" },
@@ -386,9 +386,9 @@ export function InteractiveDashboard() {
                     <span className="text-xl font-bold">ainomiq</span>
                   </div>
                   <h1 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
-                    Your AI-powered<br />e-commerce operator
+                    Your store,<br />fully automated
                   </h1>
-                  <p className="text-sm text-gray-500 mb-6">One platform, zero manual work.</p>
+                  <p className="text-sm text-gray-500 mb-6">One platform. Every department. Zero manual work.</p>
                   <button
                     onClick={() => setShowApp(true)}
                     className="w-full bg-blue-600 text-white font-semibold py-3 rounded-2xl text-sm shadow-md active:scale-95 transition-transform"
@@ -409,7 +409,11 @@ export function InteractiveDashboard() {
                           <Icon className="w-4 h-4 text-blue-600" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-gray-900">{m.title}</p>
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-semibold text-gray-900">{m.title}</p>
+                            {'soon' in m && m.soon && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">Soon</span>}
+                            {'free' in m && m.free && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Free</span>}
+                          </div>
                           <p className="text-xs text-gray-500 truncate">{m.description}</p>
                         </div>
                         <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" />
@@ -421,9 +425,9 @@ export function InteractiveDashboard() {
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-blue-50 to-white overflow-auto p-8">
                 <div className="text-center mb-8">
-                  <h1 className="text-4xl font-bold mb-3 text-gray-900">Your AI-powered<br />e-commerce operator</h1>
+                  <h1 className="text-4xl font-bold mb-3 text-gray-900">Your store,<br />fully automated</h1>
                   <p className="text-gray-600 max-w-xl mx-auto mb-6 text-sm">
-                    Ainomiq connects your entire e-commerce stack and runs it with AI — one platform, zero manual work.
+                    Ainomiq connects your store and runs every department — one platform, zero manual work.
                   </p>
                   <div className="flex gap-3 justify-center">
                     <button
@@ -451,6 +455,8 @@ export function InteractiveDashboard() {
                             <Icon className="w-4 h-4 text-blue-600" />
                           </div>
                           <p className="font-semibold text-xs">{m.title}</p>
+                          {'soon' in m && m.soon && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">Soon</span>}
+                          {'free' in m && m.free && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Free</span>}
                         </div>
                         <p className="text-xs text-gray-500">{m.description}</p>
                       </button>
