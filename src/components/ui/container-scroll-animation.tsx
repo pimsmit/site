@@ -173,18 +173,28 @@ export const Card = ({
   children: React.ReactNode;
 }) => {
   return (
-    <motion.div
-      style={{
-        rotateX: rotate,
-        scale,
-        boxShadow:
-          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 80px #00000008, 0 233px 120px #00000004, 0 350px 180px #00000002",
-      }}
-      className="max-w-5xl -mt-24 mx-auto h-[40rem] w-full border-4 border-[#6C6C6C] p-6 bg-[#222222] rounded-[30px] relative z-30"
-    >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-white">
-        {children}
-      </div>
-    </motion.div>
+    <div className="relative max-w-5xl -mt-24 mx-auto z-30">
+      <motion.div
+        style={{
+          rotateX: rotate,
+          scale,
+          boxShadow:
+            "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 80px #00000008, 0 233px 120px #00000004",
+        }}
+        className="h-[40rem] w-full border-4 border-[#6C6C6C] p-6 bg-[#222222] rounded-[30px] relative"
+      >
+        <div className="h-full w-full overflow-hidden rounded-2xl bg-white">
+          {children}
+        </div>
+      </motion.div>
+      {/* Gradient overlay that fades the shadow edge smoothly into white */}
+      <div
+        className="absolute left-0 right-0 bottom-0 h-80 pointer-events-none z-40"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.7) 55%, rgba(255,255,255,0.95) 80%, white 100%)",
+          transform: "translateY(60%)",
+        }}
+      />
+    </div>
   );
 };
