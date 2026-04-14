@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion"
-import { Headphones, Package, Mail, BarChart3, CheckCircle2, Zap } from "lucide-react"
+import { Headphones, Package, Mail, BarChart3, CheckCircle2, Zap, Inbox, Brain, PenTool, Send, BoxesIcon, TrendingUp, Bell, ShoppingCart, Activity, GitBranch, UserCheck, Clock, Satellite, Calculator, Search, Lightbulb } from "lucide-react"
 
 interface ModuleFlow {
   id: string
@@ -11,7 +11,7 @@ interface ModuleFlow {
   color: string
   bgColor: string
   glowColor: string
-  steps: { label: string; detail: string; emoji: string }[]
+  steps: { label: string; detail: string; icon: React.ElementType }[]
   result: string
   trigger: string
 }
@@ -26,10 +26,10 @@ const modules: ModuleFlow[] = [
     glowColor: "59, 130, 246",
     trigger: "New message received",
     steps: [
-      { label: "Message received", detail: "Email, DM, or comment", emoji: "📩" },
-      { label: "Auto-classified", detail: "Return? Question? Complaint?", emoji: "🧠" },
-      { label: "Response drafted", detail: "Your tone, your data", emoji: "✍️" },
-      { label: "Sent or escalated", detail: "Reply in 47 seconds avg.", emoji: "🚀" },
+      { label: "Message received", detail: "Email, DM, or comment", icon: Inbox },
+      { label: "Auto-classified", detail: "Return? Question? Complaint?", icon: Brain },
+      { label: "Response drafted", detail: "Your tone, your data", icon: PenTool },
+      { label: "Sent or escalated", detail: "Reply in 47 seconds avg.", icon: Send },
     ],
     result: "Avg. response: 47s",
   },
@@ -42,10 +42,10 @@ const modules: ModuleFlow[] = [
     glowColor: "16, 185, 129",
     trigger: "Stock level changed",
     steps: [
-      { label: "Stock synced", detail: "Shopify + warehouse", emoji: "📦" },
-      { label: "Demand predicted", detail: "Velocity & trends", emoji: "📊" },
-      { label: "Alert triggered", detail: "Before you run out", emoji: "🔔" },
-      { label: "Reorder suggested", detail: "MOQ & lead times", emoji: "🛒" },
+      { label: "Stock synced", detail: "Shopify + warehouse", icon: BoxesIcon },
+      { label: "Demand predicted", detail: "Velocity & trends", icon: TrendingUp },
+      { label: "Alert triggered", detail: "Before you run out", icon: Bell },
+      { label: "Reorder suggested", detail: "MOQ & lead times", icon: ShoppingCart },
     ],
     result: "Zero stockouts",
   },
@@ -58,10 +58,10 @@ const modules: ModuleFlow[] = [
     glowColor: "139, 92, 246",
     trigger: "Event triggered",
     steps: [
-      { label: "Event detected", detail: "Cart, purchase, signup", emoji: "⚡" },
-      { label: "Flow selected", detail: "Welcome, win-back, upsell", emoji: "🔀" },
-      { label: "Personalized", detail: "Name, product, segment", emoji: "🎯" },
-      { label: "Sent at peak time", detail: "Max open rate", emoji: "📧" },
+      { label: "Event detected", detail: "Cart, purchase, signup", icon: Activity },
+      { label: "Flow selected", detail: "Welcome, win-back, upsell", icon: GitBranch },
+      { label: "Personalized", detail: "Name, product, segment", icon: UserCheck },
+      { label: "Sent at peak time", detail: "Max open rate", icon: Clock },
     ],
     result: "2,418 sent this week",
   },
@@ -74,10 +74,10 @@ const modules: ModuleFlow[] = [
     glowColor: "245, 158, 11",
     trigger: "Data refresh cycle",
     steps: [
-      { label: "Data collected", detail: "All platforms synced", emoji: "📡" },
-      { label: "Profit calculated", detail: "Revenue minus all costs", emoji: "💰" },
-      { label: "Anomaly detected", detail: "ROAS drop, traffic shift", emoji: "🔍" },
-      { label: "Insight delivered", detail: "Specific actions", emoji: "💡" },
+      { label: "Data collected", detail: "All platforms synced", icon: Satellite },
+      { label: "Profit calculated", detail: "Revenue minus all costs", icon: Calculator },
+      { label: "Anomaly detected", detail: "ROAS drop, traffic shift", icon: Search },
+      { label: "Insight delivered", detail: "Specific actions", icon: Lightbulb },
     ],
     result: "Margin up 12%",
   },
@@ -161,7 +161,7 @@ function GlowConnector({ active, color, glowColor, isVertical }: {
 
 // Step node — the circle + text for each step
 function StepNode({ step, index, isActive, isAnimating, color, glowColor, bgColor, isVertical }: {
-  step: { label: string; detail: string; emoji: string }
+  step: { label: string; detail: string; icon: React.ElementType }
   index: number; isActive: boolean; isAnimating: boolean
   color: string; glowColor: string; bgColor: string; isVertical: boolean
 }) {
@@ -210,15 +210,16 @@ function StepNode({ step, index, isActive, isAnimating, color, glowColor, bgColo
           transition={{ duration: 0.4 }}
           className={`${isVertical ? "w-11 h-11" : "w-12 h-12"} rounded-full flex items-center justify-center relative z-10`}
         >
-          <motion.span
-            className="text-lg"
-            animate={{ scale: isAnimating ? [1, 1.3, 1] : 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            {isActive ? step.emoji : (
-              <span className="text-sm text-gray-400 font-medium">{index + 1}</span>
-            )}
-          </motion.span>
+          {isActive ? (
+            <motion.div
+              animate={{ scale: isAnimating ? [1, 1.2, 1] : 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <step.icon className="w-5 h-5 text-white" />
+            </motion.div>
+          ) : (
+            <span className="text-sm text-gray-400 font-medium">{index + 1}</span>
+          )}
         </motion.div>
       </div>
 
