@@ -388,7 +388,7 @@ export function InteractiveDashboard() {
                   <h1 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
                     Your store,<br />fully automated
                   </h1>
-                  <p className="text-sm text-gray-500 mb-6">One platform. Every department. Zero manual work.</p>
+                  <p className="text-sm text-gray-500 mb-6">One app. Every department. Always running.</p>
                   <button
                     onClick={() => setShowApp(true)}
                     className="w-full bg-blue-600 text-white font-semibold py-3 rounded-2xl text-sm shadow-md active:scale-95 transition-transform"
@@ -427,7 +427,7 @@ export function InteractiveDashboard() {
                 <div className="text-center mb-8">
                   <h1 className="text-4xl font-bold mb-3 text-gray-900">Your store,<br />fully automated</h1>
                   <p className="text-gray-600 max-w-xl mx-auto mb-6 text-sm">
-                    Ainomiq connects your store and runs every department — one platform, zero manual work.
+                    One app. Every department. Always running.
                   </p>
                   <div className="flex gap-3 justify-center">
                     <button
