@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Bot, ChartColumn, Package, Mail, BarChart3,
   TrendingUp, Settings, ChevronRight,
-  Home, Gauge, Workflow, ShoppingBag, Instagram, Send, HelpCircle, LayoutDashboard
+  Home, Gauge, Workflow, ShoppingBag, Instagram, Send, HelpCircle, LayoutDashboard,
+  Star, RefreshCw, Globe
 } from "lucide-react";
 
 const modules = [
@@ -14,6 +15,9 @@ const modules = [
   { icon: TrendingUp, title: "Performance Tracking", description: "Revenue, profit, and growth metrics — free." , free: true },
   { icon: ChartColumn, title: "Ads Manager", description: "Meta, Google, and TikTok campaigns.", soon: true },
   { icon: BarChart3, title: "Social Media", description: "Posting, scheduling, and engagement.", soon: true },
+  { icon: Star, title: "Reviews & UGC", description: "Collect and showcase customer content.", soon: true },
+  { icon: RefreshCw, title: "Returns & Exchanges", description: "Automated return flows and labels.", soon: true },
+  { icon: Globe, title: "Website Builder", description: "Prompt-based store pages.", soon: true },
 ] as const;
 
 const bottomTabs = [
