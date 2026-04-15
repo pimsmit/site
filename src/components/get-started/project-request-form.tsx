@@ -694,7 +694,6 @@ export function ProjectRequestForm() {
                 type="button"
                 disabled={!canNext}
                 onClick={() => handleStepChange(step + 1)}
-                onClick={() => handleStepChange(step + 1)}
                 className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3a7de0] disabled:opacity-40"
               >
                 Continue <ArrowRight className="h-4 w-4" />
