@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, type ChangeEvent } from "react";
 import {
   CheckCircle,
   Loader2,
@@ -10,8 +10,6 @@ import {
   Sparkles,
   Zap,
   Clock,
-  Euro,
-  CreditCard,
   Globe,
   LayoutDashboard,
   Bot,
@@ -19,11 +17,9 @@ import {
   Plug,
   Smartphone,
   BarChart3,
-  Wrench,
   Star,
+  FileUp,
 } from "lucide-react";
-
-/* ─── Data ─────────────────────────────────────────────────── */
 
 const PROJECT_TYPES = [
   { id: "website-landing", label: "Website / Landing page", Icon: Globe },
@@ -46,6 +42,7 @@ const TIMELINES = [
 ];
 
 const SOURCES = ["Google", "Social media", "Referral", "Other"];
+const TECH_OPTIONS = ["React/Next.js", "Vue", "Python", "Node.js", "Shopify", "WordPress", "No preference"];
 
 interface Estimate {
   hours: number;
@@ -55,8 +52,6 @@ interface Estimate {
   projectType: string;
 }
 
-/* ─── Component ────────────────────────────────────────────── */
-
 export function ProjectRequestForm() {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -65,7 +60,6 @@ export function ProjectRequestForm() {
   const [errors, setErrors] = useState<string[]>([]);
   const [estimate, setEstimate] = useState<Estimate | null>(null);
 
-  // Form state
   const [projectType, setProjectType] = useState("");
   const [description, setDescription] = useState("");
   const [timeline, setTimeline] = useState("");
@@ -75,19 +69,21 @@ export function ProjectRequestForm() {
   const [phone, setPhone] = useState("");
   const [references, setReferences] = useState("");
   const [foundVia, setFoundVia] = useState("");
+  const [targetAudience, setTargetAudience] = useState("");
+  const [existingUrl, setExistingUrl] = useState("");
+  const [needsCredentials, setNeedsCredentials] = useState(false);
+  const [techStack, setTechStack] = useState<string[]>([]);
+  const [features, setFeatures] = useState("");
+  const [designPrefs, setDesignPrefs] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
   const [hp, setHp] = useState("");
 
-  // Auto-suggest description placeholder based on type
   const descPlaceholder = projectType
     ? `Describe your ${PROJECT_TYPES.find((t) => t.id === projectType)?.label?.toLowerCase() || "project"}. What should it do? Any integrations or specific features?`
     : "Select a project type first…";
 
-  // Auto-fill budget label from estimate
-  const budgetLabel = estimate
-    ? `€${estimate.total}`
-    : "—";
+  const budgetLabel = estimate ? `€${estimate.total}` : "—";
 
-  // Fetch estimate when type + description + timeline are set
   const fetchEstimate = useCallback(async () => {
     if (!projectType || description.trim().length < 3 || !timeline) return;
     setLoading(true);
@@ -97,79 +93,117 @@ export function ProjectRequestForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectType, description, timeline }),
       });
-      const data = await res.json();
+      const data = (await res.json()) as { estimate?: Estimate };
       if (data.estimate) setEstimate(data.estimate);
     } catch {
-      // silent
+      // Silent failure keeps the wizard usable.
     } finally {
       setLoading(false);
     }
   }, [projectType, description, timeline]);
 
   useEffect(() => {
-    if (step === 3) fetchEstimate();
+    if (step === 3) {
+      void fetchEstimate();
+    }
   }, [step, fetchEstimate]);
+
+  function toggleTechStack(option: string) {
+    setTechStack((current) => {
+      if (option === "No preference") {
+        return current.includes(option) ? [] : [option];
+      }
+
+      const withoutNoPreference = current.filter((item) => item !== "No preference");
+      return withoutNoPreference.includes(option)
+        ? withoutNoPreference.filter((item) => item !== option)
+        : [...withoutNoPreference, option];
+    });
+  }
+
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const selected = Array.from(event.target.files ?? []);
+    const nextErrors: string[] = [];
+
+    if (selected.length > 5) {
+      nextErrors.push("You can upload up to 5 files.");
+    }
+
+    if (selected.some((file) => file.size > 10 * 1024 * 1024)) {
+      nextErrors.push("Each file must be 10MB or smaller.");
+    }
+
+    setErrors(nextErrors);
+    setFiles(nextErrors.length === 0 ? selected.slice(0, 5) : []);
+  }
 
   async function handleSubmit() {
     setErrors([]);
-    // Client validation
     const errs: string[] = [];
+
     if (!company.trim()) errs.push("Company name is required.");
     if (!contact.trim()) errs.push("Contact name is required.");
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      errs.push("Valid email is required.");
-    if (errs.length > 0) { setErrors(errs); return; }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push("Valid email is required.");
+    if (existingUrl.trim()) {
+      try {
+        new URL(existingUrl);
+      } catch {
+        errs.push("Existing site/app URL must be valid.");
+      }
+    }
+
+    if (files.length > 5) errs.push("You can upload up to 5 files.");
+    if (files.some((file) => file.size > 10 * 1024 * 1024)) errs.push("Each file must be 10MB or smaller.");
+
+    if (errs.length > 0) {
+      setErrors(errs);
+      return;
+    }
 
     setSubmitting(true);
     try {
       const typeLabel = PROJECT_TYPES.find((t) => t.id === projectType)?.label || projectType;
       const timelineLabel = TIMELINES.find((t) => t.id === timeline)?.label || timeline;
 
-      // 1. Send to Discord webhook
-      await fetch("/api/submit-project", {
+      const formData = new FormData();
+      formData.append("company", company);
+      formData.append("contact", contact);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("foundVia", foundVia);
+      formData.append("projectType", typeLabel);
+      formData.append("description", description);
+      formData.append("timeline", timelineLabel);
+      formData.append("budget", budgetLabel);
+      formData.append("referencesText", references);
+      formData.append("targetAudience", targetAudience);
+      formData.append("existingUrl", existingUrl);
+      formData.append("needsCredentials", String(needsCredentials));
+      formData.append("features", features);
+      formData.append("designPrefs", designPrefs);
+      formData.append("website_url", hp);
+
+      techStack.forEach((item) => formData.append("techStack", item));
+      files.forEach((file) => formData.append("files", file));
+
+      if (estimate) {
+        formData.append("estimateTotal", String(estimate.total));
+        formData.append("estimateHours", String(estimate.hours));
+      }
+
+      const response = await fetch("/api/submit-project", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          company, contact, email, phone, references, foundVia,
-          projectType: typeLabel,
-          description,
-          timeline: timelineLabel,
-          budget: budgetLabel,
-          estimateTotal: estimate?.total,
-          estimateHours: estimate?.hours,
-          _hp: hp,
-        }),
+        body: formData,
       });
 
-      // 2. Create Stripe checkout session
-      if (estimate?.total) {
-        const stripeRes = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            amount: estimate.total,
-            projectType: typeLabel,
-            company,
-            contact,
-            email,
-            description,
-            timeline: timelineLabel,
-            estimateHours: estimate.hours,
-          }),
-        });
-        const stripeData = await stripeRes.json();
-        if (stripeData.url) {
-          // Keep submitting=true so UI stays in loading state until redirect
-          window.location.href = stripeData.url;
-          return;
-        }
-        // Stripe failed to return a URL
-        setErrors(["Payment setup failed. Your project was submitted — we'll contact you to arrange payment."]);
+      const data = (await response.json()) as { success?: boolean; errors?: string[] };
+
+      if (!response.ok || !data.success) {
+        setErrors(data.errors ?? ["Could not submit your request. Please try again."]);
         return;
       }
 
-      // No estimate available — show error, don't fake success
-      setErrors(["Could not calculate estimate. Please try again or contact us directly."]);
+      setSuccess(true);
     } catch {
       setErrors(["Network error. Please try again."]);
     } finally {
@@ -177,20 +211,16 @@ export function ProjectRequestForm() {
     }
   }
 
-  /* ─── Steps ──────────────────────────────────────────────── */
-
-  const STEPS = [
+  const steps = [
     { title: "Project Type", valid: !!projectType },
     { title: "Details", valid: description.trim().length >= 3 },
     { title: "Timeline", valid: !!timeline },
-    { title: "Your Estimate", valid: !!estimate },
+    { title: "Your Estimate", valid: true },
     { title: "Contact", valid: !!company && !!contact && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) },
   ];
 
-  const canNext = STEPS[step]?.valid;
-  const isLast = step === STEPS.length - 1;
-
-  /* ─── Success ────────────────────────────────────────────── */
+  const canNext = steps[step]?.valid;
+  const isLast = step === steps.length - 1;
 
   function resetForm() {
     setSuccess(false);
@@ -204,6 +234,14 @@ export function ProjectRequestForm() {
     setPhone("");
     setReferences("");
     setFoundVia("");
+    setTargetAudience("");
+    setExistingUrl("");
+    setNeedsCredentials(false);
+    setTechStack([]);
+    setFeatures("");
+    setDesignPrefs("");
+    setFiles([]);
+    setHp("");
     setEstimate(null);
     setErrors([]);
   }
@@ -215,15 +253,13 @@ export function ProjectRequestForm() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10">
             <CheckCircle className="h-8 w-8 text-green-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">
-            Project request submitted!
-          </h3>
-          <p className="text-gray-400 mb-6">
-            Redirecting to payment...
+          <h3 className="mb-2 text-2xl font-bold text-white">Project request submitted</h3>
+          <p className="mb-6 text-gray-400">
+            Thanks! We&apos;ll prepare your project brief and get back within 24h.
           </p>
           <button
             onClick={resetForm}
-            className="text-[#4A90F5] hover:text-white text-sm font-medium transition-colors"
+            className="text-sm font-medium text-[#4A90F5] transition-colors hover:text-white"
           >
             ← Submit another request
           </button>
@@ -232,81 +268,72 @@ export function ProjectRequestForm() {
     );
   }
 
-  /* ─── Render ─────────────────────────────────────────────── */
-
   const inputCls =
     "w-full rounded-xl border border-[#1e293b] bg-[#1e293b]/50 px-4 py-3 text-white placeholder:text-gray-500 focus:border-[#4A90F5] focus:outline-none focus:ring-1 focus:ring-[#4A90F5] transition-colors";
-  const labelCls = "block text-sm font-medium text-gray-300 mb-1.5";
+  const labelCls = "mb-1.5 block text-sm font-medium text-gray-300";
 
   return (
     <section id="project-request" className="py-20 px-6">
-      <div className="mx-auto max-w-2xl">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#4A90F5]/10 px-4 py-1.5 text-xs font-semibold text-[#4A90F5] uppercase tracking-wider mb-4">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-10 text-center">
+          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#4A90F5]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#4A90F5]">
             <Sparkles className="h-3.5 w-3.5" /> Smart Project Builder
           </span>
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Tell us what you need.
-          </h2>
-          <p className="mt-3 text-gray-400 max-w-md mx-auto">
-            We&apos;ll calculate the cost instantly — no waiting, no back-and-forth.
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">Tell us what you need.</h2>
+          <p className="mx-auto mt-3 max-w-md text-gray-400">
+            We&apos;ll calculate the cost instantly, then turn your request into an internal project brief.
           </p>
         </div>
 
-        {/* Progress */}
-        <div className="flex items-center gap-1 mb-8">
-          {STEPS.map((s, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-1">
+        <div className="mb-8 flex items-center gap-1">
+          {steps.map((item, index) => (
+            <div key={item.title} className="flex flex-1 flex-col items-center gap-1">
               <div
                 className={`h-1.5 w-full rounded-full transition-all duration-500 ${
-                  i < step
-                    ? "bg-[#4A90F5]"
-                    : i === step
-                    ? "bg-[#4A90F5]/60"
-                    : "bg-[#1e293b]"
+                  index < step ? "bg-[#4A90F5]" : index === step ? "bg-[#4A90F5]/60" : "bg-[#1e293b]"
                 }`}
               />
-              <span
-                className={`text-[10px] font-medium transition-colors ${
-                  i <= step ? "text-gray-300" : "text-gray-600"
-                }`}
-              >
-                {s.title}
+              <span className={`text-[10px] font-medium ${index <= step ? "text-gray-300" : "text-gray-600"}`}>
+                {item.title}
               </span>
             </div>
           ))}
         </div>
 
-        {/* Card */}
-        <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-8 shadow-2xl min-h-[320px] flex flex-col">
-          {/* Honeypot */}
-          <div className="absolute opacity-0 pointer-events-none" aria-hidden>
-            <input tabIndex={-1} autoComplete="off" name="website_url" value={hp} onChange={(e) => setHp(e.target.value)} />
+        <div className="flex min-h-[320px] flex-col rounded-2xl border border-[#1e293b] bg-[#0f172a] p-8 shadow-2xl">
+          <div className="pointer-events-none absolute opacity-0" aria-hidden>
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              name="website_url"
+              value={hp}
+              onChange={(event) => setHp(event.target.value)}
+            />
           </div>
 
           <div className="flex-1">
-            {/* Step 0: Project Type */}
             {step === 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">What are you building?</h3>
-                <p className="text-sm text-gray-400 mb-6">Select the option that best describes your project.</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {PROJECT_TYPES.map((t) => (
+                <h3 className="mb-1 text-lg font-semibold text-white">What are you building?</h3>
+                <p className="mb-6 text-sm text-gray-400">
+                  Select the option that best describes your project.
+                </p>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {PROJECT_TYPES.map((type) => (
                     <button
-                      key={t.id}
+                      key={type.id}
                       type="button"
-                      onClick={() => setProjectType(t.id)}
+                      onClick={() => setProjectType(type.id)}
                       className={`relative rounded-xl border p-4 text-left transition-all duration-200 hover:border-[#4A90F5]/50 ${
-                        projectType === t.id
+                        projectType === type.id
                           ? "border-[#4A90F5] bg-[#4A90F5]/10 shadow-lg shadow-[#4A90F5]/10"
                           : "border-[#1e293b] bg-[#1e293b]/30 hover:bg-[#1e293b]/60"
                       }`}
                     >
-                      <t.Icon className="h-6 w-6 text-[#4A90F5]" />
-                      <p className="text-sm font-medium text-white mt-2">{t.label}</p>
-                      {projectType === t.id && (
-                        <div className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#4A90F5]" />
+                      <type.Icon className="h-6 w-6 text-[#4A90F5]" />
+                      <p className="mt-2 text-sm font-medium text-white">{type.label}</p>
+                      {projectType === type.id && (
+                        <div className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#4A90F5]" />
                       )}
                     </button>
                   ))}
@@ -314,159 +341,294 @@ export function ProjectRequestForm() {
               </div>
             )}
 
-            {/* Step 1: Description */}
             {step === 1 && (
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Describe your project</h3>
-                <p className="text-sm text-gray-400 mb-6">The more detail, the more accurate our estimate.</p>
-                <textarea
-                  className={inputCls + " min-h-[160px] resize-y"}
-                  placeholder={descPlaceholder}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  autoFocus
-                />
-                <div className="flex items-center justify-between mt-2">
-                  <p className={`text-xs ${description.trim().length >= 3 ? "text-green-400" : "text-gray-500"}`}>
-                    {description.trim().length} chars
+              <div className="space-y-5">
+                <div>
+                  <h3 className="mb-1 text-lg font-semibold text-white">Describe your project</h3>
+                  <p className="mb-6 text-sm text-gray-400">
+                    The more detail you share here, the better the review brief will be.
                   </p>
-                  {description.trim().length >= 3 && (
-                    <span className="text-xs text-[#4A90F5] flex items-center gap-1">
-                      <Zap className="h-3 w-3" /> Ready for estimate
-                    </span>
-                  )}
+                  <textarea
+                    className={`${inputCls} min-h-[160px] resize-y`}
+                    placeholder={descPlaceholder}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    autoFocus
+                  />
+                  <div className="mt-2 flex items-center justify-between">
+                    <p className={`text-xs ${description.trim().length >= 3 ? "text-green-400" : "text-gray-500"}`}>
+                      {description.trim().length} chars
+                    </p>
+                    {description.trim().length >= 3 && (
+                      <span className="flex items-center gap-1 text-xs text-[#4A90F5]">
+                        <Zap className="h-3 w-3" /> Ready for estimate
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Optional: references */}
-                <div className="mt-5">
+                <div>
                   <label className={labelCls}>Reference links (optional)</label>
                   <input
                     type="text"
                     className={inputCls}
                     placeholder="https://example.com, https://inspiration.com"
                     value={references}
-                    onChange={(e) => setReferences(e.target.value)}
+                    onChange={(event) => setReferences(event.target.value)}
                   />
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className={labelCls}>Target audience (optional)</label>
+                    <input
+                      type="text"
+                      className={inputCls}
+                      placeholder="Who is this for?"
+                      value={targetAudience}
+                      onChange={(event) => setTargetAudience(event.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Existing site/app URL (optional)</label>
+                    <input
+                      type="url"
+                      className={inputCls}
+                      placeholder="https://your-site.com"
+                      value={existingUrl}
+                      onChange={(event) => setExistingUrl(event.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <label className="flex items-start gap-3 rounded-xl border border-[#1e293b] bg-[#1e293b]/30 p-4 text-sm text-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={needsCredentials}
+                    onChange={(event) => setNeedsCredentials(event.target.checked)}
+                    className="mt-1 h-4 w-4 rounded border-[#1e293b] bg-[#0f172a] text-[#4A90F5] focus:ring-[#4A90F5]"
+                  />
+                  <span>Will the developer need access to existing systems?</span>
+                </label>
+
+                <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-5">
+                  <p className="mb-3 text-sm font-medium text-white">Preferred tech stack (optional)</p>
+                  <div className="flex flex-wrap gap-2">
+                    {TECH_OPTIONS.map((option) => {
+                      const active = techStack.includes(option);
+                      return (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => toggleTechStack(option)}
+                          className={`rounded-full border px-3 py-2 text-sm transition-colors ${
+                            active
+                              ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5]"
+                              : "border-[#1e293b] bg-[#0f172a] text-gray-300 hover:border-[#4A90F5]/50"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <label className={labelCls}>Must-have features (optional)</label>
+                  <textarea
+                    className={`${inputCls} min-h-[110px] resize-y`}
+                    placeholder="List specific features"
+                    value={features}
+                    onChange={(event) => setFeatures(event.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelCls}>Design preferences (optional)</label>
+                  <textarea
+                    className={`${inputCls} min-h-[110px] resize-y`}
+                    placeholder="Describe look and feel, or link examples"
+                    value={designPrefs}
+                    onChange={(event) => setDesignPrefs(event.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelCls}>File uploads (optional)</label>
+                  <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#1e293b] bg-[#1e293b]/20 px-6 py-8 text-center transition-colors hover:border-[#4A90F5]/50">
+                    <FileUp className="mb-3 h-6 w-6 text-[#4A90F5]" />
+                    <span className="text-sm font-medium text-white">Upload briefs, designs, wireframes</span>
+                    <span className="mt-1 text-xs text-gray-400">Up to 5 files, max 10MB each</span>
+                    <input type="file" multiple className="hidden" onChange={handleFileChange} />
+                  </label>
+                  {files.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {files.map((file) => (
+                        <div
+                          key={`${file.name}-${file.size}`}
+                          className="rounded-xl border border-[#1e293b] bg-[#1e293b]/30 px-4 py-3 text-sm text-gray-300"
+                        >
+                          {file.name} · {(file.size / 1024 / 1024).toFixed(2)} MB
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
 
-            {/* Step 2: Timeline */}
             {step === 2 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">When do you need it?</h3>
-                <p className="text-sm text-gray-400 mb-6">Faster delivery = rush fee. Flexible = best price.</p>
+                <h3 className="mb-1 text-lg font-semibold text-white">When do you need it?</h3>
+                <p className="mb-6 text-sm text-gray-400">Faster delivery means more pressure on scope and budget.</p>
                 <div className="space-y-3">
-                  {TIMELINES.map((t) => (
+                  {TIMELINES.map((item) => (
                     <button
-                      key={t.id}
+                      key={item.id}
                       type="button"
-                      onClick={() => setTimeline(t.id)}
-                      className={`w-full flex items-center justify-between rounded-xl border p-4 transition-all duration-200 hover:border-[#4A90F5]/50 ${
-                        timeline === t.id
+                      onClick={() => setTimeline(item.id)}
+                      className={`flex w-full items-center justify-between rounded-xl border p-4 transition-all duration-200 hover:border-[#4A90F5]/50 ${
+                        timeline === item.id
                           ? "border-[#4A90F5] bg-[#4A90F5]/10 shadow-lg shadow-[#4A90F5]/10"
                           : "border-[#1e293b] bg-[#1e293b]/30 hover:bg-[#1e293b]/60"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <Clock className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm font-medium text-white">{t.label}</span>
+                        <span className="text-sm font-medium text-white">{item.label}</span>
                       </div>
-                      <span className={`text-xs font-semibold ${t.color}`}>{t.tag}</span>
+                      <span className={`text-xs font-semibold ${item.color}`}>{item.tag}</span>
                     </button>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Step 3: Estimate */}
             {step === 3 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Your estimate</h3>
-                <p className="text-sm text-gray-400 mb-6">Calculated based on project type, scope, and timeline.</p>
+                <h3 className="mb-1 text-lg font-semibold text-white">Your estimate</h3>
+                <p className="mb-6 text-sm text-gray-400">
+                  Calculated from scope and timeline. Final pricing is confirmed after review.
+                </p>
 
                 {loading ? (
-                  <div className="flex flex-col items-center justify-center py-12 gap-3">
+                  <div className="flex flex-col items-center justify-center gap-3 py-12">
                     <Loader2 className="h-8 w-8 animate-spin text-[#4A90F5]" />
                     <p className="text-sm text-gray-400">Calculating your estimate…</p>
                   </div>
                 ) : estimate ? (
                   <div className="rounded-xl border border-[#1e293b] bg-gradient-to-br from-[#0f172a] to-[#1e293b]/50 p-6">
-                    {/* Price */}
-                    <div className="text-center mb-6">
-                      <p className="text-sm text-gray-400 mb-1">Estimated total</p>
+                    <div className="mb-6 text-center">
+                      <p className="mb-1 text-sm text-gray-400">Estimated total</p>
                       <p className="text-5xl font-bold text-white">
-                        <span className="text-[#4A90F5]">€</span>{estimate.total.toLocaleString()}
+                        <span className="text-[#4A90F5]">€</span>
+                        {estimate.total.toLocaleString()}
                       </p>
                     </div>
 
-                    {/* Details grid */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="rounded-lg bg-[#1e293b]/50 p-3">
-                        <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-0.5">Project</p>
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-gray-500">Project</p>
                         <p className="text-sm font-medium text-white">{estimate.projectType}</p>
                       </div>
                       <div className="rounded-lg bg-[#1e293b]/50 p-3">
-                        <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-0.5">Complexity</p>
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-gray-500">Complexity</p>
                         <p className="text-sm font-medium text-white">{estimate.complexity}</p>
                       </div>
                       <div className="rounded-lg bg-[#1e293b]/50 p-3">
-                        <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-0.5">Est. Hours</p>
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-gray-500">Est. Hours</p>
                         <p className="text-sm font-medium text-white">{estimate.hours}h</p>
                       </div>
                       <div className="rounded-lg bg-[#1e293b]/50 p-3">
-                        <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-0.5">Delivery</p>
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-gray-500">Delivery</p>
                         <p className="text-sm font-medium text-white">~{estimate.deliveryDays} days</p>
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-500 text-center mt-4">
-                      Final price confirmed after review. No payment needed now.
+                    <p className="mt-4 text-center text-xs text-gray-500">
+                      This request goes straight to review. No checkout step.
                     </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-400 text-center py-8">Could not calculate estimate. Continue anyway.</p>
+                  <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-6 text-center text-sm text-gray-400">
+                    Could not calculate an estimate automatically. You can still submit the project.
+                  </div>
                 )}
               </div>
             )}
 
-            {/* Step 4: Contact */}
             {step === 4 && (
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Almost there — who are you?</h3>
-                <p className="text-sm text-gray-400 mb-6">We&apos;ll get back to you within 24 hours.</p>
+                <h3 className="mb-1 text-lg font-semibold text-white">Almost there — who are you?</h3>
+                <p className="mb-6 text-sm text-gray-400">We&apos;ll prepare your project brief and reply within 24h.</p>
 
                 <div className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className={labelCls}>Company name <span className="text-red-400">*</span></label>
-                      <input type="text" className={inputCls} placeholder="Acme Inc." value={company} onChange={(e) => setCompany(e.target.value)} autoFocus />
+                      <label className={labelCls}>
+                        Company name <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={inputCls}
+                        placeholder="Acme Inc."
+                        value={company}
+                        onChange={(event) => setCompany(event.target.value)}
+                        autoFocus
+                      />
                     </div>
                     <div>
-                      <label className={labelCls}>Contact name <span className="text-red-400">*</span></label>
-                      <input type="text" className={inputCls} placeholder="John Doe" value={contact} onChange={(e) => setContact(e.target.value)} />
+                      <label className={labelCls}>
+                        Contact name <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={inputCls}
+                        placeholder="John Doe"
+                        value={contact}
+                        onChange={(event) => setContact(event.target.value)}
+                      />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className={labelCls}>Email <span className="text-red-400">*</span></label>
-                      <input type="email" className={inputCls} placeholder="john@acme.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <label className={labelCls}>
+                        Email <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        className={inputCls}
+                        placeholder="john@acme.com"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                      />
                     </div>
                     <div>
                       <label className={labelCls}>Phone</label>
-                      <input type="tel" className={inputCls} placeholder="+31 6 1234 5678" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                      <input
+                        type="tel"
+                        className={inputCls}
+                        placeholder="+31 6 1234 5678"
+                        value={phone}
+                        onChange={(event) => setPhone(event.target.value)}
+                      />
                     </div>
                   </div>
+
                   <div>
                     <label className={labelCls}>How did you find us?</label>
                     <select
-                      className={inputCls + " cursor-pointer"}
+                      className={`${inputCls} cursor-pointer`}
                       value={foundVia}
-                      onChange={(e) => setFoundVia(e.target.value)}
+                      onChange={(event) => setFoundVia(event.target.value)}
                     >
                       <option value="">Rather not say</option>
-                      {SOURCES.map((s) => (
-                        <option key={s} value={s}>{s}</option>
+                      {SOURCES.map((source) => (
+                        <option key={source} value={source}>
+                          {source}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -475,24 +637,25 @@ export function ProjectRequestForm() {
             )}
           </div>
 
-          {/* Errors */}
           {errors.length > 0 && (
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 mt-4">
-              <ul className="list-disc list-inside text-sm text-red-400 space-y-1">
-                {errors.map((err, i) => (
-                  <li key={i}>{err}</li>
+            <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+              <ul className="list-disc space-y-1 list-inside text-sm text-red-400">
+                {errors.map((error) => (
+                  <li key={error}>{error}</li>
                 ))}
               </ul>
             </div>
           )}
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#1e293b]">
+          <div className="mt-8 flex items-center justify-between border-t border-[#1e293b] pt-6">
             {step > 0 ? (
               <button
                 type="button"
-                onClick={() => { setStep(step - 1); setErrors([]); }}
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                onClick={() => {
+                  setStep(step - 1);
+                  setErrors([]);
+                }}
+                className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white"
               >
                 <ArrowLeft className="h-4 w-4" /> Back
               </button>
@@ -504,41 +667,34 @@ export function ProjectRequestForm() {
               <button
                 type="button"
                 disabled={!canNext || submitting}
-                onClick={handleSubmit}
-                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white hover:bg-[#3a7de0] disabled:opacity-40 transition-colors shadow-lg shadow-[#4A90F5]/25"
+                onClick={() => void handleSubmit()}
+                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#4A90F5]/25 transition-colors hover:bg-[#3a7de0] disabled:opacity-40"
               >
                 {submitting ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" /> Processing…</>
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+                  </>
                 ) : (
-                  <><CreditCard className="h-4 w-4" /> Pay & Submit — €{estimate?.total || "—"}</>
+                  <>
+                    <Send className="h-4 w-4" /> Submit project request
+                  </>
                 )}
               </button>
             ) : (
               <button
                 type="button"
                 disabled={!canNext}
-                onClick={() => { setStep(step + 1); setErrors([]); }}
-                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white hover:bg-[#3a7de0] disabled:opacity-40 transition-colors shadow-lg shadow-[#4A90F5]/25"
+                onClick={() => {
+                  setStep(step + 1);
+                  setErrors([]);
+                }}
+                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3a7de0] disabled:opacity-40"
               >
                 Continue <ArrowRight className="h-4 w-4" />
               </button>
             )}
           </div>
         </div>
-
-        {/* Live estimate preview (bottom bar after step 1) */}
-        {step >= 1 && (
-          <div className="mt-4 rounded-xl border border-[#1e293b] bg-[#0f172a]/80 px-5 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-4 text-xs text-gray-400">
-              <span>{PROJECT_TYPES.find((t) => t.id === projectType)?.label || "—"}</span>
-              {timeline && <span>• {TIMELINES.find((t) => t.id === timeline)?.label}</span>}
-            </div>
-            <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
-              <Euro className="h-3.5 w-3.5 text-[#4A90F5]" />
-              {estimate ? estimate.total.toLocaleString() : "—"}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
