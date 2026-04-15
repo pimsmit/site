@@ -48,12 +48,11 @@ export function CustomHero() {
           <p className="text-sm text-ainomiq-text-muted mb-6">
             Trusted by businesses like yours
           </p>
-          <div className="flex items-center justify-center gap-8 opacity-40 grayscale">
-            {/* Logo placeholders - replace with actual client logos */}
-            <div className="h-8 w-24 bg-ainomiq-text-muted/20 rounded" />
-            <div className="h-8 w-24 bg-ainomiq-text-muted/20 rounded" />
-            <div className="h-8 w-24 bg-ainomiq-text-muted/20 rounded" />
-            <div className="h-8 w-24 bg-ainomiq-text-muted/20 rounded" />
+          <div className="flex items-center justify-center gap-8 md:gap-12 opacity-50 grayscale">
+            <img src="/logos/dominos.png" alt="Domino's" className="h-10 w-auto" />
+            <img src="/logos/billie-jeans.png" alt="Billie Jeans" className="h-10 w-auto" />
+            <img src="/logos/alpina.png" alt="Alpina" className="h-10 w-auto" />
+            <img src="/logos/button-amsterdam.png" alt="Button Amsterdam" className="h-10 w-auto" />
           </div>
         </div>
       </div>
