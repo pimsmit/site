@@ -219,48 +219,6 @@ function IPadFrame({ children }: { children: React.ReactNode }) {
         }}
       />
 
-      {/* ── Volume buttons (top edge, left of center) ── */}
-      <div
-        className="absolute"
-        style={{
-          top: 0,
-          left: "30%",
-          width: "5%",
-          height: "1.5%",
-          background: "linear-gradient(180deg, #b8b8b8, #d0d0d0)",
-          borderRadius: "0 0 1px 1px",
-          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.2)",
-          transform: "translateY(-1px)",
-        }}
-      />
-      <div
-        className="absolute"
-        style={{
-          top: 0,
-          left: "37%",
-          width: "5%",
-          height: "1.5%",
-          background: "linear-gradient(180deg, #b8b8b8, #d0d0d0)",
-          borderRadius: "0 0 1px 1px",
-          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.2)",
-          transform: "translateY(-1px)",
-        }}
-      />
-      {/* ── Power button (bottom edge right) ── */}
-      <div
-        className="absolute"
-        style={{
-          bottom: 0,
-          right: "20%",
-          width: "7%",
-          height: "1.5%",
-          background: "linear-gradient(0deg, #b8b8b8, #d0d0d0)",
-          borderRadius: "1px 1px 0 0",
-          boxShadow: "inset 0 1px 0 rgba(0,0,0,0.2)",
-          transform: "translateY(1px)",
-        }}
-      />
-
       {/* ── Screen cutout (black bezel) ── */}
       <div
         className="absolute overflow-hidden"
@@ -273,36 +231,6 @@ function IPadFrame({ children }: { children: React.ReactNode }) {
           background: "#000",
         }}
       >
-        {/* Front camera pill — centered top */}
-        <div
-          className="absolute z-20"
-          style={{
-            top: "6px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "28px",
-            height: "8px",
-            borderRadius: "4px",
-            background: "#111",
-            boxShadow: "inset 0 1px 2px rgba(0,0,0,0.9)",
-          }}
-        >
-          {/* Camera dot */}
-          <div
-            className="absolute"
-            style={{
-              right: "4px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: "5px",
-              height: "5px",
-              borderRadius: "50%",
-              background: "radial-gradient(circle at 35% 35%, #3a5a9a 0%, #1a2a4a 60%, #0a0a0a 100%)",
-              boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
-            }}
-          />
-        </div>
-
         {/* Screen content */}
         <div className="absolute inset-0">
           {children}
