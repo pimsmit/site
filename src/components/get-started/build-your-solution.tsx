@@ -10,15 +10,7 @@ export function BuildYourSolution() {
   return (
     <section className="relative w-full py-16 md:py-24 px-6 overflow-hidden">
       
-      <div className="max-w-7xl mx-auto">
-        {/* Glassmorphism container */}
-        <div className="relative">
-          {/* Glow effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/15 to-blue-500/20 blur-[80px] -z-10" />
-          
-          {/* Outer glass shell */}
-          <div className="rounded-[32px] bg-gradient-to-br from-white/60 via-blue-50/50 to-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(59,130,246,0.15)] p-8 md:p-12">
-            <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
               {/* Heading */}
               <div className="mb-8 text-center">
                 <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
@@ -52,9 +44,6 @@ export function BuildYourSolution() {
                   }}
                 />
               </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
