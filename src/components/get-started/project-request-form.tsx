@@ -77,7 +77,7 @@ export function ProjectRequestForm() {
 
   // Fetch estimate when type + description + timeline are set
   const fetchEstimate = useCallback(async () => {
-    if (!projectType || description.trim().length < 50 || !timeline) return;
+    if (!projectType || description.trim().length < 3 || !timeline) return;
     setLoading(true);
     try {
       const res = await fetch("/api/estimate", {
@@ -140,7 +140,7 @@ export function ProjectRequestForm() {
 
   const STEPS = [
     { title: "Project Type", valid: !!projectType },
-    { title: "Details", valid: description.trim().length >= 50 },
+    { title: "Details", valid: description.trim().length >= 3 },
     { title: "Timeline", valid: !!timeline },
     { title: "Your Estimate", valid: !!estimate },
     { title: "Contact", valid: !!company && !!contact && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) },
@@ -265,10 +265,10 @@ export function ProjectRequestForm() {
                   autoFocus
                 />
                 <div className="flex items-center justify-between mt-2">
-                  <p className={`text-xs ${description.trim().length >= 50 ? "text-green-400" : "text-gray-500"}`}>
-                    {description.trim().length}/50 min
+                  <p className={`text-xs ${description.trim().length >= 3 ? "text-green-400" : "text-gray-500"}`}>
+                    {description.trim().length} chars
                   </p>
-                  {description.trim().length >= 50 && (
+                  {description.trim().length >= 3 && (
                     <span className="text-xs text-[#4A90F5] flex items-center gap-1">
                       <Zap className="h-3 w-3" /> Ready for estimate
                     </span>

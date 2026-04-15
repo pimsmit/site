@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
     if (!body.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email))
       errors.push("Valid email is required");
     if (!body.projectType?.trim()) errors.push("Project type is required");
-    if (!body.description?.trim() || body.description.trim().length < 50)
-      errors.push("Description must be at least 50 characters");
+    if (!body.description?.trim() || body.description.trim().length < 3)
+      errors.push("Description is required");
     if (!body.timeline?.trim()) errors.push("Timeline is required");
     if (!body.budget?.trim()) errors.push("Budget range is required");
 
