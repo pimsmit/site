@@ -12,7 +12,7 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.9", "start 0.2"],
+    offset: ["start end", "end start"],
   });
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -27,9 +27,12 @@ export const ContainerScroll = ({
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 0.8], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.8], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 0.8], [0, -100]);
+  // scrollYProgress 0 = container top hits bottom of viewport (start scrolling in)
+  // scrollYProgress 1 = container bottom hits top of viewport
+  // Tablet tilt: starts at 35° when section enters, opens to 0° by 40% scroll
+  const rotate = useTransform(scrollYProgress, [0, 0.4], [35, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.4], isMobile ? [0.7, 0.9] : [1.05, 1]);
+  const translate = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
