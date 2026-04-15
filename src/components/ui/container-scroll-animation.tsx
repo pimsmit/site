@@ -27,13 +27,14 @@ export const ContainerScroll = ({
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
 
-  // scrollYProgress 0 = container top hits bottom of viewport
-  // Tablet starts at 55° (steep tilt), opens to flat by 40% scroll
-  // Text fades out as tablet opens (0% → 25% scroll)
-  const rotate = useTransform(scrollYProgress, [0, 0.4], [55, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.4], isMobile ? [0.7, 0.9] : [1.05, 1]);
-  const translate = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  // scrollYProgress: 0 = top of container hits bottom of viewport, 1 = bottom hits top
+  // With a 60rem container (~960px), scrollYProgress ~0.35 is when content center hits center
+  // Tablet: steep 55° tilt at start, opens flat by ~35% scroll
+  const rotate = useTransform(scrollYProgress, [0.05, 0.45], [55, 0]);
+  const scale = useTransform(scrollYProgress, [0.05, 0.45], isMobile ? [0.7, 0.9] : [1.05, 1]);
+  const translate = useTransform(scrollYProgress, [0.05, 0.45], [0, -100]);
+  // Text: fully visible until 20% scroll, then fades to 0 by 40%
+  const titleOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.4], [1, 1, 0]);
 
   // Mobile: iPhone slides up from bottom with app inside
   if (isMobile) {
