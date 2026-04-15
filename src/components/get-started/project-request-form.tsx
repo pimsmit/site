@@ -520,35 +520,35 @@ export function ProjectRequestForm() {
                     <p className="text-sm text-ainomiq-text-muted">Calculating your estimate…</p>
                   </div>
                 ) : estimate ? (
-                  <div className="rounded-xl border border-blue-200/60 bg-gradient-to-br from-[#0f172a] to-[#1e293b]/50 p-6">
+                  <div className="rounded-xl border border-blue-200/60 bg-gradient-to-br from-[#4A90F5] to-[#2563eb] p-6">
                     <div className="mb-6 text-center">
-                      <p className="mb-1 text-sm text-ainomiq-text-muted">Estimated total</p>
-                      <p className="text-5xl font-bold text-ainomiq-text">
-                        <span className="text-[#4A90F5]">€</span>
+                      <p className="mb-1 text-sm text-white/80">Estimated total</p>
+                      <p className="text-5xl font-bold text-white">
+                        <span className="text-white/90">€</span>
                         {estimate.total.toLocaleString()}
                       </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="rounded-lg bg-white/80 p-3">
-                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-ainomiq-text-muted/60">Project</p>
-                        <p className="text-sm font-medium text-ainomiq-text">{estimate.projectType}</p>
+                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Project</p>
+                        <p className="text-sm font-medium text-white">{estimate.projectType}</p>
                       </div>
-                      <div className="rounded-lg bg-white/80 p-3">
-                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-ainomiq-text-muted/60">Complexity</p>
-                        <p className="text-sm font-medium text-ainomiq-text">{estimate.complexity}</p>
+                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Complexity</p>
+                        <p className="text-sm font-medium text-white">{estimate.complexity}</p>
                       </div>
-                      <div className="rounded-lg bg-white/80 p-3">
-                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-ainomiq-text-muted/60">Est. Hours</p>
-                        <p className="text-sm font-medium text-ainomiq-text">{estimate.hours}h</p>
+                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Est. Hours</p>
+                        <p className="text-sm font-medium text-white">{estimate.hours}h</p>
                       </div>
-                      <div className="rounded-lg bg-white/80 p-3">
-                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-ainomiq-text-muted/60">Delivery</p>
-                        <p className="text-sm font-medium text-ainomiq-text">~{estimate.deliveryDays} days</p>
+                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                        <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Delivery</p>
+                        <p className="text-sm font-medium text-white">~{estimate.deliveryDays} days</p>
                       </div>
                     </div>
 
-                    <p className="mt-4 text-center text-xs text-ainomiq-text-muted/60">
+                    <p className="mt-4 text-center text-xs text-white/60">
                       This request goes straight to review. No checkout step.
                     </p>
                   </div>
