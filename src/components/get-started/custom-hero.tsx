@@ -1,29 +1,7 @@
 "use client";
 
-import { 
-  Sparkles, 
-  Globe, 
-  LayoutDashboard, 
-  Bot, 
-  Zap, 
-  ShoppingCart, 
-  Plug, 
-  Smartphone, 
-  BarChart3, 
-  Star 
-} from "lucide-react";
-
-const PROJECT_TYPES = [
-  { id: "website-landing", label: "Website / Landing page", Icon: Globe },
-  { id: "web-app-dashboard", label: "Web app / Dashboard", Icon: LayoutDashboard },
-  { id: "ai-chatbot", label: "AI Integration / Chatbot", Icon: Bot },
-  { id: "automation-workflow", label: "Automation / Workflow", Icon: Zap },
-  { id: "ecommerce", label: "E-commerce", Icon: ShoppingCart },
-  { id: "api-development", label: "API Development", Icon: Plug },
-  { id: "mobile-app", label: "Mobile App", Icon: Smartphone },
-  { id: "data-analytics", label: "Data & Analytics", Icon: BarChart3 },
-  { id: "other", label: "Other", Icon: Star },
-];
+import { Sparkles } from "lucide-react";
+import { ProjectRequestForm } from "@/components/get-started/project-request-form";
 
 export function CustomHero() {
   return (
@@ -51,54 +29,16 @@ export function CustomHero() {
           From concept to deployment — transparent pricing, clear timelines.
         </p>
 
-        {/* Glassmorphism elevated card - wizard preview */}
+        {/* Glassmorphism elevated card with full wizard */}
         <div className="relative -mt-8">
           {/* Glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-ainomiq-blue/20 via-ainomiq-violet/20 to-ainomiq-blue/20 blur-3xl -z-10 scale-95" />
           
           {/* Glass card */}
-          <div className="mx-auto max-w-4xl rounded-3xl bg-white/80 backdrop-blur-xl border border-ainomiq-border shadow-2xl p-1">
-            <div className="rounded-[22px] bg-white p-8 md:p-10 border border-ainomiq-border/50">
-              {/* Card header */}
-              <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-ainomiq-navy mb-2">
-                  What are you building?
-                </h2>
-                <p className="text-ainomiq-text-muted text-sm">
-                  Select the option that best describes your project.
-                </p>
-              </div>
-
-              {/* Project type grid - visual preview */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                {PROJECT_TYPES.map((item) => {
-                  const IconComponent = item.Icon;
-                  return (
-                    <div
-                      key={item.id}
-                      className="rounded-xl bg-ainomiq-surface border border-ainomiq-border p-5 hover:border-ainomiq-blue hover:bg-ainomiq-blue/5 transition-all cursor-pointer group"
-                    >
-                      <IconComponent className="h-6 w-6 mb-3 text-ainomiq-blue group-hover:scale-110 transition-transform" />
-                      <div className="text-sm text-ainomiq-text font-medium leading-tight">
-                        {item.label}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* CTA */}
-              <div className="flex justify-center">
-                <a
-                  href="#project-request"
-                  className="inline-flex items-center gap-2 rounded-full bg-ainomiq-blue hover:bg-ainomiq-blue-hover text-white font-semibold px-8 py-4 shadow-lg transition-all hover:scale-105"
-                >
-                  Start your project brief
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
-              </div>
+          <div className="mx-auto max-w-5xl rounded-3xl bg-white/80 backdrop-blur-xl border border-ainomiq-border shadow-2xl p-1">
+            <div className="rounded-[22px] bg-white p-2 md:p-4 border border-ainomiq-border/50">
+              {/* Full wizard form */}
+              <ProjectRequestForm />
             </div>
           </div>
         </div>

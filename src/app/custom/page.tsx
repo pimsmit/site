@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CustomHero } from "@/components/get-started/custom-hero";
-import { ProjectRequestForm } from "@/components/get-started/project-request-form";
 import { Features } from "@/components/ui/features-9";
 import { Testimonials } from "@/components/ui/unique-testimonial";
 import {
@@ -198,9 +197,6 @@ export default function CustomPage() {
           </div>
         </div>
       </section>
-
-      {/* Request form */}
-      <ProjectRequestForm />
 
       {/* Features & Testimonials */}
       <Features />
