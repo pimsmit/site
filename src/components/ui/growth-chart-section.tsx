@@ -15,7 +15,7 @@ export function GrowthChartSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Before */}
           <div
             className="rounded-2xl overflow-hidden border border-gray-100 bg-white p-4"
