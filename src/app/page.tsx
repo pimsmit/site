@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import WireframeGlobe from "@/components/ui/wireframe-dotted-globe";
 import { AnimatedCounter } from "@/components/animated-counter";
-import { GetStartedWizard } from "@/components/get-started/wizard";
 import {
   Bot,
   BarChart3,
@@ -228,9 +227,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Get Started Wizard */}
-      <GetStartedWizard />
 
       {/* Why Us */}
       <Section label="Why ainomiq">
