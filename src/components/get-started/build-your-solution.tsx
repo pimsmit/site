@@ -9,8 +9,6 @@ export function BuildYourSolution() {
 
   return (
     <section className="relative w-full py-16 md:py-24 px-6 overflow-hidden">
-      {/* Smooth gradient background with soft transitions */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 -z-20" />
       
       <div className="max-w-7xl mx-auto">
         {/* Glassmorphism container */}

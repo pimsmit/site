@@ -80,7 +80,10 @@ const PROJECT_TIMELINE = [
 
 export default function CustomPage() {
   return (
-    <>
+    <div className="relative">
+      {/* Single continuous background for entire page */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-100/60 via-blue-50/30 via-white via-blue-50/20 to-white -z-30" />
+
       {/* Hero with wizard */}
       <CustomHero />
 
@@ -89,9 +92,6 @@ export default function CustomPage() {
 
       {/* Project Journey Timeline */}
       <section className="relative">
-        {/* Smooth gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 via-white to-blue-50/50 -z-20" />
-        
         <div className="py-16 px-6">
           <div className="text-center mb-8 relative z-20">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-ainomiq-text mb-4">
@@ -105,6 +105,6 @@ export default function CustomPage() {
           <RadialOrbitalTimeline timelineData={PROJECT_TIMELINE} />
         </div>
       </section>
-    </>
+    </div>
   );
 }
