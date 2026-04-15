@@ -2,36 +2,16 @@
 
 import * as React from "react";
 
-const BEFORE_POINTS = [
-  [0, 38], [6, 18], [12, 52], [18, 22], [24, 60], [30, 28],
-  [36, 55], [42, 15], [48, 45], [54, 12], [60, 48], [66, 20],
-  [72, 42], [78, 10], [84, 35], [90, 8],
-];
+// Smooth sine-wave style before line using cubic bezier curves
+const BEFORE_PATH =
+  "M0,58 C3,58 5,72 8,72 C11,72 13,30 16,30 C19,30 21,74 24,74 C27,74 29,26 32,26 C35,26 37,70 40,70 C43,70 45,22 48,22 C51,22 53,68 56,68 C59,68 61,20 64,20 C67,20 69,65 72,65 C75,65 77,18 80,18 C83,18 85,62 88,62 C89.5,62 90,72 90,72";
 
-const AFTER_POINTS = [
-  [90, 8], [96, 16], [104, 24], [112, 33], [120, 40],
-  [130, 50], [140, 58], [150, 66], [160, 74], [170, 82],
-  [180, 88],
-];
+// Smooth growth curve after activation — starts from same point, curves up
+const AFTER_PATH =
+  "M90,72 C100,72 106,62 114,52 C124,40 134,30 148,20 C160,12 170,8 180,6";
 
-function pointsToPath(pts: number[][]): string {
-  return pts.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${100 - y}`).join(" ");
-}
-
-function pathLength(pts: number[][]): number {
-  let len = 0;
-  for (let i = 1; i < pts.length; i++) {
-    const dx = pts[i][0] - pts[i - 1][0];
-    const dy = pts[i][1] - pts[i - 1][1];
-    len += Math.sqrt(dx * dx + dy * dy);
-  }
-  return len;
-}
-
-const BEFORE_PATH = pointsToPath(BEFORE_POINTS);
-const AFTER_PATH = pointsToPath(AFTER_POINTS);
-const BEFORE_LEN = Math.ceil(pathLength(BEFORE_POINTS));
-const AFTER_LEN = Math.ceil(pathLength(AFTER_POINTS));
+const BEFORE_LEN = 320;
+const AFTER_LEN = 130;
 
 export function GrowthChartSection() {
   const [phase, setPhase] = React.useState<"idle" | "before" | "activated" | "after">("idle");
