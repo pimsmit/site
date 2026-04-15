@@ -25,6 +25,14 @@ const COMPLEXITY_TIERS = [
   { maxChars: Infinity, multiplier: 1.5, label: "Complex" },
 ];
 
+// Keywords that signal complex custom integrations → bump complexity tier
+const COMPLEX_KEYWORDS = [
+  "scraping", "scrape", "api integration", "canva", "image editing",
+  "blacklist", "spreadsheet sync", "google sheets", "airtable",
+  "bol.com", "marketplace", "inventory sync", "pricing formula",
+  "automated pricing", "stock check", "delivery time",
+];
+
 // Rush fee multipliers (toned down for better UX)
 const TIMELINE_MULTIPLIERS: Record<string, number> = {
   "asap": 1.3,        // 30% rush fee (was 50%)
@@ -58,9 +66,16 @@ export async function POST(req: NextRequest) {
 
     // Determine complexity from description length
     const descLen = (body.description || "").trim().length;
-    const complexity =
+    let complexity =
       COMPLEXITY_TIERS.find((t) => descLen <= t.maxChars) ||
       COMPLEXITY_TIERS[COMPLEXITY_TIERS.length - 1];
+
+    // Bump complexity if description contains custom integration keywords
+    const descLower = (body.description || "").toLowerCase();
+    const hasComplexKeywords = COMPLEX_KEYWORDS.some((kw) => descLower.includes(kw));
+    if (hasComplexKeywords && complexity.multiplier < 1.5) {
+      complexity = { maxChars: Infinity, multiplier: 1.5, label: "Complex (custom integrations)" };
+    }
 
     // Timeline multiplier
     const timelineMult = TIMELINE_MULTIPLIERS[body.timeline] || 1.0;
