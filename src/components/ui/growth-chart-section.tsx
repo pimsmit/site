@@ -61,14 +61,14 @@ export function GrowthChartSection() {
             <div className="w-full rounded-xl overflow-hidden" style={{ height: 220 }}>
               <Player
                 component={ChaoticScene}
-                durationInFrames={90}
+                durationInFrames={180}
                 fps={30}
                 compositionWidth={800}
                 compositionHeight={400}
                 style={{ width: "100%", height: "100%" }}
                 controls={false}
                 autoPlay
-                loop
+                loop={false}
                 clickToPlay={false}
                 acknowledgeRemotionLicense
               />
@@ -76,22 +76,22 @@ export function GrowthChartSection() {
           </div>
 
           {/* After */}
-          <div className="rounded-2xl overflow-hidden border border-blue-100 bg-white p-4"
-            style={{ boxShadow: "0 1px 3px rgba(59,130,246,0.08)" }}>
-            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-3 text-center">
+          <div className="rounded-2xl overflow-hidden border border-gray-100 bg-white p-4"
+            style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <p className="text-xs font-semibold text-[#0f1b2d] uppercase tracking-widest mb-3 text-center">
               With Ainomiq
             </p>
             <div className="w-full rounded-xl overflow-hidden" style={{ height: 220 }}>
               <Player
                 component={GrowthScene}
-                durationInFrames={90}
+                durationInFrames={180}
                 fps={30}
                 compositionWidth={800}
                 compositionHeight={400}
                 style={{ width: "100%", height: "100%" }}
                 controls={false}
                 autoPlay
-                loop
+                loop={false}
                 clickToPlay={false}
                 acknowledgeRemotionLicense
               />
