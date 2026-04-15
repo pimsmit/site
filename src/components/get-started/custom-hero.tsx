@@ -2,6 +2,7 @@
 
 import { Sparkles } from "lucide-react";
 import { ProjectRequestForm } from "@/components/get-started/project-request-form";
+import { LogoCloud } from "@/components/ui/logo-cloud";
 
 export function CustomHero() {
   return (
@@ -56,6 +57,22 @@ export function CustomHero() {
           </div>
         </div>
       </div>
+
+      {/* Infinite logo scroller */}
+      <div className="mt-16">
+        <LogoCloud logos={CLIENT_LOGOS} />
+      </div>
     </section>
   );
 }
+
+const CLIENT_LOGOS = [
+  { src: "/logos/dominos.png", alt: "Domino's" },
+  { src: "/logos/billie-jeans.png", alt: "Billie Jeans" },
+  { src: "/logos/alpina.png", alt: "Alpina" },
+  { src: "/logos/button-amsterdam.png", alt: "Button Amsterdam" },
+  { src: "/logos/padelland.png", alt: "Padelland" },
+  { src: "/logos/vindjerijschool.png", alt: "Vindjerijschool" },
+  { src: "/logos/la-dos.png", alt: "La Dos" },
+  { src: "/logos/accu-expert.png", alt: "Accu Expert" },
+];
