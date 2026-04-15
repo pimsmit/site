@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// Before: chaotic zigzag across full width (0→200)
 const BEFORE_PATH =
-  "M0,55 C4,55 6,75 10,75 C14,75 16,25 20,25 C24,25 26,78 30,78 C34,78 36,22 40,22 C44,22 46,72 50,72 C54,72 56,18 60,18 C64,18 66,68 70,68 C74,68 76,15 80,15 C84,15 86,65 90,65 C94,65 96,12 100,12";
+  "M0,55 C4,55 6,75 10,75 C14,75 16,25 20,25 C24,25 26,78 30,78 C34,78 36,22 40,22 C44,22 46,72 50,72 C54,72 56,18 60,18 C64,18 66,68 70,68 C74,68 76,15 80,15 C84,15 86,65 90,65 C94,65 96,12 100,12 C104,12 106,62 110,62 C114,62 116,10 120,10 C124,10 126,60 130,60 C134,60 136,8 140,8 C144,8 146,58 150,58 C154,58 156,6 160,6 C164,6 166,56 170,56 C174,56 176,5 180,5 C184,5 186,55 190,55 C194,55 197,30 200,30";
 
+// After: smooth S-curve growth
 const AFTER_PATH =
   "M0,90 C40,90 70,75 100,55 C130,35 160,15 200,5";
 
@@ -25,9 +27,9 @@ function AnimatedChart({
 }) {
   const pathRef = useRef<SVGPathElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const firedRef = useRef(false);
   const [len, setLen] = useState(600);
   const [done, setDone] = useState(false);
-  const firedRef = useRef(false);
 
   useEffect(() => {
     if (pathRef.current) {
@@ -40,8 +42,8 @@ function AnimatedChart({
       ([entry]) => {
         if (entry.isIntersecting && !firedRef.current) {
           firedRef.current = true;
+          observer.disconnect();
           setTimeout(() => setDone(true), delay);
-          observer.disconnect(); // never fire again
         }
       },
       { threshold: 0.2 }
@@ -53,10 +55,10 @@ function AnimatedChart({
   return (
     <div
       ref={containerRef}
-      className="rounded-2xl border border-gray-100 bg-white p-5"
-      style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}
+      className="rounded-2xl overflow-hidden border border-gray-100 bg-white p-4"
+      style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}
     >
-      <p className={`text-xs font-bold uppercase tracking-widest mb-4 text-center ${labelColor}`}>
+      <p className={`text-xs font-semibold uppercase tracking-widest mb-3 text-center ${labelColor}`}>
         {label}
       </p>
       <svg
@@ -85,7 +87,9 @@ function AnimatedChart({
           strokeDasharray={len}
           strokeDashoffset={done ? 0 : len}
           style={{
-            transition: done ? `stroke-dashoffset 2.6s cubic-bezier(0.4,0,0.2,1) ${delay}ms` : "none",
+            transition: done
+              ? `stroke-dashoffset 2.6s cubic-bezier(0.4,0,0.2,1)`
+              : "none",
           }}
         />
 
@@ -101,7 +105,9 @@ function AnimatedChart({
           strokeDasharray={len}
           strokeDashoffset={done ? 0 : len}
           style={{
-            transition: done ? `stroke-dashoffset 2.6s cubic-bezier(0.4,0,0.2,1) ${delay}ms` : "none",
+            transition: done
+              ? `stroke-dashoffset 2.6s cubic-bezier(0.4,0,0.2,1)`
+              : "none",
           }}
         />
       </svg>
