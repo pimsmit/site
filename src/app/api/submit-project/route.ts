@@ -11,6 +11,8 @@ interface ProjectForm {
   budget: string;
   references?: string;
   foundVia?: string;
+  estimateTotal?: number;
+  estimateHours?: number;
   _hp?: string; // honeypot
 }
 
@@ -74,6 +76,13 @@ export async function POST(req: NextRequest) {
               inline: true,
             },
             { name: "💰 Budget", value: body.budget.trim(), inline: true },
+            {
+              name: "🤖 Estimate",
+              value: body.estimateTotal
+                ? `€${body.estimateTotal} (~${body.estimateHours}h)`
+                : "N/A",
+              inline: true,
+            },
             {
               name: "🔍 Found via",
               value: body.foundVia?.trim() || "N/A",
