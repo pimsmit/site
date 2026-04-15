@@ -266,7 +266,7 @@ export function ProjectRequestForm() {
             <CheckCircle className="h-8 w-8 text-green-400" />
           </div>
           <h3 className="mb-2 text-2xl font-bold text-ainomiq-text">Project request submitted</h3>
-          <p className="mb-6 text-gray-400">
+          <p className="mb-6 text-ainomiq-text-muted">
             Thanks! We&apos;ll prepare your project brief and get back within 24h.
           </p>
           <button
@@ -317,7 +317,7 @@ export function ProjectRequestForm() {
             {step === 0 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">What are you building?</h3>
-                <p className="mb-6 text-sm text-gray-400">
+                <p className="mb-6 text-sm text-ainomiq-text-muted">
                   Select the option that best describes your project.
                 </p>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -347,7 +347,7 @@ export function ProjectRequestForm() {
               <div className="space-y-5">
                 <div>
                   <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Describe your project</h3>
-                  <p className="mb-6 text-sm text-gray-400">
+                  <p className="mb-6 text-sm text-ainomiq-text-muted">
                     The more detail you share here, the better the review brief will be.
                   </p>
                   <textarea
@@ -461,7 +461,7 @@ export function ProjectRequestForm() {
                   <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-blue-200/60 bg-blue-50/40 px-6 py-8 text-center transition-colors hover:border-[#4A90F5]/50">
                     <FileUp className="mb-3 h-6 w-6 text-[#4A90F5]" />
                     <span className="text-sm font-medium text-ainomiq-text">Upload briefs, designs, wireframes</span>
-                    <span className="mt-1 text-xs text-gray-400">Up to 5 files, max 10MB each</span>
+                    <span className="mt-1 text-xs text-ainomiq-text-muted">Up to 5 files, max 10MB each</span>
                     <input type="file" multiple className="hidden" onChange={handleFileChange} />
                   </label>
                   {files.length > 0 && (
@@ -483,7 +483,7 @@ export function ProjectRequestForm() {
             {step === 2 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">When do you need it?</h3>
-                <p className="mb-6 text-sm text-gray-400">Faster delivery means more pressure on scope and budget.</p>
+                <p className="mb-6 text-sm text-ainomiq-text-muted">Faster delivery means more pressure on scope and budget.</p>
                 <div className="space-y-3">
                   {TIMELINES.map((item) => (
                     <button
@@ -497,7 +497,7 @@ export function ProjectRequestForm() {
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <Clock className="h-4 w-4 text-gray-400" />
+                        <Clock className="h-4 w-4 text-ainomiq-text-muted" />
                         <span className="text-sm font-medium text-ainomiq-text">{item.label}</span>
                       </div>
                       <span className={`text-xs font-semibold ${item.color}`}>{item.tag}</span>
@@ -510,19 +510,19 @@ export function ProjectRequestForm() {
             {step === 3 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Your estimate</h3>
-                <p className="mb-6 text-sm text-gray-400">
+                <p className="mb-6 text-sm text-ainomiq-text-muted">
                   Calculated from scope and timeline. Final pricing is confirmed after review.
                 </p>
 
                 {loading ? (
                   <div className="flex flex-col items-center justify-center gap-3 py-12">
                     <Loader2 className="h-8 w-8 animate-spin text-[#4A90F5]" />
-                    <p className="text-sm text-gray-400">Calculating your estimate…</p>
+                    <p className="text-sm text-ainomiq-text-muted">Calculating your estimate…</p>
                   </div>
                 ) : estimate ? (
                   <div className="rounded-xl border border-blue-200/60 bg-gradient-to-br from-[#0f172a] to-[#1e293b]/50 p-6">
                     <div className="mb-6 text-center">
-                      <p className="mb-1 text-sm text-gray-400">Estimated total</p>
+                      <p className="mb-1 text-sm text-ainomiq-text-muted">Estimated total</p>
                       <p className="text-5xl font-bold text-ainomiq-text">
                         <span className="text-[#4A90F5]">€</span>
                         {estimate.total.toLocaleString()}
@@ -553,7 +553,7 @@ export function ProjectRequestForm() {
                     </p>
                   </div>
                 ) : (
-                  <div className="rounded-xl border border-blue-200/60 bg-blue-50/40 p-6 text-center text-sm text-gray-400">
+                  <div className="rounded-xl border border-blue-200/60 bg-blue-50/40 p-6 text-center text-sm text-ainomiq-text-muted">
                     Could not calculate an estimate automatically. You can still submit the project.
                   </div>
                 )}
@@ -563,7 +563,7 @@ export function ProjectRequestForm() {
             {step === 4 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Almost there — who are you?</h3>
-                <p className="mb-6 text-sm text-gray-400">We&apos;ll prepare your project brief and reply within 24h.</p>
+                <p className="mb-6 text-sm text-ainomiq-text-muted">We&apos;ll prepare your project brief and reply within 24h.</p>
 
                 <div className="space-y-5">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -654,7 +654,7 @@ export function ProjectRequestForm() {
               <button
                 type="button"
                 onClick={() => handleStepChange(step - 1)}
-                className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-ainomiq-text"
+                className="flex items-center gap-2 text-sm text-ainomiq-text-muted transition-colors hover:text-ainomiq-text"
               >
                 <ArrowLeft className="h-4 w-4" /> Back
               </button>
@@ -667,7 +667,7 @@ export function ProjectRequestForm() {
                 type="button"
                 disabled={!canNext || submitting}
                 onClick={() => void handleSubmit()}
-                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-ainomiq-text shadow-lg shadow-[#4A90F5]/25 transition-colors hover:bg-[#3a7de0] disabled:opacity-40"
+                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#4A90F5]/25 transition-all hover:bg-[#3a7de0] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {submitting ? (
                   <>
@@ -680,14 +680,19 @@ export function ProjectRequestForm() {
                 )}
               </button>
             ) : (
-              <button
-                type="button"
-                disabled={!canNext}
-                onClick={() => handleStepChange(step + 1)}
-                className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-ainomiq-text transition-colors hover:bg-[#3a7de0] disabled:opacity-40"
-              >
-                Continue <ArrowRight className="h-4 w-4" />
-              </button>
+              <div className="flex flex-col items-end gap-2">
+                <button
+                  type="button"
+                  disabled={!canNext}
+                  onClick={() => handleStepChange(step + 1)}
+                  className="flex items-center gap-2 rounded-xl bg-[#4A90F5] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#3a7de0] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
+                >
+                  Continue <ArrowRight className="h-4 w-4" />
+                </button>
+                {!canNext && step === 0 && (
+                  <p className="text-xs text-ainomiq-text-muted">Select a project type to continue</p>
+                )}
+              </div>
             )}
           </div>
         </div>
