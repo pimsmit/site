@@ -151,19 +151,19 @@ export default function RadialOrbitalTimeline({
   const getStatusStyles = (status: TimelineItem["status"]): string => {
     switch (status) {
       case "completed":
-        return "text-white bg-black border-white";
+        return "text-white bg-ainomiq-blue border-white";
       case "in-progress":
-        return "text-black bg-white border-black";
+        return "text-white bg-ainomiq-blue/80 border-white/80";
       case "pending":
-        return "text-white bg-black/40 border-white/50";
+        return "text-ainomiq-text bg-white/90 border-ainomiq-blue/30";
       default:
-        return "text-white bg-black/40 border-white/50";
+        return "text-ainomiq-text bg-white/90 border-ainomiq-blue/30";
     }
   };
 
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-black overflow-hidden"
+      className="w-full h-screen flex flex-col items-center justify-center overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -229,18 +229,18 @@ export default function RadialOrbitalTimeline({
                     w-10 h-10 rounded-full flex items-center justify-center
                     ${
                       isExpanded
-                        ? "bg-white text-black"
+                        ? "bg-ainomiq-blue text-white"
                         : isRelated
-                        ? "bg-white/50 text-black"
-                        : "bg-black text-white"
+                        ? "bg-ainomiq-blue/70 text-white"
+                        : "bg-white text-ainomiq-blue"
                     }
                     border-2 
                     ${
                       isExpanded
-                        ? "border-white shadow-lg shadow-white/30"
+                        ? "border-ainomiq-blue shadow-lg shadow-ainomiq-blue/30"
                         : isRelated
-                        ? "border-white animate-pulse"
-                        : "border-white/40"
+                        ? "border-ainomiq-blue/70 animate-pulse"
+                        : "border-ainomiq-blue/40"
                     }
                     transition-all duration-300 transform
                     ${isExpanded ? "scale-150" : ""}
