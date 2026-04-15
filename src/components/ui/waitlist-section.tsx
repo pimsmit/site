@@ -61,7 +61,7 @@ export function WaitlistSection() {
   }
 
   return (
-    <section className="py-20 md:py-28 px-6 bg-white border-t border-gray-100">
+    <section className="py-20 md:py-28 px-6 bg-white">
       <div className="mx-auto max-w-2xl">
         <div className="w-full space-y-6">
             <div className="space-y-2">
