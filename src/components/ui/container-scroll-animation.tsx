@@ -189,71 +189,143 @@ export const Card = ({
       style={{
         rotateX: rotate,
         scale,
-        boxShadow:
-          "0 40px 80px rgba(0,0,0,0.35), 0 20px 40px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.15), inset 0 0 0 1px rgba(255,255,255,0.05)",
+        filter: "drop-shadow(0 40px 60px rgba(0,0,0,0.3)) drop-shadow(0 10px 20px rgba(0,0,0,0.2))",
       }}
       className="max-w-5xl -mt-12 mx-auto w-full"
     >
-      {/* iPad Pro outer shell — silver aluminium */}
-      <div
-        className="relative w-full mx-auto"
-        style={{
-          background: "linear-gradient(145deg, #e8e8e8 0%, #d0d0d0 40%, #c8c8c8 60%, #d8d8d8 100%)",
-          borderRadius: "28px",
-          padding: "12px 10px 12px 10px",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.15), inset 1px 0 0 rgba(255,255,255,0.4), inset -1px 0 0 rgba(0,0,0,0.1)",
-        }}
-      >
-        {/* Top bar with front camera */}
-        <div className="relative flex items-center justify-center mb-0" style={{ height: "18px" }}>
-          {/* Front camera */}
-          <div className="relative flex items-center gap-1">
-            <div className="w-2 h-2 rounded-full" style={{ background: "#1a1a1a", boxShadow: "inset 0 1px 2px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,0,0,0.3)" }}>
-              <div className="w-1 h-1 rounded-full mx-auto mt-0.5" style={{ background: "#2a4a8a", opacity: 0.7 }} />
-            </div>
-          </div>
-        </div>
-
-        {/* Screen bezel — thin black border */}
-        <div
-          className="relative overflow-hidden"
-          style={{
-            borderRadius: "18px",
-            background: "#000",
-            padding: "1px",
-          }}
-        >
-          {/* Screen content */}
-          <div
-            className="relative overflow-hidden"
-            style={{
-              borderRadius: "17px",
-              height: "min(40rem, 55vw)",
-            }}
-          >
-            {children}
-
-            {/* Screen glare */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                borderRadius: "17px",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)",
-                zIndex: 10,
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="flex items-center justify-center" style={{ height: "16px" }} />
-
-        {/* Side volume buttons — left */}
-        <div className="absolute left-0 top-[28%] w-[3px] h-8 rounded-l-sm" style={{ background: "linear-gradient(90deg, #b0b0b0, #c8c8c8)", marginLeft: "-3px" }} />
-        <div className="absolute left-0 top-[38%] w-[3px] h-8 rounded-l-sm" style={{ background: "linear-gradient(90deg, #b0b0b0, #c8c8c8)", marginLeft: "-3px" }} />
-        {/* Power button — right */}
-        <div className="absolute right-0 top-[30%] w-[3px] h-12 rounded-r-sm" style={{ background: "linear-gradient(270deg, #b0b0b0, #c8c8c8)", marginRight: "-3px" }} />
-      </div>
+      <IPadFrame>{children}</IPadFrame>
     </motion.div>
   );
 };
+
+function IPadFrame({ children }: { children: React.ReactNode }) {
+  // iPad Pro 11" landscape proportions: ~1194 x 834 + bezel ~20px each side
+  // We render at a fixed aspect ratio, screen fills the inner rectangle
+  const bezelX = 3.2; // % of total width
+  const bezelTop = 4.8;
+  const bezelBottom = 4.8;
+
+  return (
+    <div className="relative w-full" style={{ aspectRatio: "1194 / 900" }}>
+      {/* ── Outer aluminium shell ── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          borderRadius: "4.2%",
+          background:
+            "linear-gradient(160deg, #f0f0f0 0%, #e0e0e0 20%, #c8c8c8 50%, #d4d4d4 80%, #e8e8e8 100%)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.2), inset 1px 0 rgba(255,255,255,0.5), inset -1px 0 rgba(0,0,0,0.15), 0 0 0 0.5px rgba(0,0,0,0.25)",
+        }}
+      />
+
+      {/* ── Volume buttons (top edge, left of center) ── */}
+      <div
+        className="absolute"
+        style={{
+          top: 0,
+          left: "30%",
+          width: "5%",
+          height: "1.5%",
+          background: "linear-gradient(180deg, #b8b8b8, #d0d0d0)",
+          borderRadius: "0 0 1px 1px",
+          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.2)",
+          transform: "translateY(-1px)",
+        }}
+      />
+      <div
+        className="absolute"
+        style={{
+          top: 0,
+          left: "37%",
+          width: "5%",
+          height: "1.5%",
+          background: "linear-gradient(180deg, #b8b8b8, #d0d0d0)",
+          borderRadius: "0 0 1px 1px",
+          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.2)",
+          transform: "translateY(-1px)",
+        }}
+      />
+      {/* ── Power button (bottom edge right) ── */}
+      <div
+        className="absolute"
+        style={{
+          bottom: 0,
+          right: "20%",
+          width: "7%",
+          height: "1.5%",
+          background: "linear-gradient(0deg, #b8b8b8, #d0d0d0)",
+          borderRadius: "1px 1px 0 0",
+          boxShadow: "inset 0 1px 0 rgba(0,0,0,0.2)",
+          transform: "translateY(1px)",
+        }}
+      />
+
+      {/* ── Screen cutout (black bezel) ── */}
+      <div
+        className="absolute overflow-hidden"
+        style={{
+          left: `${bezelX}%`,
+          right: `${bezelX}%`,
+          top: `${bezelTop}%`,
+          bottom: `${bezelBottom}%`,
+          borderRadius: "2%",
+          background: "#000",
+        }}
+      >
+        {/* Front camera pill — centered top */}
+        <div
+          className="absolute z-20"
+          style={{
+            top: "6px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "28px",
+            height: "8px",
+            borderRadius: "4px",
+            background: "#111",
+            boxShadow: "inset 0 1px 2px rgba(0,0,0,0.9)",
+          }}
+        >
+          {/* Camera dot */}
+          <div
+            className="absolute"
+            style={{
+              right: "4px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "5px",
+              height: "5px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle at 35% 35%, #3a5a9a 0%, #1a2a4a 60%, #0a0a0a 100%)",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
+            }}
+          />
+        </div>
+
+        {/* Screen content */}
+        <div className="absolute inset-0">
+          {children}
+        </div>
+
+        {/* Screen glare overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 45%)",
+          }}
+        />
+      </div>
+
+      {/* ── Aluminium edge highlights ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          borderRadius: "4.2%",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.1)",
+        }}
+      />
+    </div>
+  );
+}
