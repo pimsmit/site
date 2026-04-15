@@ -12,18 +12,29 @@ import {
   Clock,
   Euro,
   CreditCard,
+  Globe,
+  LayoutDashboard,
+  Bot,
+  ShoppingCart,
+  Plug,
+  Smartphone,
+  BarChart3,
+  Wrench,
+  Star,
 } from "lucide-react";
 
 /* ─── Data ─────────────────────────────────────────────────── */
 
 const PROJECT_TYPES = [
-  { id: "website-landing", label: "Website / Landing page", icon: "🌐", hours: "8-20h" },
-  { id: "webapp-dashboard", label: "Web app / Dashboard", icon: "📊", hours: "30-80h" },
-  { id: "ai-chatbot", label: "AI Integration / Chatbot", icon: "🤖", hours: "20-60h" },
-  { id: "automation-workflow", label: "Automation / Workflow", icon: "⚡", hours: "15-50h" },
-  { id: "ecommerce", label: "E-commerce", icon: "🛒", hours: "25-70h" },
-  { id: "api-development", label: "API Development", icon: "🔌", hours: "15-45h" },
-  { id: "other", label: "Other", icon: "✨", hours: "10-40h" },
+  { id: "website-landing", label: "Website / Landing page", Icon: Globe },
+  { id: "webapp-dashboard", label: "Web app / Dashboard", Icon: LayoutDashboard },
+  { id: "ai-chatbot", label: "AI Integration / Chatbot", Icon: Bot },
+  { id: "automation-workflow", label: "Automation / Workflow", Icon: Zap },
+  { id: "ecommerce", label: "E-commerce", Icon: ShoppingCart },
+  { id: "api-development", label: "API Development", Icon: Plug },
+  { id: "mobile-app", label: "Mobile App", Icon: Smartphone },
+  { id: "data-analytics", label: "Data & Analytics", Icon: BarChart3 },
+  { id: "other", label: "Other", Icon: Star },
 ];
 
 const TIMELINES = [
@@ -266,9 +277,8 @@ export function ProjectRequestForm() {
                           : "border-[#1e293b] bg-[#1e293b]/30 hover:bg-[#1e293b]/60"
                       }`}
                     >
-                      <span className="text-2xl">{t.icon}</span>
+                      <t.Icon className="h-6 w-6 text-[#4A90F5]" />
                       <p className="text-sm font-medium text-white mt-2">{t.label}</p>
-                      <p className="text-[10px] text-gray-500 mt-0.5">{t.hours}</p>
                       {projectType === t.id && (
                         <div className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#4A90F5]" />
                       )}

@@ -12,6 +12,8 @@ const BASE_HOURS: Record<string, { min: number; max: number; label: string }> = 
   "automation-workflow": { min: 15, max: 50, label: "Automation / Workflow" },
   "ecommerce": { min: 25, max: 70, label: "E-commerce" },
   "api-development": { min: 15, max: 45, label: "API Development" },
+  "mobile-app": { min: 40, max: 120, label: "Mobile App" },
+  "data-analytics": { min: 20, max: 60, label: "Data & Analytics" },
   "other": { min: 10, max: 40, label: "Other" },
 };
 
