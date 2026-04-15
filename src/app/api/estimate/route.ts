@@ -25,13 +25,13 @@ const COMPLEXITY_TIERS = [
   { maxChars: Infinity, multiplier: 1.5, label: "Complex" },
 ];
 
-// Rush fee multipliers
+// Rush fee multipliers (toned down for better UX)
 const TIMELINE_MULTIPLIERS: Record<string, number> = {
-  "asap": 1.5,
-  "1-2-weeks": 1.25,
-  "2-4-weeks": 1.0,
-  "1-2-months": 0.95,
-  "flexible": 0.9,
+  "asap": 1.3,        // 30% rush fee (was 50%)
+  "1-2-weeks": 1.15,  // 15% rush fee (was 25%)
+  "2-4-weeks": 1.0,   // baseline
+  "1-2-months": 0.95, // 5% discount
+  "flexible": 0.9,    // 10% discount
 };
 
 const HOURLY_RATE = 50; // EUR
