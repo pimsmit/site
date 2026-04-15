@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BuildYourSolution } from "@/components/get-started/build-your-solution";
 import { CustomHero } from "@/components/get-started/custom-hero";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 
@@ -80,6 +81,9 @@ const PROJECT_TIMELINE = [
 export default function CustomPage() {
   return (
     <>
+      {/* Build Your Solution section - code + robot */}
+      <BuildYourSolution />
+
       {/* Hero with wizard */}
       <CustomHero />
 
