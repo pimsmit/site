@@ -144,12 +144,9 @@ export function ProjectRequestForm() {
     if (!company.trim()) errs.push("Company name is required.");
     if (!contact.trim()) errs.push("Contact name is required.");
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push("Valid email is required.");
-    if (existingUrl.trim()) {
-      try {
-        new URL(existingUrl);
-      } catch {
-        errs.push("Existing site/app URL must be valid.");
-      }
+    if (existingUrl.trim() && !isValidUrl(existingUrl)) {
+      errs.push("Existing site/app URL must be valid.");
+      setStep(1);
     }
 
     if (files.length > 5) errs.push("You can upload up to 5 files.");
@@ -211,9 +208,19 @@ export function ProjectRequestForm() {
     }
   }
 
+  const isValidUrl = (url: string) => {
+    if (!url.trim()) return true;
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const steps = [
     { title: "Project Type", valid: !!projectType },
-    { title: "Details", valid: description.trim().length >= 3 },
+    { title: "Details", valid: description.trim().length >= 3 && isValidUrl(existingUrl) },
     { title: "Timeline", valid: !!timeline },
     { title: "Your Estimate", valid: true },
     { title: "Contact", valid: !!company && !!contact && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) },
