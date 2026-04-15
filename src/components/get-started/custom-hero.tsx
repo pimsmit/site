@@ -6,7 +6,7 @@ import { LogoCloud } from "@/components/ui/logo-cloud";
 
 export function CustomHero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white pt-24 pb-32 px-6">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100/80 pt-24 pb-32 px-6">
       <div className="mx-auto max-w-6xl">
         {/* Badge */}
         <div className="mb-6 flex justify-center">
@@ -31,13 +31,15 @@ export function CustomHero() {
         </p>
 
         {/* Glassmorphism elevated card with full wizard */}
-        <div className="relative -mt-8">
-          {/* Glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ainomiq-blue/30 via-blue-400/20 to-ainomiq-blue/30 blur-3xl -z-10 scale-95" />
+        <div className="relative">
+          {/* Multiple layered glow effects */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 via-purple-500/30 to-blue-500/40 blur-[100px] -z-10 animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-ainomiq-blue/20 to-transparent blur-2xl -z-10" />
           
-          {/* Glass card */}
-          <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-br from-white/90 via-blue-50/40 to-white/90 backdrop-blur-xl border border-blue-200/50 shadow-2xl p-1">
-            <div className="rounded-[22px] bg-white p-2 md:p-4 border border-ainomiq-border/50">
+          {/* Outer glass shell */}
+          <div className="mx-auto max-w-5xl rounded-[32px] bg-gradient-to-br from-white/60 via-blue-50/50 to-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(59,130,246,0.25),0_0_80px_rgba(147,197,253,0.15)] p-3">
+            {/* Inner white card */}
+            <div className="rounded-[26px] bg-white/95 backdrop-blur-sm p-6 md:p-8 border border-blue-100/50 shadow-inner">
               {/* Full wizard form */}
               <ProjectRequestForm />
             </div>
