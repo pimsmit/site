@@ -2,7 +2,6 @@
 
 import { Sparkles } from "lucide-react";
 import { ProjectRequestForm } from "@/components/get-started/project-request-form";
-import { LogoCloud } from "@/components/ui/logo-cloud";
 
 export function CustomHero() {
   return (
@@ -46,35 +45,13 @@ export function CustomHero() {
           </div>
         </div>
 
-        {/* Trust scroller - below card */}
-        <div className="mt-20 text-center">
-          <p className="text-sm text-ainomiq-text-muted mb-6">
+        {/* Trust line - below card, better readability */}
+        <div className="mt-16 text-center">
+          <p className="text-base text-ainomiq-text font-medium">
             Trusted by businesses like yours
           </p>
-          <div className="flex items-center justify-center gap-8 md:gap-12 opacity-50 grayscale">
-            <img src="/logos/dominos.png" alt="Domino's" className="h-10 w-auto" />
-            <img src="/logos/billie-jeans.png" alt="Billie Jeans" className="h-10 w-auto" />
-            <img src="/logos/alpina.png" alt="Alpina" className="h-10 w-auto" />
-            <img src="/logos/button-amsterdam.png" alt="Button Amsterdam" className="h-10 w-auto" />
-          </div>
         </div>
-      </div>
-
-      {/* Infinite logo scroller */}
-      <div className="mt-16">
-        <LogoCloud logos={CLIENT_LOGOS} />
       </div>
     </section>
   );
 }
-
-const CLIENT_LOGOS = [
-  { src: "/logos/dominos.png", alt: "Domino's" },
-  { src: "/logos/billie-jeans.png", alt: "Billie Jeans" },
-  { src: "/logos/alpina.png", alt: "Alpina" },
-  { src: "/logos/button-amsterdam.png", alt: "Button Amsterdam" },
-  { src: "/logos/padelland.png", alt: "Padelland" },
-  { src: "/logos/vindjerijschool.png", alt: "Vindjerijschool" },
-  { src: "/logos/la-dos.png", alt: "La Dos" },
-  { src: "/logos/accu-expert.png", alt: "Accu Expert" },
-];
