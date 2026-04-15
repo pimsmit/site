@@ -46,7 +46,7 @@ export function GrowthChartSection() {
           setTimeout(() => setPhase("after"), 2800);
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.15 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -57,7 +57,7 @@ export function GrowthChartSection() {
   const showAfter = phase === "after";
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 px-6 bg-white">
+    <section ref={sectionRef} className="py-10 md:py-16 px-6 bg-white">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
