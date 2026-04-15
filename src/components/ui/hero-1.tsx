@@ -5,7 +5,69 @@ import { Button } from "@/components/ui/button";
 import { RocketIcon, ArrowRightIcon, PhoneCallIcon } from "lucide-react";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+
+const TYPED_WORDS = ["Future.", "Systems.", "Growth.", "Scale.", "Edge."];
+const TYPE_SPEED = 80;
+const DELETE_SPEED = 50;
+const PAUSE_BEFORE_DELETE = 4500;
+const PAUSE_BEFORE_TYPE = 400;
+
+function useTypewriter(words: string[]) {
+  const [display, setDisplay] = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[wordIdx];
+
+    if (!deleting && charIdx < word.length) {
+      // typing
+      const t = setTimeout(() => {
+        setDisplay(word.slice(0, charIdx + 1));
+        setCharIdx(charIdx + 1);
+      }, TYPE_SPEED);
+      return () => clearTimeout(t);
+    }
+
+    if (!deleting && charIdx === word.length) {
+      // pause then start deleting
+      const t = setTimeout(() => setDeleting(true), PAUSE_BEFORE_DELETE);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && charIdx > 0) {
+      // deleting
+      const t = setTimeout(() => {
+        setCharIdx(charIdx - 1);
+        setDisplay(word.slice(0, charIdx - 1));
+      }, DELETE_SPEED);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && charIdx === 0) {
+      // move to next word
+      const t = setTimeout(() => {
+        setDeleting(false);
+        setWordIdx((wordIdx + 1) % words.length);
+      }, PAUSE_BEFORE_TYPE);
+      return () => clearTimeout(t);
+    }
+  }, [charIdx, deleting, wordIdx, words]);
+
+  return display;
+}
+
+function TypewriterWord() {
+  const text = useTypewriter(TYPED_WORDS);
+  return (
+    <>
+      {text}
+      <span className="inline-block w-[3px] h-[0.85em] bg-ainomiq-blue ml-1 align-baseline animate-pulse" />
+    </>
+  );
+}
 
 export function HeroSection() {
   const gradientRef = useRef<HTMLDivElement>(null);
@@ -72,8 +134,10 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1 className="text-balance text-center text-5xl font-extrabold tracking-tight text-ainomiq-text animate-float-up delay-100 md:text-6xl lg:text-7xl">
-            Your store.{" "}
-            <span className="gradient-text">Always running.</span>
+            Building The{" "}
+            <span className="gradient-text">
+              <TypewriterWord />
+            </span>
           </h1>
 
           {/* Subtitle */}
