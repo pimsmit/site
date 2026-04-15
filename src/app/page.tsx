@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
 import WireframeGlobe from "@/components/ui/wireframe-dotted-globe";
 import { AnimatedCounter } from "@/components/animated-counter";
-import { ProjectRequestForm } from "@/components/get-started/project-request-form";
+import { GetStartedWizard } from "@/components/get-started/wizard";
 import {
   Bot,
   BarChart3,
@@ -229,21 +229,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Custom Projects Wizard */}
-      <section className="py-24 px-6">
-        <div className="mx-auto max-w-4xl text-center mb-12">
-          <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">
-            Custom Projects
-          </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-            Need a custom solution?
-          </h2>
-          <p className="text-ainomiq-text-muted text-lg">
-            Tell us what you need. We'll calculate the cost, prepare a project brief, and connect you with a builder.
-          </p>
-        </div>
-        <ProjectRequestForm />
-      </section>
+      {/* Get Started Wizard */}
+      <GetStartedWizard />
 
       {/* Why Us */}
       <Section label="Why ainomiq">
