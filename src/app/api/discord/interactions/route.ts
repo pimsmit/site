@@ -1,28 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getProject, updateProject } from "@/lib/projects";
-import * as ed from "@noble/ed25519";
-import { sha512 } from "@noble/hashes/sha512";
-
-// Required for @noble/ed25519 in Node/Edge
-ed.etc.sha512Sync = (...m) => sha512(...m);
 
 const PUBLIC_KEY = process.env.DISCORD_PUBLIC_KEY ?? "";
 
 async function verifyDiscordRequest(request: NextRequest, rawBody: string): Promise<boolean> {
-  if (!PUBLIC_KEY) return true; // skip in dev
+  if (!PUBLIC_KEY) return true;
   const signature = request.headers.get("x-signature-ed25519");
   const timestamp = request.headers.get("x-signature-timestamp");
   if (!signature || !timestamp) return false;
   try {
-    const isValid = await ed.verifyAsync(
-      signature,
-      Buffer.from(timestamp + rawBody),
-      PUBLIC_KEY
+    const key = await crypto.subtle.importKey(
+      "raw",
+      hexToUint8Array(PUBLIC_KEY),
+      { name: "Ed25519" },
+      false,
+      ["verify"]
     );
-    return isValid;
+    const message = new TextEncoder().encode(timestamp + rawBody);
+    return await crypto.subtle.verify("Ed25519", key, hexToUint8Array(signature), message);
   } catch {
     return false;
   }
+}
+
+function hexToUint8Array(hex: string): Uint8Array {
+  const arr = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < hex.length; i += 2) {
+    arr[i / 2] = parseInt(hex.slice(i, i + 2), 16);
+  }
+  return arr;
 }
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
