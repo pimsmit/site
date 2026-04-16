@@ -82,16 +82,6 @@ interface EstimateRequest {
   timeline: string;
   features?: string[];
   recommendations?: string[];
-  integrations?: string[];
-  featureFlags?: string[];
-  numPages?: string;
-  numUsers?: string;
-  designLevel?: string;
-  hasExistingDesign?: string;
-  languages?: string;
-  hostingPref?: string;
-  ongoingSupport?: string;
-  contentReady?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -134,68 +124,12 @@ function calculateEstimate(
   if (descLen > 500) complexityMultiplier += 0.15;
   if (descLen > 800) complexityMultiplier += 0.15;
 
-  // Integration count - each integration adds work
-  const intCount = (body.integrations || []).length;
-  if (intCount >= 1) complexityMultiplier += intCount * 0.08;
-  if (intCount >= 5) complexityMultiplier += 0.15; // complexity of managing many integrations
-
-  // Feature flags - each feature adds scope
-  const featCount = (body.featureFlags || []).length;
-  if (featCount >= 1) complexityMultiplier += featCount * 0.06;
-  if (featCount >= 8) complexityMultiplier += 0.2;
-  // Heavy features get extra weight
-  const heavyFeatures = ["AI / machine learning", "Payment processing", "Subscription billing", "Booking / scheduling", "Multi-language", "Chat / messaging"];
-  for (const hf of heavyFeatures) {
-    if ((body.featureFlags || []).includes(hf)) complexityMultiplier += 0.1;
-  }
-
-  // Pages / screens
-  const pagesMult: Record<string, number> = { "1-5": 0, "6-15": 0.15, "16-30": 0.3, "30+": 0.5 };
-  if (body.numPages && pagesMult[body.numPages] !== undefined) complexityMultiplier += pagesMult[body.numPages];
-
-  // Expected users (scale)
-  const usersMult: Record<string, number> = { internal: 0, small: 0.05, medium: 0.15, large: 0.3, enterprise: 0.5 };
-  if (body.numUsers && usersMult[body.numUsers] !== undefined) complexityMultiplier += usersMult[body.numUsers];
-
-  // Design level
-  const designMult: Record<string, number> = { basic: 0, polished: 0.15, premium: 0.35 };
-  if (body.designLevel && designMult[body.designLevel] !== undefined) complexityMultiplier += designMult[body.designLevel];
-
-  // No existing design = more work
-  const designReadyMult: Record<string, number> = { figma: -0.1, wireframes: 0, examples: 0.1, none: 0.25 };
-  if (body.hasExistingDesign && designReadyMult[body.hasExistingDesign] !== undefined) complexityMultiplier += designReadyMult[body.hasExistingDesign];
-
-  // Multi-language
-  const langMult: Record<string, number> = { "1": 0, "2-3": 0.2, "4+": 0.4 };
-  if (body.languages && langMult[body.languages] !== undefined) complexityMultiplier += langMult[body.languages];
-
-  // Content not ready = more project management
-  const contentMult: Record<string, number> = { yes: 0, partial: 0.1, no: 0.2 };
-  if (body.contentReady && contentMult[body.contentReady] !== undefined) complexityMultiplier += contentMult[body.contentReady];
-
   // Selected recommendations add work
   const recCount = (body.recommendations || []).length;
   if (recCount > 0) complexityMultiplier += recCount * 0.08;
 
-  // Spec-based complexity labels
-  if (body.numPages === "16-30") detectedComplexity.push("Large scope (16-30 pages)");
-  if (body.numPages === "30+") detectedComplexity.push("Complex scope (30+ pages)");
-  if (body.numUsers === "large") detectedComplexity.push("Scale: 1K-10K users");
-  if (body.numUsers === "enterprise") detectedComplexity.push("Enterprise scale (10K+)");
-  if (body.designLevel === "premium") detectedComplexity.push("Premium custom design");
-  if (body.hasExistingDesign === "none") detectedComplexity.push("Design from scratch");
-  if (body.languages === "2-3") detectedComplexity.push("Multi-language (2-3)");
-  if (body.languages === "4+") detectedComplexity.push("Multi-language (4+)");
-  if (body.contentReady === "no") detectedComplexity.push("Content creation");
-  if (body.ongoingSupport === "standard") detectedComplexity.push("Standard support plan");
-  if (body.ongoingSupport === "premium") detectedComplexity.push("Premium support plan");
-  const intCount2 = (body.integrations || []).length;
-  if (intCount2 >= 3) detectedComplexity.push(`${intCount2} integrations`);
-  const featCount2 = (body.featureFlags || []).length;
-  if (featCount2 >= 5) detectedComplexity.push(`${featCount2} feature modules`);
-
-  // Cap complexity multiplier at 3.5x for spec-driven estimates
-  complexityMultiplier = Math.min(complexityMultiplier, 3.5);
+  // Cap complexity multiplier at 2.5x (enterprise territory auto-upgrades)
+  complexityMultiplier = Math.min(complexityMultiplier, 2.5);
 
   // Timeline multiplier
   const timelineMult = TIMELINE_MULTIPLIERS[body.timeline] || 1.0;
@@ -212,20 +146,17 @@ function calculateEstimate(
   // Estimated delivery weeks
   const deliveryWeeks = total <= 5000 ? "1-2" : total <= 10000 ? "2-3" : total <= 15000 ? "3-5" : total <= 25000 ? "4-8" : "6-12";
 
-  // Estimate monthly costs from specs
+  // Estimate monthly costs (AI credits, hosting, support)
   let monthlyCost = 0;
-  const feats = body.featureFlags || [];
-  const ints = body.integrations || [];
-  if (feats.includes("AI / machine learning") || descLower.includes("ai") || descLower.includes("chatbot") || descLower.includes("gpt")) {
-    monthlyCost += 49;
+  if (descLower.includes("ai") || descLower.includes("chatbot") || descLower.includes("automation") || descLower.includes("gpt") || descLower.includes("openai")) {
+    monthlyCost += 49; // AI credits
   }
-  if (body.hostingPref === "ainomiq" || body.projectType === "webshop" || body.projectType === "dashboard" || body.projectType === "mobile-app") {
-    monthlyCost += 29;
+  if (descLower.includes("hosting") || descLower.includes("server") || body.projectType === "webshop" || body.projectType === "dashboard" || body.projectType === "mobile-app") {
+    monthlyCost += 29; // Hosting
   }
-  if (body.ongoingSupport === "basic") monthlyCost += 49;
-  if (body.ongoingSupport === "standard") monthlyCost += 149;
-  if (body.ongoingSupport === "premium") monthlyCost += 349;
-  if (ints.length >= 3) monthlyCost += 19; // integration monitoring
+  if (descLower.includes("support") || descLower.includes("maintenance") || descLower.includes("updates")) {
+    monthlyCost += 99; // Support contract
+  }
 
   // Complexity label
   const complexityLabel = complexityMultiplier <= 1.1 

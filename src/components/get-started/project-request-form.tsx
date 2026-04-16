@@ -90,18 +90,6 @@ export function ProjectRequestForm() {
   const [files, setFiles] = useState<File[]>([]);
   const [hp, setHp] = useState("");
 
-  // Specs step - granular options for precise estimate
-  const [numPages, setNumPages] = useState("");
-  const [numUsers, setNumUsers] = useState("");
-  const [integrations, setIntegrations] = useState<string[]>([]);
-  const [featureFlags, setFeatureFlags] = useState<string[]>([]);
-  const [designLevel, setDesignLevel] = useState("");
-  const [hasExistingDesign, setHasExistingDesign] = useState("");
-  const [languages, setLanguages] = useState("");
-  const [hostingPref, setHostingPref] = useState("");
-  const [ongoingSupport, setOngoingSupport] = useState("");
-  const [contentReady, setContentReady] = useState("");
-
   const descPlaceholder = projectType
     ? `Describe your ${PROJECT_TYPES.find((t) => t.id === projectType)?.label?.toLowerCase() || "project"}. What should it do? Any integrations or specific features?`
     : "Select a project type first…";
@@ -116,7 +104,7 @@ export function ProjectRequestForm() {
       const res = await fetch("/api/estimate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectType, description, timeline, recommendations: selRecs, integrations, featureFlags, numPages, numUsers, designLevel, hasExistingDesign, languages, hostingPref, ongoingSupport, contentReady }),
+        body: JSON.stringify({ projectType, description, timeline, recommendations: selRecs }),
       });
       const data = (await res.json()) as { estimate?: Estimate };
       if (data.estimate) setEstimate(data.estimate);
@@ -125,10 +113,10 @@ export function ProjectRequestForm() {
     } finally {
       setLoading(false);
     }
-  }, [projectType, description, timeline, recommendations, selectedRecs, integrations, featureFlags, numPages, numUsers, designLevel, hasExistingDesign, languages, hostingPref, ongoingSupport, contentReady]);
+  }, [projectType, description, timeline, recommendations, selectedRecs]);
 
   useEffect(() => {
-    if (step === 4) {
+    if (step === 3) {
       void fetchEstimate();
     }
     // Pre-fill existingUrl from siteUrl when advancing past step 0
@@ -274,16 +262,6 @@ export function ProjectRequestForm() {
       }
 
       techStack.forEach((item) => formData.append("techStack", item));
-      integrations.forEach((item) => formData.append("integrations", item));
-      featureFlags.forEach((item) => formData.append("featureFlags", item));
-      if (numPages) formData.append("numPages", numPages);
-      if (numUsers) formData.append("numUsers", numUsers);
-      if (designLevel) formData.append("designLevel", designLevel);
-      if (hasExistingDesign) formData.append("hasExistingDesign", hasExistingDesign);
-      if (languages) formData.append("languages", languages);
-      if (hostingPref) formData.append("hostingPref", hostingPref);
-      if (ongoingSupport) formData.append("ongoingSupport", ongoingSupport);
-      if (contentReady) formData.append("contentReady", contentReady);
       files.forEach((file) => formData.append("files", file));
 
       if (estimate) {
@@ -345,40 +323,9 @@ export function ProjectRequestForm() {
     }
   };
 
-  const INTEGRATION_OPTIONS = [
-    "Shopify", "WooCommerce", "WordPress", "Magento",
-    "Klaviyo", "Mailchimp", "HubSpot",
-    "Stripe", "Mollie", "PayPal", "iDEAL",
-    "Google Analytics", "Google Ads", "Meta Pixel", "TikTok Pixel",
-    "Salesforce", "Zendesk", "Intercom",
-    "Bol.com", "Amazon", "WhatsApp", "Slack",
-    "Custom API", "Other"
-  ];
-
-  const FEATURE_OPTIONS = [
-    "User accounts & login", "Admin panel", "Role-based access",
-    "Payment processing", "Subscription billing", "Invoicing",
-    "Email notifications", "SMS / push notifications",
-    "Search & filtering", "Reviews / ratings",
-    "File uploads", "Image/video management",
-    "Analytics dashboard", "Reporting / exports",
-    "Booking / scheduling", "Inventory management",
-    "Multi-language", "Chat / messaging",
-    "AI / machine learning", "Automation workflows",
-    "API for third parties", "Mobile responsive",
-  ];
-
-  const toggleIntegration = (val: string) => {
-    setIntegrations(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
-  };
-  const toggleFeatureFlag = (val: string) => {
-    setFeatureFlags(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
-  };
-
   const steps = [
     { title: "Project Type", valid: !!projectType || prefilled },
     { title: "Details", valid: description.trim().length >= 3 && isValidUrl(existingUrl) },
-    { title: "Specifications", valid: true },
     { title: "Timeline", valid: !!timeline },
     { title: "Your Estimate", valid: true },
     { title: "Contact", valid: !!company && !!contact && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) },
@@ -417,16 +364,6 @@ export function ProjectRequestForm() {
     setHp("");
     setEstimate(null);
     setErrors([]);
-    setIntegrations([]);
-    setFeatureFlags([]);
-    setNumPages("");
-    setNumUsers("");
-    setDesignLevel("");
-    setHasExistingDesign("");
-    setLanguages("");
-    setHostingPref("");
-    setOngoingSupport("");
-    setContentReady("");
   }
 
   if (success) {
@@ -757,142 +694,6 @@ export function ProjectRequestForm() {
             )}
 
             {step === 2 && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Project specifications</h3>
-                  <p className="mb-6 text-sm text-ainomiq-text-muted">The more you tell us, the more accurate your estimate.</p>
-                </div>
-
-                {/* Integrations */}
-                <div className="rounded-xl border border-blue-200/60 bg-blue-50/40 p-5">
-                  <p className="mb-1 text-sm font-medium text-ainomiq-text">Which platforms should we integrate with?</p>
-                  <p className="mb-3 text-xs text-ainomiq-text-muted">Select all that apply</p>
-                  <div className="flex flex-wrap gap-2">
-                    {INTEGRATION_OPTIONS.map((opt) => {
-                      const active = integrations.includes(opt);
-                      return (
-                        <button key={opt} type="button" onClick={() => toggleIntegration(opt)}
-                          className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                            active ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5] font-medium" : "border-blue-200/60 bg-white/95 text-ainomiq-text-muted hover:border-[#4A90F5]/50"
-                          }`}>{opt}</button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="rounded-xl border border-blue-200/60 bg-blue-50/40 p-5">
-                  <p className="mb-1 text-sm font-medium text-ainomiq-text">Which features do you need?</p>
-                  <p className="mb-3 text-xs text-ainomiq-text-muted">Select all that apply</p>
-                  <div className="flex flex-wrap gap-2">
-                    {FEATURE_OPTIONS.map((opt) => {
-                      const active = featureFlags.includes(opt);
-                      return (
-                        <button key={opt} type="button" onClick={() => toggleFeatureFlag(opt)}
-                          className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                            active ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5] font-medium" : "border-blue-200/60 bg-white/95 text-ainomiq-text-muted hover:border-[#4A90F5]/50"
-                          }`}>{opt}</button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Scale */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className={labelCls}>How many pages / screens?</label>
-                    <select className={inputCls} value={numPages} onChange={(e) => setNumPages(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="1-5">1-5 (simple)</option>
-                      <option value="6-15">6-15 (medium)</option>
-                      <option value="16-30">16-30 (large)</option>
-                      <option value="30+">30+ (complex)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelCls}>Expected number of users</label>
-                    <select className={inputCls} value={numUsers} onChange={(e) => setNumUsers(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="internal">Internal team only (1-10)</option>
-                      <option value="small">Small (10-100)</option>
-                      <option value="medium">Medium (100-1,000)</option>
-                      <option value="large">Large (1,000-10,000)</option>
-                      <option value="enterprise">Enterprise (10,000+)</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Design */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className={labelCls}>Design level</label>
-                    <select className={inputCls} value={designLevel} onChange={(e) => setDesignLevel(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="basic">Basic / functional</option>
-                      <option value="polished">Polished / branded</option>
-                      <option value="premium">Premium / custom design</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelCls}>Do you have designs ready?</label>
-                    <select className={inputCls} value={hasExistingDesign} onChange={(e) => setHasExistingDesign(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="figma">Yes, Figma / design files</option>
-                      <option value="wireframes">Wireframes / sketches</option>
-                      <option value="examples">Reference examples only</option>
-                      <option value="none">No, design from scratch</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Other specs */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className={labelCls}>Languages needed</label>
-                    <select className={inputCls} value={languages} onChange={(e) => setLanguages(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="1">Single language</option>
-                      <option value="2-3">2-3 languages</option>
-                      <option value="4+">4+ languages</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelCls}>Hosting preference</label>
-                    <select className={inputCls} value={hostingPref} onChange={(e) => setHostingPref(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="ainomiq">Ainomiq managed hosting</option>
-                      <option value="own">Our own servers</option>
-                      <option value="cloud">Cloud (AWS, GCP, Azure)</option>
-                      <option value="no-preference">No preference</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className={labelCls}>Ongoing support after launch?</label>
-                    <select className={inputCls} value={ongoingSupport} onChange={(e) => setOngoingSupport(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="none">No, one-time delivery</option>
-                      <option value="basic">Basic support (bug fixes)</option>
-                      <option value="standard">Standard (updates + support)</option>
-                      <option value="premium">Premium (dedicated team)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelCls}>Is content ready?</label>
-                    <select className={inputCls} value={contentReady} onChange={(e) => setContentReady(e.target.value)}>
-                      <option value="">Select...</option>
-                      <option value="yes">Yes, all content is ready</option>
-                      <option value="partial">Partially ready</option>
-                      <option value="no">No, we need help with content</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {step === 3 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">When do you need it?</h3>
                 <p className="mb-6 text-sm text-ainomiq-text-muted">Faster delivery means more pressure on scope and budget.</p>
@@ -919,7 +720,7 @@ export function ProjectRequestForm() {
               </div>
             )}
 
-            {step === 4 && (
+            {step === 3 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Your estimate</h3>
                 <p className="mb-6 text-sm text-ainomiq-text-muted">
@@ -963,17 +764,6 @@ export function ProjectRequestForm() {
                     <p className="mt-4 text-center text-xs text-white/60">
                       This request goes straight to review. No checkout step.
                     </p>
-
-                    {estimate.detectedComplexity && estimate.detectedComplexity.length > 0 && (
-                      <div className="mt-4 rounded-lg bg-white/10 p-3">
-                        <p className="mb-2 text-[10px] uppercase tracking-wider text-white/60">Price includes</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {estimate.detectedComplexity.map((item) => (
-                            <span key={item} className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] text-white/80">{item}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ) : (
                   <div className="rounded-xl border border-blue-200/60 bg-blue-50/40 p-6 text-center text-sm text-ainomiq-text-muted">
@@ -983,7 +773,7 @@ export function ProjectRequestForm() {
               </div>
             )}
 
-            {step === 5 && (
+            {step === 4 && (
               <div>
                 <h3 className="mb-1 text-lg font-semibold text-ainomiq-text">Almost there - who are you?</h3>
                 <p className="mb-6 text-sm text-ainomiq-text-muted">We&apos;ll prepare your project brief and reply within 24h.</p>
