@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildAdminSubmissionEmbed, buildProjectsChannelEmbed, calculateBudgetSplit, isValidEmail, isValidUrl } from "@/lib/project-submission";
-import { createProject, updateProject, type ProjectFile } from "@/lib/projects";
-import { postProjectToDiscord } from "@/app/api/discord/interactions/route";
+import { buildAdminSubmissionEmbed, isValidEmail, isValidUrl } from "@/lib/project-submission";
+import { createProject, type ProjectFile } from "@/lib/projects";
 
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
@@ -207,7 +206,7 @@ export async function POST(request: NextRequest) {
       estimateHours,
     });
 
-    // Send Discord notifications (non-blocking - DB write is the important part)
+    // Send admin webhook only — Discord #available-projects post happens after Stripe payment
     // 1. Admin webhook - full details with pricing
     const adminWebhook = process.env.DISCORD_WEBHOOK_ADMIN;
     if (adminWebhook) {
@@ -226,49 +225,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. Post to #available-projects via bot with interactive buttons
-    try {
-      const msgId = await postProjectToDiscord(project.id, {
-        company: project.company,
-        contact: project.contact,
-        email: project.email,
-        projectType: project.projectType,
-        budget: project.budget,
-        timeline: project.timeline,
-        description: project.description,
-        estimateTotal: project.estimateTotal,
-        estimateHours: project.estimateHours,
-        driveFolderUrl: project.driveFolderUrl,
-      }, "available");
-      if (msgId) {
-        await updateProject(project.id, { discordMessageId: msgId });
-      }
-    } catch (botError) {
-      console.error("Discord bot post error:", botError);
-      // Fallback to webhook
-      const projectsWebhook = process.env.DISCORD_WEBHOOK_PROJECTS;
-      if (projectsWebhook) {
-        try {
-          const payload = buildProjectsChannelEmbed(project);
-          await fetch(projectsWebhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-        } catch (e) { console.error("Webhook fallback error:", e); }
-      }
-    }
-
-    // Legacy fallback
-    const legacyWebhook = !adminWebhook && process.env.DISCORD_WEBHOOK_URL;
-    if (legacyWebhook) {
-      try {
-        const payload = buildAdminSubmissionEmbed(project);
-        await fetch(legacyWebhook, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      } catch (e) {
-        console.error("Legacy webhook error:", e);
-      }
-    }
+    // Discord #available-projects post happens after Stripe payment via stripe-webhook route
 
     return NextResponse.json({ success: true, projectId: project.id });
   } catch (error) {
