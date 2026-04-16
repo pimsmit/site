@@ -39,7 +39,7 @@ export function CustomHero() {
           {/* Outer glass shell */}
           <div className="mx-auto max-w-5xl rounded-[32px] bg-gradient-to-br from-white/60 via-blue-50/50 to-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(59,130,246,0.25),0_0_80px_rgba(147,197,253,0.15)] p-3">
             {/* Inner white card */}
-            <div className="rounded-[26px] bg-white/95 backdrop-blur-sm p-6 md:p-8 border border-blue-100/50 shadow-inner">
+            <div className="rounded-[26px] bg-white/30 backdrop-blur-xl p-6 md:p-8 border border-white/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
               {/* Full wizard form */}
               <ProjectRequestForm />
             </div>
