@@ -72,6 +72,7 @@ export function ProjectRequestForm() {
   const [isScanning, setIsScanning] = useState(false);
   const [siteData, setSiteData] = useState<Record<string, unknown> | null>(null);
   const [recommendations, setRecommendations] = useState<string[]>([]);
+  const [selectedRecs, setSelectedRecs] = useState<Set<number>>(new Set());
   const [timeline, setTimeline] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
@@ -151,7 +152,10 @@ export function ProjectRequestForm() {
       if (data.timeline) setTimeline(data.timeline);
       if (data.targetAudience) setTargetAudience(data.targetAudience);
       if (data.needsCredentials) setNeedsCredentials(data.needsCredentials);
-      if (data.recommendations) setRecommendations(data.recommendations);
+      if (data.recommendations) {
+        setRecommendations(data.recommendations);
+        setSelectedRecs(new Set(data.recommendations.map((_: string, i: number) => i)));
+      }
       if (siteUrl.trim()) setExistingUrl(siteUrl.trim());
       setPrefilled(true);
       // Auto-advance to next step
@@ -231,6 +235,12 @@ export function ProjectRequestForm() {
       formData.append("features", features);
       formData.append("designPrefs", designPrefs);
       formData.append("website_url", hp);
+
+      // Include selected AI recommendations
+      const selRecs = recommendations.filter((_, i) => selectedRecs.has(i));
+      if (selRecs.length > 0) {
+        formData.append("recommendations", selRecs.join("\n"));
+      }
 
       techStack.forEach((item) => formData.append("techStack", item));
       files.forEach((file) => formData.append("files", file));
@@ -521,11 +531,30 @@ export function ProjectRequestForm() {
                       <Lightbulb className="h-4 w-4 text-[#4A90F5]" />
                       <h4 className="text-sm font-semibold text-ainomiq-text">Recommendations based on your site</h4>
                     </div>
-                    <ul className="space-y-1">
+                    <ul className="space-y-2">
                       {recommendations.map((rec, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-ainomiq-text-muted">
-                          <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#4A90F5]" />
-                          {rec}
+                        <li
+                          key={i}
+                          className="flex cursor-pointer items-start gap-3 rounded-lg px-2 py-1.5 transition-colors hover:bg-[#4A90F5]/5"
+                          onClick={() => {
+                            setSelectedRecs((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(i)) next.delete(i);
+                              else next.add(i);
+                              return next;
+                            });
+                          }}
+                        >
+                          <div className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border transition-colors ${
+                            selectedRecs.has(i)
+                              ? "border-[#4A90F5] bg-[#4A90F5] text-white"
+                              : "border-gray-300 bg-white"
+                          }`}>
+                            {selectedRecs.has(i) && (
+                              <CheckCircle className="h-3 w-3" />
+                            )}
+                          </div>
+                          <span className={`text-sm ${selectedRecs.has(i) ? "text-ainomiq-text" : "text-ainomiq-text-muted"}`}>{rec}</span>
                         </li>
                       ))}
                     </ul>
