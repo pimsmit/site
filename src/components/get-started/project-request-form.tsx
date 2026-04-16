@@ -255,13 +255,10 @@ export function ProjectRequestForm() {
 
   function handleStepChange(newStep: number) {
     setStep(newStep);
-    setErrors([]); // Clear errors when changing steps
+    setErrors([]);
     
-    // Scroll to top of form smoothly on step change
-    const formElement = document.querySelector('section');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Scroll to top of page on step change so user always starts at top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetForm() {
