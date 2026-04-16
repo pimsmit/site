@@ -869,9 +869,7 @@ export function ProjectRequestForm() {
                     <Loader2 className="h-4 w-4 animate-spin" /> Sending…
                   </>
                 ) : (
-                  <>
-                    <Send className="h-4 w-4" /> Submit project request
-                  </>
+                  <>Go to checkout {estimate ? `— €${estimate.totalPrice.toLocaleString()}` : ''} →</>
                 )}
               </button>
             ) : (
