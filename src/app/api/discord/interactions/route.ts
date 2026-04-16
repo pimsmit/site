@@ -225,6 +225,15 @@ export async function POST(request: NextRequest) {
       });
       await moveProject(projectId, messageId, channelId, "ongoing", username);
     } else if (customId === "done") {
+      // Only the person who claimed can mark done
+      const project = await getProject(projectId);
+      if (project?.assignedTo && project.assignedTo !== username) {
+        await discordApi("POST", `/interactions/${body.id}/${body.token}/callback`, {
+          type: 4,
+          data: { content: `❌ Alleen ${project.assignedTo} kan deze opdracht als done markeren.`, flags: 64 },
+        });
+        return NextResponse.json({});
+      }
       await discordApi("POST", `/interactions/${body.id}/${body.token}/callback`, {
         type: 4,
         data: { content: `🟠 ${username} heeft de opdracht afgerond - wacht op review.`, flags: 64 },
