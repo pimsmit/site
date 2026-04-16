@@ -113,14 +113,6 @@ export function ProjectRequestForm() {
     }
   }, [step, fetchEstimate]);
 
-  function toggleTechStack(option: string) {
-    setTechStack((current) =>
-      current.includes(option)
-        ? current.filter((o) => o !== option)
-        : [...current, option]
-    );
-  }
-
   async function handleAiPrefill() {
     if (isPrefilling || aiInput.trim().length < 5) return;
     setIsPrefilling(true);
@@ -139,7 +131,10 @@ export function ProjectRequestForm() {
       setPrefilled(true);
     } catch {}
     setIsPrefilling(false);
-  } {
+  }
+
+  function toggleTechStack(option: string) {
+    setTechStack((current) => {
       if (option === "No preference") {
         return current.includes(option) ? [] : [option];
       }
