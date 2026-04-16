@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     try {
       const resend = new Resend(resendKey);
       await resend.emails.send({
-        from: "Ainomiq <info@ainomiq.com>",
+        from: process.env.RESEND_FROM_EMAIL || "Ainomiq <onboarding@resend.dev>",
         to: project.email,
         subject: "We received your project request",
         html: `
