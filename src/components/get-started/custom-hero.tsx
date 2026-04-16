@@ -12,7 +12,7 @@ export function CustomHero() {
       <div className="absolute inset-0 -z-10 bg-white">
         <EtherealShadow
           color="rgba(59, 130, 246, 0.6)"
-          animation={{ scale: 60, speed: 40 }}
+          animation={{ scale: 100, speed: 90 }}
           noise={{ opacity: 0.3, scale: 1 }}
           sizing="fill"
         />
