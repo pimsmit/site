@@ -378,7 +378,7 @@ export function ProjectRequestForm() {
   const labelCls = "mb-1.5 block text-sm font-medium text-ainomiq-text-muted";
 
   return (
-    <section id="project-request" className="py-20 px-6">
+    <section id="project-request" className="px-6">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 flex items-center gap-1">
           {steps.map((item, index) => (
