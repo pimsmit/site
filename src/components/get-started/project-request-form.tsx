@@ -129,6 +129,8 @@ export function ProjectRequestForm() {
       if (data.targetAudience) setTargetAudience(data.targetAudience);
       if (data.needsCredentials) setNeedsCredentials(data.needsCredentials);
       setPrefilled(true);
+      // Auto-advance to next step
+      setTimeout(() => setStep(1), 400);
     } catch {}
     setIsPrefilling(false);
   }
