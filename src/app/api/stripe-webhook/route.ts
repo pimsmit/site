@@ -2,11 +2,64 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getProject, updateProject } from "@/lib/projects";
 import { postProjectToDiscord } from "@/app/api/discord/interactions/route";
-import { Resend } from "resend";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-03-25.dahlia",
 });
+
+async function sendKlaviyoConfirmation(project: {
+  email: string;
+  contact: string;
+  company: string;
+  projectType: string;
+  timeline: string;
+  id: string;
+}) {
+  const apiKey = process.env.KLAVIYO_PRIVATE_API_KEY;
+  if (!apiKey) return;
+
+  // Trigger a Klaviyo event that can power a flow
+  await fetch("https://a.klaviyo.com/api/events/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Klaviyo-API-Key ${apiKey}`,
+      revision: "2024-10-15",
+    },
+    body: JSON.stringify({
+      data: {
+        type: "event",
+        attributes: {
+          metric: {
+            data: {
+              type: "metric",
+              attributes: { name: "Project Payment Confirmed" },
+            },
+          },
+          profile: {
+            data: {
+              type: "profile",
+              attributes: {
+                email: project.email,
+                first_name: project.contact.split(" ")[0] || project.contact,
+                last_name: project.contact.split(" ").slice(1).join(" ") || undefined,
+                organization: project.company,
+              },
+            },
+          },
+          properties: {
+            project_id: project.id,
+            project_type: project.projectType,
+            company: project.company,
+            timeline: project.timeline,
+            brief_url: `https://ainomiq.com/project/${project.id}`,
+          },
+          time: new Date().toISOString(),
+        },
+      },
+    }),
+  });
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -67,47 +120,24 @@ export async function POST(request: NextRequest) {
     console.error("Discord post error (non-blocking):", err);
   }
 
-  // Send confirmation email via Resend
-  const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey) {
-    try {
-      const resend = new Resend(resendKey);
-      await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL || "Ainomiq <onboarding@resend.dev>",
-        to: project.email,
-        subject: "We received your project request",
-        html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #111;">
-            <img src="https://ainomiq.com/logos/ainomiq-wordmark.png" alt="Ainomiq" style="height: 32px; margin-bottom: 32px;" />
-            <h1 style="font-size: 24px; font-weight: 700; margin: 0 0 16px;">Payment confirmed. We're on it.</h1>
-            <p style="font-size: 16px; color: #444; line-height: 1.6; margin: 0 0 24px;">
-              Hi ${project.contact.split(" ")[0]},<br/><br/>
-              We've received your project request and your payment has been processed successfully.
-              Our team will review your brief and reach out within 24 hours to get things moving.
-            </p>
-            <div style="background: #f5f5f5; border-radius: 12px; padding: 20px; margin: 0 0 24px;">
-              <p style="margin: 0 0 8px; font-size: 14px; color: #666;">Project details</p>
-              <p style="margin: 0 0 4px; font-size: 15px;"><strong>Type:</strong> ${project.projectType}</p>
-              <p style="margin: 0 0 4px; font-size: 15px;"><strong>Company:</strong> ${project.company}</p>
-              <p style="margin: 0; font-size: 15px;"><strong>Timeline:</strong> ${project.timeline}</p>
-            </div>
-            <p style="font-size: 14px; color: #888; line-height: 1.6;">
-              Questions? Reply to this email or reach us at <a href="mailto:info@ainomiq.com" style="color: #3b82f6;">info@ainomiq.com</a>
-            </p>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;" />
-            <p style="font-size: 12px; color: #aaa;">Ainomiq &mdash; Build. Ship. Grow.</p>
-          </div>
-        `,
-      });
-    } catch (err) {
-      console.error("Resend email error (non-blocking):", err);
-    }
+  // Send confirmation via Klaviyo event (triggers flow in Klaviyo)
+  try {
+    await sendKlaviyoConfirmation({
+      email: project.email,
+      contact: project.contact,
+      company: project.company,
+      projectType: project.projectType,
+      timeline: project.timeline,
+      id: projectId,
+    });
+  } catch (err) {
+    console.error("Klaviyo confirmation error (non-blocking):", err);
   }
 
   return NextResponse.json({ received: true });
 }
 
-// Stripe needs raw body — disable Next.js body parsing
+// Stripe needs raw body - disable Next.js body parsing
 export const config = {
   api: { bodyParser: false },
 };
