@@ -83,7 +83,7 @@ Given a short description of what the client wants${siteData ? " and data scrape
 - "timeline": one of ${JSON.stringify(TIMELINE_IDS)} — estimate based on complexity
 - "targetAudience": who this is for (short, 5-15 words)${siteData ? " — infer from their site content" : ""} or "" if unclear
 - "needsCredentials": boolean — true if they mention existing systems/integrations that need access${siteData ? " or if their site uses integrations (Shopify, Klaviyo, etc.)" : ""}
-- "recommendations": array of 2-4 short strings with specific suggestions${siteData ? " based on their site analysis (e.g. 'Integrate with your existing Klaviyo setup for email automation', 'Add chatbot trained on your product catalog')" : " (e.g. 'Consider adding analytics dashboard', 'Automate order status notifications')"}
+- "recommendations": array of 2-4 short actionable suggestions${siteData ? " based on their site. Reference the CLIENT's detected platforms by name (e.g. 'Connect to your Shopify store for real-time order data', 'Sync with your Klaviyo for automated emails'). Ainomiq is the agency — always say 'your [platform]', never 'Ainomiq data' or 'our data'." : " (e.g. 'Add analytics dashboard', 'Automate order notifications')"}
 
 Return ONLY valid JSON, no markdown, no commentary.${siteContext}`,
           },

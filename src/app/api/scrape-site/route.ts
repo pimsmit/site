@@ -61,6 +61,16 @@ export async function POST(request: NextRequest) {
     if (/stripe/i.test(html)) techSignals.push("Stripe");
     if (/facebook.*pixel|fbq\(/i.test(html)) techSignals.push("Meta Pixel");
     if (/tiktok.*pixel/i.test(html)) techSignals.push("TikTok Pixel");
+    if (/hubspot/i.test(html)) techSignals.push("HubSpot");
+    if (/salesforce/i.test(html)) techSignals.push("Salesforce");
+    if (/freshdesk|freshchat/i.test(html)) techSignals.push("Freshworks");
+    if (/typeform/i.test(html)) techSignals.push("Typeform");
+    if (/recaptcha/i.test(html)) techSignals.push("reCAPTCHA");
+    if (/cloudflare/i.test(html)) techSignals.push("Cloudflare");
+    if (/paypal/i.test(html)) techSignals.push("PayPal");
+    if (/mollie/i.test(html)) techSignals.push("Mollie");
+    if (/sendgrid/i.test(html)) techSignals.push("SendGrid");
+    if (/whatsapp/i.test(html)) techSignals.push("WhatsApp");
 
     // Extract visible text
     const bodyMatch = (html.match(/<body[^>]*>([\s\S]*?)<\/body>/i) || [])[1] || "";
