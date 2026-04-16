@@ -19,6 +19,7 @@ import {
   BarChart3,
   Star,
   FileUp,
+  Lightbulb,
 } from "lucide-react";
 
 const PROJECT_TYPES = [
@@ -67,6 +68,10 @@ export function ProjectRequestForm() {
   const [aiInput, setAiInput] = useState("");
   const [isPrefilling, setIsPrefilling] = useState(false);
   const [prefilled, setPrefilled] = useState(false);
+  const [siteUrl, setSiteUrl] = useState("");
+  const [isScanning, setIsScanning] = useState(false);
+  const [siteData, setSiteData] = useState<Record<string, unknown> | null>(null);
+  const [recommendations, setRecommendations] = useState<string[]>([]);
   const [timeline, setTimeline] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
@@ -114,13 +119,31 @@ export function ProjectRequestForm() {
   }, [step, fetchEstimate]);
 
   async function handleAiPrefill() {
-    if (isPrefilling || aiInput.trim().length < 5) return;
+    if (isPrefilling || aiInput.trim().length < 3) return;
     setIsPrefilling(true);
     try {
+      // Optionally scrape site first
+      let scraped = siteData;
+      if (siteUrl.trim().length >= 4 && !siteData) {
+        setIsScanning(true);
+        try {
+          const scrapeRes = await fetch("/api/scrape-site", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: siteUrl }),
+          });
+          if (scrapeRes.ok) {
+            scraped = await scrapeRes.json();
+            setSiteData(scraped);
+          }
+        } catch {}
+        setIsScanning(false);
+      }
+
       const res = await fetch("/api/ai-prefill", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input: aiInput }),
+        body: JSON.stringify({ input: aiInput, siteData: scraped }),
       });
       const data = await res.json();
       if (data.projectType) setProjectType(data.projectType);
@@ -128,9 +151,11 @@ export function ProjectRequestForm() {
       if (data.timeline) setTimeline(data.timeline);
       if (data.targetAudience) setTargetAudience(data.targetAudience);
       if (data.needsCredentials) setNeedsCredentials(data.needsCredentials);
+      if (data.recommendations) setRecommendations(data.recommendations);
+      if (siteUrl.trim()) setExistingUrl(siteUrl.trim());
       setPrefilled(true);
       // Auto-advance to next step
-      setTimeout(() => setStep(1), 400);
+      setTimeout(() => setStep(1), 600);
     } catch {}
     setIsPrefilling(false);
   }
@@ -387,7 +412,7 @@ export function ProjectRequestForm() {
                       value={aiInput}
                       onChange={(e) => { setAiInput(e.target.value); setPrefilled(false); }}
                       onKeyDown={(e) => {
-                        if (e.key === "Enter" && aiInput.trim().length >= 5 && !isPrefilling) {
+                        if (e.key === "Enter" && aiInput.trim().length >= 3 && !isPrefilling) {
                           e.preventDefault();
                           handleAiPrefill();
                         }
@@ -395,19 +420,32 @@ export function ProjectRequestForm() {
                     />
                     <button
                       type="button"
-                      disabled={isPrefilling || aiInput.trim().length < 5}
+                      disabled={isPrefilling || aiInput.trim().length < 3}
                       onClick={handleAiPrefill}
                       className="flex items-center gap-1.5 whitespace-nowrap rounded-xl bg-gradient-to-r from-[#4A90F5] to-[#6C5CE7] px-4 py-2.5 text-sm font-medium text-white transition-all hover:opacity-90 disabled:opacity-50"
                     >
                       {isPrefilling ? (
-                        <><Loader2 className="h-4 w-4 animate-spin" /> Working...</>
+                        <><Loader2 className="h-4 w-4 animate-spin" /> {isScanning ? "Scanning..." : "Analyzing..."}</>
                       ) : prefilled ? (
                         <><CheckCircle className="h-4 w-4" /> Done!</>
                       ) : (
-                        <><Sparkles className="h-4 w-4" /> Fill form</>
+                        <><Sparkles className="h-4 w-4" /> Go</>
                       )}
                     </button>
                   </div>
+
+                  {/* Optional website URL */}
+                  <div className="mt-4 flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-ainomiq-text-muted/60" />
+                    <input
+                      type="text"
+                      className={`${inputCls} flex-1 text-sm`}
+                      placeholder="yourwebsite.com (optional — we'll analyze your brand)"
+                      value={siteUrl}
+                      onChange={(e) => { setSiteUrl(e.target.value); setSiteData(null); }}
+                    />
+                  </div>
+                  <p className="mt-1 text-xs text-ainomiq-text-muted/50">We'll scan your site for brand voice, tech stack, and integrations.</p>
                   {prefilled && (
                     <p className="mt-2 text-xs text-[#6C5CE7]">Form filled! Click Continue to review.</p>
                   )}
@@ -476,8 +514,25 @@ export function ProjectRequestForm() {
                   </div>
                 </div>
 
+                {/* AI Recommendations */}
+                {recommendations.length > 0 && (
+                  <div className="rounded-xl border border-[#4A90F5]/20 bg-[#4A90F5]/5 p-4">
+                    <div className="mb-2 flex items-center gap-2">
+                      <Lightbulb className="h-4 w-4 text-[#4A90F5]" />
+                      <h4 className="text-sm font-semibold text-ainomiq-text">Recommendations based on your site</h4>
+                    </div>
+                    <ul className="space-y-1">
+                      {recommendations.map((rec, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-ainomiq-text-muted">
+                          <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#4A90F5]" />
+                          {rec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <div>
-                  <label className={labelCls}>Reference links (optional)</label>
                   <input
                     type="text"
                     className={inputCls}

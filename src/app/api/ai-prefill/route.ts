@@ -14,17 +14,50 @@ const PROJECT_TYPE_IDS = [
 
 const TIMELINE_IDS = ["asap", "1-2-weeks", "2-4-weeks", "1-2-months", "flexible"];
 
+interface SiteData {
+  url: string;
+  title: string;
+  metaDescription: string;
+  tech: string[];
+  colors: string[];
+  language: string;
+  bodyPreview: string;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { input } = (await request.json()) as { input: string };
+    const { input, siteData } = (await request.json()) as {
+      input: string;
+      siteData?: SiteData;
+    };
 
-    if (!input || input.trim().length < 5) {
+    if (!input || input.trim().length < 3) {
       return NextResponse.json({ error: "Too short" }, { status: 400 });
     }
 
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: "Not available" }, { status: 500 });
+    }
+
+    let siteContext = "";
+    if (siteData) {
+      siteContext = `
+
+The client's current website has been analyzed:
+- URL: ${siteData.url}
+- Title: ${siteData.title}
+- Description: ${siteData.metaDescription}
+- Tech stack: ${siteData.tech.join(", ") || "unknown"}
+- Brand colors: ${siteData.colors.join(", ") || "unknown"}
+- Language: ${siteData.language || "unknown"}
+- Content preview: ${siteData.bodyPreview.slice(0, 800)}
+
+Use this data to:
+1. Tailor the project description to their ACTUAL business and brand
+2. Reference their existing tech stack for integration recommendations
+3. Match their brand voice/tone based on their site content
+4. Suggest specific improvements based on what they already have`;
     }
 
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -37,21 +70,22 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        max_tokens: 800,
+        max_tokens: 1000,
         response_format: { type: "json_object" },
         messages: [
           {
             role: "system",
             content: `You help clients fill in a project request form for Ainomiq, an AI automation agency.
 
-Given a short description of what the client wants, return a JSON object with:
+Given a short description of what the client wants${siteData ? " and data scraped from their current website" : ""}, return a JSON object with:
 - "projectType": one of ${JSON.stringify(PROJECT_TYPE_IDS)}
-- "description": a concrete, specific project brief (100-200 words, bullet points for features). Be specific, make reasonable assumptions, NEVER ask questions back or say "further details needed". Write in the SAME LANGUAGE as the input.
+- "description": a concrete, specific project brief (100-200 words, bullet points for features). Be specific, make reasonable assumptions, NEVER ask questions back or say "further details needed". Write in the SAME LANGUAGE as the input.${siteData ? ' Reference their actual business, brand, and existing tools where relevant.' : ''}
 - "timeline": one of ${JSON.stringify(TIMELINE_IDS)} — estimate based on complexity
-- "targetAudience": who this is for (short, 5-15 words) or "" if unclear
-- "needsCredentials": boolean — true if they mention existing systems/integrations that need access
+- "targetAudience": who this is for (short, 5-15 words)${siteData ? " — infer from their site content" : ""} or "" if unclear
+- "needsCredentials": boolean — true if they mention existing systems/integrations that need access${siteData ? " or if their site uses integrations (Shopify, Klaviyo, etc.)" : ""}
+- "recommendations": array of 2-4 short strings with specific suggestions${siteData ? " based on their site analysis (e.g. 'Integrate with your existing Klaviyo setup for email automation', 'Add chatbot trained on your product catalog')" : " (e.g. 'Consider adding analytics dashboard', 'Automate order status notifications')"}
 
-Return ONLY valid JSON, no markdown, no commentary.`,
+Return ONLY valid JSON, no markdown, no commentary.${siteContext}`,
           },
           { role: "user", content: input },
         ],
@@ -65,15 +99,17 @@ Return ONLY valid JSON, no markdown, no commentary.`,
 
     const data = await res.json();
     const content = data.choices?.[0]?.message?.content?.trim();
-    
+
     try {
       const parsed = JSON.parse(content);
-      // Validate projectType
       if (!PROJECT_TYPE_IDS.includes(parsed.projectType)) {
         parsed.projectType = "other";
       }
       if (!TIMELINE_IDS.includes(parsed.timeline)) {
         parsed.timeline = "2-4-weeks";
+      }
+      if (!Array.isArray(parsed.recommendations)) {
+        parsed.recommendations = [];
       }
       return NextResponse.json(parsed);
     } catch {
