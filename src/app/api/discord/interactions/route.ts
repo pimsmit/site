@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 const PUBLIC_KEY = process.env.DISCORD_PUBLIC_KEY ?? "";
 
 async function verifyDiscordRequest(request: NextRequest, rawBody: string): Promise<boolean> {
-  if (!PUBLIC_KEY) return true;
+  if (!PUBLIC_KEY) { console.error("DISCORD_PUBLIC_KEY not set"); return false; }
   const signature = request.headers.get("x-signature-ed25519");
   const timestamp = request.headers.get("x-signature-timestamp");
   if (!signature || !timestamp) return false;
