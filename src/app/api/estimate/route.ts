@@ -50,7 +50,11 @@ interface EstimateRequest {
   description: string;
   timeline: string;
   features?: string[];
+  recommendations?: string[];
 }
+
+// Each selected recommendation adds ~3-6 hours depending on complexity
+const REC_HOURS_PER_ITEM = 4;
 
 export async function POST(req: NextRequest) {
   try {
@@ -80,9 +84,13 @@ export async function POST(req: NextRequest) {
     // Timeline multiplier
     const timelineMult = TIMELINE_MULTIPLIERS[body.timeline] || 1.0;
 
+    // Add hours for selected recommendations
+    const recCount = (body.recommendations || []).length;
+    const recHours = recCount * REC_HOURS_PER_ITEM;
+
     // Calculate hours
     const avgHours = (base.min + base.max) / 2;
-    const adjustedHours = Math.ceil(avgHours * complexity.multiplier * timelineMult);
+    const adjustedHours = Math.ceil((avgHours * complexity.multiplier + recHours) * timelineMult);
 
     // Calculate costs
     const baseCost = adjustedHours * HOURLY_RATE;

@@ -99,10 +99,11 @@ export function ProjectRequestForm() {
     if (!projectType || description.trim().length < 3 || !timeline) return;
     setLoading(true);
     try {
+      const selRecs = recommendations.filter((_, i) => selectedRecs.has(i));
       const res = await fetch("/api/estimate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectType, description, timeline }),
+        body: JSON.stringify({ projectType, description, timeline, recommendations: selRecs }),
       });
       const data = (await res.json()) as { estimate?: Estimate };
       if (data.estimate) setEstimate(data.estimate);
@@ -111,7 +112,7 @@ export function ProjectRequestForm() {
     } finally {
       setLoading(false);
     }
-  }, [projectType, description, timeline]);
+  }, [projectType, description, timeline, recommendations, selectedRecs]);
 
   useEffect(() => {
     if (step === 3) {
@@ -156,7 +157,10 @@ export function ProjectRequestForm() {
         setRecommendations(data.recommendations);
         setSelectedRecs(new Set(data.recommendations.map((_: string, i: number) => i)));
       }
-      if (siteUrl.trim()) setExistingUrl(siteUrl.trim());
+      if (siteUrl.trim()) {
+        const u = siteUrl.trim();
+        setExistingUrl(u.startsWith("http") ? u : "https://" + u);
+      }
       setPrefilled(true);
       // Auto-advance to next step
       setTimeout(() => setStep(1), 600);
