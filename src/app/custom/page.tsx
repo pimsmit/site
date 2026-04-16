@@ -81,8 +81,7 @@ const PROJECT_TIMELINE = [
 export default function CustomPage() {
   return (
     <div className="relative">
-      {/* Single continuous background for entire page */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-100/60 via-blue-50/30 via-white via-blue-50/20 to-white -z-30" />
+
 
       {/* Hero with wizard */}
       <CustomHero />

@@ -141,3 +141,8 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+@keyframes moveBackground {
+  from { background-position: 0% 0%; }
+  to { background-position: 0% -1000%; }
+}
