@@ -49,8 +49,8 @@ async function ensureSchema(db: Client) {
 export async function getDb(): Promise<Client> {
   if (!dbPromise) {
     dbPromise = (async () => {
-      const url = process.env.TURSO_DATABASE_URL;
-      const authToken = process.env.TURSO_AUTH_TOKEN;
+      const url = process.env.TURSO_DATABASE_URL?.trim();
+      const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
       if (!url || !authToken) {
         throw new Error("Missing Turso configuration");
