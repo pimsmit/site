@@ -5,6 +5,7 @@ let dbPromise: Promise<Client> | null = null;
 async function ensureSchema(db: Client) {
   await db.execute(`
     CREATE TABLE IF NOT EXISTS projects (
+      access_token TEXT,
       id TEXT PRIMARY KEY,
       status TEXT DEFAULT 'new',
       company TEXT NOT NULL,
@@ -58,6 +59,8 @@ export async function getDb(): Promise<Client> {
 
       const db = createClient({ url, authToken });
       await ensureSchema(db);
+      // Migration: add access_token column
+      try { await db.execute('ALTER TABLE projects ADD COLUMN access_token TEXT'); } catch {}
       return db;
     })();
   }

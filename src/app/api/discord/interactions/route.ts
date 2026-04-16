@@ -96,7 +96,7 @@ function buildEmbed(projectId: string, data: Record<string, unknown>, status: st
     },
   ];
 
-  const briefUrl = data.driveFolderUrl || `https://ainomiq.com/project/${projectId}`;
+  const briefUrl = data.driveFolderUrl || `https://ainomiq.com/project/${projectId}?token=${data.accessToken || ""}`;
   fields.push({ name: "Full Brief", value: `[View project brief](${briefUrl})`, inline: false });
 
   if (data.assignedTo) {

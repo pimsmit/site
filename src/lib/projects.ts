@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto";
 import type { InValue } from "@libsql/client";
 import { getDb } from "@/lib/db";
 
@@ -36,6 +37,7 @@ export interface ProjectRecord {
   designPrefs: string | null;
   referencesText: string | null;
   files: ProjectFile[];
+  accessToken: string | null;
   driveFolderUrl: string | null;
   adminTitle: string | null;
   adminBrief: string | null;
@@ -180,6 +182,7 @@ function mapRow(row: Record<string, unknown>): ProjectRecord {
     designPrefs: typeof row.design_prefs === "string" ? row.design_prefs : null,
     referencesText: typeof row.references_text === "string" ? row.references_text : null,
     files: parseFiles(row.files),
+    accessToken: typeof row.access_token === "string" ? row.access_token : null,
     driveFolderUrl: typeof row.drive_folder_url === "string" ? row.drive_folder_url : null,
     adminTitle: typeof row.admin_title === "string" ? row.admin_title : null,
     adminBrief: typeof row.admin_brief === "string" ? row.admin_brief : null,
@@ -226,16 +229,19 @@ export async function createProject(data: CreateProjectInput): Promise<ProjectRe
   const count = typeof countValue === "number" ? countValue : Number(countValue ?? 0);
   const id = `PRJ-${String(count + 1).padStart(3, "0")}`;
 
+  const accessToken = randomBytes(32).toString("hex");
+
   await db.execute({
     sql: `
       INSERT INTO projects (
-        id, company, contact, email, phone, found_via, project_type, description, timeline,
+        id, access_token, company, contact, email, phone, found_via, project_type, description, timeline,
         budget, target_audience, existing_url, needs_credentials, tech_stack, features,
         design_prefs, references_text, files, estimate_total, estimate_hours, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
     `,
     args: [
       id,
+      accessToken,
       data.company,
       data.contact,
       data.email,

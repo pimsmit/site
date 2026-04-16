@@ -1,7 +1,12 @@
 import { getProject } from "@/lib/projects";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 function formatDate(dateStr: string) {
   try {
@@ -35,13 +40,16 @@ function formatBudget(budget: string | null, estimateTotal: number | null) {
 
 export default async function ProjectBriefPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ token?: string }>;
 }) {
   const { id } = await params;
+  const { token } = await searchParams;
   const project = await getProject(id);
 
-  if (!project) return notFound();
+  if (!project || !token || token !== project.accessToken) return notFound();
 
   const budget = formatBudget(project.budget, project.estimateTotal);
 

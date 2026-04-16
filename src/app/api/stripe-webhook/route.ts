@@ -112,6 +112,7 @@ export async function POST(request: NextRequest) {
       estimateTotal: project.estimateTotal,
       estimateHours: project.estimateHours,
       driveFolderUrl: project.driveFolderUrl,
+      accessToken: project.accessToken,
     }, "available");
     if (msgId) {
       await updateProject(projectId, { discordMessageId: msgId });
