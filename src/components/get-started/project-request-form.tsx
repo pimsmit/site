@@ -268,7 +268,7 @@ export function ProjectRequestForm() {
   };
 
   const steps = [
-    { title: "Project Type", valid: !!projectType },
+    { title: "Project Type", valid: !!projectType || prefilled },
     { title: "Details", valid: description.trim().length >= 3 && isValidUrl(existingUrl) },
     { title: "Timeline", valid: !!timeline },
     { title: "Your Estimate", valid: true },
@@ -407,42 +407,11 @@ export function ProjectRequestForm() {
                     </button>
                   </div>
                   {prefilled && (
-                    <p className="mt-2 text-xs text-[#6C5CE7]">Form filled! Review the selections below and adjust anything you like.</p>
+                    <p className="mt-2 text-xs text-[#6C5CE7]">Form filled! Click Continue to review.</p>
                   )}
-                </div>
-
-                <div className="mb-1 flex items-center gap-2">
-                  <p className="text-xs font-medium uppercase tracking-wider text-ainomiq-text-muted/60">or select manually</p>
-                  <div className="h-px flex-1 bg-blue-200/40" />
-                </div>
-
-                <h3 className="mb-1 mt-4 text-lg font-semibold text-ainomiq-text">What are you building?</h3>
-                <p className="mb-6 text-sm text-ainomiq-text-muted">
-                  Select the option that best describes your project.
-                </p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {PROJECT_TYPES.map((type) => (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => setProjectType(type.id)}
-                      className={`relative rounded-xl border p-4 text-left transition-all duration-200 hover:border-[#4A90F5]/50 ${
-                        projectType === type.id
-                          ? "border-[#4A90F5] bg-[#4A90F5]/10 shadow-lg shadow-[#4A90F5]/10"
-                          : "border-blue-200/60 bg-blue-50/60 hover:bg-blue-100/70"
-                      }`}
-                    >
-                      <type.Icon className="h-6 w-6 text-[#4A90F5]" />
-                      <p className="mt-2 text-sm font-medium text-ainomiq-text">{type.label}</p>
-                      {projectType === type.id && (
-                        <div className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#4A90F5]" />
-                      )}
-                    </button>
-                  ))}
                 </div>
               </div>
             )}
-
             {step === 1 && (
               <div className="space-y-5">
                 <div>
@@ -826,7 +795,7 @@ export function ProjectRequestForm() {
                   Continue <ArrowRight className="h-4 w-4" />
                 </button>
                 {!canNext && step === 0 && (
-                  <p className="text-xs text-ainomiq-text-muted">Select a project type to continue</p>
+                  <p className="text-xs text-ainomiq-text-muted">Describe your project above to continue</p>
                 )}
               </div>
             )}

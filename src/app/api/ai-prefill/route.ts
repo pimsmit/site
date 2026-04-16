@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
 Given a short description of what the client wants, return a JSON object with:
 - "projectType": one of ${JSON.stringify(PROJECT_TYPE_IDS)}
-- "description": an expanded, well-structured project brief (150-250 words, bullet points for features). Keep their intent intact, don't add features they didn't mention. Write in the SAME LANGUAGE as the input.
+- "description": a concrete, specific project brief (100-200 words, bullet points for features). Be specific, make reasonable assumptions, NEVER ask questions back or say "further details needed". Write in the SAME LANGUAGE as the input.
 - "timeline": one of ${JSON.stringify(TIMELINE_IDS)} — estimate based on complexity
 - "targetAudience": who this is for (short, 5-15 words) or "" if unclear
 - "needsCredentials": boolean — true if they mention existing systems/integrations that need access
