@@ -18,13 +18,23 @@ import { NextRequest, NextResponse } from "next/server";
  */
 
 const BASE_PRICES: Record<string, { price: number; label: string }> = {
-  "simple-automation": { price: 2500,  label: "Simple Automation" },
-  "website":           { price: 5000,  label: "Website" },
-  "chatbot":           { price: 12500, label: "AI Chatbot" },
-  "dashboard":         { price: 7500,  label: "Dashboard / Portal" },
-  "webshop":           { price: 15000, label: "Webshop (Shopify)" },
-  "mobile-app":        { price: 20000, label: "iOS / Android App" },
-  "enterprise":        { price: 25000, label: "Enterprise / Full Custom" },
+  "simple-automation":   { price: 2500,  label: "Simple Automation" },
+  "website":             { price: 5000,  label: "Website" },
+  // Chatbot levels - prijs varieert enorm op basis van complexiteit
+  // Level 1: basic FAQ embed (website chatbot, geen spraak, geen integraties)
+  "chatbot-basic":       { price: 3500,  label: "AI Chatbot - Basic" },
+  // Level 2: standaard chatbot met wat integraties
+  "chatbot-standard":    { price: 7500,  label: "AI Chatbot - Standard" },
+  // Level 3: advanced (RAG, kennisbank, multi-channel)
+  "chatbot-advanced":    { price: 12500, label: "AI Chatbot - Advanced" },
+  // Level 4: enterprise (spraak, hardware, training, multi-system)
+  "chatbot-enterprise":  { price: 18000, label: "AI Chatbot - Enterprise" },
+  // Legacy key - fallback naar standard als sub-type onbekend
+  "chatbot":             { price: 7500,  label: "AI Chatbot" },
+  "dashboard":           { price: 7500,  label: "Dashboard / Portal" },
+  "webshop":             { price: 15000, label: "Webshop (Shopify)" },
+  "mobile-app":          { price: 20000, label: "iOS / Android App" },
+  "enterprise":          { price: 25000, label: "Enterprise / Full Custom" },
 };
 
 const FEATURE_PRICES: Record<string, { price: number; keywords: string[] }> = {
@@ -45,22 +55,29 @@ const FEATURE_PRICES: Record<string, { price: number; keywords: string[] }> = {
   "ai-chatbot-basic":     { price: 2500, keywords: ["ai chatbot", "gpt chatbot", "ai agent", "virtual assistant", "faq bot"] },
   "rag":                  { price: 5000, keywords: ["rag", "knowledge base", "retrieval", "document search", "vector", "embeddings"] },
   "custom-ai-agent":      { price: 7500, keywords: ["custom ai agent", "autonomous agent", "langgraph", "openai assistant", "custom gpt"] },
+  // api-external: verhoogd €1000 → €2000 (docs, auth, rate limiting, versioning)
   "api-external":         { price: 2000, keywords: ["api voor derden", "public api", "api docs", "rest api external", "third party api"] },
   "realtime":             { price: 1500, keywords: ["real-time", "realtime", "websocket", "live data", "streaming", "socket"] },
+  // saas: verhoogd €5000 → €7500
   "saas":                 { price: 7500, keywords: ["saas", "multi-tenant", "white-label", "whitelabel", "multi tenant"] },
 };
 
 const INTEGRATION_PRICES: Record<string, { price: number; keywords: string[] }> = {
+  // shopify: verhoogd €500 → €1000 (orders, products, inventory sync)
   "shopify":      { price: 1000, keywords: ["shopify"] },
+  // magento: WooCommerce verwijderd uit label maar keywords behouden voor matching
   "magento":      { price: 1500, keywords: ["magento", "woocommerce", "woo"] },
   "klaviyo":      { price: 300,  keywords: ["klaviyo", "mailchimp", "sendgrid", "email marketing"] },
   "meta":         { price: 500,  keywords: ["meta", "facebook", "instagram api", "tiktok"] },
   "google":       { price: 400,  keywords: ["google ads", "ga4", "google analytics", "gtm"] },
   "hubspot":      { price: 750,  keywords: ["hubspot"] },
+  // salesforce: verhoogd €1500 → €2500
   "salesforce":   { price: 2500, keywords: ["salesforce"] },
+  // erp: verhoogd €1500 → €2500 (boekhoudintegraties complex)
   "erp":          { price: 2500, keywords: ["erp", "exact", "twinfield", "sap", "accounting"] },
   "marketplace":  { price: 1000, keywords: ["bol.com", "amazon", "etsy", "marketplace"] },
   "whatsapp":     { price: 500,  keywords: ["whatsapp", "slack", "teams", "discord integration"] },
+  // custom-api: verhoogd €1000 → €1500
   "custom-api":   { price: 1500, keywords: ["custom api", "api koppeling", "webhook", "zapier", "make.com"] },
 };
 
@@ -68,21 +85,38 @@ const TIMELINE_SURCHARGE: Record<string, number> = {
   "asap":       0.25,
   "1-2-weeks":  0.15,
   "2-4-weeks":  0.0,
+  // geen kortingen meer op langere timelines (Pim: niet aanmoedigen)
   "1-2-months": 0.0,
   "flexible":   0.0,
 };
 
-const MARGIN_BUFFER = 0.15;
-const MIN_PRICE = 2500;
-const HOURLY_RATE_EXTERN = 125;
-const HOURLY_RATE_INTERN = 20;
-const DEV_PAYOUT_PCT = 0.20;
+const MARGIN_BUFFER = 0.15;       // 15% marge buffer (Pim: verhoogd van 10%)
+const MIN_PRICE = 2500;           // minimum projectprijs (verhoogd van €1750)
+const HOURLY_RATE_EXTERN = 125;   // extern uurtarief (verhoogd van €100)
+const HOURLY_RATE_INTERN = 20;    // intern builder uurtarief
+const DEV_PAYOUT_PCT = 0.20;      // dev payout 20%
+
+// Delivery weeks by project type (base, before feature count adjustment)
+const BASE_DELIVERY: Record<string, string> = {
+  "simple-automation":  "1-2",
+  "website":            "2-3",
+  "chatbot-basic":      "1-2",
+  "chatbot-standard":   "2-4",
+  "chatbot-advanced":   "3-5",
+  "chatbot-enterprise": "5-8",
+  "chatbot":            "2-4",
+  "dashboard":          "3-5",
+  "webshop":            "4-6",
+  "mobile-app":         "6-10",
+  "enterprise":         "8-16",
+};
 
 interface EstimateRequest {
   projectType: string;
   description: string;
   timeline: string;
-  features?: string[];
+  features?: string[];        // structured feature keys from ai-prefill
+  integrations?: string[];    // structured integration keys from ai-prefill
   recommendations?: string[];
 }
 
@@ -94,24 +128,51 @@ export async function POST(req: NextRequest) {
     // Basisprijs
     const typeInfo = BASE_PRICES[body.projectType] || BASE_PRICES["dashboard"];
 
-    // Features — keyword scan op description
+    // Features — gebruik gestructureerde keys van ai-prefill als beschikbaar,
+    // anders keyword scan als fallback
     let featureTotal = 0;
     const detectedFeatures: string[] = [];
-    for (const [, feature] of Object.entries(FEATURE_PRICES)) {
-      if (feature.keywords.some((kw) => descLower.includes(kw))) {
-        featureTotal += feature.price;
-        // Find label from key
-        detectedFeatures.push(`+€${feature.price.toLocaleString()}`);
+    const structuredFeatures = body.features ?? [];
+    const structuredIntegrations = body.integrations ?? [];
+    const useStructured = structuredFeatures.length > 0 || structuredIntegrations.length > 0;
+
+    if (useStructured) {
+      // Gestructureerde input: exact de opgegeven features
+      for (const key of structuredFeatures) {
+        const feature = FEATURE_PRICES[key];
+        if (feature) {
+          featureTotal += feature.price;
+          detectedFeatures.push(`+€${feature.price.toLocaleString()}`);
+        }
+      }
+    } else {
+      // Fallback: keyword scan op description (alleen als geen structured input)
+      for (const [, feature] of Object.entries(FEATURE_PRICES)) {
+        if (feature.keywords.some((kw) => descLower.includes(kw))) {
+          featureTotal += feature.price;
+          detectedFeatures.push(`+€${feature.price.toLocaleString()}`);
+        }
       }
     }
 
-    // Integraties — keyword scan
+    // Integraties
     let integrationTotal = 0;
     const detectedIntegrations: string[] = [];
-    for (const [, integ] of Object.entries(INTEGRATION_PRICES)) {
-      if (integ.keywords.some((kw) => descLower.includes(kw))) {
-        integrationTotal += integ.price;
-        detectedIntegrations.push(`+€${integ.price.toLocaleString()}`);
+
+    if (useStructured) {
+      for (const key of structuredIntegrations) {
+        const integ = INTEGRATION_PRICES[key];
+        if (integ) {
+          integrationTotal += integ.price;
+          detectedIntegrations.push(`+€${integ.price.toLocaleString()}`);
+        }
+      }
+    } else {
+      for (const [, integ] of Object.entries(INTEGRATION_PRICES)) {
+        if (integ.keywords.some((kw) => descLower.includes(kw))) {
+          integrationTotal += integ.price;
+          detectedIntegrations.push(`+€${integ.price.toLocaleString()}`);
+        }
       }
     }
 
@@ -155,13 +216,19 @@ export async function POST(req: NextRequest) {
       : complexityRatio <= 2.0 ? "Complex"
       : "Highly Complex";
 
-    // Delivery estimate
-    const deliveryWeeks =
-      total <= 5000  ? "1-2"
-      : total <= 10000 ? "2-3"
-      : total <= 20000 ? "3-5"
-      : total <= 35000 ? "4-8"
-      : "6-12";
+    // Delivery estimate — op basis van projecttype + feature count, niet prijs
+    const totalFeatureCount = structuredFeatures.length + structuredIntegrations.length;
+    let deliveryWeeks = BASE_DELIVERY[body.projectType] ?? "2-4";
+    // Veel features/integraties → een stap hoger
+    if (totalFeatureCount >= 5 && body.projectType === "simple-automation") {
+      deliveryWeeks = "2-3";
+    } else if (totalFeatureCount >= 8) {
+      // Parse de range en verhoog
+      const parts = deliveryWeeks.split("-").map(Number);
+      if (parts.length === 2) {
+        deliveryWeeks = `${parts[0] + 1}-${parts[1] + 2}`;
+      }
+    }
 
     // Recurring kosten
     // AI chatbot type → AI credits

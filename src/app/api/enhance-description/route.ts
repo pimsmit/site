@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        max_tokens: 600,
+        max_tokens: 800,
         messages: [
           {
             role: "system",
@@ -50,7 +50,20 @@ Rules:
 - Don't add unrelated features - but DO flesh out what they mentioned with concrete details
 - Don't use corporate jargon or fluff
 - Don't mention Ainomiq or pricing
-- Output ONLY the enhanced description, no intro text or commentary`,
+
+${projectType === "chatbot" ? `CHATBOT LEVEL DETECTION (CRITICAL):
+After the enhanced description, you MUST output a JSON block on its own line:
+{"chatbotLevel": "<level>"}
+
+Level guide - pick the LOWEST level that fits the description:
+- chatbot-basic: website FAQ/product info only, text-only, no voice, no hardware, no staff training, no complex integrations. Price: €3.500-5.000
+- chatbot-standard: website + some integrations (CRM/Shopify/email), multi-channel (web+email), basic knowledge base. Price: €6.000-10.000  
+- chatbot-advanced: RAG/knowledge base, multiple channels, complex integrations, learns from data, multi-language. Price: €10.000-15.000
+- chatbot-enterprise: voice capability, hardware deployment, staff training program, complex multi-system integrations, on-premise. Price: €15.000+
+
+Be conservative - if unsure, go one level DOWN.` : ""}
+
+Output ONLY the enhanced description${projectType === "chatbot" ? " followed by the JSON level line" : ""}, no intro text or commentary`,
           },
           {
             role: "user",
@@ -69,10 +82,21 @@ Rules:
     }
 
     const data = await res.json();
-    const enhanced =
-      data.choices?.[0]?.message?.content?.trim() || description;
+    let rawContent: string = data.choices?.[0]?.message?.content?.trim() || description;
 
-    return NextResponse.json({ enhanced });
+    // Extract chatbot level if present
+    let chatbotLevel: string | null = null;
+    let enhanced = rawContent;
+
+    if (projectType === "chatbot") {
+      const levelMatch = rawContent.match(/\{"chatbotLevel":\s*"([^"]+)"\}/);
+      if (levelMatch) {
+        chatbotLevel = levelMatch[1];
+        enhanced = rawContent.replace(/\{"chatbotLevel":\s*"[^"]+"\}/, "").trim();
+      }
+    }
+
+    return NextResponse.json({ enhanced, chatbotLevel });
   } catch (error) {
     console.error("Enhance description error:", error);
     return NextResponse.json(

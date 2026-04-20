@@ -62,6 +62,7 @@ export function ProjectRequestForm() {
   const [estimate, setEstimate] = useState<Estimate | null>(null);
 
   const [projectType, setProjectType] = useState("");
+  const [chatbotLevel, setChatbotLevel] = useState<string | null>(null);
   const [description, setDescription] = useState("");
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [wasEnhanced, setWasEnhanced] = useState(false);
@@ -89,6 +90,8 @@ export function ProjectRequestForm() {
   const [designPrefs, setDesignPrefs] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [hp, setHp] = useState("");
+  const [aiFeatures, setAiFeatures] = useState<string[]>([]);       // structured feature keys from ai-prefill
+  const [aiIntegrations, setAiIntegrations] = useState<string[]>([]); // structured integration keys from ai-prefill
 
   const descPlaceholder = projectType
     ? `Describe your ${PROJECT_TYPES.find((t) => t.id === projectType)?.label?.toLowerCase() || "project"}. What should it do? Any integrations or specific features?`
@@ -104,7 +107,14 @@ export function ProjectRequestForm() {
       const res = await fetch("/api/estimate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectType, description, timeline, recommendations: selRecs }),
+        body: JSON.stringify({
+          projectType: projectType === "chatbot" && chatbotLevel ? chatbotLevel : projectType,
+          description,
+          timeline,
+          features: aiFeatures,
+          integrations: aiIntegrations,
+          recommendations: selRecs,
+        }),
       });
       const data = (await res.json()) as { estimate?: Estimate };
       if (data.estimate) setEstimate(data.estimate);
@@ -113,7 +123,7 @@ export function ProjectRequestForm() {
     } finally {
       setLoading(false);
     }
-  }, [projectType, description, timeline, recommendations, selectedRecs]);
+  }, [projectType, chatbotLevel, description, timeline, recommendations, selectedRecs, aiFeatures, aiIntegrations]);
 
   useEffect(() => {
     if (step === 3) {
@@ -157,6 +167,8 @@ export function ProjectRequestForm() {
       if (data.projectType) setProjectType(data.projectType);
       if (data.description) { setDescription(data.description); setWasEnhanced(true); }
       if (data.timeline) setTimeline(data.timeline);
+      if (Array.isArray(data.features)) setAiFeatures(data.features);
+      if (Array.isArray(data.integrations)) setAiIntegrations(data.integrations);
       if (data.targetAudience) setTargetAudience(data.targetAudience);
       if (data.needsCredentials) setNeedsCredentials(data.needsCredentials);
       if (data.recommendations) {
@@ -516,6 +528,9 @@ export function ProjectRequestForm() {
                               if (data.enhanced) {
                                 setDescription(data.enhanced);
                                 setWasEnhanced(true);
+                              }
+                              if (data.chatbotLevel) {
+                                setChatbotLevel(data.chatbotLevel);
                               }
                             } catch {}
                             setIsEnhancing(false);
