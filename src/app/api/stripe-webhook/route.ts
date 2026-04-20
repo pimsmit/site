@@ -3,9 +3,9 @@ import Stripe from "stripe";
 import { getProject, updateProject } from "@/lib/projects";
 import { postProjectToDiscord } from "@/app/api/discord/interactions/route";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-03-25.dahlia",
-});
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2026-03-25.dahlia" })
+  : null;
 
 async function sendKlaviyoConfirmation(project: {
   email: string;
@@ -68,6 +68,10 @@ export async function POST(request: NextRequest) {
 
   if (!webhookSecret || !sig) {
     return NextResponse.json({ error: "Missing webhook secret or signature" }, { status: 400 });
+  }
+
+  if (!stripe) {
+    return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
   }
 
   let event: Stripe.Event;
