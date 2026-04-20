@@ -142,7 +142,7 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="mx-auto max-w-lg text-center text-base text-ainomiq-text-muted tracking-wider animate-float-up delay-200 sm:text-lg md:text-xl">
-            For businesses that refuse to wait.
+            AI automation for e-commerce. Customer service, ads, email - all on autopilot.
           </p>
 
           {/* CTAs */}
@@ -195,8 +195,8 @@ export function LogosSection() {
       />
 
       <h2 className="relative z-10 mb-4 text-center text-lg font-medium tracking-tight text-ainomiq-text-muted md:text-xl">
-        Trusted by{" "}
-        <span className="font-semibold text-ainomiq-text">experts</span>
+        Built with{" "}
+        <span className="font-semibold text-ainomiq-text">the best tools</span>
       </h2>
 
       <div className="relative z-10 mx-auto max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
