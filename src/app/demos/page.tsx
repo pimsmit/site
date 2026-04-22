@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +15,8 @@ import {
   Play,
   Clock,
   Star,
+  Store,
+  Shield,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -101,6 +104,34 @@ const demos = [
     featured: false,
     plan: "Enterprise",
   },
+  {
+    icon: Store,
+    title: "Franchise Operations",
+    description:
+      "Live interactive demo: see exactly how Ainomiq runs a 10-location restaurant franchise. Real-time AI actions, per-location insights, and full automation visibility. Click through every tab.",
+    duration: "Live",
+    rating: 5.0,
+    tags: ["Interactive", "Franchise", "Live demo"],
+    color: "bg-orange-50",
+    iconColor: "text-orange-500",
+    featured: true,
+    plan: "App",
+    href: "/demos/franchise",
+  },
+  {
+    icon: Shield,
+    title: "Facility Services",
+    description:
+      "Live interactive demo: see how Ainomiq runs security operations across 8 client sites. Incident reporting, guard scheduling, SLA tracking, and client updates - all automated.",
+    duration: "Live",
+    rating: 5.0,
+    tags: ["Interactive", "Security", "Live demo"],
+    color: "bg-teal-50",
+    iconColor: "text-teal-600",
+    featured: true,
+    plan: "App",
+    href: "/demos/facility",
+  },
 ];
 
 export default function DemosPage() {
@@ -128,22 +159,39 @@ export default function DemosPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {demos
             .filter((d) => d.featured)
-            .map((demo) => (
+            .map((demo) => {
+              const cardHref = (demo as any).href;
+              const CardWrapper = cardHref
+                ? ({ children }: { children: React.ReactNode }) => (
+                    <Link href={cardHref} className="block">{children}</Link>
+                  )
+                : ({ children }: { children: React.ReactNode }) => <>{children}</>;
+              return (
+              <CardWrapper key={demo.title}>
               <Card
                 key={demo.title}
-                className="border-ainomiq-border bg-ainomiq-navy hover:border-ainomiq-border-hover transition-all group overflow-hidden"
+                className="border-ainomiq-border bg-ainomiq-navy hover:border-ainomiq-border-hover transition-all group overflow-hidden cursor-pointer"
               >
-                {/* Video placeholder */}
+                {/* Demo preview area */}
                 <div
                   className={`relative h-52 ${demo.color} flex items-center justify-center`}
                 >
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ainomiq-navy/90 shadow-lg group-hover:scale-110 transition-transform">
-                    <Play className="h-7 w-7 text-ainomiq-blue ml-1" />
+                    {cardHref ? (
+                      <ArrowRight className="h-7 w-7 text-ainomiq-blue" />
+                    ) : (
+                      <Play className="h-7 w-7 text-ainomiq-blue ml-1" />
+                    )}
                   </div>
                   <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-ainomiq-navy/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-ainomiq-text-muted">
                     <Clock className="h-3 w-3" />
                     {demo.duration}
                   </div>
+                  {cardHref && (
+                    <div className="absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full bg-ainomiq-blue/90 px-3 py-1 text-xs font-semibold text-white">
+                      Try interactive demo
+                    </div>
+                  )}
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-3">
@@ -177,7 +225,9 @@ export default function DemosPage() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              </CardWrapper>
+              );
+            })}
         </div>
       </Section>
 
