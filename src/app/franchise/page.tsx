@@ -7,6 +7,7 @@ import { Accordion } from "@/components/accordion";
 import { PlatformGraph } from "@/components/platform-graph";
 import { FranchiseHero } from "@/components/ui/franchise-hero";
 import { FranchiseDashboard } from "@/components/ui/franchise-dashboard";
+import { FranchiseFeatures } from "@/components/ui/franchise-features";
 import { TrendingDown, TrendingUp, DollarSign, Clock, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -69,6 +70,7 @@ export default function FranchisePage() {
   return (
     <>
       <FranchiseHero />
+      <FranchiseFeatures />
 
 
       {/* Accordion. How we transform franchise ops */}
