@@ -36,7 +36,7 @@ const modules: ModuleFlow[] = [
   {
     id: "inventory",
     icon: Package,
-    name: "Inventory",
+    name: "Smart Inventory",
     color: "#10B981",
     bgColor: "#ECFDF5",
     glowColor: "16, 185, 129",
@@ -52,7 +52,7 @@ const modules: ModuleFlow[] = [
   {
     id: "email",
     icon: Mail,
-    name: "Email Marketing",
+    name: "E-mail Marketing",
     color: "#8B5CF6",
     bgColor: "#F5F3FF",
     glowColor: "139, 92, 246",
