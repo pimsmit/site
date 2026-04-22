@@ -124,8 +124,8 @@ export function SplineSceneBasic() {
             <ActivityFeed />
           </div>
 
-          {/* Right content - robot (taller so legs show within container) */}
-          <div className="flex-1 relative h-[400px] md:h-[600px] w-full">
+          {/* Right content - robot (hidden on mobile, too heavy) */}
+          <div className="hidden md:flex flex-1 relative h-[400px] md:h-[600px] w-full">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full scale-125 translate-y-[10%]"

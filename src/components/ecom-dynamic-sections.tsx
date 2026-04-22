@@ -1,6 +1,32 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+
+function useInView(rootMargin = "200px") {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { rootMargin }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [rootMargin]);
+  return { ref, inView };
+}
+
+function LazySection({ children, minHeight = 400 }: { children: React.ReactNode; minHeight?: number }) {
+  const { ref, inView } = useInView();
+  return (
+    <div ref={ref} style={{ minHeight: inView ? undefined : minHeight }}>
+      {inView ? children : null}
+    </div>
+  );
+}
 
 const AinomiqHeroScroll = dynamic(
   () => import("@/components/ui/ainomiq-hero-scroll").then(m => ({ default: m.AinomiqHeroScroll })),
@@ -46,12 +72,13 @@ export function EcomDynamicSections({ children }: { children?: React.ReactNode }
         </div>
       </section>
 
-      <SplineSceneBasic />
+      <LazySection minHeight={600}><SplineSceneBasic /></LazySection>
       <div id="customer-service" className="scroll-mt-24" />
       <div id="smart-inventory" className="scroll-mt-24" />
       <div id="email-marketing" className="scroll-mt-24" />
-      <FeaturedModulesScroll />
-      <AnimatedTestimonials
+      <LazySection minHeight={800}><FeaturedModulesScroll /></LazySection>
+      <LazySection minHeight={500}>
+        <AnimatedTestimonials
         testimonials={[
           {
             id: 1,
@@ -81,10 +108,10 @@ export function EcomDynamicSections({ children }: { children?: React.ReactNode }
             avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
           },
         ]}
-      />
+      /></LazySection>
       {children}
-      <LiveCodeSection />
-      <GrowthChartSection />
+      <LazySection minHeight={600}><LiveCodeSection /></LazySection>
+      <LazySection minHeight={400}><GrowthChartSection /></LazySection>
       <WaitlistSection />
     </>
   );
