@@ -6,6 +6,7 @@ import { Section } from "@/components/section";
 import { Accordion } from "@/components/accordion";
 import { PlatformGraph } from "@/components/platform-graph";
 import { FranchiseHero } from "@/components/ui/franchise-hero";
+import { FranchiseDashboard } from "@/components/ui/franchise-dashboard";
 import { TrendingDown, TrendingUp, DollarSign, Clock, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -68,6 +69,24 @@ export default function FranchisePage() {
   return (
     <>
       <FranchiseHero />
+
+      {/* AI Dashboard Demo */}
+      <section className="py-24 px-6" style={{ background: "#0a1018" }}>
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-teal-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-teal-400">
+              Live Demo
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-4 text-white">
+              See it in action
+            </h2>
+            <p className="text-ainomiq-text-muted mt-4 max-w-xl mx-auto">
+              This is what your franchise operations look like with Ainomiq. Real-time AI actions, per-location insights, and full automation visibility.
+            </p>
+          </div>
+          <FranchiseDashboard />
+        </div>
+      </section>
 
 
       {/* Accordion. How we transform franchise ops */}
