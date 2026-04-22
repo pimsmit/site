@@ -118,7 +118,7 @@ export function Footer() {
         <div className="border-t border-ainomiq-border" />
 
         {/* Payment icons + socials */}
-        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-4 py-5">
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 py-5">
           <div className="flex flex-nowrap items-center gap-1.5">
             {paymentIcons.map((p) => (
               <div key={p.label} title={p.label} className="flex h-6 w-8 items-center justify-center rounded border border-ainomiq-border bg-white/5">
