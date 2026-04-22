@@ -87,10 +87,19 @@ export function AnimatedLineChart({
           rafRef.current = requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.05 }
     );
 
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+      // Fallback: if already visible on mount, fire immediately
+      const rect = containerRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0 && !firedRef.current) {
+        firedRef.current = true;
+        observer.disconnect();
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    }
     return () => {
       observer.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);

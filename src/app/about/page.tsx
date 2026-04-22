@@ -169,7 +169,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-4">
               Great work deserves great benefits
             </h2>
-            <p className="text-white/50 text-lg mt-4 max-w-lg mx-auto">
+            <p className="text-white/80 text-lg mt-4 max-w-lg mx-auto">
               We take care of our team so they can focus on building.
             </p>
           </div>
@@ -186,7 +186,7 @@ export default function AboutPage() {
                 <h3 className="text-lg font-bold text-white mb-3 group-hover:text-ainomiq-blue transition-colors duration-300">
                   {b.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+                <p className="text-sm leading-relaxed text-white/80 group-hover:text-white/70 transition-colors duration-300">
                   {b.body}
                 </p>
               </div>

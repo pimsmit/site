@@ -136,7 +136,7 @@ export default function FranchisePage() {
                 Franchise Owner
               </span>
               <h3 className="text-xl font-bold mb-2">Understand why stores succeed</h3>
-              <p className="text-sm text-white/60 leading-relaxed mb-5">
+              <p className="text-sm text-white/80 leading-relaxed mb-5">
                 See exactly why a store performs well and replicate it across your network.
               </p>
               <div className="space-y-2">
@@ -354,7 +354,7 @@ export default function FranchisePage() {
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
             The future of franchise operations starts here.
           </h2>
-          <p className="text-lg text-white/70 mb-10 max-w-lg mx-auto">
+          <p className="text-lg text-white/80 mb-10 max-w-lg mx-auto">
             Book a 30-minute demo. We&apos;ll show you exactly how much you can save per location.
           </p>
           <Button
