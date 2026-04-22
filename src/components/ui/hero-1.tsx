@@ -179,9 +179,7 @@ const logos = [
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/shopify.svg", alt: "Shopify" },
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/meta.svg", alt: "Meta" },
   { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/google.svg", alt: "Google" },
-  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/python.svg", alt: "Python" },
-  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/vercel.svg", alt: "Vercel" },
-  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/github.svg", alt: "GitHub" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/tiktok.svg", alt: "TikTok" },
   { src: "/logos/klaviyo.svg", alt: "Klaviyo" },
 ];
 
@@ -195,8 +193,8 @@ export function LogosSection() {
       />
 
       <h2 className="relative z-10 mb-4 text-center text-lg font-medium tracking-tight text-ainomiq-text-muted md:text-xl">
-        Built with{" "}
-        <span className="font-semibold text-ainomiq-text">the best tools</span>
+        Integrates with{" "}
+        <span className="font-semibold text-ainomiq-text">your existing tools</span>
       </h2>
 
       <div className="relative z-10 mx-auto max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
