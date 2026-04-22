@@ -329,15 +329,34 @@ export function FeaturedModulesScroll() {
   return (
     <section className="py-20 md:py-32 px-4 md:px-6 bg-ainomiq-navy overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
+        {/* Header — static section title */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-2xl md:text-5xl font-extrabold text-ainomiq-text tracking-tight mb-3">
+          <h2 className="text-2xl md:text-5xl font-extrabold text-ainomiq-text tracking-tight">
             See the automation in action.
           </h2>
-          <p className="text-ainomiq-text-subtle text-base md:text-lg max-w-xl mx-auto">
-            Pick a module. Watch it run - from trigger to result.
-          </p>
         </div>
+
+        {/* Dynamic module header — label + title + explanation */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeModule + "-header"}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            className="text-center mb-10 md:mb-14"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ainomiq-border bg-ainomiq-surface text-xs font-semibold uppercase tracking-wider text-ainomiq-blue mb-3">
+              App Products
+            </div>
+            <h3 className="text-xl md:text-3xl font-extrabold text-ainomiq-text tracking-tight mb-2">
+              {current.name}
+            </h3>
+            <p className="text-ainomiq-text-subtle text-sm md:text-base max-w-md mx-auto">
+              {moduleDescriptions[current.id]}
+            </p>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Flow visualization */}
         <AnimatePresence mode="wait">
@@ -508,25 +527,6 @@ export function FeaturedModulesScroll() {
                 </div>
               </motion.div>
             </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Module label + description */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeModule + "-label"}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="text-center mt-10 md:mt-14 mb-4"
-          >
-            <h3 className="text-lg md:text-2xl font-bold text-ainomiq-text tracking-tight">
-              {current.name}
-            </h3>
-            <p className="text-ainomiq-text-subtle text-sm md:text-base mt-1 max-w-sm mx-auto">
-              {moduleDescriptions[current.id]}
-            </p>
           </motion.div>
         </AnimatePresence>
 
