@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { LogoMark } from "@/components/logo";
 
 const services = [
@@ -111,10 +112,20 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 border-t border-ainomiq-border pt-6 text-center">
+        <div className="mt-16 border-t border-ainomiq-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-xs text-ainomiq-text-subtle">
-            &copy; {new Date().getFullYear()} Ainomiq. All rights reserved.
+            &copy; {new Date().getFullYear()} Ainomiq B.V. &mdash; KVK: 42032616 &mdash; All rights reserved.
           </span>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logos/kvk.png"
+              alt="KVK"
+              width={32}
+              height={32}
+              className="opacity-70"
+            />
+            <span className="text-xs text-ainomiq-text-subtle">KVK: 42032616</span>
+          </div>
         </div>
       </div>
     </footer>
