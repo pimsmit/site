@@ -55,10 +55,23 @@ const paymentIcons = [
   { icon: "logos:paypal", label: "PayPal" },
   { icon: "logos:apple-pay", label: "Apple Pay" },
   { icon: "logos:google-pay", label: "Google Pay" },
-  { icon: "simple-icons:klarna", label: "Klarna" },
-  { icon: "cib:ideal", label: "iDEAL" },
-  { icon: "cib:bancontact", label: "Bancontact" },
 ];
+
+const iDealIcon = (
+  <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto max-w-[40px]">
+    <rect width="120" height="80" rx="6" fill="white"/>
+    {/* Left square border */}
+    <rect x="8" y="8" width="52" height="64" rx="4" fill="none" stroke="black" strokeWidth="5"/>
+    {/* i dot */}
+    <circle cx="25" cy="22" r="7" fill="black"/>
+    {/* i stem */}
+    <rect x="21" y="34" width="8" height="30" fill="black"/>
+    {/* D shape - pink fill */}
+    <path d="M60 8 Q112 8 112 40 Q112 72 60 72 L60 8Z" fill="#CC0066"/>
+    {/* DEAL text */}
+    <text x="66" y="52" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="22" fill="white">DEAL</text>
+  </svg>
+);
 
 export function Footer() {
   return (
@@ -113,6 +126,9 @@ export function Footer() {
               <Icon icon={p.icon} className="h-5 w-auto max-w-[36px]" />
             </div>
           ))}
+          <div title="iDEAL" className="flex h-8 w-12 items-center justify-center rounded border border-ainomiq-border bg-white">
+            {iDealIcon}
+          </div>
         </div>
 
         {/* Divider */}
