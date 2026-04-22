@@ -184,7 +184,7 @@ export function LiveCodeSection() {
   const active = SCRIPTS[activeIndex];
 
   return (
-    <section className="py-24 md:py-32 px-6 bg-white overflow-hidden">
+    <section className="py-24 md:py-32 px-6 bg-ainomiq-navy overflow-hidden">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center mb-14">
@@ -195,7 +195,7 @@ export function LiveCodeSection() {
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0f1b2d]">
             24/7 optimizing your systems.
           </h2>
-          <p className="text-gray-500 mt-3 max-w-lg mx-auto text-base">
+          <p className="text-ainomiq-text-subtle mt-3 max-w-lg mx-auto text-base">
             While you sleep, Ainomiq runs. Every module is always on, always learning.
           </p>
         </div>
@@ -243,7 +243,7 @@ export function LiveCodeSection() {
 
         {/* Active script label */}
         <div className="text-center mt-6">
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-ainomiq-text-subtle">
             Running:{" "}
             <span className="font-mono" style={{ color: active.color }}>
               {active.title}

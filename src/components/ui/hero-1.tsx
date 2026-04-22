@@ -121,7 +121,7 @@ export function HeroSection() {
 
           {/* Badge */}
           <a
-            className="group mx-auto flex w-fit items-center gap-3 rounded-full border border-ainomiq-border bg-white px-3 py-1 shadow-sm animate-float-up"
+            className="group mx-auto flex w-fit items-center gap-3 rounded-full border border-ainomiq-border bg-ainomiq-navy px-3 py-1 shadow-sm animate-float-up"
             href="#pricing"
           >
             <RocketIcon className="size-3 text-ainomiq-blue" />
@@ -150,7 +150,7 @@ export function HeroSection() {
             <Button
               asChild
               size="lg"
-              className="rounded-full border border-ainomiq-border bg-white text-ainomiq-text hover:bg-ainomiq-navy-light"
+              className="rounded-full border border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:bg-ainomiq-navy-light"
             >
               <Link href="/demos">
                 View demos

@@ -6,7 +6,7 @@ export default async function PasswordPage({
   const params = await searchParams;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-6">
+    <div className="min-h-screen flex items-center justify-center bg-ainomiq-navy px-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-extrabold tracking-tight text-ainomiq-text">
@@ -25,7 +25,7 @@ export default async function PasswordPage({
               placeholder="Password"
               required
               autoFocus
-              className="w-full rounded-lg border border-ainomiq-border bg-white px-4 py-3 text-sm text-ainomiq-text placeholder:text-ainomiq-text-subtle focus:outline-none focus:ring-2 focus:ring-ainomiq-blue focus:border-transparent"
+              className="w-full rounded-lg border border-ainomiq-border bg-ainomiq-navy px-4 py-3 text-sm text-ainomiq-text placeholder:text-ainomiq-text-subtle focus:outline-none focus:ring-2 focus:ring-ainomiq-blue focus:border-transparent"
             />
           </div>
           {params.error && (

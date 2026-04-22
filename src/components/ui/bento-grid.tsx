@@ -44,7 +44,7 @@ interface BentoGridWithFeaturesProps {
 
 const BentoGrid = ({ children, className }: BentoGridProps) => {
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 gap-0 rounded-3xl border border-gray-100", className)}>
+    <div className={cn("grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 gap-0 rounded-3xl border border-ainomiq-border", className)}>
       {children}
     </div>
   )
@@ -73,7 +73,7 @@ const BentoTitle = ({ children, className }: BentoTitleProps) => {
 const BentoDescription = ({ children, className }: BentoDescriptionProps) => {
   if (!children) return null
   return (
-    <p className={cn("text-left text-sm md:text-sm font-normal text-gray-500 my-2 max-w-sm", className)}>
+    <p className={cn("text-left text-sm md:text-sm font-normal text-ainomiq-text-subtle my-2 max-w-sm", className)}>
       {children}
     </p>
   )

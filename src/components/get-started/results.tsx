@@ -126,10 +126,10 @@ function ProductCard({ product, index }: { product: ScrapedProduct; index: numbe
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.05 * index, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col rounded-xl border border-ainomiq-border bg-white shadow-sm overflow-hidden hover:shadow-md hover:border-ainomiq-blue/20 transition-all"
+      className="group flex flex-col rounded-xl border border-ainomiq-border bg-ainomiq-navy shadow-sm overflow-hidden hover:shadow-md hover:border-ainomiq-blue/20 transition-all"
     >
       {product.image ? (
-        <div className="relative h-32 bg-gray-50 overflow-hidden">
+        <div className="relative h-32 bg-ainomiq-surface overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
@@ -138,7 +138,7 @@ function ProductCard({ product, index }: { product: ScrapedProduct; index: numbe
           />
         </div>
       ) : (
-        <div className="h-32 bg-gray-50 flex items-center justify-center">
+        <div className="h-32 bg-ainomiq-surface flex items-center justify-center">
           <ShoppingBag className="size-8 text-gray-200" />
         </div>
       )}
@@ -274,7 +274,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 rounded-2xl border border-ainomiq-border bg-white p-5 shadow-sm"
+          className="flex items-center gap-4 rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-5 shadow-sm"
         >
           <div className="flex size-12 items-center justify-center rounded-xl bg-ainomiq-blue/10 flex-shrink-0 overflow-hidden">
             {analysis.favicon ? (
@@ -328,7 +328,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.1 + i * 0.05 }}
-                  className="rounded-xl border border-ainomiq-border bg-white p-4 shadow-sm text-center"
+                  className="rounded-xl border border-ainomiq-border bg-ainomiq-navy p-4 shadow-sm text-center"
                 >
                   <Icon className="size-4 text-ainomiq-blue mx-auto mb-2" />
                   <p className="text-2xl font-bold text-ainomiq-text">
@@ -411,7 +411,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.03 * i }}
-                className="flex items-start gap-2 rounded-lg border border-ainomiq-border bg-white p-3 text-xs text-ainomiq-text"
+                className="flex items-start gap-2 rounded-lg border border-ainomiq-border bg-ainomiq-navy p-3 text-xs text-ainomiq-text"
               >
                 <MessageCircleQuestion className="size-3.5 text-ainomiq-blue mt-0.5 flex-shrink-0" />
                 <span className="line-clamp-2">{q}</span>
@@ -433,7 +433,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
                 href={href || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-white px-3 py-1.5 text-xs text-ainomiq-text hover:border-ainomiq-blue/30 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-ainomiq-navy px-3 py-1.5 text-xs text-ainomiq-text hover:border-ainomiq-blue/30 transition-colors"
               >
                 <Icon className="size-3 text-ainomiq-blue" />
                 {platform}
@@ -441,13 +441,13 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
             );
           })}
           {analysis.contactEmail && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-white px-3 py-1.5 text-xs text-ainomiq-text">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-ainomiq-navy px-3 py-1.5 text-xs text-ainomiq-text">
               <AtSign className="size-3 text-ainomiq-blue" />
               {analysis.contactEmail}
             </span>
           )}
           {analysis.contactPhone && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-white px-3 py-1.5 text-xs text-ainomiq-text">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ainomiq-border bg-ainomiq-navy px-3 py-1.5 text-xs text-ainomiq-text">
               <Phone className="size-3 text-ainomiq-blue" />
               {analysis.contactPhone}
             </span>
@@ -469,7 +469,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
       )}
 
       {error && (
-        <div className="rounded-2xl border border-ainomiq-border bg-white p-8 text-center">
+        <div className="rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-8 text-center">
           <p className="text-ainomiq-text-muted">{error}</p>
           <a href="/contact" className="text-ainomiq-blue text-sm mt-2 inline-block hover:underline">
             Contact us for a personalized assessment
@@ -506,10 +506,10 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
                     className={cn(
                       "relative overflow-hidden rounded-2xl border p-5 shadow-sm transition-all",
                       service.relevance === "high"
-                        ? "border-ainomiq-blue/30 bg-white ring-1 ring-ainomiq-blue/10"
+                        ? "border-ainomiq-blue/30 bg-ainomiq-navy ring-1 ring-ainomiq-blue/10"
                         : service.relevance === "medium"
-                          ? "border-ainomiq-border bg-white"
-                          : "border-ainomiq-border bg-white opacity-60"
+                          ? "border-ainomiq-border bg-ainomiq-navy"
+                          : "border-ainomiq-border bg-ainomiq-navy opacity-60"
                     )}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -565,7 +565,7 @@ export function Results({ analysis, manual, onReset }: ResultsProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-2xl border border-ainomiq-border bg-white p-6 shadow-sm"
+            className="rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-6 shadow-sm"
           >
             <div className="flex items-center gap-3 mb-3">
               <div className="flex size-10 items-center justify-center rounded-full bg-ainomiq-blue/10">

@@ -72,7 +72,7 @@ export function TeamSection() {
                 className="group flex w-64 shrink-0 flex-col"
                 key={`${member.name}-${i}`}
               >
-                <div className="relative h-80 w-full overflow-hidden rounded-2xl border border-ainomiq-border bg-white">
+                <div className="relative h-80 w-full overflow-hidden rounded-2xl border border-ainomiq-border bg-ainomiq-navy">
                   {member.photo ? (
                     <img
                       src={member.photo}
@@ -91,7 +91,7 @@ export function TeamSection() {
                       </div>
                     </>
                   )}
-                  <div className="absolute bottom-0 w-full rounded-b-2xl bg-white/90 backdrop-blur-sm p-4 border-t border-ainomiq-border">
+                  <div className="absolute bottom-0 w-full rounded-b-2xl bg-ainomiq-navy/90 backdrop-blur-sm p-4 border-t border-ainomiq-border">
                     <h3 className="font-semibold text-ainomiq-text">
                       {member.name}
                     </h3>

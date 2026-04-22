@@ -132,7 +132,7 @@ export default function FranchisePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Owner */}
             <div className="rounded-2xl p-8 text-white" style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%)" }}>
-              <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-sky-300 mb-4">
+              <span className="inline-flex items-center rounded-full bg-ainomiq-navy/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-sky-300 mb-4">
                 Franchise Owner
               </span>
               <h3 className="text-xl font-bold mb-2">Understand why stores succeed</h3>
@@ -169,7 +169,7 @@ export default function FranchisePage() {
             </div>
 
             {/* Employee */}
-            <div className="rounded-2xl border border-ainomiq-border p-8 bg-white">
+            <div className="rounded-2xl border border-ainomiq-border p-8 bg-ainomiq-navy">
               <span className="inline-flex items-center rounded-full bg-ainomiq-blue/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-ainomiq-blue mb-4">
                 Employee
               </span>
@@ -221,7 +221,7 @@ export default function FranchisePage() {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-ainomiq-border bg-white p-6 hover:border-ainomiq-blue/30 transition-colors"
+                  className="rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-6 hover:border-ainomiq-blue/30 transition-colors"
                 >
                   <h3 className="font-bold mb-1">{item.title}</h3>
                   <p className="text-sm text-ainomiq-text-muted leading-relaxed">{item.body}</p>
@@ -245,7 +245,7 @@ export default function FranchisePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {results.map((r) => (
-              <div key={r.label} className="rounded-2xl border border-ainomiq-border bg-white p-6 text-center hover:border-ainomiq-blue/30 transition-colors">
+              <div key={r.label} className="rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-6 text-center hover:border-ainomiq-blue/30 transition-colors">
                 <span className={`block text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
                   r.value.startsWith("+") ? "text-emerald-500" : r.value.startsWith("-") ? "text-ainomiq-blue" : "text-ainomiq-blue"
                 }`}>{r.value}</span>
@@ -316,7 +316,7 @@ export default function FranchisePage() {
                 initials: "OD",
               },
             ].map((t) => (
-              <div key={t.initials} className="rounded-2xl border border-ainomiq-border bg-white p-8">
+              <div key={t.initials} className="rounded-2xl border border-ainomiq-border bg-ainomiq-navy p-8">
                 <Quote className="h-6 w-6 text-ainomiq-blue/20 mb-4" />
                 <p className="text-sm leading-relaxed text-ainomiq-text-muted mb-6">
                   &ldquo;{t.quote}&rdquo;
@@ -360,7 +360,7 @@ export default function FranchisePage() {
           <Button
             asChild
             size="lg"
-            className="rounded-full bg-white text-ainomiq-blue hover:bg-white/90 px-10 h-12 font-bold"
+            className="rounded-full bg-ainomiq-navy text-ainomiq-blue hover:bg-ainomiq-navy/90 px-10 h-12 font-bold"
           >
             <Link href="/contact">
               Get a demo <ArrowRight className="ml-2 h-4 w-4" />

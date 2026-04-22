@@ -187,7 +187,7 @@ export default function EnterprisePage() {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text px-8 h-12"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-ainomiq-navy text-ainomiq-text px-8 h-12"
             >
               <Link href="#all-in-one">View solutions</Link>
             </Button>
@@ -229,7 +229,7 @@ export default function EnterprisePage() {
 
               {/* Stat card */}
               <div className={`flex items-center justify-center ${i % 2 !== 0 ? "lg:col-start-1" : ""}`}>
-                <Card className="bg-white border-ainomiq-border w-full max-w-sm">
+                <Card className="bg-ainomiq-navy border-ainomiq-border w-full max-w-sm">
                   <CardContent className="p-10 text-center">
                     <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ainomiq-blue-glow">
                       <sol.icon className="h-8 w-8 text-ainomiq-blue" />
@@ -277,7 +277,7 @@ export default function EnterprisePage() {
               </ul>
             </div>
             <div className="flex items-center justify-center">
-              <Card className="bg-white border-ainomiq-border w-full max-w-sm">
+              <Card className="bg-ainomiq-navy border-ainomiq-border w-full max-w-sm">
                 <CardContent className="p-10 text-center">
                   <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ainomiq-blue-glow">
                     <Building2 className="h-8 w-8 text-ainomiq-blue" />
@@ -324,7 +324,7 @@ export default function EnterprisePage() {
               </ul>
             </div>
             <div className="flex items-center justify-center lg:col-start-1">
-              <Card className="bg-white border-ainomiq-border w-full max-w-sm">
+              <Card className="bg-ainomiq-navy border-ainomiq-border w-full max-w-sm">
                 <CardContent className="p-10 text-center">
                   <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ainomiq-blue-glow">
                     <Wrench className="h-8 w-8 text-ainomiq-blue" />
@@ -354,7 +354,7 @@ export default function EnterprisePage() {
           {moreSolutions.map((s) => (
             <Card
               key={s.title}
-              className="bg-white border-ainomiq-border hover:border-ainomiq-border-hover transition-all hover:-translate-y-1"
+              className="bg-ainomiq-navy border-ainomiq-border hover:border-ainomiq-border-hover transition-all hover:-translate-y-1"
             >
               <CardContent className="p-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
@@ -399,7 +399,7 @@ export default function EnterprisePage() {
           {enterpriseFeatures.map((feat) => (
             <Card
               key={feat.title}
-              className="bg-white border-ainomiq-border text-center"
+              className="bg-ainomiq-navy border-ainomiq-border text-center"
             >
               <CardContent className="p-6">
                 <feat.icon className="h-8 w-8 text-ainomiq-blue mx-auto mb-3" />
@@ -435,7 +435,7 @@ export default function EnterprisePage() {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text px-8 h-12"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-ainomiq-navy text-ainomiq-text px-8 h-12"
             >
               <Link href="/ecommerce">
                 See ecommerce app <ArrowRight className="ml-2 h-4 w-4" />

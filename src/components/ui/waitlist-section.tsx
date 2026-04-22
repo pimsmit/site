@@ -61,14 +61,14 @@ export function WaitlistSection() {
   }
 
   return (
-    <section className="py-20 md:py-28 px-6 bg-white">
+    <section className="py-20 md:py-28 px-6 bg-ainomiq-navy">
       <div className="mx-auto max-w-2xl">
         <div className="w-full space-y-6">
             <div className="space-y-2">
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0f1b2d]">
                 Never miss new products.
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-ainomiq-text-subtle">
                 We&apos;re always working on automations to help you scale.
               </p>
             </div>
@@ -85,7 +85,7 @@ export function WaitlistSection() {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-11 bg-gray-50 border-gray-200 text-[#0f1b2d] placeholder:text-gray-400 flex-1 min-w-[180px]"
+                  className="h-11 bg-ainomiq-surface border-ainomiq-border text-[#0f1b2d] placeholder:text-ainomiq-text-subtle flex-1 min-w-[180px]"
                   required
                 />
                 <Button
@@ -124,7 +124,7 @@ export function WaitlistSection() {
                   <AvatarFallback className="text-xs font-semibold bg-blue-800 text-white">MK</AvatarFallback>
                 </Avatar>
               </div>
-              <span className="text-xs text-gray-400">10,000+ people on the waitlist</span>
+              <span className="text-xs text-ainomiq-text-subtle">10,000+ people on the waitlist</span>
             </div>
         </div>
       </div>

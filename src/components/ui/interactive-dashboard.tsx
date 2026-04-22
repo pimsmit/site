@@ -195,7 +195,7 @@ function statusColor(status: string) {
     return "bg-yellow-100 text-yellow-700";
   if (["Low Stock", "Needs Fix", "Urgent", "Expired"].includes(status))
     return "bg-red-100 text-red-700";
-  return "bg-gray-100 text-gray-700";
+  return "bg-ainomiq-navy-light text-ainomiq-text-muted";
 }
 
 function DashboardView({ view, isMobile }: { view: string; isMobile: boolean }) {
@@ -214,7 +214,7 @@ function DashboardView({ view, isMobile }: { view: string; isMobile: boolean }) 
       >
         {/* Header */}
         <div className={`flex items-center justify-between mb-3 ${isMobile ? "px-4 pt-3" : "px-5 pt-4"}`}>
-          <h2 className={`font-bold text-gray-900 ${isMobile ? "text-base" : "text-xl"}`}>{view}</h2>
+          <h2 className={`font-bold text-ainomiq-text ${isMobile ? "text-base" : "text-xl"}`}>{view}</h2>
           <div className="flex gap-1">
             {(isMobile ? ["7d", "30d", "90d"] : timeRanges).map((r, i) => {
               const fullLabel = isMobile ? (r === "7d" ? "7 days" : r === "30d" ? "30 days" : "90 days") : r;
@@ -223,7 +223,7 @@ function DashboardView({ view, isMobile }: { view: string; isMobile: boolean }) 
                   key={i}
                   onClick={() => setActiveRange(fullLabel)}
                   className={`text-xs px-2 py-1 rounded-lg transition-colors ${
-                    activeRange === fullLabel ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    activeRange === fullLabel ? "bg-blue-600 text-white" : "bg-ainomiq-navy-light text-ainomiq-text-muted hover:bg-gray-200"
                   }`}
                 >
                   {r}
@@ -236,33 +236,33 @@ function DashboardView({ view, isMobile }: { view: string; isMobile: boolean }) 
         {/* Metrics */}
         <div className={`grid grid-cols-2 gap-2 ${isMobile ? "px-4" : "px-5"} mb-4`}>
           {data.metrics.map((m, i) => (
-            <div key={i} className="bg-white border rounded-xl p-3 hover:shadow-md transition-all cursor-pointer">
-              <p className="text-xs text-gray-500 mb-1">{m.label}</p>
-              <p className={`font-bold text-gray-900 ${isMobile ? "text-lg" : "text-xl"}`}>{m.value}</p>
+            <div key={i} className="bg-ainomiq-navy border rounded-xl p-3 hover:shadow-md transition-all cursor-pointer">
+              <p className="text-xs text-ainomiq-text-subtle mb-1">{m.label}</p>
+              <p className={`font-bold text-ainomiq-text ${isMobile ? "text-lg" : "text-xl"}`}>{m.value}</p>
               <p className={`text-xs font-medium mt-0.5 ${m.positive ? "text-green-600" : "text-red-500"}`}>{m.change}</p>
             </div>
           ))}
         </div>
 
         {/* Rows */}
-        <div className={`bg-white border rounded-xl overflow-hidden ${isMobile ? "mx-4 mb-4" : "mx-5 mb-5"}`}>
+        <div className={`bg-ainomiq-navy border rounded-xl overflow-hidden ${isMobile ? "mx-4 mb-4" : "mx-5 mb-5"}`}>
           <div className="px-4 py-2.5 border-b">
             <p className="font-semibold text-sm">{data.rowLabel}</p>
           </div>
           {data.rows.map((row, i) => (
             <button
               key={i}
-              className="w-full flex items-center justify-between px-4 py-2.5 border-b last:border-0 hover:bg-gray-50 active:bg-gray-100 transition-colors text-left"
+              className="w-full flex items-center justify-between px-4 py-2.5 border-b last:border-0 hover:bg-ainomiq-surface active:bg-ainomiq-navy-light transition-colors text-left"
             >
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{row.user}</p>
-                <p className="text-xs text-gray-500 truncate">{row.message}</p>
+                <p className="text-sm font-medium text-ainomiq-text truncate">{row.user}</p>
+                <p className="text-xs text-ainomiq-text-subtle truncate">{row.message}</p>
               </div>
               <div className="text-right ml-3 shrink-0">
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(row.status)}`}>
                   {row.status}
                 </span>
-                <p className="text-xs text-gray-400 mt-1">{row.time}</p>
+                <p className="text-xs text-ainomiq-text-subtle mt-1">{row.time}</p>
               </div>
             </button>
           ))}
@@ -276,9 +276,9 @@ function MobileApp() {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
+    <div className="flex flex-col h-full bg-ainomiq-surface">
       {/* Top bar */}
-      <div className="bg-white border-b px-4 py-3 flex items-center justify-between shrink-0">
+      <div className="bg-ainomiq-navy border-b px-4 py-3 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <LayoutDashboard className="w-5 h-5 text-blue-600" />
           <span className="font-bold text-base">ainomiq</span>
@@ -291,7 +291,7 @@ function MobileApp() {
       </div>
 
       {/* Bottom tab bar */}
-      <div className="bg-white border-t shrink-0">
+      <div className="bg-ainomiq-navy border-t shrink-0">
         <div className="flex">
           {bottomTabs.map((tab, i) => {
             const Icon = tab.icon;
@@ -301,7 +301,7 @@ function MobileApp() {
                 key={i}
                 onClick={() => setActiveTab(tab.label)}
                 className={`flex-1 flex flex-col items-center py-2 gap-0.5 transition-colors ${
-                  isActive ? "text-blue-600" : "text-gray-400"
+                  isActive ? "text-blue-600" : "text-ainomiq-text-subtle"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -325,7 +325,7 @@ function DesktopApp() {
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <div className="w-52 bg-gray-50 border-r flex flex-col shrink-0">
+      <div className="w-52 bg-ainomiq-surface border-r flex flex-col shrink-0">
         <div className="p-4 border-b">
           <div className="flex items-center gap-2">
             <LayoutDashboard className="w-4 h-4 text-blue-600" />
@@ -341,7 +341,7 @@ function DesktopApp() {
                 key={i}
                 onClick={() => setActiveView(item.label)}
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all ${
-                  isActive ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-gray-100"
+                  isActive ? "bg-blue-600 text-white" : "text-ainomiq-text-muted hover:bg-ainomiq-navy-light"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -372,7 +372,7 @@ export function InteractiveDashboard() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-white overflow-hidden">
+    <div className="w-full h-full bg-ainomiq-navy overflow-hidden">
       <AnimatePresence mode="wait">
         {!showApp ? (
           <motion.div
@@ -383,16 +383,16 @@ export function InteractiveDashboard() {
             className="w-full h-full overflow-auto"
           >
             {isMobile ? (
-              <div className="flex flex-col h-full bg-white px-5 pt-6 pb-4">
+              <div className="flex flex-col h-full bg-ainomiq-navy px-5 pt-6 pb-4">
                 <div className="text-center mb-6">
                   <div className="flex items-center justify-center gap-2 mb-4">
                     <LayoutDashboard className="w-6 h-6 text-blue-600" />
                     <span className="text-xl font-bold">ainomiq</span>
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
+                  <h1 className="text-2xl font-bold text-ainomiq-text mb-2 leading-tight">
                     Your store,<br />fully automated
                   </h1>
-                  <p className="text-sm text-gray-500 mb-6">One app. Every department. Always running.</p>
+                  <p className="text-sm text-ainomiq-text-subtle mb-6">One app. Every department. Always running.</p>
                   <button
                     onClick={() => setShowApp(true)}
                     className="w-full bg-blue-600 text-white font-semibold py-3 rounded-2xl text-sm shadow-md active:scale-95 transition-transform"
@@ -407,20 +407,20 @@ export function InteractiveDashboard() {
                       <button
                         key={i}
                         onClick={() => setShowApp(true)}
-                        className="w-full flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left active:bg-gray-100 transition-colors"
+                        className="w-full flex items-center gap-3 bg-ainomiq-surface rounded-2xl px-4 py-3 text-left active:bg-ainomiq-navy-light transition-colors"
                       >
                         <div className="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
                           <Icon className="w-4 h-4 text-blue-600" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <p className="text-sm font-semibold text-gray-900">{m.title}</p>
+                            <p className="text-sm font-semibold text-ainomiq-text">{m.title}</p>
                             {'soon' in m && m.soon && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">Soon</span>}
                             {'free' in m && m.free && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Free</span>}
                           </div>
-                          <p className="text-xs text-gray-500 truncate">{m.description}</p>
+                          <p className="text-xs text-ainomiq-text-subtle truncate">{m.description}</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-ainomiq-text-subtle shrink-0" />
                       </button>
                     );
                   })}
@@ -429,8 +429,8 @@ export function InteractiveDashboard() {
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-blue-50 to-white overflow-auto p-8">
                 <div className="text-center mb-8">
-                  <h1 className="text-4xl font-bold mb-3 text-gray-900">Your store,<br />fully automated</h1>
-                  <p className="text-gray-600 max-w-xl mx-auto mb-6 text-sm">
+                  <h1 className="text-4xl font-bold mb-3 text-ainomiq-text">Your store,<br />fully automated</h1>
+                  <p className="text-ainomiq-text-muted max-w-xl mx-auto mb-6 text-sm">
                     One app. Every department. Always running.
                   </p>
                   <div className="flex gap-3 justify-center">
@@ -440,7 +440,7 @@ export function InteractiveDashboard() {
                     >
                       Start for free
                     </button>
-                    <button className="border px-6 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                    <button className="border px-6 py-2.5 rounded-lg text-sm text-ainomiq-text-muted hover:bg-ainomiq-surface transition-colors">
                       Learn more
                     </button>
                   </div>
@@ -452,7 +452,7 @@ export function InteractiveDashboard() {
                       <button
                         key={i}
                         onClick={() => setShowApp(true)}
-                        className="bg-white rounded-xl border p-4 text-left hover:shadow-md transition-all"
+                        className="bg-ainomiq-navy rounded-xl border p-4 text-left hover:shadow-md transition-all"
                       >
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
@@ -462,7 +462,7 @@ export function InteractiveDashboard() {
                           {'soon' in m && m.soon && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">Soon</span>}
                           {'free' in m && m.free && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Free</span>}
                         </div>
-                        <p className="text-xs text-gray-500">{m.description}</p>
+                        <p className="text-xs text-ainomiq-text-subtle">{m.description}</p>
                       </button>
                     );
                   })}

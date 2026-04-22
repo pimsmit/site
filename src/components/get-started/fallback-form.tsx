@@ -117,7 +117,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                   "rounded-full border px-4 py-2 text-sm transition-all",
                   businessType === option.value
                     ? "border-ainomiq-blue bg-ainomiq-blue text-white"
-                    : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                    : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                 )}
               >
                 {option.label}
@@ -143,7 +143,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                       "rounded-full border px-4 py-2 text-sm transition-all",
                       platform === p
                         ? "border-ainomiq-blue bg-ainomiq-blue text-white"
-                        : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                        : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                     )}
                   >
                     {p}
@@ -166,7 +166,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                       "rounded-full border px-4 py-2 text-sm transition-all",
                       orderVolume === v
                         ? "border-ainomiq-blue bg-ainomiq-blue text-white"
-                        : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                        : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                     )}
                   >
                     {v}
@@ -190,7 +190,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                       "rounded-full border px-4 py-2 text-sm transition-all",
                       tools.includes(tool)
                         ? "border-ainomiq-blue bg-ainomiq-blue/10 text-ainomiq-blue"
-                        : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                        : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                     )}
                   >
                     {tool}
@@ -218,7 +218,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                       "rounded-full border px-4 py-2 text-sm transition-all",
                       industry === ind
                         ? "border-ainomiq-blue bg-ainomiq-blue text-white"
-                        : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                        : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                     )}
                   >
                     {ind}
@@ -242,7 +242,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                       "rounded-full border px-4 py-2 text-sm transition-all",
                       teamSize === size
                         ? "border-ainomiq-blue bg-ainomiq-blue text-white"
-                        : "border-ainomiq-border bg-white text-ainomiq-text hover:border-ainomiq-border-hover"
+                        : "border-ainomiq-border bg-ainomiq-navy text-ainomiq-text hover:border-ainomiq-border-hover"
                     )}
                   >
                     {size}
@@ -261,7 +261,7 @@ export function FallbackForm({ onSubmit, onReset }: FallbackFormProps) {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. We are a cleaning company with 15 employees serving offices in Amsterdam..."
                 rows={3}
-                className="w-full rounded-xl border border-ainomiq-border bg-white px-4 py-3 text-sm text-ainomiq-text placeholder:text-ainomiq-text-subtle focus:outline-none focus:border-ainomiq-blue transition-colors resize-none"
+                className="w-full rounded-xl border border-ainomiq-border bg-ainomiq-navy px-4 py-3 text-sm text-ainomiq-text placeholder:text-ainomiq-text-subtle focus:outline-none focus:border-ainomiq-blue transition-colors resize-none"
               />
             </div>
           </>

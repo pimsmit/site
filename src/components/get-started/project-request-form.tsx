@@ -381,7 +381,7 @@ export function ProjectRequestForm() {
   if (success) {
     return (
       <section className="py-20 px-6">
-        <div className="mx-auto max-w-xl rounded-2xl border border-blue-200/60 bg-white/95 p-10 text-center shadow-2xl">
+        <div className="mx-auto max-w-xl rounded-2xl border border-blue-200/60 bg-ainomiq-navy/95 p-10 text-center shadow-2xl">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10">
             <CheckCircle className="h-8 w-8 text-green-400" />
           </div>
@@ -401,7 +401,7 @@ export function ProjectRequestForm() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-blue-200/60 bg-white/80 px-4 py-3 text-ainomiq-text placeholder:text-ainomiq-text-muted/60 focus:border-[#4A90F5] focus:outline-none focus:ring-1 focus:ring-[#4A90F5] transition-colors";
+    "w-full rounded-xl border border-blue-200/60 bg-ainomiq-navy/80 px-4 py-3 text-ainomiq-text placeholder:text-ainomiq-text-muted/60 focus:border-[#4A90F5] focus:outline-none focus:ring-1 focus:ring-[#4A90F5] transition-colors";
   const labelCls = "mb-1.5 block text-sm font-medium text-ainomiq-text-muted";
 
   return (
@@ -415,7 +415,7 @@ export function ProjectRequestForm() {
                   index < step ? "bg-[#4A90F5]" : index === step ? "bg-[#4A90F5]/60" : "bg-blue-100/50"
                 }`}
               />
-              <span className={`text-[10px] font-medium ${index <= step ? "text-ainomiq-text-muted" : "text-gray-600"}`}>
+              <span className={`text-[10px] font-medium ${index <= step ? "text-ainomiq-text-muted" : "text-ainomiq-text-muted"}`}>
                 {item.title}
               </span>
             </div>
@@ -582,7 +582,7 @@ export function ProjectRequestForm() {
                           <div className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border transition-colors ${
                             selectedRecs.has(i)
                               ? "border-[#4A90F5] bg-[#4A90F5] text-white"
-                              : "border-gray-300 bg-white"
+                              : "border-gray-300 bg-ainomiq-navy"
                           }`}>
                             {selectedRecs.has(i) && (
                               <CheckCircle className="h-3 w-3" />
@@ -633,7 +633,7 @@ export function ProjectRequestForm() {
                     type="checkbox"
                     checked={needsCredentials}
                     onChange={(event) => setNeedsCredentials(event.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-blue-200/60 bg-white/95 text-[#4A90F5] focus:ring-[#4A90F5]"
+                    className="mt-1 h-4 w-4 rounded border-blue-200/60 bg-ainomiq-navy/95 text-[#4A90F5] focus:ring-[#4A90F5]"
                   />
                   <span>Will the developer need access to existing systems?</span>
                 </label>
@@ -654,7 +654,7 @@ export function ProjectRequestForm() {
                           className={`rounded-full border px-3 py-2 text-sm transition-colors ${
                             active
                               ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5]"
-                              : "border-blue-200/60 bg-white/95 text-ainomiq-text-muted hover:border-[#4A90F5]/50"
+                              : "border-blue-200/60 bg-ainomiq-navy/95 text-ainomiq-text-muted hover:border-[#4A90F5]/50"
                           }`}
                         >
                           {option}
@@ -758,19 +758,19 @@ export function ProjectRequestForm() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                      <div className="rounded-lg bg-ainomiq-navy/20 p-3 backdrop-blur-sm">
                         <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Project</p>
                         <p className="text-sm font-medium text-white">{estimate.projectType}</p>
                       </div>
-                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                      <div className="rounded-lg bg-ainomiq-navy/20 p-3 backdrop-blur-sm">
                         <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Complexity</p>
                         <p className="text-sm font-medium text-white">{estimate.complexity}</p>
                       </div>
-                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                      <div className="rounded-lg bg-ainomiq-navy/20 p-3 backdrop-blur-sm">
                         <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">Delivery</p>
                         <p className="text-sm font-medium text-white">{estimate.deliveryWeeks || `~${estimate.deliveryDays} days`}{estimate.deliveryWeeks ? " weeks" : ""}</p>
                       </div>
-                      <div className="rounded-lg bg-white/20 p-3 backdrop-blur-sm">
+                      <div className="rounded-lg bg-ainomiq-navy/20 p-3 backdrop-blur-sm">
                         <p className="mb-0.5 text-[10px] uppercase tracking-wider text-white/60">{estimate.monthlyCost ? "Monthly costs" : "One-time"}</p>
                         <p className="text-sm font-medium text-white">{estimate.monthlyCost ? `+ \u20AC${estimate.monthlyCost}/mo` : "No recurring fees"}</p>
                       </div>

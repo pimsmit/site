@@ -29,7 +29,7 @@ function statusBadge(status: string) {
     delivered: "bg-emerald-100 text-emerald-700",
     reviewing: "bg-orange-100 text-orange-700",
   };
-  return colors[status] || "bg-gray-100 text-gray-700";
+  return colors[status] || "bg-ainomiq-navy-light text-ainomiq-text-muted";
 }
 
 function formatBudget(budget: string | null, estimateTotal: number | null) {
@@ -59,34 +59,34 @@ export default async function ProjectBriefPage({
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-mono text-slate-400">{project.id}</span>
+            <span className="text-sm font-mono text-ainomiq-text-subtle">{project.id}</span>
             <span
               className={`text-xs font-medium px-2.5 py-1 rounded-full uppercase tracking-wide ${statusBadge(project.status)}`}
             >
               {project.status.replace("_", " ")}
             </span>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          <h1 className="text-3xl font-bold text-ainomiq-text mb-2">
             {project.projectType} - {project.company}
           </h1>
-          <p className="text-slate-500">
+          <p className="text-ainomiq-text-subtle">
             Submitted {formatDate(project.createdAt)}
           </p>
         </div>
 
         {/* Project overview */}
         <section className="mb-10">
-          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+          <h2 className="text-lg font-semibold text-ainomiq-text mb-4 pb-2 border-b border-ainomiq-border">
             Project Overview
           </h2>
-          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">
+          <p className="text-ainomiq-text-muted leading-relaxed whitespace-pre-wrap">
             {project.description}
           </p>
         </section>
 
         {/* Details grid */}
         <section className="mb-10">
-          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+          <h2 className="text-lg font-semibold text-ainomiq-text mb-4 pb-2 border-b border-ainomiq-border">
             Details
           </h2>
           <div className="grid grid-cols-2 gap-x-8 gap-y-4">
@@ -129,17 +129,17 @@ export default async function ProjectBriefPage({
           project.designPrefs ||
           project.needsCredentials) && (
           <section className="mb-10">
-            <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+            <h2 className="text-lg font-semibold text-ainomiq-text mb-4 pb-2 border-b border-ainomiq-border">
               Technical & Design
             </h2>
             {project.techStack.length > 0 && (
               <div className="mb-4">
-                <p className="text-sm text-slate-500 mb-2">Tech Stack</p>
+                <p className="text-sm text-ainomiq-text-subtle mb-2">Tech Stack</p>
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="text-sm bg-slate-100 text-slate-700 px-3 py-1 rounded-full"
+                      className="text-sm bg-slate-100 text-ainomiq-text-muted px-3 py-1 rounded-full"
                     >
                       {tech}
                     </span>
@@ -149,14 +149,14 @@ export default async function ProjectBriefPage({
             )}
             {project.features && (
               <div className="mb-4">
-                <p className="text-sm text-slate-500 mb-1">Features & Requirements</p>
-                <p className="text-slate-700 whitespace-pre-wrap">{project.features}</p>
+                <p className="text-sm text-ainomiq-text-subtle mb-1">Features & Requirements</p>
+                <p className="text-ainomiq-text-muted whitespace-pre-wrap">{project.features}</p>
               </div>
             )}
             {project.designPrefs && (
               <div className="mb-4">
-                <p className="text-sm text-slate-500 mb-1">Design Preferences</p>
-                <p className="text-slate-700 whitespace-pre-wrap">{project.designPrefs}</p>
+                <p className="text-sm text-ainomiq-text-subtle mb-1">Design Preferences</p>
+                <p className="text-ainomiq-text-muted whitespace-pre-wrap">{project.designPrefs}</p>
               </div>
             )}
             {project.needsCredentials && (
@@ -172,10 +172,10 @@ export default async function ProjectBriefPage({
         {/* References */}
         {project.referencesText && (
           <section className="mb-10">
-            <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+            <h2 className="text-lg font-semibold text-ainomiq-text mb-4 pb-2 border-b border-ainomiq-border">
               References & Inspiration
             </h2>
-            <p className="text-slate-700 whitespace-pre-wrap">
+            <p className="text-ainomiq-text-muted whitespace-pre-wrap">
               {project.referencesText}
             </p>
           </section>
@@ -184,20 +184,20 @@ export default async function ProjectBriefPage({
         {/* Files */}
         {project.files.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+            <h2 className="text-lg font-semibold text-ainomiq-text mb-4 pb-2 border-b border-ainomiq-border">
               Attached Files
             </h2>
             <ul className="space-y-2">
               {project.files.map((file, i) => (
                 <li
                   key={i}
-                  className="flex items-center gap-3 text-sm text-slate-600"
+                  className="flex items-center gap-3 text-sm text-ainomiq-text-muted"
                 >
-                  <span className="w-8 h-8 bg-slate-100 rounded flex items-center justify-center text-xs font-mono text-slate-400">
+                  <span className="w-8 h-8 bg-slate-100 rounded flex items-center justify-center text-xs font-mono text-ainomiq-text-subtle">
                     {file.type.split("/")[1]?.slice(0, 4).toUpperCase() || "FILE"}
                   </span>
                   <span>{file.name}</span>
-                  <span className="text-slate-400">
+                  <span className="text-ainomiq-text-subtle">
                     ({(file.size / 1024).toFixed(0)} KB)
                   </span>
                 </li>
@@ -207,8 +207,8 @@ export default async function ProjectBriefPage({
         )}
 
         {/* Footer */}
-        <div className="pt-8 border-t border-slate-100 text-center">
-          <p className="text-sm text-slate-400">
+        <div className="pt-8 border-t border-ainomiq-border text-center">
+          <p className="text-sm text-ainomiq-text-subtle">
             Ainomiq Project Brief - Confidential
           </p>
         </div>
@@ -226,8 +226,8 @@ function Detail({
 }) {
   return (
     <div>
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="text-slate-800 font-medium">{typeof value === "string" ? value : value}</p>
+      <p className="text-sm text-ainomiq-text-subtle">{label}</p>
+      <p className="text-ainomiq-text font-medium">{typeof value === "string" ? value : value}</p>
     </div>
   );
 }

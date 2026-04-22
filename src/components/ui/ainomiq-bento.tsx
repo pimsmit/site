@@ -7,7 +7,7 @@ function StatCard({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col">
       <span className="text-4xl font-extrabold tracking-tight text-[#0f1b2d]">{value}</span>
-      <span className="text-sm text-gray-500 mt-1">{label}</span>
+      <span className="text-sm text-ainomiq-text-subtle mt-1">{label}</span>
     </div>
   )
 }
@@ -33,21 +33,21 @@ export function AinomiqBento() {
           <ModuleTag icon={Mail} label="Email" color="bg-purple-50 text-purple-700" />
           <ModuleTag icon={Globe} label="Instagram DMs" color="bg-pink-50 text-pink-700" />
           <ModuleTag icon={MessageSquare} label="Facebook" color="bg-indigo-50 text-indigo-700" />
-          <div className="w-full mt-4 rounded-xl bg-gray-50 p-4 border border-gray-100">
+          <div className="w-full mt-4 rounded-xl bg-ainomiq-surface p-4 border border-ainomiq-border">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                 <MessageSquare className="w-4 h-4 text-blue-600" />
               </div>
               <div>
                 <p className="text-xs font-semibold text-[#0f1b2d]">Where is my order?</p>
-                <p className="text-xs text-gray-500 mt-0.5">Your order is on its way - expected delivery Thursday. <span className="text-blue-600 underline">Track here →</span></p>
-                <p className="text-xs text-gray-400 mt-1">Replied in 4 seconds · Automated</p>
+                <p className="text-xs text-ainomiq-text-subtle mt-0.5">Your order is on its way - expected delivery Thursday. <span className="text-blue-600 underline">Track here →</span></p>
+                <p className="text-xs text-ainomiq-text-subtle mt-1">Replied in 4 seconds · Automated</p>
               </div>
             </div>
           </div>
         </div>
       ),
-      className: "col-span-1 md:col-span-3 lg:col-span-2 border-b md:border-r border-gray-100",
+      className: "col-span-1 md:col-span-3 lg:col-span-2 border-b md:border-r border-ainomiq-border",
     },
     {
       id: "2",
@@ -63,15 +63,15 @@ export function AinomiqBento() {
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-3">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.color}`} />
-              <span className="text-xs text-gray-600 flex-1">{item.label}</span>
-              <span className={`text-xs font-semibold ${item.alert ? "text-red-600" : "text-gray-500"}`}>
+              <span className="text-xs text-ainomiq-text-muted flex-1">{item.label}</span>
+              <span className={`text-xs font-semibold ${item.alert ? "text-red-600" : "text-ainomiq-text-subtle"}`}>
                 {item.stock} left{item.alert ? " ⚠️" : ""}
               </span>
             </div>
           ))}
         </div>
       ),
-      className: "col-span-1 md:col-span-3 lg:col-span-2 border-b lg:border-r border-gray-100",
+      className: "col-span-1 md:col-span-3 lg:col-span-2 border-b lg:border-r border-ainomiq-border",
     },
     {
       id: "3",
@@ -84,17 +84,17 @@ export function AinomiqBento() {
             { flow: "Abandoned cart", status: "Active", open: "48%" },
             { flow: "Post-purchase", status: "Active", open: "71%" },
           ].map((row) => (
-            <div key={row.flow} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 border border-gray-100">
+            <div key={row.flow} className="flex items-center justify-between rounded-lg bg-ainomiq-surface px-3 py-2 border border-ainomiq-border">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                 <span className="text-xs font-medium text-[#0f1b2d]">{row.flow}</span>
               </div>
-              <span className="text-xs text-gray-500">{row.open} open rate</span>
+              <span className="text-xs text-ainomiq-text-subtle">{row.open} open rate</span>
             </div>
           ))}
         </div>
       ),
-      className: "col-span-1 md:col-span-6 md:border-b lg:col-span-2 border-b border-gray-100",
+      className: "col-span-1 md:col-span-6 md:border-b lg:col-span-2 border-b border-ainomiq-border",
     },
     {
       id: "4",
@@ -110,7 +110,7 @@ export function AinomiqBento() {
           </div>
         </div>
       ),
-      className: "col-span-1 md:col-span-6 lg:col-span-6 border-b border-gray-100 bg-gray-50/50",
+      className: "col-span-1 md:col-span-6 lg:col-span-6 border-b border-ainomiq-border bg-ainomiq-surface",
     },
     {
       id: "5",
@@ -120,15 +120,15 @@ export function AinomiqBento() {
         <div className="mt-6 flex items-center gap-3">
           <div className="flex -space-x-2">
             {["shopify", "klaviyo", "meta", "google"].map((s, i) => (
-              <div key={s} className="w-9 h-9 rounded-full border-2 border-white bg-white shadow-sm flex items-center justify-center" style={{ zIndex: 4 - i }}>
-                <Package className="w-4 h-4 text-gray-400" />
+              <div key={s} className="w-9 h-9 rounded-full border-2 border-white bg-ainomiq-navy shadow-sm flex items-center justify-center" style={{ zIndex: 4 - i }}>
+                <Package className="w-4 h-4 text-ainomiq-text-subtle" />
               </div>
             ))}
           </div>
-          <span className="text-xs text-gray-500">Connects with your existing tools</span>
+          <span className="text-xs text-ainomiq-text-subtle">Connects with your existing tools</span>
         </div>
       ),
-      className: "col-span-1 md:col-span-3 lg:col-span-2 md:border-r border-gray-100",
+      className: "col-span-1 md:col-span-3 lg:col-span-2 md:border-r border-ainomiq-border",
     },
     {
       id: "6",
@@ -140,12 +140,12 @@ export function AinomiqBento() {
             <TrendingUp className="w-4 h-4 text-green-500" />
             <span className="text-xs font-medium text-green-700">+18% efficiency this month</span>
           </div>
-          <div className="w-full bg-gray-100 rounded-full h-1.5">
+          <div className="w-full bg-ainomiq-navy-light rounded-full h-1.5">
             <div className="bg-green-500 h-1.5 rounded-full" style={{ width: "72%" }} />
           </div>
         </div>
       ),
-      className: "col-span-1 md:col-span-3 lg:col-span-2 lg:border-r border-gray-100",
+      className: "col-span-1 md:col-span-3 lg:col-span-2 lg:border-r border-ainomiq-border",
     },
     {
       id: "7",
@@ -159,19 +159,19 @@ export function AinomiqBento() {
           </div>
         </div>
       ),
-      className: "col-span-1 md:col-span-6 lg:col-span-2 border-gray-100",
+      className: "col-span-1 md:col-span-6 lg:col-span-2 border-ainomiq-border",
     },
   ]
 
   return (
-    <section className="py-20 md:py-28 px-6 bg-white">
+    <section className="py-20 md:py-28 px-6 bg-ainomiq-navy">
       <div className="mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">Everything you need</p>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0f1b2d]">
             One system. Fully automated.
           </h2>
-          <p className="text-gray-500 mt-3 max-w-lg mx-auto">
+          <p className="text-ainomiq-text-subtle mt-3 max-w-lg mx-auto">
             From first click to repeat customer - Ainomiq handles it.
           </p>
         </div>

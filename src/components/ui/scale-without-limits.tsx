@@ -53,16 +53,16 @@ const StatCard = ({ stat, index }: { stat: { icon: React.ReactNode; value: numbe
       onMouseMove={handleMouseMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="relative p-8 rounded-xl bg-slate-50 border border-slate-200 shadow-sm"
+      className="relative p-8 rounded-xl bg-slate-50 border border-ainomiq-border shadow-sm"
     >
       <div style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }} className="flex flex-col h-full">
         <div className="mb-4">{stat.icon}</div>
-        <h2 className="text-4xl md:text-5xl font-bold text-black">
+        <h2 className="text-4xl md:text-5xl font-bold text-ainomiq-text">
           <AnimatedNumber value={stat.value} />
-          <span className="text-3xl text-slate-600">{stat.unit}</span>
+          <span className="text-3xl text-ainomiq-text-muted">{stat.unit}</span>
         </h2>
-        <h3 className="text-lg font-semibold text-slate-800 mt-2">{stat.label}</h3>
-        <p className="text-sm text-slate-600 mt-4 flex-grow">{stat.description}</p>
+        <h3 className="text-lg font-semibold text-ainomiq-text mt-2">{stat.label}</h3>
+        <p className="text-sm text-ainomiq-text-muted mt-4 flex-grow">{stat.description}</p>
       </div>
     </motion.div>
   );
@@ -77,14 +77,14 @@ export function ScaleWithoutLimits() {
   ];
 
   return (
-    <div className="relative w-full bg-white flex flex-col items-center justify-center pt-44 md:pt-52 pb-20 px-8 md:px-16 overflow-hidden">
+    <div className="relative w-full bg-ainomiq-navy flex flex-col items-center justify-center pt-44 md:pt-52 pb-20 px-8 md:px-16 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center text-center mb-8">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeInOut" }}
-          className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-black"
+          className="text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-ainomiq-text"
         >
           Your store runs itself
         </motion.h1>
@@ -93,7 +93,7 @@ export function ScaleWithoutLimits() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
-          className="text-lg text-slate-700 max-w-2xl"
+          className="text-lg text-ainomiq-text-muted max-w-2xl"
         >
           Connect your store. We handle the rest.
         </motion.p>

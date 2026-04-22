@@ -16,7 +16,7 @@ const CLIENTS: { name: string; logo: string }[] = [
 
 export function CustomProjectsHero() {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-ainomiq-navy">
       <div className="mx-auto max-w-5xl">
         <div className="relative flex min-h-[calc(60vh-4rem)] flex-col items-center justify-center gap-5 px-6 pt-32 pb-20">
           <div className="mb-6 inline-flex items-center rounded-full bg-ainomiq-blue-glow px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ainomiq-blue">

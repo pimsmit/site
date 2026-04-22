@@ -9,7 +9,7 @@ export function CustomHero() {
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 pb-16 px-6">
       {/* Ethereal shadow background - ainomiq blue/white */}
-      <div className="absolute inset-0 -z-10 bg-white">
+      <div className="absolute inset-0 -z-10 bg-ainomiq-navy">
         <EtherealShadow
           color="rgba(59, 130, 246, 0.6)"
           animation={{ scale: 100, speed: 90 }}
@@ -48,17 +48,17 @@ export function CustomHero() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 text-gray-900">
+        <h1 className="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 text-ainomiq-text">
           Need a custom solution?
         </h1>
 
         {/* Subtext */}
-        <p className="text-center text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-4">
+        <p className="text-center text-lg md:text-xl text-ainomiq-text-muted max-w-2xl mx-auto mb-4">
           Tell us what you need. We&apos;ll calculate the cost, prepare a project brief, and connect you with a builder.
         </p>
 
         {/* Trust line */}
-        <p className="text-center text-sm text-gray-500 mb-12">
+        <p className="text-center text-sm text-ainomiq-text-subtle mb-12">
           From concept to deployment - transparent pricing, clear timelines.
         </p>
 

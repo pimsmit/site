@@ -49,7 +49,7 @@ export function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="yourstore.com"
-            className="h-14 w-full rounded-full border border-ainomiq-border bg-white pl-12 pr-36 text-base text-ainomiq-text placeholder:text-ainomiq-text-subtle shadow-sm outline-none transition-all focus:border-ainomiq-blue focus:ring-2 focus:ring-ainomiq-blue/20"
+            className="h-14 w-full rounded-full border border-ainomiq-border bg-ainomiq-navy pl-12 pr-36 text-base text-ainomiq-text placeholder:text-ainomiq-text-subtle shadow-sm outline-none transition-all focus:border-ainomiq-blue focus:ring-2 focus:ring-ainomiq-blue/20"
             disabled={isLoading}
             autoFocus
           />

@@ -63,7 +63,7 @@ export function BlogGrid({
                       {post.title}
                     </h3>
                     <div className="flex flex-col gap-3">
-                      <span className="text-base capitalize py-px px-2 rounded-md bg-white/40 w-fit text-white backdrop-blur-md">
+                      <span className="text-base capitalize py-px px-2 rounded-md bg-ainomiq-navy/40 w-fit text-white backdrop-blur-md">
                         {post.category}
                       </span>
                       <div className="flex items-center gap-2">

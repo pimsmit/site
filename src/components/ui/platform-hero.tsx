@@ -124,7 +124,7 @@ export function PlatformHero() {
         <Marquee className="w-full [--duration:50s] [--gap:2rem]">
           {integrations.map((item, index) => (
             <div key={index} className="h-full">
-              <div className="relative flex items-center gap-3 h-full overflow-visible border border-ainomiq-border backdrop-blur-md bg-white rounded-xl mx-2 min-w-[260px]">
+              <div className="relative flex items-center gap-3 h-full overflow-visible border border-ainomiq-border backdrop-blur-md bg-ainomiq-navy rounded-xl mx-2 min-w-[260px]">
                 <div className="flex flex-col px-5 py-4 flex-1">
                   <div className="flex items-center gap-3 mb-1">
                     <div

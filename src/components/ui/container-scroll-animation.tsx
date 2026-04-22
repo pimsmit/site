@@ -117,10 +117,10 @@ function MobilePhoneScroll({
             <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-20 h-5 bg-black rounded-full" />
 
             {/* Screen content */}
-            <div className="absolute inset-0 overflow-hidden rounded-[2.7rem] bg-white">
+            <div className="absolute inset-0 overflow-hidden rounded-[2.7rem] bg-ainomiq-navy">
               {/* Status bar */}
               <div className="absolute top-0 left-0 right-0 h-12 z-20 flex items-end justify-between px-6 pb-1">
-                <span className="text-[10px] font-semibold text-black">9:41</span>
+                <span className="text-[10px] font-semibold text-ainomiq-text">9:41</span>
                 <div className="flex items-center gap-1">
                   <div className="flex gap-0.5 items-end h-3">
                     {[3,4,5,6].map(h => (

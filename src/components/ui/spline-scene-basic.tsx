@@ -34,7 +34,7 @@ function ActivityFeed() {
   return (
     <div className="flex flex-col w-full max-w-full md:max-w-md rounded-2xl overflow-hidden bg-black/40 backdrop-blur-md border border-white/10">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/5">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-ainomiq-navy/5">
         <div>
           <p className="text-white text-sm font-semibold">System Activity</p>
           <p className="text-blue-200 text-xs">Running 24/7</p>
@@ -47,7 +47,7 @@ function ActivityFeed() {
         {visibleActivities.map((activity, i) => (
           <div
             key={i}
-            className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10 animate-fade-in"
+            className="flex items-start gap-3 p-3 rounded-xl bg-ainomiq-navy/5 border border-white/10 animate-fade-in"
             style={{ animationDelay: `${i * 100}ms` }}
           >
             {/* Status indicator */}
@@ -84,7 +84,7 @@ export function SplineSceneBasic() {
   const handleMouseLeave = () => setMousePos(null);
 
   return (
-    <div className="w-full px-4 md:px-8 pt-0 pb-0 bg-white relative">
+    <div className="w-full px-4 md:px-8 pt-0 pb-0 bg-ainomiq-navy relative">
       <div className="max-w-6xl mx-auto">
         {/* Glassy container */}
         <div
@@ -96,7 +96,7 @@ export function SplineSceneBasic() {
           {/* Mouse hover glow */}
           {mousePos && (
             <div
-              className="absolute pointer-events-none z-[1] rounded-full bg-white/15 blur-[60px] transition-opacity duration-300"
+              className="absolute pointer-events-none z-[1] rounded-full bg-ainomiq-navy/15 blur-[60px] transition-opacity duration-300"
               style={{
                 width: 250,
                 height: 250,

@@ -209,7 +209,7 @@ function StepNode({ step, index, isActive, isAnimating, color, glowColor, bgColo
               <step.icon className="w-5 h-5 text-white" />
             </motion.div>
           ) : (
-            <span className="text-sm text-gray-400 font-medium">{index + 1}</span>
+            <span className="text-sm text-ainomiq-text-subtle font-medium">{index + 1}</span>
           )}
         </motion.div>
       </div>
@@ -272,21 +272,21 @@ export function FeaturedModulesScroll() {
   }, [activeModule, runAnimation])
 
   return (
-    <section className="py-20 md:py-32 px-4 md:px-6 bg-white overflow-hidden">
+    <section className="py-20 md:py-32 px-4 md:px-6 bg-ainomiq-navy overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-2xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-3">
+          <h2 className="text-2xl md:text-5xl font-extrabold text-ainomiq-text tracking-tight mb-3">
             See the automation in action.
           </h2>
-          <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto">
+          <p className="text-ainomiq-text-subtle text-base md:text-lg max-w-xl mx-auto">
             Pick a module. Watch it run - from trigger to result.
           </p>
         </div>
 
         {/* Module selector dock - TOP on mobile for easy switching */}
         <div className="flex justify-center mb-10 md:mb-14">
-          <div className="inline-flex items-center gap-1.5 md:gap-2 p-1.5 md:p-2 rounded-2xl bg-gray-50/80 border border-gray-100 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 md:gap-2 p-1.5 md:p-2 rounded-2xl bg-ainomiq-surface border border-ainomiq-border backdrop-blur-sm">
             {modules.map((mod) => {
               const Icon = mod.icon
               const isActive = activeModule === mod.id
@@ -301,8 +301,8 @@ export function FeaturedModulesScroll() {
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     className={`relative w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center transition-all duration-200 border ${
                       isActive
-                        ? "border-gray-200 shadow-lg bg-white"
-                        : "border-transparent bg-white/60 hover:bg-white hover:border-gray-200 hover:shadow-md"
+                        ? "border-ainomiq-border shadow-lg bg-ainomiq-navy"
+                        : "border-transparent bg-ainomiq-navy/60 hover:bg-ainomiq-navy hover:border-ainomiq-border hover:shadow-md"
                     }`}
                     style={isActive ? { boxShadow: `0 8px 24px rgba(${mod.glowColor}, 0.2)` } : {}}
                   >

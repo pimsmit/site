@@ -84,7 +84,7 @@ const demos = [
     rating: 4.9,
     tags: ["Enterprise", "Custom build", "End-to-end"],
     color: "bg-slate-50",
-    iconColor: "text-slate-600",
+    iconColor: "text-ainomiq-text-muted",
     featured: false,
     plan: "Enterprise",
   },
@@ -131,16 +131,16 @@ export default function DemosPage() {
             .map((demo) => (
               <Card
                 key={demo.title}
-                className="border-ainomiq-border bg-white hover:border-ainomiq-border-hover transition-all group overflow-hidden"
+                className="border-ainomiq-border bg-ainomiq-navy hover:border-ainomiq-border-hover transition-all group overflow-hidden"
               >
                 {/* Video placeholder */}
                 <div
                   className={`relative h-52 ${demo.color} flex items-center justify-center`}
                 >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg group-hover:scale-110 transition-transform">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ainomiq-navy/90 shadow-lg group-hover:scale-110 transition-transform">
                     <Play className="h-7 w-7 text-ainomiq-blue ml-1" />
                   </div>
-                  <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-ainomiq-text-muted">
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-ainomiq-navy/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-ainomiq-text-muted">
                     <Clock className="h-3 w-3" />
                     {demo.duration}
                   </div>
@@ -190,7 +190,7 @@ export default function DemosPage() {
           {demos.map((demo) => (
             <Card
               key={demo.title}
-              className="border-ainomiq-border bg-white hover:border-ainomiq-border-hover transition-all group"
+              className="border-ainomiq-border bg-ainomiq-navy hover:border-ainomiq-border-hover transition-all group"
             >
               <CardContent className="p-6 flex items-start gap-5">
                 <div
@@ -206,7 +206,7 @@ export default function DemosPage() {
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                       demo.plan === "App"
                         ? "bg-ainomiq-blue-glow text-ainomiq-blue"
-                        : "bg-slate-100 text-slate-600"
+                        : "bg-slate-100 text-ainomiq-text-muted"
                     }`}>
                       {demo.plan}
                     </span>
@@ -247,7 +247,7 @@ export default function DemosPage() {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text px-8 h-12"
+              className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-ainomiq-navy text-ainomiq-text px-8 h-12"
             >
               <Link href="/contact">
                 Book a call <ArrowRight className="ml-2 h-4 w-4" />

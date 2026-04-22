@@ -176,7 +176,7 @@ export function Features() {
                                     <div className={`rounded-xl p-3 text-xs max-w-[85%] ${
                                         msg.role === 'user'
                                             ? 'bg-ainomiq-blue text-white'
-                                            : 'bg-white border border-ainomiq-border text-ainomiq-text'
+                                            : 'bg-ainomiq-navy border border-ainomiq-border text-ainomiq-text'
                                     }`}>
                                         {msg.parts?.filter((p: any) => p.type === 'text').map((p: any, i: number) => (
                                             <span key={i}>{p.text}</span>
@@ -185,12 +185,12 @@ export function Features() {
                                 </div>
                             ))}
                             {status === 'submitted' && (
-                                <div className="rounded-xl bg-white border border-ainomiq-border p-3 text-xs text-ainomiq-text-muted italic">
+                                <div className="rounded-xl bg-ainomiq-navy border border-ainomiq-border p-3 text-xs text-ainomiq-text-muted italic">
                                     Typing...
                                 </div>
                             )}
                             {error && (
-                                <div className="rounded-xl bg-white border border-ainomiq-border p-3 text-xs text-red-500">
+                                <div className="rounded-xl bg-ainomiq-navy border border-ainomiq-border p-3 text-xs text-red-500">
                                     Something went wrong. Please try again.
                                 </div>
                             )}
@@ -200,7 +200,7 @@ export function Features() {
                                 value={chatInput}
                                 onChange={(e) => setChatInput(e.target.value)}
                                 placeholder="Ask a question..."
-                                className="flex-1 rounded-xl border border-ainomiq-border bg-white px-3 py-2 text-xs text-ainomiq-text placeholder:text-ainomiq-text-muted focus:outline-none focus:ring-1 focus:ring-ainomiq-blue"
+                                className="flex-1 rounded-xl border border-ainomiq-border bg-ainomiq-navy px-3 py-2 text-xs text-ainomiq-text placeholder:text-ainomiq-text-muted focus:outline-none focus:ring-1 focus:ring-ainomiq-blue"
                             />
                             <button
                                 type="submit"
@@ -421,7 +421,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     const before = payload.find((p: any) => p.dataKey === 'before')?.value
     const after = payload.find((p: any) => p.dataKey === 'after')?.value
     return (
-        <div className="rounded-lg border border-ainomiq-border bg-white px-3 py-2 text-xs shadow-lg">
+        <div className="rounded-lg border border-ainomiq-border bg-ainomiq-navy px-3 py-2 text-xs shadow-lg">
             <p className="font-medium text-ainomiq-text mb-1.5">{label}</p>
             <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">

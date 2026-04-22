@@ -252,7 +252,7 @@ export function GetStartedWizard() {
   return (
     <section className="relative overflow-hidden">
       {/* Animated beams background */}
-      <div className="absolute inset-0 -z-10 bg-white">
+      <div className="absolute inset-0 -z-10 bg-ainomiq-navy">
         <canvas
           ref={canvasRef}
           className="absolute inset-0"

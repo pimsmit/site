@@ -27,7 +27,7 @@ const legal = [
 // Inline SVG payment icons — consistent pill cards
 const PaymentIcons = () => (
   <div className="flex items-center justify-center gap-1.5 flex-wrap">
-    <div className="h-7 px-2 rounded bg-white border border-gray-200 flex items-center justify-center">
+    <div className="h-7 px-2 rounded bg-ainomiq-navy border border-ainomiq-border flex items-center justify-center">
       <svg viewBox="0 0 50 16" height="12" xmlns="http://www.w3.org/2000/svg">
         <text x="0" y="13" fill="#1A1F71" fontSize="16" fontWeight="900" fontFamily="Arial, sans-serif" letterSpacing="-0.5">VISA</text>
       </svg>
@@ -56,7 +56,7 @@ const PaymentIcons = () => (
         <path d="M20 3.5v12h1.9V10.5h2.6c2.4 0 4-1.6 4-4s-1.6-3.9-4-3.9H20zm1.9 1.7h2.2c1.6 0 2.5.9 2.5 2.2s-.9 2.2-2.5 2.2h-2.2V5.2zm8.9 10.3c1.2 0 2.3-.6 2.8-1.5v1.4h1.7V9.3c0-1.7-1.4-2.8-3.5-2.8-2 0-3.4 1.1-3.5 2.7h1.7c.1-.8.8-1.3 1.7-1.3 1.1 0 1.7.5 1.7 1.4v.6l-2.3.2c-2 .1-3.2 1-3.2 2.5 0 1.6 1.2 2.6 2.9 2.6zm.5-1.4c-.9 0-1.6-.5-1.6-1.2 0-.8.6-1.2 1.7-1.3l2-.2v.7c0 1.1-1 2-2.1 2zm6 5c1.8 0 2.6-.7 3.3-2.7l3.2-8.9h-1.9l-2 6.5-2.1-6.5h-2l3.1 8.5-.2.5c-.3.8-.7 1.2-1.5 1.2h-.9v1.4h1z"/>
       </svg>
     </div>
-    <div className="h-7 px-2 rounded bg-white border border-gray-200 flex items-center justify-center">
+    <div className="h-7 px-2 rounded bg-ainomiq-navy border border-ainomiq-border flex items-center justify-center">
       <svg viewBox="0 0 50 20" height="14" xmlns="http://www.w3.org/2000/svg">
         <path d="M23.5 9.8c0-.5 0-.9-.1-1.3h-6v2.5h3.4c-.1.8-.6 1.5-1.3 2v1.6h2c1.2-1.1 1.9-2.6 1.9-4.4l.1-.4z" fill="#4285F4"/>
         <path d="M17.4 15c1.7 0 3.2-.6 4.2-1.5l-2-1.6c-.6.4-1.3.6-2.2.6-1.7 0-3.1-1.1-3.6-2.6h-2.1v1.7c1 2.1 3.2 3.4 5.7 3.4z" fill="#34A853"/>
@@ -65,7 +65,7 @@ const PaymentIcons = () => (
         <text x="27" y="14" fill="#3C4043" fontSize="10" fontWeight="500" fontFamily="Arial, sans-serif">Pay</text>
       </svg>
     </div>
-    <div className="h-7 px-2 rounded bg-white border border-gray-200 flex items-center justify-center">
+    <div className="h-7 px-2 rounded bg-ainomiq-navy border border-ainomiq-border flex items-center justify-center">
       <svg viewBox="0 0 44 16" height="12" xmlns="http://www.w3.org/2000/svg">
         <text x="0" y="13" fill="#CC0066" fontSize="14" fontWeight="900" fontFamily="Arial, sans-serif">iDEAL</text>
       </svg>

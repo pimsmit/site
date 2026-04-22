@@ -87,9 +87,9 @@ function statusBadgeClass(status: string): string {
     case "delivered":
       return "border-emerald-500/30 bg-emerald-500/10 text-emerald-300";
     case "paid":
-      return "border-gray-500/30 bg-gray-500/10 text-gray-300";
+      return "border-gray-500/30 bg-ainomiq-surface0/10 text-ainomiq-text-subtle";
     default:
-      return "border-[#1e293b] bg-[#1e293b]/50 text-gray-300";
+      return "border-[#1e293b] bg-[#1e293b]/50 text-ainomiq-text-subtle";
   }
 }
 
@@ -281,14 +281,14 @@ export default function AdminProjectsPage() {
             </div>
             <div>
               <h1 className="text-2xl font-semibold">Admin Projects</h1>
-              <p className="text-sm text-gray-400">Enter the admin password to review requests.</p>
+              <p className="text-sm text-ainomiq-text-subtle">Enter the admin password to review requests.</p>
             </div>
           </div>
           <input
             type="password"
             value={passwordInput}
             onChange={(event) => setPasswordInput(event.target.value)}
-            className="w-full rounded-xl border border-[#1e293b] bg-[#1e293b]/50 px-4 py-3 text-white placeholder:text-gray-500 focus:border-[#4A90F5] focus:outline-none focus:ring-1 focus:ring-[#4A90F5]"
+            className="w-full rounded-xl border border-[#1e293b] bg-[#1e293b]/50 px-4 py-3 text-white placeholder:text-ainomiq-text-subtle focus:border-[#4A90F5] focus:outline-none focus:ring-1 focus:ring-[#4A90F5]"
             placeholder="Admin password"
           />
           {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
@@ -311,7 +311,7 @@ export default function AdminProjectsPage() {
           <div>
             <p className="text-sm uppercase tracking-[0.24em] text-[#4A90F5]">Admin Review</p>
             <h1 className="mt-2 text-3xl font-semibold">Project submissions</h1>
-            <p className="mt-2 text-gray-400">Newest requests first. Save edits before publishing to Discord.</p>
+            <p className="mt-2 text-ainomiq-text-subtle">Newest requests first. Save edits before publishing to Discord.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {FILTERS.map((item) => (
@@ -322,7 +322,7 @@ export default function AdminProjectsPage() {
                 className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                   filter === item.id
                     ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5]"
-                    : "border-[#1e293b] bg-[#1e293b]/40 text-gray-300 hover:border-[#4A90F5]/40"
+                    : "border-[#1e293b] bg-[#1e293b]/40 text-ainomiq-text-subtle hover:border-[#4A90F5]/40"
                 }`}
               >
                 {item.label}
@@ -334,11 +334,11 @@ export default function AdminProjectsPage() {
         {error && <div className="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">{error}</div>}
 
         {loading ? (
-          <div className="flex items-center justify-center py-24 text-gray-400">
+          <div className="flex items-center justify-center py-24 text-ainomiq-text-subtle">
             <Loader2 className="mr-3 h-5 w-5 animate-spin" /> Loading projects…
           </div>
         ) : filteredProjects.length === 0 ? (
-          <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-10 text-center text-gray-400">
+          <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-10 text-center text-ainomiq-text-subtle">
             No projects in this filter.
           </div>
         ) : (
@@ -356,19 +356,19 @@ export default function AdminProjectsPage() {
                   <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     <div className="flex-1 space-y-4">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="rounded-full border border-[#1e293b] bg-[#1e293b]/50 px-3 py-1 text-xs text-gray-300">
+                        <span className="rounded-full border border-[#1e293b] bg-[#1e293b]/50 px-3 py-1 text-xs text-ainomiq-text-subtle">
                           {project.id}
                         </span>
                         <span className={`rounded-full border px-3 py-1 text-xs font-medium capitalize ${statusBadgeClass(project.status)}`}>
                           {project.status.replace("_", " ")}
                         </span>
-                        <span className="text-sm text-gray-500">{new Date(project.createdAt).toLocaleString()}</span>
+                        <span className="text-sm text-ainomiq-text-subtle">{new Date(project.createdAt).toLocaleString()}</span>
                       </div>
 
                       <div className="grid gap-4 lg:grid-cols-2">
                         <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4">
                           <p className="mb-3 text-sm font-medium text-white">Client details</p>
-                          <div className="space-y-2 text-sm text-gray-300">
+                          <div className="space-y-2 text-sm text-ainomiq-text-subtle">
                             <p className="flex items-center gap-2"><User className="h-4 w-4 text-[#4A90F5]" /> {project.company} · {project.contact}</p>
                             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-[#4A90F5]" /> {project.email}</p>
                             <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#4A90F5]" /> {project.phone || "No phone"}</p>
@@ -377,7 +377,7 @@ export default function AdminProjectsPage() {
 
                         <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4">
                           <p className="mb-3 text-sm font-medium text-white">Project details</p>
-                          <div className="space-y-2 text-sm text-gray-300">
+                          <div className="space-y-2 text-sm text-ainomiq-text-subtle">
                             <p>{project.projectType}</p>
                             <p>{project.timeline}</p>
                             <p className="flex items-center gap-2"><Euro className="h-4 w-4 text-[#4A90F5]" /> {project.budget || "TBD"} {project.estimateTotal ? `(${formatEuro(project.estimateTotal)} est.)` : ""}</p>
@@ -387,7 +387,7 @@ export default function AdminProjectsPage() {
                       </div>
 
                       <div className="grid gap-4 lg:grid-cols-3">
-                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-gray-300">
+                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-ainomiq-text-subtle">
                           <p className="mb-2 font-medium text-white">Files</p>
                           {project.files.length > 0 ? (
                             <div className="space-y-2">
@@ -401,14 +401,14 @@ export default function AdminProjectsPage() {
                             <p>No files uploaded</p>
                           )}
                         </div>
-                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-gray-300">
+                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-ainomiq-text-subtle">
                           <p className="mb-2 font-medium text-white">Scope notes</p>
                           <p>Target audience: {project.targetAudience || "N/A"}</p>
                           <p>Existing URL: {project.existingUrl || "N/A"}</p>
                           <p>Credentials needed: {project.needsCredentials ? "Yes" : "No"}</p>
                           <p>Stack: {project.techStack.join(", ") || "N/A"}</p>
                         </div>
-                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-gray-300">
+                        <div className="rounded-xl border border-[#1e293b] bg-[#1e293b]/20 p-4 text-sm text-ainomiq-text-subtle">
                           <p className="mb-2 font-medium text-white">Commercials</p>
                           <p>Builder fee: {draft.builderFee || split.builderFeeLabel}</p>
                           <p>Margin: {split.marginLabel}</p>
@@ -420,7 +420,7 @@ export default function AdminProjectsPage() {
                     <button
                       type="button"
                       onClick={() => setExpanded((current) => ({ ...current, [project.id]: !isExpanded }))}
-                      className="flex items-center gap-2 self-start rounded-xl border border-[#1e293b] bg-[#1e293b]/40 px-4 py-2 text-sm text-gray-300 transition-colors hover:border-[#4A90F5]/40"
+                      className="flex items-center gap-2 self-start rounded-xl border border-[#1e293b] bg-[#1e293b]/40 px-4 py-2 text-sm text-ainomiq-text-subtle transition-colors hover:border-[#4A90F5]/40"
                     >
                       {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                       {isExpanded ? "Hide editor" : "Edit project"}
@@ -431,7 +431,7 @@ export default function AdminProjectsPage() {
                     <div className="mt-6 border-t border-[#1e293b] pt-6">
                       <div className="grid gap-4 lg:grid-cols-2">
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Project title</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Project title</label>
                           <input
                             type="text"
                             value={draft.adminTitle}
@@ -440,7 +440,7 @@ export default function AdminProjectsPage() {
                           />
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Repo link</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Repo link</label>
                           <input
                             type="text"
                             value={draft.adminRepoLink}
@@ -451,7 +451,7 @@ export default function AdminProjectsPage() {
                       </div>
 
                       <div className="mt-4">
-                        <label className="mb-2 block text-sm text-gray-300">Detailed brief</label>
+                        <label className="mb-2 block text-sm text-ainomiq-text-subtle">Detailed brief</label>
                         <textarea
                           value={draft.adminBrief}
                           onChange={(event) => updateDraft(project.id, (state) => ({ ...state, adminBrief: event.target.value }))}
@@ -460,7 +460,7 @@ export default function AdminProjectsPage() {
                       </div>
 
                       <div className="mt-4">
-                        <label className="mb-2 block text-sm text-gray-300">Deliverables</label>
+                        <label className="mb-2 block text-sm text-ainomiq-text-subtle">Deliverables</label>
                         <div className="space-y-2">
                           {draft.adminDeliverables.map((deliverable, index) => (
                             <div key={`${project.id}-deliverable-${index}`} className="flex gap-2">
@@ -488,7 +488,7 @@ export default function AdminProjectsPage() {
                                         : [""],
                                   }))
                                 }
-                                className="rounded-xl border border-[#1e293b] px-4 text-sm text-gray-300 transition-colors hover:border-red-500/40 hover:text-red-300"
+                                className="rounded-xl border border-[#1e293b] px-4 text-sm text-ainomiq-text-subtle transition-colors hover:border-red-500/40 hover:text-red-300"
                               >
                                 Remove
                               </button>
@@ -502,7 +502,7 @@ export default function AdminProjectsPage() {
                                 adminDeliverables: [...state.adminDeliverables, ""],
                               }))
                             }
-                            className="rounded-xl border border-[#1e293b] px-4 py-2 text-sm text-gray-300 transition-colors hover:border-[#4A90F5]/40"
+                            className="rounded-xl border border-[#1e293b] px-4 py-2 text-sm text-ainomiq-text-subtle transition-colors hover:border-[#4A90F5]/40"
                           >
                             Add deliverable
                           </button>
@@ -511,7 +511,7 @@ export default function AdminProjectsPage() {
 
                       <div className="mt-4 grid gap-4 lg:grid-cols-2">
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Tech requirements</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Tech requirements</label>
                           <textarea
                             value={draft.adminTechRequirements}
                             onChange={(event) => updateDraft(project.id, (state) => ({ ...state, adminTechRequirements: event.target.value }))}
@@ -519,7 +519,7 @@ export default function AdminProjectsPage() {
                           />
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Design assets link</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Design assets link</label>
                           <input
                             type="text"
                             value={draft.adminDesignAssetsLink}
@@ -531,7 +531,7 @@ export default function AdminProjectsPage() {
 
                       <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Builder fee</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Builder fee</label>
                           <input
                             type="text"
                             value={draft.builderFee}
@@ -540,7 +540,7 @@ export default function AdminProjectsPage() {
                           />
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Deadline</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Deadline</label>
                           <input
                             type="date"
                             value={draft.deadline}
@@ -549,7 +549,7 @@ export default function AdminProjectsPage() {
                           />
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Status</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Status</label>
                           <select
                             value={draft.status}
                             onChange={(event) => updateDraft(project.id, (state) => ({ ...state, status: event.target.value }))}
@@ -563,7 +563,7 @@ export default function AdminProjectsPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Difficulty</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Difficulty</label>
                           <select
                             value={draft.difficulty}
                             onChange={(event) => updateDraft(project.id, (state) => ({ ...state, difficulty: event.target.value }))}
@@ -577,7 +577,7 @@ export default function AdminProjectsPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Priority</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Priority</label>
                           <select
                             value={draft.priority}
                             onChange={(event) => updateDraft(project.id, (state) => ({ ...state, priority: event.target.value }))}
@@ -591,7 +591,7 @@ export default function AdminProjectsPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="mb-2 block text-sm text-gray-300">Project folder</label>
+                          <label className="mb-2 block text-sm text-ainomiq-text-subtle">Project folder</label>
                           <input
                             type="text"
                             value={draft.driveFolderUrl}
@@ -625,7 +625,7 @@ export default function AdminProjectsPage() {
                             href={project.adminDesignAssetsLink}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-2 rounded-xl border border-[#1e293b] px-5 py-3 text-sm text-gray-300 transition-colors hover:border-[#4A90F5]/40"
+                            className="flex items-center gap-2 rounded-xl border border-[#1e293b] px-5 py-3 text-sm text-ainomiq-text-subtle transition-colors hover:border-[#4A90F5]/40"
                           >
                             <Folder className="h-4 w-4" /> Open assets
                           </a>

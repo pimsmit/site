@@ -144,7 +144,7 @@ export default function HomePage() {
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded-full border-white/30 hover:border-white/60 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 ml-6 shrink-0"
+                    className="rounded-full border-white/30 hover:border-white/60 bg-ainomiq-navy/10 backdrop-blur-sm text-white hover:bg-ainomiq-navy/20 ml-6 shrink-0"
                   >
                     <Link href="/about">
                       Read more <ArrowRight className="ml-2 h-4 w-4" />
@@ -163,7 +163,7 @@ export default function HomePage() {
               <Button
                 asChild
                 variant="outline"
-                className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
+                className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-ainomiq-navy text-ainomiq-text"
               >
                 <Link href="/about">
                   Read more <ArrowRight className="ml-2 h-4 w-4" />
@@ -284,7 +284,7 @@ export default function HomePage() {
           {features.map((feature) => (
             <Card
               key={feature.title}
-              className="bg-white border-ainomiq-border hover:border-ainomiq-border-hover transition-all group hover:-translate-y-1"
+              className="bg-ainomiq-navy border-ainomiq-border hover:border-ainomiq-border-hover transition-all group hover:-translate-y-1"
             >
               <CardContent className="p-8">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
@@ -302,7 +302,7 @@ export default function HomePage() {
           <Button
             asChild
             variant="outline"
-            className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-white text-ainomiq-text"
+            className="rounded-full border-ainomiq-border hover:border-ainomiq-border-hover bg-ainomiq-navy text-ainomiq-text"
           >
             <Link href="/ecommerce">
               View full app <ArrowRight className="ml-2 h-4 w-4" />
@@ -323,7 +323,7 @@ export default function HomePage() {
           {pricingPlans.map((plan) => (
             <Card
               key={plan.name}
-              className={`border-ainomiq-border bg-white ${
+              className={`border-ainomiq-border bg-ainomiq-navy ${
                 plan.featured ? "ring-2 ring-ainomiq-blue" : ""
               }`}
             >

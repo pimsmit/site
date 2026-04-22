@@ -47,7 +47,7 @@ export function ContactForm() {
   }
 
   return (
-    <Card className="bg-white border-ainomiq-border">
+    <Card className="bg-ainomiq-navy border-ainomiq-border">
       <CardContent className="p-8 md:p-10">
         {success ? (
           <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
@@ -72,7 +72,7 @@ export function ContactForm() {
                   name="name"
                   placeholder="Your full name"
                   required
-                  className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                  className="bg-ainomiq-navy border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                 />
               </div>
               <div>
@@ -88,7 +88,7 @@ export function ContactForm() {
                   type="email"
                   placeholder="name@company.com"
                   required
-                  className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                  className="bg-ainomiq-navy border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                 />
               </div>
             </div>
@@ -105,7 +105,7 @@ export function ContactForm() {
                   id="company"
                   name="company"
                   placeholder="Company name"
-                  className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                  className="bg-ainomiq-navy border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                 />
               </div>
               <div>
@@ -120,7 +120,7 @@ export function ContactForm() {
                   name="phone"
                   type="tel"
                   placeholder="+31 6 00000000"
-                  className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
+                  className="bg-ainomiq-navy border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export function ContactForm() {
                 placeholder="Tell us about your project or question..."
                 rows={6}
                 required
-                className="bg-white border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue resize-none"
+                className="bg-ainomiq-navy border-ainomiq-border text-ainomiq-text placeholder:text-ainomiq-text-subtle focus-visible:ring-ainomiq-blue resize-none"
               />
             </div>
 

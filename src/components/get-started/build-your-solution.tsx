@@ -96,7 +96,7 @@ export function BuildYourSolution() {
         </div>
 
         {/* Split: code left, robot right */}
-        <div className="flex flex-col md:flex-row items-stretch gap-0 rounded-3xl overflow-hidden shadow-2xl border border-gray-200/60">
+        <div className="flex flex-col md:flex-row items-stretch gap-0 rounded-3xl overflow-hidden shadow-2xl border border-ainomiq-border/60">
           {/* LEFT - Code editor */}
           <div className="flex-1 bg-[#0a0a0b] p-0">
             {/* Title bar */}
@@ -135,9 +135,9 @@ export function BuildYourSolution() {
           {/* RIGHT - Spline robot */}
           <div className="flex-1 relative min-h-[380px] md:min-h-[460px] bg-gradient-to-br from-blue-50 via-white to-blue-100/50">
             {/* Status badge */}
-            <div className="absolute top-5 right-5 z-10 flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-sm border border-gray-200/60">
+            <div className="absolute top-5 right-5 z-10 flex items-center gap-2 bg-ainomiq-navy/80 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-sm border border-ainomiq-border/60">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs font-medium text-gray-600">Building...</span>
+              <span className="text-xs font-medium text-ainomiq-text-muted">Building...</span>
             </div>
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"

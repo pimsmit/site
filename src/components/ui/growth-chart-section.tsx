@@ -4,13 +4,13 @@ import { AnimatedLineChart } from "@/components/ui/animated-line-chart";
 
 export function GrowthChartSection() {
   return (
-    <section className="py-10 md:py-16 px-6 bg-white">
+    <section className="py-10 md:py-16 px-6 bg-ainomiq-navy">
       <div className="mx-auto max-w-4xl">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#0f1b2d]">
             What consistent automation looks like.
           </h2>
-          <p className="text-gray-400 mt-2 text-sm max-w-md mx-auto">
+          <p className="text-ainomiq-text-subtle mt-2 text-sm max-w-md mx-auto">
             Erratic performance before. Steady growth after.
           </p>
         </div>
@@ -18,7 +18,7 @@ export function GrowthChartSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Before */}
           <div
-            className="rounded-2xl overflow-hidden border border-gray-100 bg-white p-4"
+            className="rounded-2xl overflow-hidden border border-ainomiq-border bg-ainomiq-navy p-4"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}
           >
             <p className="text-xs font-semibold text-red-400 uppercase tracking-widest mb-3 text-center">
@@ -39,7 +39,7 @@ export function GrowthChartSection() {
 
           {/* After */}
           <div
-            className="rounded-2xl overflow-hidden border border-gray-100 bg-white p-4"
+            className="rounded-2xl overflow-hidden border border-ainomiq-border bg-ainomiq-navy p-4"
             style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}
           >
             <p className="text-xs font-semibold text-[#0f1b2d] uppercase tracking-widest mb-3 text-center">
