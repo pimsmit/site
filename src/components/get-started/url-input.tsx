@@ -73,6 +73,23 @@ export function UrlInput({ onSubmit, isLoading }: UrlInputProps) {
       <p className="text-xs text-ainomiq-text-subtle">
         We&apos;ll scan your site for technology stack, tools, and integrations.
       </p>
+
+      <div className="flex items-center gap-3 mt-2">
+        <a
+          href="https://app.ainomiq.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border border-ainomiq-border bg-ainomiq-navy px-5 py-2.5 text-sm font-medium text-ainomiq-text hover:border-ainomiq-border-hover hover:bg-ainomiq-navy-light transition-all"
+        >
+          Open app
+        </a>
+        <a
+          href="/contact"
+          className="inline-flex items-center gap-2 rounded-full bg-ainomiq-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-ainomiq-blue-hover transition-all"
+        >
+          Contact sales
+        </a>
+      </div>
     </motion.div>
   );
 }
