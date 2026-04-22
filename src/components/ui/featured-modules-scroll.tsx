@@ -258,8 +258,27 @@ export function FeaturedModulesScroll() {
     const mod = getModuleFromHash()
     setActiveModule(mod)
 
+    // If there's a hash that maps to a module, scroll to this section
+    if (window.location.hash) {
+      const hash = window.location.hash.replace("#", "")
+      const scrollToAnchor = (attempt = 0) => {
+        const anchor = document.getElementById(hash)
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" })
+        } else if (attempt < 5) {
+          setTimeout(() => scrollToAnchor(attempt + 1), 200)
+        }
+      }
+      setTimeout(() => scrollToAnchor(), 300)
+    }
+
     const onHashChange = () => {
-      setActiveModule(getModuleFromHash())
+      const updated = getModuleFromHash()
+      setActiveModule(updated)
+      // Scroll to section on hash change
+      const hash = window.location.hash.replace("#", "")
+      const anchor = document.getElementById(hash)
+      if (anchor) anchor.scrollIntoView({ behavior: "smooth", block: "start" })
     }
     // hashchange fires when hash changes on same page
     // popstate fires on Next.js router navigations
