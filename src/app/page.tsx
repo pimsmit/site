@@ -227,51 +227,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Why Us */}
-      <Section label="Why ainomiq">
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-          What makes us different
-        </h2>
-        <p className="text-ainomiq-text-muted text-lg max-w-xl mb-16">
-          Not a consultancy that writes reports. We build automation that runs.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            {
-              icon: Zap,
-              title: "Always the latest technology",
-              body: "We run on the newest models and frameworks. What was cutting-edge yesterday is our baseline today.",
-            },
-            {
-              icon: Clock,
-              title: "Live within 2 weeks",
-              body: "No months-long projects. We analyze, build, and implement. Results from day one.",
-            },
-            {
-              icon: Shield,
-              title: "No legacy, no baggage",
-              body: "Every solution is built with tomorrow's technology. No outdated systems, no assumptions.",
-            },
-          ].map((item) => (
-            <Card
-              key={item.title}
-              className="bg-ainomiq-surface border-ainomiq-border hover:border-ainomiq-border-hover transition-colors group"
-            >
-              <CardContent className="p-8">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-ainomiq-blue-glow">
-                  <item.icon className="h-6 w-6 text-ainomiq-blue" />
-                </div>
-                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                <p className="text-sm text-ainomiq-text-muted leading-relaxed">
-                  {item.body}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
       {/* Why we're different — CTA strip above footer */}
       <section className="border-t border-ainomiq-border bg-ainomiq-navy">
         <div className="mx-auto max-w-6xl px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
