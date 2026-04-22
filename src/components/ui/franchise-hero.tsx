@@ -8,7 +8,7 @@ import { FranchiseDashboard } from '@/components/ui/franchise-dashboard';
 
 function MobileDashboard() {
   return (
-    <div className="p-4 pt-20 space-y-3 text-white">
+    <div className="p-4 pt-24 space-y-3 text-white">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-1">
