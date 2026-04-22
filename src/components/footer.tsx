@@ -110,9 +110,9 @@ export function Footer() {
               <Icon icon={p.icon} className="h-4 w-auto max-w-[28px]" />
             </div>
           ))}
-          <div title="iDEAL" className="flex h-7 w-12 items-center justify-center rounded border border-ainomiq-border bg-white overflow-hidden">
+          <div title="iDEAL" className="flex h-7 items-center justify-center rounded border border-ainomiq-border bg-white overflow-hidden px-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/payment/ideal.png" alt="iDEAL" className="h-5 w-auto object-contain" />
+            <img src="/payment/ideal.png" alt="iDEAL" className="h-6 w-auto object-contain" />
           </div>
         </div>
 
