@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { Icon } from "@iconify/react";
 import { LogoMark } from "@/components/logo";
 import { ArrowUp } from "lucide-react";
 
@@ -49,15 +49,14 @@ const socials = [
 ];
 
 const paymentIcons = [
-  { src: "/payment-icons/visa.svg", alt: "Visa" },
-  { src: "/payment-icons/mastercard.svg", alt: "Mastercard" },
-  { src: "/payment-icons/amex.svg", alt: "American Express" },
-  { src: "/payment-icons/paypal.svg", alt: "PayPal" },
-  { src: "/payment-icons/apple-pay.svg", alt: "Apple Pay" },
-  { src: "/payment-icons/google-pay.svg", alt: "Google Pay" },
-  { src: "/payment-icons/ideal.svg", alt: "iDEAL" },
-  { src: "/payment-icons/klarna.svg", alt: "Klarna" },
-  { src: "/payment-icons/bancontact.svg", alt: "Bancontact" },
+  { icon: "logos:visa", label: "Visa" },
+  { icon: "logos:mastercard", label: "Mastercard" },
+  { icon: "logos:amex", label: "American Express" },
+  { icon: "logos:paypal", label: "PayPal" },
+  { icon: "logos:apple-pay", label: "Apple Pay" },
+  { icon: "logos:google-pay", label: "Google Pay" },
+  { icon: "logos:ideal", label: "iDEAL" },
+  { icon: "logos:klarna", label: "Klarna" },
 ];
 
 export function Footer() {
@@ -104,18 +103,12 @@ export function Footer() {
 
         {/* Payment icons */}
         <div className="flex flex-wrap items-center justify-center gap-2 py-6">
-          {paymentIcons.map((icon) => (
+          {paymentIcons.map((p) => (
             <div
-              key={icon.alt}
-              className="flex h-8 w-14 items-center justify-center rounded-md border border-ainomiq-border bg-ainomiq-navy-light overflow-hidden"
+              key={p.label}
+              className="flex h-8 w-14 items-center justify-center rounded-md border border-ainomiq-border bg-ainomiq-navy-light"
             >
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={48}
-                height={28}
-                className="h-5 w-auto object-contain"
-              />
+              <Icon icon={p.icon} className="h-5 w-auto" />
             </div>
           ))}
         </div>
