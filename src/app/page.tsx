@@ -233,7 +233,7 @@ export default function HomePage() {
         <FeatureCarousel />
       </section>
       {/* Why we're different - CTA strip above footer */}
-      <section className="border-t border-ainomiq-border bg-ainomiq-navy">
+      <section className="bg-ainomiq-navy">
         <div className="mx-auto max-w-6xl px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block rounded-full border border-ainomiq-border px-3 py-1 text-xs font-semibold text-ainomiq-text-subtle uppercase tracking-wider mb-6">
