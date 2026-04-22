@@ -82,6 +82,20 @@ export function Footer() {
             <p className="text-sm text-ainomiq-text-muted leading-relaxed max-w-xs">
               Automation that works. Built for businesses that want to move forward.
             </p>
+            <div className="flex items-center gap-2 mt-4">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-ainomiq-border text-ainomiq-text-subtle hover:text-ainomiq-text hover:border-ainomiq-border-hover transition-colors"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
           {nav.map((col) => (
             <div key={col.title}>
@@ -115,20 +129,6 @@ export function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/payment/ideal.png" alt="iDEAL" className="h-6 w-auto object-contain" />
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                aria-label={s.label}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
-                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="flex h-7 w-7 items-center justify-center rounded-full border border-ainomiq-border text-ainomiq-text-subtle hover:text-ainomiq-text hover:border-ainomiq-border-hover transition-colors"
-              >
-                {s.icon}
-              </a>
-            ))}
           </div>
           {/* App store badges */}
           <div className="flex items-center gap-2">
