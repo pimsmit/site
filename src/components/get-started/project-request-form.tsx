@@ -362,8 +362,8 @@ export function ProjectRequestForm() {
     setStep(newStep);
     setErrors([]);
     
-    // Scroll to top of page on step change so user always starts at top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to the form section (not top of page)
+    document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function resetForm() {
