@@ -83,7 +83,12 @@ const modules: ModuleFlow[] = [
   },
 ]
 
-// Animated particle that flows through the pipeline
+const moduleDescriptions: Record<string, string> = {
+  cs: "24/7 autonomous support that resolves tickets before your team wakes up.",
+  inventory: "Predict demand, prevent stockouts, and auto-reorder - fully automated.",
+  email: "Welcome flows, abandoned cart, win-back - automated and personalized.",
+  performance: "Revenue, profit, ROAS, and ad spend in one dashboard. Real-time.",
+}
 function FlowParticle({ color, glowColor, progress, isVertical }: {
   color: string; glowColor: string; progress: number; isVertical: boolean
 }) {
@@ -506,8 +511,27 @@ export function FeaturedModulesScroll() {
           </motion.div>
         </AnimatePresence>
 
+        {/* Module label + description */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeModule + "-label"}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="text-center mt-10 md:mt-14 mb-4"
+          >
+            <h3 className="text-lg md:text-2xl font-bold text-ainomiq-text tracking-tight">
+              {current.name}
+            </h3>
+            <p className="text-ainomiq-text-subtle text-sm md:text-base mt-1 max-w-sm mx-auto">
+              {moduleDescriptions[current.id]}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
         {/* Module selector dock - BOTTOM */}
-        <div className="flex justify-center mt-10 md:mt-14">
+        <div className="flex justify-center mt-4">
           <div className="inline-flex items-center gap-1.5 md:gap-2 p-1.5 md:p-2 rounded-2xl bg-ainomiq-surface border border-ainomiq-border backdrop-blur-sm">
             {modules.map((mod) => {
               const Icon = mod.icon
