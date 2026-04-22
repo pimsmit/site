@@ -227,6 +227,50 @@ export async function POST(request: NextRequest) {
 
     // Discord #available-projects post happens after Stripe payment via stripe-webhook route
 
+    // Fire Klaviyo "Project Form Submitted" event - triggers nurture flow for non-buyers
+    const klaviyoKeySubmit = process.env.KLAVIYO_PRIVATE_API_KEY;
+    if (klaviyoKeySubmit && email) {
+      void fetch("https://a.klaviyo.com/api/events/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Klaviyo-API-Key ${klaviyoKeySubmit}`,
+          revision: "2024-10-15",
+        },
+        body: JSON.stringify({
+          data: {
+            type: "event",
+            attributes: {
+              metric: {
+                data: {
+                  type: "metric",
+                  attributes: { name: "Project Form Submitted" },
+                },
+              },
+              profile: {
+                data: {
+                  type: "profile",
+                  attributes: {
+                    email,
+                    first_name: contact.split(" ")[0] ?? contact,
+                    last_name: contact.split(" ").slice(1).join(" ") ?? "",
+                    properties: { company },
+                  },
+                },
+              },
+              properties: {
+                project_type: projectType,
+                timeline,
+                estimate_total: estimateTotal ? Number(estimateTotal) : null,
+                company,
+                project_id: project.id,
+              },
+            },
+          },
+        }),
+      });
+    }
+
     return NextResponse.json({ success: true, projectId: project.id });
   } catch (error) {
     console.error("Submit project error:", error);
