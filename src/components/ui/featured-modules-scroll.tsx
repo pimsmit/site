@@ -234,11 +234,34 @@ function StepNode({ step, index, isActive, isAnimating, color, glowColor, bgColo
 }
 
 export function FeaturedModulesScroll() {
-  const [activeModule, setActiveModule] = useState<string>("cs")
+  const hashToModule: Record<string, string> = {
+    "customer-service": "cs",
+    "smart-inventory": "inventory",
+    "email-marketing": "email",
+    "performance": "performance",
+  }
+
+  const getModuleFromHash = () => {
+    if (typeof window === "undefined") return "cs"
+    const hash = window.location.hash.replace("#", "")
+    return hashToModule[hash] || "cs"
+  }
+
+  const [activeModule, setActiveModule] = useState<string>(getModuleFromHash)
   const [animatingStep, setAnimatingStep] = useState<number>(-1)
   const [showResult, setShowResult] = useState(false)
   const [showTrigger, setShowTrigger] = useState(false)
   const current = modules.find(m => m.id === activeModule)!
+
+  // Sync active module when hash changes (e.g. nav click)
+  useEffect(() => {
+    const onHashChange = () => {
+      const mod = getModuleFromHash()
+      if (mod !== activeModule) setActiveModule(mod)
+    }
+    window.addEventListener("hashchange", onHashChange)
+    return () => window.removeEventListener("hashchange", onHashChange)
+  }, [activeModule])
 
   // Run animation once
   const runAnimation = useCallback(() => {

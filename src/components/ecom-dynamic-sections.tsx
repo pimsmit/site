@@ -35,7 +35,6 @@ const GrowthChartSection = dynamic(
 export function EcomDynamicSections({ children }: { children?: React.ReactNode }) {
   return (
     <>
-      <div id="customer-service" className="scroll-mt-24" />
       <AinomiqHeroScroll />
 
       {/* Breather - rust tussen drukke secties */}
@@ -48,6 +47,7 @@ export function EcomDynamicSections({ children }: { children?: React.ReactNode }
       </section>
 
       <SplineSceneBasic />
+      <div id="customer-service" className="scroll-mt-24" />
       <div id="smart-inventory" className="scroll-mt-24" />
       <div id="email-marketing" className="scroll-mt-24" />
       <FeaturedModulesScroll />
