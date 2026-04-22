@@ -1,1 +1,4 @@
-Not found: /payment-icons@1.2.1/min/flat/ideal.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 34">
+  <rect width="50" height="34" rx="4" fill="#CC0066"/>
+  <text x="25" y="22" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">iDEAL</text>
+</svg>

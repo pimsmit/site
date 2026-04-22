@@ -1,1 +1,6 @@
-Not found: /payment-icons@1.2.1/min/flat/bancontact.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 34">
+  <rect width="50" height="34" rx="4" fill="#005498"/>
+  <text x="25" y="14" text-anchor="middle" fill="white" font-size="6" font-weight="bold" font-family="Arial">Bancontact</text>
+  <rect x="5" y="18" width="40" height="4" rx="2" fill="#F7A600"/>
+  <rect x="5" y="24" width="40" height="4" rx="2" fill="#F7A600"/>
+</svg>
