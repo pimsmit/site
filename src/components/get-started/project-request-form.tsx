@@ -32,7 +32,8 @@ const TOP_SOLUTIONS = [
   { label: "Analytics dashboard", prompt: "I need a real-time analytics dashboard showing my key KPIs and performance metrics" },
   { label: "Shopify integration", prompt: "I need a full Shopify or WooCommerce e-commerce automation integration" },
 ];
-  { id: "simple-automation", label: "Simple Automation", Icon: Zap },
+
+const PROJECT_TYPES = [
   { id: "website", label: "Website", Icon: Globe },
   { id: "chatbot", label: "AI Chatbot", Icon: Bot },
   { id: "dashboard", label: "Dashboard / Portal", Icon: LayoutDashboard },

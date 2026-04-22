@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/section";
+import { TopRequestedSolutions } from "@/components/ui/top-requested-solutions";
 import {
   Layers,
   MessageCircle,
@@ -247,6 +248,9 @@ export default function EnterprisePage() {
           </div>
         </section>
       ))}
+
+      {/* Top 10 Most Requested Solutions */}
+      <TopRequestedSolutions />
 
       {/* Industries - Franchise */}
       <section id="franchise" className="scroll-mt-28 py-24 px-6">
