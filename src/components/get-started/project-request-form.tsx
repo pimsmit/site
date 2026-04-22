@@ -20,7 +20,18 @@ import {
   Lightbulb,
 } from "lucide-react";
 
-const PROJECT_TYPES = [
+const TOP_SOLUTIONS = [
+  { label: "AI chatbot", prompt: "I need an AI chatbot for my webshop that handles customer support via email, chat, and WhatsApp" },
+  { label: "WhatsApp bot", prompt: "I need a WhatsApp chatbot for sales, support, and automated follow-ups" },
+  { label: "Website chatbot", prompt: "I need an embedded chatbot widget on my website that answers visitor questions 24/7" },
+  { label: "iOS / Android app", prompt: "I need a custom branded mobile app for iOS and Android" },
+  { label: "Inventory system", prompt: "I need an inventory management system with real-time stock tracking and low-stock alerts" },
+  { label: "Email automation", prompt: "I need an email marketing automation system with flows, campaigns, and segmentation" },
+  { label: "CRM integration", prompt: "I need a CRM integration connecting my tools with HubSpot, Salesforce, or similar" },
+  { label: "Review management", prompt: "I need a review and reputation management system with auto-reply and monitoring" },
+  { label: "Analytics dashboard", prompt: "I need a real-time analytics dashboard showing my key KPIs and performance metrics" },
+  { label: "Shopify integration", prompt: "I need a full Shopify or WooCommerce e-commerce automation integration" },
+];
   { id: "simple-automation", label: "Simple Automation", Icon: Zap },
   { id: "website", label: "Website", Icon: Globe },
   { id: "chatbot", label: "AI Chatbot", Icon: Bot },
@@ -436,6 +447,29 @@ export function ProjectRequestForm() {
           <div className="flex-1">
             {step === 0 && (
               <div>
+                {/* Top 10 quick-select chips */}
+                <div className="mb-6">
+                  <p className="mb-3 text-sm font-medium text-ainomiq-text-muted">Most requested solutions</p>
+                  <div className="flex flex-wrap gap-2">
+                    {TOP_SOLUTIONS.map((sol) => (
+                      <button
+                        key={sol.label}
+                        type="button"
+                        onClick={() => {
+                          setAiInput(sol.prompt);
+                          setPrefilled(false);
+                        }}
+                        className={`rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all hover:border-[#4A90F5]/60 hover:bg-[#4A90F5]/5 hover:text-ainomiq-text ${
+                          aiInput === sol.prompt
+                            ? "border-[#4A90F5] bg-[#4A90F5]/10 text-[#4A90F5]"
+                            : "border-blue-200/60 bg-ainomiq-navy/40 text-ainomiq-text-muted"
+                        }`}
+                      >
+                        {sol.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 {/* AI Magic Prefill */}
                 <div className="mb-8 rounded-2xl border border-[#4A90F5]/20 bg-gradient-to-br from-[#4A90F5]/5 to-[#6C5CE7]/5 p-5">
                   <div className="mb-3 flex items-center gap-2">
