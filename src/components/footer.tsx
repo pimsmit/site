@@ -55,9 +55,9 @@ const paymentIcons = [
   { icon: "logos:paypal", label: "PayPal" },
   { icon: "logos:apple-pay", label: "Apple Pay" },
   { icon: "logos:google-pay", label: "Google Pay" },
-  { icon: "logos:ideal", label: "iDEAL" },
-  { icon: "logos:klarna", label: "Klarna" },
-  { icon: "logos:bancontact", label: "Bancontact" },
+  { icon: "simple-icons:klarna", label: "Klarna" },
+  { icon: "cib:ideal", label: "iDEAL" },
+  { icon: "cib:bancontact", label: "Bancontact" },
 ];
 
 export function Footer() {
