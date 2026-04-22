@@ -7,7 +7,7 @@ import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import Link from "next/link";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-const TYPED_WORDS = ["Future.", "Systems.", "Growth.", "Scale.", "Edge."];
+const TYPED_WORDS = ["Future.", "Advantage.", "Momentum.", "Edge.", "Standard."];
 const TYPE_SPEED = 80;
 const DELETE_SPEED = 50;
 const PAUSE_BEFORE_DELETE = 4500;
