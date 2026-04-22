@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ainomiq-navy: #ffffff;
-  --color-ainomiq-navy-light: #f8fafc;
-  --color-ainomiq-navy-lighter: #f1f5f9;
+  --color-ainomiq-navy: #0f1b2d;
+  --color-ainomiq-navy-light: #162236;
+  --color-ainomiq-navy-lighter: #1e2f45;
   --color-ainomiq-blue: #3b82f6;
-  --color-ainomiq-blue-hover: #2563eb;
-  --color-ainomiq-blue-glow: rgba(59, 130, 246, 0.08);
-  --color-ainomiq-blue-muted: rgba(59, 130, 246, 0.05);
-  --color-ainomiq-text: #0f172a;
-  --color-ainomiq-text-muted: #64748b;
-  --color-ainomiq-text-subtle: #94a3b8;
-  --color-ainomiq-border: rgba(0, 0, 0, 0.08);
-  --color-ainomiq-border-hover: rgba(0, 0, 0, 0.15);
-  --color-ainomiq-surface: rgba(0, 0, 0, 0.02);
-  --color-ainomiq-surface-hover: rgba(0, 0, 0, 0.04);
+  --color-ainomiq-blue-hover: #60a5fa;
+  --color-ainomiq-blue-glow: rgba(59, 130, 246, 0.15);
+  --color-ainomiq-blue-muted: rgba(59, 130, 246, 0.08);
+  --color-ainomiq-text: #f1f5f9;
+  --color-ainomiq-text-muted: #94a3b8;
+  --color-ainomiq-text-subtle: #64748b;
+  --color-ainomiq-border: rgba(255, 255, 255, 0.08);
+  --color-ainomiq-border-hover: rgba(255, 255, 255, 0.15);
+  --color-ainomiq-surface: rgba(255, 255, 255, 0.03);
+  --color-ainomiq-surface-hover: rgba(255, 255, 255, 0.06);
 
   --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
@@ -22,6 +22,24 @@
   --animate-marquee: marquee var(--duration, 40s) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration, 40s) linear infinite;
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+}
+
+/* Light mode — slightly lighter dark */
+.light {
+  --color-ainomiq-navy: #1a2f4a;
+  --color-ainomiq-navy-light: #213656;
+  --color-ainomiq-navy-lighter: #2a4166;
+  --color-ainomiq-blue: #3b82f6;
+  --color-ainomiq-blue-hover: #60a5fa;
+  --color-ainomiq-blue-glow: rgba(59, 130, 246, 0.15);
+  --color-ainomiq-blue-muted: rgba(59, 130, 246, 0.08);
+  --color-ainomiq-text: #e2e8f0;
+  --color-ainomiq-text-muted: #94a3b8;
+  --color-ainomiq-text-subtle: #64748b;
+  --color-ainomiq-border: rgba(255, 255, 255, 0.10);
+  --color-ainomiq-border-hover: rgba(255, 255, 255, 0.18);
+  --color-ainomiq-surface: rgba(255, 255, 255, 0.04);
+  --color-ainomiq-surface-hover: rgba(255, 255, 255, 0.08);
 }
 
 /* Dark mode overrides */
