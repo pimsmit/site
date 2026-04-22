@@ -159,10 +159,10 @@ export function Footer() {
             </span>
             <span className="flex items-center gap-1 text-xs text-ainomiq-text-subtle">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sbb-verified.png" alt="SBB" className="h-3.5 w-3.5 object-contain" />
+              <img src="/sbb-verified.png" alt="SBB" className="h-4 w-4 object-contain rounded-sm" />
               SBB Verified
             </span>
-        </div>
+          </div>
 
       </div>
     </footer>
