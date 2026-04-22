@@ -8,7 +8,7 @@ import { FranchiseDashboard } from '@/components/ui/franchise-dashboard';
 
 function IPhoneMockup() {
   return (
-    <div className="relative flex-shrink-0 hidden md:block" style={{ width: 200, marginBottom: 34 }}>
+    <div className="relative flex-shrink-0" style={{ width: 200, marginBottom: 34 }}>
       {/* iPhone body */}
       <div
         className="relative rounded-[36px] overflow-hidden shadow-2xl"
@@ -109,8 +109,8 @@ export function FranchiseHero() {
 
         <div className="flex items-end justify-center gap-8">
 
-        {/* iMac / Desktop monitor frame */}
-        <div className="relative flex-1" style={{ maxWidth: 900 }}>
+        {/* Desktop monitor — hidden on mobile */}
+        <div className="relative flex-1 hidden md:block" style={{ maxWidth: 900 }}>
           {/* Monitor bezel */}
           <div
             className="rounded-2xl overflow-hidden shadow-2xl"
